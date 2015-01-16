@@ -1,0 +1,80 @@
+/*
+	MegaCorp: A responsive HTML5 website template by HTML5Templates.com
+	Released for free under the Creative Commons Attribution 3.0 license (html5templates.com/license)
+	Visit http://html5templates.com for more great templates or follow us on Twitter @HTML5T
+*/
+
+/* Header */
+
+#header {
+	overflow: hidden;
+	opacity: 1;
+}
+
+/* Logo */
+
+	#logo {
+		overflow: hidden;
+		height: 8em;
+	}
+	
+	#logo h1 a {
+		float: left;
+		padding: 1em 0.25em 0em 0em;
+		letter-spacing: -1px;
+		text-decoration: none;
+
+		font-family: 'Fjalla One', sans-serif;
+		font-size: 3.50em;
+		font-weight: 400;
+		color: rgb(255, 187, 0);
+	}
+	.banner-text{
+		margin-top: -3em;
+	}
+/* Menu */
+
+	#menu {
+		overflow: hidden;
+		height: 8em;
+	}
+	
+	#menu ul {
+		float: right;
+		padding-top: 2em;
+		text-align: center;
+	}
+	
+	#menu li {
+		display: inline-block;
+	}
+	
+	#menu a {
+		display: block;
+		float: left;
+		padding: 0.75em 1.5em;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 1.20em;
+		color: #999;
+		outline: 0;
+	}
+	
+	#menu .current_page_item {
+	}
+	
+	#menu .current_page_item a {
+		background-color: #666;
+		border-radius: 10px;
+		box-shadow: inset 0px -15px 10px 0px rgba(0,0,0,0.10);
+		text-shadow: none;
+		color: #FFFFFF;
+	}
+	
+	#menu a:hover {
+		background-color: #666;
+		border-radius: 10px;
+		box-shadow: inset 0px -15px 10px 0px rgba(0,0,0,0.10);
+		text-shadow: none;
+		color: #FFFFFF;
+	}

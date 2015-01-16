@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>CaReS ® - Comprehensive Car-Rental Solution</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Car Rental Solution" />
+    <meta name="keywords" content="Car Rental Solution" />
+        <link rel="stylesheet" href="../../Content/core.css" />
+        <link rel="stylesheet" href="../../Content/core-desktop.css" />
+        <link rel="stylesheet" href="../../Content/core-1200px.css" />
+        <link rel="stylesheet" href="../../Content/core-noscript.css" />
+        <link rel="stylesheet" href="../../Content/style.css" />
+        <link rel="stylesheet" href="../../Content/style-desktop.css" />
+        
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="../../Scripts/jquery.js"></script>
+    <script src="../../Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <div id="header-wrapper">
+                <header id="header">
+                          <div class="5grid-layout">
+                              <div class="row">
+                                  <div class="4u" id="logo">
+                                      <h1><a href="#" class="mobileUI-site-name">CaReS ®</a></h1>
+                                  </div>
+                                  <div class="8u" id="menu">
+                                      <nav class="mobileUI-site-nav">
+                                          <ul>
+                                              <li id="1"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                              <li id="2"><a href="@Url.Action("Features", "Home")">Features</a></li>
+                                              <li id="3"><a href="twocolumn1.html">Two Column #1</a></li>
+                                              <li id="4" class="current_page_item"><a href="@Url.Action("RegisterUserByView", "Home")">Register</a></li>
+
+                                          </ul>
+                                      </nav>
+                                  </div>
+                              </div>
+                          </div>
+                      </header>
+
+    </div>
+    <!-- Header Ends Here -->
+    <!-- Wrapper -->
+    <div id="wrapper" class="5grid-layout">
+
+        <!-- Page Content -->
+        <div id ="page" class="row">
+            <!-- Content Area -->
+            <div id="content" class="8u">
+                <section>
+                    <h2 class="main-title">User Registration Form</h2>
+                </section>
+                <!-- Main Content Area -->
+                @model APIInterface.Models.RegisterViewModel
+                @{
+                    ViewBag.Title = "Register";
+                }
+                @using (Html.BeginForm("RegisterUserByView", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    var accountTypes = new List<SelectListItem>()
+                    {
+                        new SelectListItem {Text = "Free", Value = "1"},
+                        new SelectListItem {Text = "Pro", Value = "2"},
+                        new SelectListItem {Text = "Ultimate", Value = "3"}
+                    };
+                    foreach (SelectListItem item in accountTypes)
+                    {
+                        var v = item.Value.ToString();
+                        var d = ViewBag.registrationTypeId;
+                        if (item.Value.ToString().Equals(ViewBag.registrationTypeId))
+                        {
+                            item.Selected = true;
+                        }
+                    }
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" , id="phoneNumber"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(dropdown => dropdown.AccountType, accountTypes, "Select...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="button button-style1 reister_me" value="Register" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+
+</div>
+        <!-- Page Content -->
+
+    </div>
+    <!-- Wrapper Ends Here -->
+    <!-- Copyright -->
+    <div class="5grid-layout" id="copyright">
+        <div class="row">
+            <div class="12u">
+                <section>
+                    <p>&copy; Your Site Name | Images: <a href="http://fotogrph.com/">Fotogrph</a> + <a href="http://iconify.it/">Iconify.it</a> | Design: <a href="http://html5templates.com/">HTML5Templates.com</a></p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#phoneNumber").keypress(function onlyNumbers(evt) {
+            var e = event || evt; // for trans-browser compatibility
+            var charCode = e.which || e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        });
+    </script>
+
+</body>
+</html>
