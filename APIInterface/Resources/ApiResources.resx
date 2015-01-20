@@ -121,7 +121,7 @@
     <value>RegisterUser</value>
   </data>
   <data name="WebApiBaseAddress" xml:space="preserve">
-    <value>https://localhost/WebApi/Api/</value>
+    <value>https://118.139.182.155/CaresWebApi/Api/</value>
   </data>
   <data name="WebApiPassword" xml:space="preserve">
     <value>QWEasd123</value>

@@ -446,3 +446,9 @@
 	{
 		text-decoration: none;
 	}
+.validation-summary-custom {
+    margin-bottom: 20px;
+}
+.features-image {
+    max-height: 400px;
+}

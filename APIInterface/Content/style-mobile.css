@@ -89,7 +89,7 @@
 	}
 
 	#mobileUI-site-nav-opener {
-		background: url(images/nav-opener.png) no-repeat 12px 12px;
+		background: url(ApiInterface/images/nav-opener.png) no-repeat 12px 12px;
 		width: 60px;
 		height: 44px;
 		text-indent: -999999em;
@@ -178,6 +178,23 @@
 	#copyright
 	{
 	}
+.paragraph-margin {
+    margin-top: 110px;
+}
 
 
-
+.features-image {
+    height: 120px;
+}
+.banner-text {
+    margin-top: 30px;
+}
+.form-group {
+        
+}
+.custom-group {
+    margin-left: 25px;
+}
+.form-control {
+    width: 300px;
+}

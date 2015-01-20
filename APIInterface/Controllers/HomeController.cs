@@ -14,6 +14,11 @@ namespace APIInterface.Controllers
             this.webApiService = new WebApiService();
         }
 
+        private string ParseExceptionMessgeFromResponse(string response)
+        {
+            dynamic dymaincResponse = System.Web.Helpers.Json.Decode(response);
+            return dymaincResponse.Message;
+        }
         #endregion
 
        /// <summary>
@@ -42,7 +47,23 @@ namespace APIInterface.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool registerUser = webApiService.RegisterUser(model);
+                string registerUserResponse = webApiService.RegisterUser(model);
+                if (registerUserResponse.Contains("Success"))
+                {
+                    RedirectToAction("RegistrationSuccess");
+                }
+                else if (registerUserResponse.Contains("CaresGeneralException"))
+                {
+                    string errorMessage = ParseExceptionMessgeFromResponse(registerUserResponse);
+                    errorMessage = errorMessage.Replace("Name ", "Email ");
+                    errorMessage = errorMessage.Replace("taken", "registered with us");
+                    ModelState.AddModelError("", errorMessage);
+                }
+                else
+                {
+                    ModelState.AddModelError("",
+                        "Something bad happend. Please try again later. We have recorded your action, and you will be contacted on the email you provided. We apologize for inconvenience!");
+                }
             }
             return View(model);
         }
@@ -51,6 +72,14 @@ namespace APIInterface.Controllers
         /// Features page
         /// </summary>
         public ActionResult Features()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Registration Confirm
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult RegistrationSuccess()
         {
             return View();
         }

@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 @{
     Layout = null;
 }
@@ -9,42 +8,42 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="Car Rental Solution" />
     <meta name="keywords" content="Car Rental Solution" />
-        <link rel="stylesheet" href="../../Content/core.css" />
-        <link rel="stylesheet" href="../../Content/core-desktop.css" />
-        <link rel="stylesheet" href="../../Content/core-1200px.css" />
-        <link rel="stylesheet" href="../../Content/core-noscript.css" />
-        <link rel="stylesheet" href="../../Content/style.css" />
-        <link rel="stylesheet" href="../../Content/style-desktop.css" />
-        
+        <link rel="stylesheet" href="~/Content/core.css" />
+        <link rel="stylesheet" href="~/Content/core-desktop.css" />
+        <link rel="stylesheet" href="~/Content/core-1200px.css" />
+        <link rel="stylesheet" href="~/Content/core-noscript.css" />
+        <link rel="stylesheet" href="~/Content/style.css" />
+        <link rel="stylesheet" href="~/Content/style-desktop.css" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">        
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="../../Scripts/jquery.js"></script>
-    <script src="../../Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
 </head>
 <body>
 
     <!-- Header -->
     <div id="header-wrapper">
-                <header id="header">
-                          <div class="5grid-layout">
-                              <div class="row">
-                                  <div class="4u" id="logo">
-                                      <h1><a href="#" class="mobileUI-site-name">CaReS ®</a></h1>
-                                  </div>
-                                  <div class="8u" id="menu">
-                                      <nav class="mobileUI-site-nav">
-                                          <ul>
-                                              <li id="1"><a href="@Url.Action("Index", "Home")">Home</a></li>
-                                              <li id="2"><a href="@Url.Action("Features", "Home")">Features</a></li>
-                                              <li id="3"><a href="twocolumn1.html">Two Column #1</a></li>
-                                              <li id="4" class="current_page_item"><a href="@Url.Action("RegisterUserByView", "Home")">Register</a></li>
+        <header id="header">
+            <div class="5grid-layout">
+                <div class="row">
+                    <div class="4u" id="logo">
+                        <h1><a href="#" class="mobileUI-site-name">CaReS ®</a></h1>
+                    </div>
+                    <div class="8u" id="menu">
+                        <nav class="mobileUI-site-nav">
+                            <ul>
+                                <li id="1"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li id="2"><a href="@Url.Action("Features", "Home")">Features</a></li>
+                                <li id="4" class="current_page_item"><a href="@Url.Action("RegisterUserByView", "Home")">Register</a></li>
 
-                                          </ul>
-                                      </nav>
-                                  </div>
-                              </div>
-                          </div>
-                      </header>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
 
     </div>
     <!-- Header Ends Here -->
@@ -52,7 +51,7 @@
     <div id="wrapper" class="5grid-layout">
 
         <!-- Page Content -->
-        <div id ="page" class="row">
+        <div id="page" class="row">
             <!-- Content Area -->
             <div id="content" class="8u">
                 <section>
@@ -63,7 +62,7 @@
                 @{
                     ViewBag.Title = "Register";
                 }
-                @using (Html.BeginForm("RegisterUserByView", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("RegisterUserByView", "Home", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
                 {
                     var accountTypes = new List<SelectListItem>()
                     {
@@ -81,7 +80,7 @@
                         }
                     }
                     @Html.AntiForgeryToken()
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -103,7 +102,7 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" , id="phoneNumber"})
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -122,17 +121,15 @@
 
 
 
-</div>
+        </div>
         <!-- Page Content -->
 
     </div>
-    <!-- Wrapper Ends Here -->
-    <!-- Copyright -->
     <div class="5grid-layout" id="copyright">
         <div class="row">
             <div class="12u">
                 <section>
-                    <p>&copy; Your Site Name | Images: <a href="http://fotogrph.com/">Fotogrph</a> + <a href="http://iconify.it/">Iconify.it</a> | Design: <a href="http://html5templates.com/">HTML5Templates.com</a></p>
+                    <p>&copy; Copyrights 2015 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
                 </section>
             </div>
         </div>

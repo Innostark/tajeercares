@@ -9,17 +9,18 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="Car Rental Solution" />
     <meta name="keywords" content="Car Rental Solution" />
-    <noscript>
-        <link rel="stylesheet" href="../../Content/core.css" />
-        <link rel="stylesheet" href="../../Content/core-desktop.css" />
-        <link rel="stylesheet" href="../../Content/core-1200px.css" />
-        <link rel="stylesheet" href="../../Content/core-noscript.css" />
-        <link rel="stylesheet" href="../../Content/style.css" />
-        <link rel="stylesheet" href="../../Content/style-desktop.css" />
+    
+        <link rel="stylesheet" href="~/Content/core.css" />
+        <link rel="stylesheet" href="~/Content/core-desktop.css" />
+        <link rel="stylesheet" href="~/Content/core-1200px.css" />
+        <link rel="stylesheet" href="~/Content/core-noscript.css" />
+        <link rel="stylesheet" href="~/Content/style.css" />
+        <link rel="stylesheet" href="~/Content/style-desktop.css" />
 
-    </noscript>
-    <script src="../../Scripts/jquery.js"></script>
-    <script src="../../Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
 </head>
     <body>
     
@@ -37,9 +38,7 @@
                                 <ul>
                                     <li id="1" class="current_page_item"><a href="@Url.Action("Index", "Home")">Home</a></li>
                                     <li id="2" class="menu_items"> <a href="@Url.Action("Features", "Home")">Features</a></li>
-                                    <li id="3" class="menu_items"><a>Two Column #1</a></li>
                                     <li class="menu_items"><a href="@Url.Action("RegisterUserByView", "Home")">Register</a></li>
-
                                 </ul>
                             </nav>
                         </div>
@@ -78,7 +77,7 @@
                     <div class="4u">
                         <section>
                             <h2>Free - 0.0 $/month</h2>
-                            <img src="../../Images/featured-icon01.png" width="91" height="100" alt="">
+                            <img src="~/Images/featured-icon01.png" width="91" height="100" alt="">
                             <p>
                                 <ul class="a">
                                     <li>
@@ -104,7 +103,7 @@
                     <div class="4u">
                         <section>
                             <h2>Pro - 199 $/month</h2>
-                            <img src="../../Images/featured-icon02.png" width="91" height="100" alt="">
+                            <img src="~/Images/featured-icon02.png" width="91" height="100" alt="">
                             <p>
                                 <ul class="a">
                                     <li>
@@ -138,7 +137,7 @@
                     <div class="4u">
                         <section>
                             <h2>Ultimate - 499 $/month</h2>
-                            <img src="../../Images/featured-icon03.png" width="91" height="100" alt="">
+                            <img src="~/Images/featured-icon03.png" width="91" height="100" alt="">
                             <p>
                                 <ul class="a">
 
@@ -188,7 +187,7 @@
                     <section>
                         <h2 class="main-title">Comprehensive Car-Rental Solution</h2>
 
-                        <a href="#" class="image-style1"><img src="../../Images/pic02.jpg" alt=""></a>
+                        <a href="#" class="image-style1"><img src="~/Images/pic02.jpg" alt=""></a>
                         <p>
                             Welcome to <strong>CaReS ®</strong>, a free solution for small businesses. Register with us and we will email you all details, with user manuals and guidelines how you can take advantage of our limited time offer.
                             <strong>CaReS ®</strong> is a scalable application suite which is designed by highly qualified staff
@@ -213,9 +212,9 @@
                                     <section>
                                         <h2>Featured Clients</h2>
                                         <p>
-                                            Additional training of staff and guidance is provided to our featured clients, those include Ultimate license.
+                                            Additional training of staff and guidance is provided to our featured clients, those include Ultimate license holders.
                                             As there is absolutely no initial investment, system which is deployed on cloud, we offer you with service of zero-down-time.
-                                            On demand customization is available for our featured customers.
+                                            On demand customization is also available for our featured customers.
                                         </p>
                                         <ul class="style3">
                                             <li class="first">
@@ -226,31 +225,30 @@
                                                         own fleet and pricing to give interface of online booking from their own websites.
                                                     </a>
                                                 </p>
-                                                <p><span class="date"><a href="#">Read More</a></span>
-                                            </li>
-                                            <li>
-                                                <p><span class="date"><a href="#">20012.10.25</a></span><span class="heading-title">Etiam posuere augue</span></p>
-                                                <p><a href="#">Quisque dictum. Integer nisl risus, sagittis elementum congue, nibh. Suspendisse dictum porta lectus.</a></p>
+                                                
                                             </li>
                                         </ul>
                                     </section>
                                 </div>
                                 <div class="6u">
                                     <section>
-                                        <h2>Donec dictum metus</h2>
+                                        <h2>Integrated Reports and Dashboards</h2>
                                         <ul class="style4">
                                             <li class="first">
-                                                <h3>Mauris vulputate dolor sit amet</h3>
-                                                <p><a href="#">Aliquam lacinia metus ut elit. Suspendisse iaculis mauris nec lorem. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</a></p>
+                                                <h3>Management Dashboards and Reports</h3>
+                                                <ul>                                                    
+                                                    <li>
+                                                        <p><span class="heading-title">Daily action report</span></p>
+                                                        <p><span class="heading-title">Daily sales report</span></p>
+                                                        <p><span class="heading-title">Daily fleet utilization report</span></p>
+                                                        <p><span class="heading-title">Gross sales report</span></p>
+                                                        <p><span class="heading-title">Standard tariff and rates report</span></p>
+                                                        <p><span class="heading-title">Insurance rates report</span></p>
+                                                        <p><span class="heading-title">Daily damages report</span></p>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                            <li>
-                                                <h3>Fusce ultrices fringilla metus</h3>
-                                                <p><a href="#">In hac habitasse platea dictumst. Nullam id ante eget dui vulputate aliquam. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</a></p>
-                                            </li>
-                                            <li>
-                                                <h3>Donec dictum metus in sapien</h3>
-                                                <p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Suspendisse sit amet tellus in eros bibendum condimentum.</a> </p>
-                                            </li>
+                                            
                                         </ul>
                                     </section>
                                 </div>
@@ -315,19 +313,16 @@
                         <h2>Management Operations</h2>
                         <ul class="style2">
                             <li class="first">
-                                <p><img src="../../Images/pics07.jpg" alt="">Allowing customer to make booking and reservations from your website.</p>
+                                <p><img src="~/Images/pics07.jpg" alt="">Allowing customer to make booking and reservations from your website.</p>
                             </li>
                             <li>
-                                <p><img src="../../Images/pics08.jpg" alt="">Maximum ease of use, no hardware Infrastucture, no initial deployment cost.</p>
+                                <p><img src="~/Images/pics08.jpg" alt="">Maximum ease of use, no hardware Infrastucture, no initial deployment cost.</p>
                             </li>
                             <li>
-                                <p><img src="../../Images/pics09.jpg" alt="">Access acurate data to support decisions.</p>
+                                <p><img src="~/Images/pics09.jpg" alt="">Access acurate data to support decisions.</p>
                             </li>
-                            <li>
-                                <p><a href="#"><img src="../../Images/pics10.jpg" alt="">Aliquam lacinia metus ut elit. Suspendisse iaculis mauris nec lorem. Donec leo, vivamus fermentum augue praesent congue rutrum.</a></p>
-                            </li>
-                        </ul>
-                        <a href="#" class="button button-style1">Read More</a>
+                            
+                        </ul>                        
                     </section>
 
 
@@ -343,7 +338,7 @@
             <div class="row">
                 <div class="12u">
                     <section>
-                        <p>&copy; Copyrights 2014 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
+                        <p>&copy; Copyrights 2015 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
                     </section>
                 </div>
             </div>

@@ -28,26 +28,26 @@ namespace APIInterface.WebApis
          /// <summary>
         /// Register user using APi
         /// </summary>
-        public bool RegisterUser(RegisterViewModel model)
+        public string RegisterUser(RegisterViewModel model)
         {
-            Task<bool> registerUserAsync = RegisterUserAsync(model);
-            return true;
+            Task<string> registerUserAsync = RegisterUserAsync(model);
+            return registerUserAsync.Result;
         }
 
         /// <summary>
         /// Register User Api Call
         /// </summary>
-        private async Task<bool> RegisterUserAsync(RegisterViewModel model)
+        private async Task<string> RegisterUserAsync(RegisterViewModel model)
         {
             string orderContents = Newtonsoft.Json.JsonConvert.SerializeObject(model);
             HttpResponseMessage responseMessage = await PostHttpRequestAsync(orderContents, new Uri(RegisterUserUri)).ConfigureAwait(false);
             if (responseMessage.IsSuccessStatusCode)
             {
                 string response = await responseMessage.Content.ReadAsStringAsync();
-                return true;
+                return "Success";
             }
-            await responseMessage.Content.ReadAsStringAsync();
-            return false;
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
         }
        
        #endregion

@@ -7,6 +7,6 @@ namespace APIInterface.WebApiInterfaces
         /// <summary>
         /// Register user using APi
         /// </summary>
-        bool RegisterUser(RegisterViewModel model);
+        string RegisterUser(RegisterViewModel model);
     }
 }
