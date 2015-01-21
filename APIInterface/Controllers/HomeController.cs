@@ -32,7 +32,7 @@ namespace APIInterface.Controllers
         /// Register user [page rendring]
         /// </summary>
         [HttpGet]
-        public ActionResult RegisterUserByView(int? id)
+        public ActionResult RegisterUser(int? id)
         {
             if (id == null)
                 id = 1;
@@ -43,7 +43,7 @@ namespace APIInterface.Controllers
         /// Register User [Page posting ]
         /// </summary>
         [HttpPost]
-        public ActionResult RegisterUserByView(RegisterViewModel model)
+        public ActionResult RegisterUser(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {

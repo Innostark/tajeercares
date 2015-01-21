@@ -222,7 +222,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\RegisterUserByView.cshtml" />
+    <Content Include="Views\Home\RegisterUser.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\RegistrationSuccess.cshtml" />
     <None Include="Web.Debug.config">
