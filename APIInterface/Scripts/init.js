@@ -196,7 +196,7 @@ var _5grid = new _5gridC;
     /*************************************/
     /*  Here i made some changes -baqer */
     /***********************************/
-    baseURL = "/ApiInterface/";
+    baseURL = "/CarRental/";
     // Override settings
     if (y.length > 1) {
         x = y[1].split('&');

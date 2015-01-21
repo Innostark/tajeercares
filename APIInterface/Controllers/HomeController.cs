@@ -50,7 +50,8 @@ namespace APIInterface.Controllers
                 string registerUserResponse = webApiService.RegisterUser(model);
                 if (registerUserResponse.Contains("Success"))
                 {
-                    RedirectToAction("RegistrationSuccess");
+                    RedirectToAction("Home","RegistrationSuccess");
+                    return View("RegistrationSuccess");
                 }
                 else if (registerUserResponse.Contains("CaresGeneralException"))
                 {
