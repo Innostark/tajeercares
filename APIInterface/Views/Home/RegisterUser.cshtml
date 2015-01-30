@@ -8,14 +8,14 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="Car Rental Solution" />
     <meta name="keywords" content="Car Rental Solution" />
-        <link rel="stylesheet" href="~/Content/core.css" />
-        <link rel="stylesheet" href="~/Content/core-desktop.css" />
-        <link rel="stylesheet" href="~/Content/core-1200px.css" />
-        <link rel="stylesheet" href="~/Content/core-noscript.css" />
-        <link rel="stylesheet" href="~/Content/style.css" />
-        <link rel="stylesheet" href="~/Content/style-desktop.css" />
+    <link rel="stylesheet" href="~/Content/core.css" />
+    <link rel="stylesheet" href="~/Content/core-desktop.css" />
+    <link rel="stylesheet" href="~/Content/core-1200px.css" />
+    <link rel="stylesheet" href="~/Content/core-noscript.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="stylesheet" href="~/Content/style-desktop.css" />
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon">        
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="~/Scripts/jquery.js"></script>
@@ -99,6 +99,7 @@
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                     </div>
+
                     <div class="form-group">
                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -106,11 +107,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(dropdown => dropdown.AccountType, accountTypes, "Select...", new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(n => n.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(dropdown => dropdown.AccountType, accountTypes, "--Select Type--", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" class="button button-style1 reister_me" value="Register" />
@@ -118,12 +139,8 @@
                     </div>
                 }
             </div>
-
-
-
         </div>
         <!-- Page Content -->
-
     </div>
     <div class="5grid-layout" id="copyright">
         <div class="row">

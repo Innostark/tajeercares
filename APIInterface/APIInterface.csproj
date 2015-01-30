@@ -14,7 +14,7 @@
     <RootNamespace>APIInterface</RootNamespace>
     <AssemblyName>APIInterface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -208,6 +208,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountType.cs" />
+    <Compile Include="Models\CountryList.cs" />
     <Compile Include="Models\MyPolicy.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Views\Home\RegisterUser.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\RegistrationSuccess.cshtml" />
+    <Content Include="Views\Home\Overview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -257,7 +259,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1785</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/APIInterface</IISUrl>
+          <IISUrl>http://localhost:1785/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
-using APIInterface.Models;
+﻿using APIInterface.Models;
+using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
 using APIInterface.WebApis;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace APIInterface.Controllers
 {
@@ -11,7 +13,7 @@ namespace APIInterface.Controllers
         private readonly IWebApiService webApiService;
         public HomeController()
         {
-            this.webApiService = new WebApiService();
+            webApiService = new WebApiService();
         }
 
         private string ParseExceptionMessgeFromResponse(string response)
@@ -20,8 +22,8 @@ namespace APIInterface.Controllers
             return dymaincResponse.Message;
         }
         #endregion
-
-       /// <summary>
+        #region Public
+        /// <summary>
        /// welcome page
        /// </summary>
         public ActionResult Index()
@@ -37,7 +39,8 @@ namespace APIInterface.Controllers
             if (id == null)
                 id = 1;
             ViewBag.registrationTypeId = id + "";
-            return View();
+            var model = new RegisterViewModel {CountryList = CountryList.Countries.ToList()};
+            return View(model);
         }
         /// <summary>
         /// Register User [Page posting ]
@@ -53,7 +56,7 @@ namespace APIInterface.Controllers
                     RedirectToAction("Home","RegistrationSuccess");
                     return View("RegistrationSuccess");
                 }
-                else if (registerUserResponse.Contains("CaresGeneralException"))
+                if (registerUserResponse.Contains("CaresGeneralException"))
                 {
                     string errorMessage = ParseExceptionMessgeFromResponse(registerUserResponse);
                     errorMessage = errorMessage.Replace("Name ", "Email ");
@@ -62,10 +65,10 @@ namespace APIInterface.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("",
-                        "Something bad happend. Please try again later. We have recorded your action, and you will be contacted on the email you provided. We apologize for inconvenience!");
+                    ModelState.AddModelError("", ApiResources.registerUserError);
                 }
             }
+            model = new RegisterViewModel { CountryList = CountryList.Countries.ToList() };
             return View(model);
         }
 
@@ -79,10 +82,18 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Registration Confirm
         /// </summary>
-        /// <returns></returns>
         public ActionResult RegistrationSuccess()
         {
             return View();
         }
+
+        /// <summary>
+        /// Gives Overview of system
+        /// </summary>
+        public ActionResult Overview()
+        {
+            return View();
+        }
+        #endregion
     }
 }

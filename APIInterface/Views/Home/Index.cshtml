@@ -59,7 +59,7 @@
                                 <br>Register and start using. As simple as that.
                                 We offer risk-free Cloud based solution with zero-down-time. A guarantee of minimum 5% increase in profit with no initial investment.
                             </p>
-                            <a href="#" class="button button-style1 button-style2">Read More</a>
+                            <a href="" class="button button-style1 button-style2 readMore">Read More</a>
                         </section>
 
                     </div>
@@ -200,7 +200,7 @@
                             Managers can now view reports and overall business progress on their mobile devices. <b><strong>CaReS ®</strong></b> allows integration services to your existing websites.
                             This will allow your customers to make online booking, select gadgets with booking and decide themselves of what they need.
                             And this is not all of it! Yes it is multilingual system completely configurable for Hijri and gregorian date time formats. <br> <strong>Register and enjoy it for free! </strong>
-                        </p><a href="#" class="button button-style1">Read More</a>
+                        </p><a href="" class="button button-style1 readMore">Read More</a>
                     </section>
 
 
@@ -347,6 +347,10 @@
             $(document).ready(function () {
                 $(".reister_me").click(function () {
                     window.location = "@(Url.Action("RegisterUser", "Home"))" + "?id=" + this.id;
+                    return false;
+                });
+                $(".readMore").click(function () {
+                    window.location = "@(Url.Action("Features", "Home"))";
                     return false;
                 });
             });

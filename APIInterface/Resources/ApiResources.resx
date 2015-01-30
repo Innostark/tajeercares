@@ -129,4 +129,7 @@
   <data name="WebApiUserName" xml:space="preserve">
     <value>innoist</value>
   </data>
+  <data name="registerUserError" xml:space="preserve">
+    <value>Something bad happend. Please try again later. We have recorded your action, and you will be contacted on the email you provided. We apologize for inconvenience!</value>
+  </data>
 </root>
