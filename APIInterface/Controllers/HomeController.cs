@@ -38,8 +38,7 @@ namespace APIInterface.Controllers
         {
             if (id == null)
                 id = 1;
-            ViewBag.registrationTypeId = id + "";
-            var model = new RegisterViewModel {CountryList = CountryList.Countries.ToList()};
+            var model = new RegisterViewModel {CountryList = CountryList.Countries.ToList(),AccountType = (int) id};
             return View(model);
         }
         /// <summary>
