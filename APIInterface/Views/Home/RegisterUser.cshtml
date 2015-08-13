@@ -83,15 +83,6 @@
                         new SelectListItem {Text = "Pro", Value = "2"},
                         new SelectListItem {Text = "Ultimate", Value = "3"}
                     };
-                    foreach (SelectListItem item in accountTypes)
-                    {
-                        var v = item.Value.ToString();
-                        var d = ViewBag.registrationTypeId;
-                        if (item.Value.ToString().Equals(ViewBag.registrationTypeId))
-                        {
-                            item.Selected = true;
-                        }
-                    }
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
                     <div class="form-group">
@@ -112,7 +103,6 @@
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -125,17 +115,16 @@
                             @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(n => n.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
+                            @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(dropdown => dropdown.AccountType, accountTypes, "--Select Type--", new { @class = "form-control" })
+                            @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -144,7 +133,6 @@
                             @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" class="button button-style1 reister_me" value="Register" />
