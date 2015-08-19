@@ -452,3 +452,13 @@
 .features-image {
     max-height: 400px;
 }
+/* Set Validation Asterik text width for User Registration Page */
+.validationAsterikLabel {
+    width: 5px;
+}
+/* Left Margin for Register button on User Registration Page */
+@media (min-width: 992px) {
+    .col-md-offset-2-custom {
+        margin-left: 20.5%;
+    }
+}

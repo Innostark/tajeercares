@@ -19,6 +19,8 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -86,55 +88,63 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        <label class="col-md-1 control-label validationAsterikLabel">&nbsp;</label>
+                        <div class="col-md-9">
                             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" }) 
+                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                        <div class="col-md-9">
                             @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="col-md-offset-2-custom col-md-9">
                             <input type="submit" class="button button-style1 reister_me" value="Register" />
                         </div>
                     </div>
