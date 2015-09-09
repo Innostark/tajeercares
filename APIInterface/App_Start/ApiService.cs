@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using APIInterface.Models;
 using APIInterface.Resources;
@@ -39,6 +40,26 @@ namespace APIInterface
         {
             try
             {
+                ServicePointManager.CertificatePolicy = new MyPolicy();
+                HttpContent stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+                HttpResponseMessage messge = await Client.PostAsync(uri, stringContent).ConfigureAwait(false); ;
+                return messge;
+            }
+            catch (Exception exp)
+            {
+                return new HttpResponseMessage { StatusCode = HttpStatusCode.ExpectationFailed };
+            }
+        }
+
+
+        /// <summary>
+        /// Post Request
+        /// </summary>
+        protected async Task<HttpResponseMessage> GetHttpRequestAsync(string content, Uri uri)
+        {
+            try
+            {
+                string newUri = uri + "?URL="+content;
                 ServicePointManager.CertificatePolicy = new MyPolicy();
                 HttpContent stringContent = new StringContent(content, Encoding.UTF8, "application/json");
                 HttpResponseMessage messge = await Client.PostAsync(uri, stringContent).ConfigureAwait(false); ;

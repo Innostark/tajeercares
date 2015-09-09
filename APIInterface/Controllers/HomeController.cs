@@ -1,4 +1,5 @@
-﻿using APIInterface.Models;
+﻿using System.Web.Helpers;
+using APIInterface.Models;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
 using APIInterface.WebApis;
@@ -26,7 +27,7 @@ namespace APIInterface.Controllers
         /// <summary>
        /// welcome page
        /// </summary>
-        public ActionResult Index()
+        public ActionResult Index(string customRoute)
         {
             return View();
         }
@@ -92,6 +93,23 @@ namespace APIInterface.Controllers
         public ActionResult Overview()
         {
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult CompanyURLAvailability(GeneralRequest request)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string registerUserResponse = webApiService.CheckCompanyUrlAvailability(request.URL);
+                if (registerUserResponse.Contains("true"))
+                {
+                    return Json(new { status = true });
+
+                }
+               
+            }
+            return Json(new { status = false });
         }
         #endregion
     }

@@ -41,6 +41,11 @@ namespace APIInterface.Models
         [Display(Name = "Country")]
         public string CountryName { get; set; }
 
+
+        [Required]
+        [Display(Name = "Company Short-URL ")]
+        public string ShortUrl { get; set; }
+
         /// <summary>
         /// List of all countries
         /// </summary>

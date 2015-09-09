@@ -2,11 +2,11 @@
 
 namespace APIInterface.WebApiInterfaces
 {
-    partial interface IWebApiService
+    partial interface IRentalApiService
     {
         /// <summary>
-        /// Register user using APi
+        /// Get Contents from Cares
         /// </summary>
-        string RegisterUser(RegisterViewModel model);
+        string GetSitecontent(string url);
     }
 }

@@ -20,9 +20,17 @@ namespace APIInterface.WebApis
         {
             get
             {
-                return ApiResources.WebApiBaseAddress + ApiResources.RegisterUser;
+                return ApiResources.BaseAddress + ApiResources.RegisterUser;
             }
         }
+
+         private string UrlAvailabilityUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.UserAvailability;
+             }
+         }
          #endregion
         #region Public 
          /// <summary>
@@ -53,7 +61,35 @@ namespace APIInterface.WebApis
             string result = await responseMessage.Content.ReadAsStringAsync();
             return result;
         }
-       
+
+        /// <summary>
+        /// Checks if URl is available 
+        /// </summary>
+        public string CheckCompanyUrlAvailability(string url)
+        {
+            Task<string> registerUserAsync = CheckAvailabiblityAsync(url);
+            return registerUserAsync.Result;
+        }
+        /// <summary>
+        /// Register User Api Call
+        /// </summary>
+        private async Task<string> CheckAvailabiblityAsync(string url)
+        {
+            GeneralRequest obj = new GeneralRequest {URL = url};
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(UrlAvailabilityUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
        #endregion
     }
 }

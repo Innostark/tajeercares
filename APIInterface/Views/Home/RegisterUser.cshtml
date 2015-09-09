@@ -3,175 +3,281 @@
     Layout = null;
 }
 <html>
-<head>
-    <title>CaReS ® - Comprehensive Car-Rental Solution</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Car Rental Solution" />
-    <meta name="keywords" content="Car Rental Solution" />
-    <link rel="stylesheet" href="~/Content/core.css" />
-    <link rel="stylesheet" href="~/Content/core-desktop.css" />
-    <link rel="stylesheet" href="~/Content/core-1200px.css" />
-    <link rel="stylesheet" href="~/Content/core-noscript.css" />
-    <link rel="stylesheet" href="~/Content/style.css" />
-    <link rel="stylesheet" href="~/Content/style-desktop.css" />
-    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="~/Scripts/jquery.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <head>
+        <title>CaReS ® - Comprehensive Car-Rental Solution</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Car Rental Solution" />
+        <meta name="keywords" content="Car Rental Solution" />
+        <link rel="stylesheet" href="~/Content/core.css" />
+        <link rel="stylesheet" href="~/Content/core-desktop.css" />
+        <link rel="stylesheet" href="~/Content/core-1200px.css" />
+        <link rel="stylesheet" href="~/Content/core-noscript.css" />
+        <link rel="stylesheet" href="~/Content/style.css" />
+        <link rel="stylesheet" href="~/Content/style-desktop.css" />
+        <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="~/Scripts/jquery.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-52208796-2', 'auto');
-    ga('send', 'pageview');
+            ga('create', 'UA-52208796-2', 'auto');
+            ga('send', 'pageview');
+   
+        </script>
+        <script src="~/Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+    </head>
+    <body>
 
-    </script>
-    <script src="~/Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
-</head>
-<body>
+        <!-- Header -->
+        <div id="header-wrapper">
+            <header id="header">
+                <div class="5grid-layout">
+                    <div class="row">
+                        <div class="4u" id="logo">
+                            <h1><a href="#" class="mobileUI-site-name">CaReS ®</a></h1>
+                        </div>
+                        <div class="8u" id="menu">
+                            <nav class="mobileUI-site-nav">
+                                <ul>
+                                    <li id="1"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                    <li id="2"><a href="@Url.Action("Features", "Home")">Features</a></li>
+                                    <li id="3" class="menu_items"> <a href="@Url.Action("Overview", "Home")">Overview</a></li>
+                                    <li id="4" class="current_page_item"><a href="@Url.Action("RegisterUser", "Home")">Register</a></li>
 
-    <!-- Header -->
-    <div id="header-wrapper">
-        <header id="header">
-            <div class="5grid-layout">
-                <div class="row">
-                    <div class="4u" id="logo">
-                        <h1><a href="#" class="mobileUI-site-name">CaReS ®</a></h1>
-                    </div>
-                    <div class="8u" id="menu">
-                        <nav class="mobileUI-site-nav">
-                            <ul>
-                                <li id="1"><a href="@Url.Action("Index", "Home")">Home</a></li>
-                                <li id="2"><a href="@Url.Action("Features", "Home")">Features</a></li>
-                                <li id="3" class="menu_items"> <a href="@Url.Action("Overview", "Home")">Overview</a></li>
-                                <li id="4" class="current_page_item"><a href="@Url.Action("RegisterUser", "Home")">Register</a></li>
-
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-    </div>
-    <!-- Header Ends Here -->
-    <!-- Wrapper -->
-    <div id="wrapper" class="5grid-layout">
+        </div>
+        <!-- Header Ends Here -->
+        <!-- Wrapper -->
+        <div id="wrapper" class="5grid-layout">
 
-        <!-- Page Content -->
-        <div id="page" class="row">
-            <!-- Content Area -->
-            <div id="content" class="8u">
-                <section>
-                    <h2 class="main-title">User Registration Form</h2>
-                </section>
-                <!-- Main Content Area -->
-                @model APIInterface.Models.RegisterViewModel
-                @{
-                    ViewBag.Title = "Register";
-                }
-                @using (Html.BeginForm("RegisterUser", "Home", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
-                {
-                    var accountTypes = new List<SelectListItem>()
+            <!-- Page Content -->
+            <div id="page" class="row">
+                <!-- Content Area -->
+                <div id="content" class="8u">
+                    <section>
+                        <h2 class="main-title">User Registration Form</h2>
+                    </section>
+                    <!-- Main Content Area -->
+                    @model APIInterface.Models.RegisterViewModel
+                    @{
+                        ViewBag.Title = "Register";
+                    }
+                    @using (Html.BeginForm("RegisterUser", "Home", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
                     {
-                        new SelectListItem {Text = "Free", Value = "1"},
-                        new SelectListItem {Text = "Pro", Value = "2"},
-                        new SelectListItem {Text = "Ultimate", Value = "3"}
-                    };
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        var accountTypes = new List<SelectListItem>()
+                        {
+                            new SelectListItem {Text = "Free", Value = "1"},
+                            new SelectListItem {Text = "Pro", Value = "2"},
+                            new SelectListItem {Text = "Ultimate", Value = "3"}
+                        };
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-                        <label class="col-md-1 control-label validationAsterikLabel">&nbsp;</label>
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                            <label class="col-md-1 control-label validationAsterikLabel">&nbsp;</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
+                    
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ShortUrl, new { @class = "col-md-3 control-label",style = "width:16.8%;" })
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.ShortUrl, new { @class = "form-control" ,id="cmpUrl" })
+                            </div>
+                            <label class="col-md-1 control-label validationAsterikLabel"  id ="urlErrorLabel" style="display: none; width: 95%;">Not available!</label>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control" })
+                    
+                        <div class="form-group">
+                            @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" }) 
-                        <label class="col-md-1 control-label validationAsterikLabel">*</label>
-                        <div class="col-md-9">
-                            @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                        <div class="form-group">
+                            @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2-custom col-md-9">
-                            <input type="submit" class="button button-style1 reister_me" value="Register" />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" }) 
+                            <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2-custom col-md-9">
+                                <input  type="submit" id="registerbtn" class="button button-style1 reister_me" value="Register" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- Page Content -->
+        </div>
+        <div class="5grid-layout" id="copyright">
+            <div class="row">
+                <div class="12u">
+                    <section>
+                        <p>&copy; Copyrights 2015 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        
+            $(document).ready(function () {
+
+                $("#phoneNumber").keypress(function onlyNumbers(evt) {
+                    var e = event || evt; // for trans-browser compatibility
+                    var charCode = e.which || e.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                        return false;
+                    return true;
+                });
+                $("#cmpUrl").focusout(function () {
+                    var url = document.getElementById('cmpUrl').value;
+                    $.ajax({
+                        type: 'POST',
+                        data: "{'url':'" + url + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        url: 'CompanyURLAvailability',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response !== null && response!==undefined && response.status == true) {
+                                $('#urlErrorLabel').css({ 'display': 'block' });
+                                $('#urlErrorLabel').text("Available!");
+                                $('#urlErrorLabel').css({ 'color': 'greenyellow' });
+                                document.getElementById("registerbtn").disabled = false;
+                            
+                            } else {
+                                $('#urlErrorLabel').css({ 'display': 'block' });
+                                $('#urlErrorLabel').text("Not Available!");
+                                $('#urlErrorLabel').css({ 'color': 'red' });
+                                document.getElementById("registerbtn").disabled = true;
+                            }
+                        },
+                        error: function () {
+                      
+                        },
+                    });
+                });
+
+
+         
+
+                function successFunc(data, status) {
+                    alert('success');
                 }
-            </div>
-        </div>
-        <!-- Page Content -->
-    </div>
-    <div class="5grid-layout" id="copyright">
-        <div class="row">
-            <div class="12u">
-                <section>
-                    <p>&copy; Copyrights 2015 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
-                </section>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        $("#phoneNumber").keypress(function onlyNumbers(evt) {
-            var e = event || evt; // for trans-browser compatibility
-            var charCode = e.which || e.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
-                return false;
-            return true;
-        });
-    </script>
+                function errorFunc() {
+                    alert('error');
+                }
+            });
 
-</body>
+
+        </script>
+
+    </body>
 </html>
+
+<div class="container-fluid">
+    <div class="col-sm-6">
+        <div class="form-group has-icon has-label">
+            @Html.LabelFor(m => m.ReservationForm.PickupLocation, new { @class = "control-label", @for = "formSearchUpLocation" })
+            @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location")
+            @*<input type="text" class="form-control" id="formSearchUpLocation" placeholder="Airport or Anywhere">*@
+            <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group has-icon has-label">
+            @Html.LabelFor(m => m.ReservationForm.PickupDateTime, new { @class = "control-label", @for = "formSearchUpDate" })
+            @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
+            @Html.TextBoxFor(m => m.ReservationForm.PickupDateTime, new { @class = "form-control", id = "formSearchUpDate" })
+            <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group has-icon has-label selectpicker-wrapper">
+            <label>Picking Up Hour</label>
+            <input type="text" class="form-control">
+            <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="col-sm-6">
+        <div class="form-group has-icon has-label">
+            @Html.LabelFor(m => m.ReservationForm.DropoffLocation, new { @class = "control-label", @for = "formSearchOffLocation" })
+            @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new { @class = "form-control" })
+            @*<input type="text" class="form-control" id="formSearchUpLocation" placeholder="Airport or Anywhere">*@
+            <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group has-icon has-label">
+            @Html.LabelFor(m => m.ReservationForm.DropoffDateTime, new { @class = "control-label", @for = "formSearchOffDate" })
+            @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
+            @Html.TextBoxFor(m => m.ReservationForm.PickupDateTime, new { @class = "form-control", id = "DropoffDateTime" })
+            <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group has-icon has-label selectpicker-wrapper">
+            <label>Dropping Off Hour</label>
+            <input type="text" class="form-control">
+            <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
+        </div>
+    </div>
+</div>
