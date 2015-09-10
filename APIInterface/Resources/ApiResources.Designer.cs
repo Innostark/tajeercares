@@ -79,6 +79,24 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetAvailableHireGroupDetails.
+        /// </summary>
+        internal static string HireGroupDetail {
+            get {
+                return ResourceManager.GetString("HireGroupDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetAllParentHireGroups.
+        /// </summary>
+        internal static string ParentHireGroup {
+            get {
+                return ResourceManager.GetString("ParentHireGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RegisterUser.
         /// </summary>
         internal static string RegisterUser {

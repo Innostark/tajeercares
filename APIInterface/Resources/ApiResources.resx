@@ -141,4 +141,10 @@
   <data name="GetSiteContents" xml:space="preserve">
     <value>GetSiteContents</value>
   </data>
+  <data name="ParentHireGroup" xml:space="preserve">
+    <value>GetAllParentHireGroups</value>
+  </data>
+  <data name="HireGroupDetail" xml:space="preserve">
+    <value>GetAvailableHireGroupDetails</value>
+  </data>
 </root>

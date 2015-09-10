@@ -1,12 +1,22 @@
-﻿using APIInterface.Models;
+﻿
+using System.Collections.Generic;
+using APIInterface.Models;
+using APIInterface.Models.RequestModels;
+using APIInterface.Models.ResponseModels;
 
 namespace APIInterface.WebApiInterfaces
 {
-    partial interface IRentalApiService
+    partial interface IWebApiService
     {
         /// <summary>
-        /// Get Contents from Cares
+        /// Register user using APi
         /// </summary>
-        string GetSitecontent(string url);
+        string RegisterUser(RegisterViewModel model);
+
+        /// <summary>
+        /// Checks if URl is available 
+        /// </summary>
+        string CheckCompanyUrlAvailability(string url);
+
     }
 }

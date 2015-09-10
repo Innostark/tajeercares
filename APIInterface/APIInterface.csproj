@@ -788,7 +788,10 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\RequestModels\WebApiGetAvailableHireGroupsRequest.cs" />
     <Compile Include="Models\ReservationForm.cs" />
+    <Compile Include="Models\ResponseModels\WebApiHireGroupDetailResponse.cs" />
+    <Compile Include="Models\ResponseModels\WebApiParentHireGroupsApiResponse.cs" />
     <Compile Include="Models\Sitecontent.cs" />
     <Compile Include="Models\GeneralRequest.cs" />
     <Compile Include="Models\SiteContentResponseModel.cs" />

@@ -1,17 +1,27 @@
-﻿using APIInterface.Models;
+﻿
+using System.Collections.Generic;
+using APIInterface.Models.RequestModels;
+using APIInterface.Models.ResponseModels;
 
 namespace APIInterface.WebApiInterfaces
 {
-    partial interface IWebApiService
+    public interface IRentalApiService
     {
         /// <summary>
-        /// Register user using APi
+        /// Get Contents from Cares
         /// </summary>
-        string RegisterUser(RegisterViewModel model);
+        string GetSitecontent(string url);
+
 
         /// <summary>
-        /// Checks if URl is available 
+        /// Get Parent Hire Groups via APis
         /// </summary>
-        string CheckCompanyUrlAvailability(string url);
+        string GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request);
+
+        /// <summary>
+        /// Get Hire Group Detail
+        /// </summary>
+        string GetHireGroupDetail(WebApiGetAvailableHireGroupsRequest request);
+
     }
 }

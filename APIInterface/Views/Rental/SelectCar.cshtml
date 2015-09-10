@@ -113,221 +113,102 @@
                 <div class="clear"></div>
             </form>
             <div id="primary">
-                <div class="clear"></div>
-                <aside id="secondary" class="sidebar-left">
-                    <div class="widget info_widget">
-                        <h3 class="widget-title">
-                            <img src="~/Images/images/info.png" alt="" />
-                            Info
-                        </h3>
-                        <div class="widget-content"><strong>Please Note: </strong> The vehicles shown are examples. Specific models within a car class may vary in availability and features, such as passenger seating, luggage capacity and mileage.</div>
-                    </div>
-                    <div class="widget filter_widget">
-                        <h3 class="widget-title">
-                            <img src="~/Images/images/filter_results.png" alt="" />
-                            Filter results
-                        </h3>
-                        <h4>Price range</h4>
-                        <div class="widget-content-range">
-                            <input class="price_range" value="250;1000" name="price_range" />
-                        </div>
-                        <h4>Manufacturers</h4>
-                        <div class="widget-content widget-filter">
-                            <div class="filter">
-                                <input id="manufacturers_ford" type="checkbox" class="styled" name="manufacturers_ford" value="1" />
-                                <label for="manufacturers_ford">Ford</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="manufacturers_reno" type="checkbox" class="styled" name="manufacturers_reno" value="1" />
-                                <label for="manufacturers_reno">Reno</label>
-                                <div class="filter_quantity">3</div>
-                            </div>
-                            <div class="filter">
-                                <input id="manufacturers_toyota" type="checkbox" class="styled" name="manufacturers_toyota" value="1" />
-                                <label for="manufacturers_toyota">Toyota</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="manufacturers_chevrolet" type="checkbox" class="styled" name="manufacturers_chevrolet" value="1" />
-                                <label for="manufacturers_chevrolet">Chevrolet</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="manufacturers_bmw" type="checkbox" class="styled" name="manufacturers_bmw" value="1" />
-                                <label for="manufacturers_bmw">BMW</label>
-                                <div class="filter_quantity">17</div>
-                            </div>
-                        </div>
-                        <h4>Number of passangers</h4>
-                        <div class="widget-content-range">
-                            <input class="passangers_range" value="1;5" name="passangers_range" />
-                        </div>
-                        <h4>Vehicle type</h4>
-                        <div class="widget-content widget-filter">
-                            <div class="filter">
-                                <input id="type_economy" type="checkbox" class="styled" name="type_economy" value="1" />
-                                <label for="type_economy">Economy</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="type_compact" type="checkbox" class="styled" name="type_compact" value="1" />
-                                <label for="type_compact">Compact</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="type_intermediate" type="checkbox" class="styled" name="type_intermediate" value="1" />
-                                <label for="type_intermediate">Intermediate</label>
-                                <div class="filter_quantity">1</div>
-                            </div>
-                            <div class="filter">
-                                <input id="type_sport" type="checkbox" class="styled" name="type_sport" value="1" />
-                                <label for="type_sport">Sport</label>
-                                <div class="filter_quantity">2</div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-                <div id="content" class="sidebar-middle">
+               
+                <div id="content" >
                     <div class="widget main-widget product-widget">
                         <div class="content-overlay">
                             <img class="ajax-loader" src="~/Images/images/ajax-loader.gif" alt="" />
                         </div>
-                        <form >
+                        <form>
                             <div class="widget-title">
                                 <div>
                                     <img src="~/Images/images/list.png" alt="" />
-                                    Results <span>(10 from 24)</span>
+                                    Results <span>(3 from 3)</span>
                                 </div>
                                 <div class="widget-title-sort"><span class="viev-all">Sort by: </span> <a href="#" title="" class="current">Price</a> | <a href="#" title="">Type</a></div>
                                 <div class="clear"></div>
                             </div>
                             <div class="post">
-                                <div class="main-block_container">
-                                    <div class="additional-block_container"> <!--main div-->
-                                        <div class="main-block">
-                                            <div class="product-img">
-                                                <img src="http://placehold.it/150x75" alt="" />
-                                            </div>
-                                            <div class="product-info">
-                                                <h3 class="entry-format">Ford Escape <span>|  Economy</span> <span class="top-seller">Top Seller</span></h3>
-                                                <div class="features">
-                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /> 5 passengers</p>
-                                                    <p><img src="~/Images/images/suitcase-icon.png" alt="" /> 3 large suitcases, 2 small suitcase</p>
-                                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /> automatic transmission</p>
-                                                    <p><img src="~/Images/images/air-icon.png" alt="" /> air conditioning</p>
-                                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /> 9 km/l</p>
+                                <div class="main-block_container" style="width: 99%">
+                                    <div id="accordion">
+                                        @if (ViewBag.ProgList != null)
+                                        {
+                                            int i = 0;
+                                            foreach (var item in ViewBag.ProgList)
+                                            {
+
+                                                <h3 id=@(+item.HireGroupId) class="clickedHG">@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
+
+                                                <div class="container-fluid">
+                                                    <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+                                                    @if (ViewBag.HGDetail != null && i==0)
+                                                    {
+                                                        i++;
+                                                        foreach (var obj in ViewBag.HGDetail)
+                                                        {
+                                                            <div class="row" id=@("div_"+item.HireGroupId) style="margin-bottom: 188px;">
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
+                                                                    <div class="product-img">
+                                                                        <img src="http://placehold.it/150x75" alt="" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: right;">
+                                                                    <div class="product-info">
+                                                                        <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)>@obj.HireGroup</span>|<span id=@("catV_"+item.HireGroupId)> @obj.VehicleCategory</span></h3>
+                                                                        <div class="features" style="margin-bottom: 12px;">
+                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)>@obj.VehicleMake</span></p>
+                                                                            <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)>@obj.VehicleModel</span> </p>
+                                                                            <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)>@obj.ModelYear</span> </p>
+                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)>@obj.TariffType</span> </p>
+                                                                        </div>
+                                                                        <input type="button" name="SelectBtn" class="blue_button" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                        <input type="button" name="SelectBtn" class="continue_button blue_button" style="padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                        }   <!-- HG Det Loop-->
+                                                    }      
+                                                    else
+                                                    {
+                                                    <div class="row" id=@("div_"+item.HireGroupId) style="margin-bottom: 188px; visibility: hidden">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
+                                                            <div class="product-img">
+                                                                <img src="http://placehold.it/150x75" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: right;">
+                                                            <div class="product-info">
+                                                                <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)></span>|<span id=@("catV_"+item.HireGroupId)> </span></h3>
+                                                                <div class="features" style="margin-bottom: 12px;">
+                                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)></span></p>
+                                                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)></span> </p>
+                                                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)></span> </p>
+                                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)></span> </p>
+                                                                </div>
+                                                                <input type="button" name="SelectBtn" class="blue_button" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                <input type="button" name="SelectBtn" class="continue_button blue_button" style="padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    }
+                                                   
                                                 </div>
-                                                <div class="details">
-                                                    <div class="view-details">[+] View car details</div>
-                                                    <div class="close-details">[-] Close car details</div>
-                                                    <ul class="details-more">
-                                                        <li>6-speaker radio/CD system</li>
-                                                        <li>Escaro black fabric</li>
-                                                        <li>Hybrid System display</li>
-                                                        <li>Vehicle Stability Control</li>
-                                                        <li>Hill-start Assist Control</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="additional-block">
-                                            <p>$299.00</p>
-                                            <p class="span">Unlimited free miles included</p>
-                                            <input class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 52px; " onclick="location.href='@Url.Action("SelectExtras", "Best/Rental")'" value="Select" />
-                                        </div>
+                                            } <!-- HG Loop-->
+                                        } <!-- HG Null-->
+
                                     </div>
+
                                 </div>
-                                <div class="clear"></div>
                             </div>
-                            <div class="post">
-                                <div class="main-block_container">
-                                    <div class="additional-block_container">
-                                        <div class="main-block">
-                                            <div class="product-img">
-                                                <img src="http://placehold.it/155x75" alt="" />
-                                            </div>
-                                            <div class="product-info">
-                                                <h3 class="entry-format">Chevy Aveo <span>|  Compact</span></h3>
-                                                <div class="features">
-                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /> 5 passengers</p>
-                                                    <p><img src="~/Images/images/suitcase-icon.png" alt="" /> 1 large suitcases, 1 small suitcase</p>
-                                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /> automatic transmission</p>
-                                                    <p><img src="~/Images/images/air-icon.png" alt="" /> air conditioning</p>
-                                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /> 13 km/l</p>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="view-details">[+] View car details</div>
-                                                    <div class="close-details">[-] Close car details</div>
-                                                    <ul class="details-more">
-                                                        <li>6-speaker radio/CD system</li>
-                                                        <li>Escaro black fabric</li>
-                                                        <li>Hybrid System display</li>
-                                                        <li>Vehicle Stability Control</li>
-                                                        <li>Hill-start Assist Control</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="additional-block">
-                                            <p>$360.99</p>
-                                            <p class="span">Unlimited free miles included</p>
-                                            <input class="continue_button blue_button" type="submit" value="Select" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="post last_child">
-                                <div class="main-block_container">
-                                    <div class="additional-block_container">
-                                        <div class="main-block">
-                                            <div class="product-img">
-                                                <img src="http://placehold.it/155x75" alt="" />
-                                            </div>
-                                            <div class="product-info">
-                                                <h3 class="entry-format">Toyota Corolla <span>|  Intermediate</span></h3>
-                                                <div class="features">
-                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /> 5 passengers</p>
-                                                    <p><img src="~/Images/images/suitcase-icon.png" alt="" /> 2 large suitcases, 1 small suitcase</p>
-                                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /> automatic transmission</p>
-                                                    <p><img src="~/Images/images/air-icon.png" alt="" /> air conditioning</p>
-                                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /> 14 km/l</p>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="view-details">[+] View car details</div>
-                                                    <div class="close-details">[-] Close car details</div>
-                                                    <ul class="details-more">
-                                                        <li>6-speaker radio/CD system</li>
-                                                        <li>Escaro black fabric</li>
-                                                        <li>Hybrid System display</li>
-                                                        <li>Vehicle Stability Control</li>
-                                                        <li>Hill-start Assist Control</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="additional-block">
-                                            $845.25
-                                            <p class="span">Unlimited free miles included</p>
-                                            <input class="continue_button blue_button" type="submit" value="Select" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
+
                         </form>
+
+
+
                     </div>
-                    <div class="pagination">
-                        <div class="left"></div>
-                        <div class="current">1</div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div>...</div>
-                        <div>10</div>
-                        <div class="right"></div>
-                        <p class="clear"></p>
-                    </div>
+                   
                 </div>
                 <div class="clear"></div>
             </div>
@@ -350,11 +231,76 @@
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script>
-        function seelctedCar(parameters) {
-          
-        }
+        $(function() {
+            $( "#accordion" ).accordion();
+        });
+       
+        // Get Hire Group Detail
+        $('.clickedHG').click(function () {
+            var id = this.id;
+            $.ajax({
+                type: 'POST',
+                data: "{'hireGroupid':'" + id + "'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'GetHireGroupDetailOnClick',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.detail !== null) {
+                        var elementId = 'div_' + id;
+                        debugger;
+                        document.getElementById("HG_" + id).innerHTML = response.detail[0].HireGroup;
+                        document.getElementById(elementId).style.visibility = "visible";
 
+                        document.getElementById("catV_" + id).innerHTML = response.detail[0].VehicleCategory;
+                        document.getElementById("VMake_" + id).innerHTML = response.detail[0].VehicleMake;
+                        document.getElementById("VModel_" + id).innerHTML = response.detail[0].VehicleModel;
+                        document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
+                        document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
+                        document.getElementById("TType_" + id).innerHTML = response.detail[0].TariffType || '(No Tariff)';                        
+                    } else {
+                         elementId = 'div_' + id;
+                        debugger;
+                        document.getElementById(elementId).innerHTML = "<p>No Item!</p>";
+                        document.getElementById(elementId).style.visibility = "visible";
+
+                    }
+                   
+                },
+                error: function () {
+
+                },
+            });
+        });
+
+        // Vehicle Selection submition
+        $('.Select').click(function() {
+            var id = this.id;
+            //$.ajax({
+            //    type: 'POST',
+            //    data: "{'hireGroupDetailId':'" + id + "'}",
+            //    contentType: "application/json; charset=utf-8",
+            //    url: 'GetHireGroupDetailOnClick',
+            //    dataType: 'json',
+            //    success: function (response) {
+            //        if (response.detail !== null) {
+                       
+            //        }
+            //        else
+            //        {
+                       
+            //        }
+
+            //    },
+            //    error: function () {
+
+            //    },
+            //});
+        });
         
+        // Calculate Charge
+        $('.Charge').click(function () {
+            alert('Charge');
+        });
     </script>
 </body>
 </html>
