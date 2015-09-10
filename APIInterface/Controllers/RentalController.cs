@@ -83,6 +83,7 @@ namespace APIInterface.Controllers
                         Session["pickupId"] = obj.OperationWorkplaceId;
                         Session["pickupName"] = obj.LocationName;
                         Session["pickupCityId"] = obj.CityId;
+                        Session["pickupOperationId"] = obj.OperationId;
                     }
                     if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.DropoffLocation)
                     {
@@ -129,8 +130,10 @@ namespace APIInterface.Controllers
          /// <summary>
          /// Extra's Selection
          /// </summary>
-        public ActionResult SelectExtras()
+        public ActionResult SelectExtras(string idString)
         {
+            string id = idString.Substring(7, idString.Length - 7);
+
             return View();
         }
 
@@ -186,6 +189,24 @@ namespace APIInterface.Controllers
         [HttpPost]
         public JsonResult CalculateCharge(string hireGroupDetailId)
         {
+            string id = hireGroupDetailId.Substring(7, hireGroupDetailId.Length - 7);
+
+            var requestModel = new GetCandidateHireGroupChargeRequest
+            {
+                OperationId = long.Parse(Session["pickupOperationId"].ToString()),
+                StartDtTime = (DateTime)Session["pickupDate"],
+                EndDtTime = (DateTime)Session["dropoffDate"],
+                HireGroupDetailId = long.Parse(id),
+                RaCreatedDate = DateTime.Now,
+                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
+            };
+            string response = rentalApiService.GetCharge(requestModel);
+            if (response != "null")
+            {
+                var rawData = new JavaScriptSerializer();
+                var charge = rawData.Deserialize<RaCandidateHireGroupCharge>(response);
+                return Json(new { hGcharge = charge });
+            }
             return null;
         }
 

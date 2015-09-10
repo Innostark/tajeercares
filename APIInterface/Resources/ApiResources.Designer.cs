@@ -88,6 +88,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HireGroupStandardRate.
+        /// </summary>
+        internal static string HireGroupRate {
+            get {
+                return ResourceManager.GetString("HireGroupRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetAllParentHireGroups.
         /// </summary>
         internal static string ParentHireGroup {

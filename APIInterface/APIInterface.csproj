@@ -637,6 +637,7 @@
     <Content Include="Images\images\continue_button.png" />
     <Content Include="Images\images\continue_button_hover.png" />
     <Content Include="Images\images\coverflow-icon.png" />
+    <Content Include="Images\images\currency.png" />
     <Content Include="Images\images\denim.png" />
     <Content Include="Images\images\dotted.png" />
     <Content Include="Images\images\edit.png" />
@@ -787,7 +788,9 @@
     <Compile Include="Models\CountryList.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />
+    <Compile Include="Models\RaCandidateHireGroupCharge.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\RequestModels\GetCandidateHireGroupChargeRequest.cs" />
     <Compile Include="Models\RequestModels\WebApiGetAvailableHireGroupsRequest.cs" />
     <Compile Include="Models\ReservationForm.cs" />
     <Compile Include="Models\ResponseModels\WebApiHireGroupDetailResponse.cs" />

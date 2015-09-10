@@ -129,7 +129,7 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="post">
-                                <div class="main-block_container" style="width: 99%">
+                                <div class="main-block_container" style="margin-left: 5px; width: 99%; margin-top: 1px; margin-bottom: 5px; ">
                                     <div id="accordion">
                                         @if (ViewBag.ProgList != null)
                                         {
@@ -146,52 +146,57 @@
                                                         i++;
                                                         foreach (var obj in ViewBag.HGDetail)
                                                         {
-                                                            <div class="row" id=@("div_"+item.HireGroupId) style="margin-bottom: 188px;">
+                                                            <div class="row" id=@("div_"+item.HireGroupId) >
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
                                                                     <div class="product-img">
                                                                         <img src="http://placehold.it/150x75" alt="" />
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: right;">
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
                                                                     <div class="product-info">
-                                                                        <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)>@obj.HireGroup</span>|<span id=@("catV_"+item.HireGroupId)> @obj.VehicleCategory</span></h3>
+                                                                        <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)>@obj.HireGroup</span> |<span id=@("catV_"+item.HireGroupId)> @obj.VehicleCategory</span></h3>
                                                                         <div class="features" style="margin-bottom: 12px;">
                                                                             <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)>@obj.VehicleMake</span></p>
                                                                             <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)>@obj.VehicleModel</span> </p>
                                                                             <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)>@obj.ModelYear</span> </p>
                                                                             <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)>@obj.TariffType</span> </p>
+                                                                            <p style=" margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span id=@("SRate_"+item.HireGroupId)></span> <span id=@("TCode_"+item.HireGroupId)></span>&nbsp;  <span id=@("TotalC_"+item.HireGroupId)></span> </p>
                                                                         </div>
-                                                                        <input type="button" name="SelectBtn" class="blue_button" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
-                                                                        <input type="button" name="SelectBtn" class="continue_button blue_button" style="padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                        <input type="button" name="SelectBtn" id=@("charge_" + item.HireGroupId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                        <input id=@("select_" + item.HireGroupId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <hr />
+                                                            <div class="row">
+                                                                <hr />
+                                                            </div>
                                                         }   <!-- HG Det Loop-->
                                                     }      
                                                     else
                                                     {
-                                                    <div class="row" id=@("div_"+item.HireGroupId) style="margin-bottom: 188px; visibility: hidden">
+                                                    <div class="row" id=@("div_"+item.HireGroupId) style=" visibility: hidden">
                                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
                                                             <div class="product-img">
                                                                 <img src="http://placehold.it/150x75" alt="" />
                                                             </div>
                                                         </div>
-                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: right;">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
                                                             <div class="product-info">
-                                                                <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)></span>|<span id=@("catV_"+item.HireGroupId)> </span></h3>
+                                                                <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)></span> |<span id=@("catV_"+item.HireGroupId)> </span></h3>
                                                                 <div class="features" style="margin-bottom: 12px;">
                                                                     <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)></span></p>
                                                                     <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)></span> </p>
                                                                     <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)></span> </p>
                                                                     <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)></span> </p>
+                                                                    <p style=" margin-left: 2px;"><img style="width: 4%" src="~/Images/images/currency.png" alt="" /><span id=@("SRate_"+item.HireGroupId)></span> <span id=@("TCode_"+item.HireGroupId)></span>&nbsp; <span id=@("TotalC_"+item.HireGroupId)></span> </p>
+
                                                                 </div>
-                                                                <input type="button" name="SelectBtn" class="blue_button" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
-                                                                <input type="button" name="SelectBtn" class="continue_button blue_button" style="padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                <input type="button" name="SelectBtn" id=@("charge_" + item.HireGroupId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                <input id=@("select_" + item.HireGroupId)  type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <hr />
+                                                   
                                                     }
                                                    
                                                 </div>
@@ -257,6 +262,13 @@
                         document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
                         document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
                         document.getElementById("TType_" + id).innerHTML = response.detail[0].TariffType || '(No Tariff)';                        
+                        document.getElementById("charge_" + id).id = "charge_"+response.detail[0].HireGroupDetailId;
+                        document.getElementById("select_" + id).id = "select_"+response.detail[0].HireGroupDetailId;
+                        
+                        document.getElementById("SRate_" + id).id ="SRate_"+ response.detail[0].HireGroupDetailId;
+                        document.getElementById("TCode_" + id).id ="TCode_"+ response.detail[0].HireGroupDetailId;
+                        document.getElementById("TotalC_" + id).id = "TotalC_"+response.detail[0].HireGroupDetailId;
+                      
                     } else {
                          elementId = 'div_' + id;
                         debugger;
@@ -274,32 +286,44 @@
 
         // Vehicle Selection submition
         $('.Select').click(function() {
+         //   alert();
             var id = this.id;
-            //$.ajax({
-            //    type: 'POST',
-            //    data: "{'hireGroupDetailId':'" + id + "'}",
-            //    contentType: "application/json; charset=utf-8",
-            //    url: 'GetHireGroupDetailOnClick',
-            //    dataType: 'json',
-            //    success: function (response) {
-            //        if (response.detail !== null) {
-                       
-            //        }
-            //        else
-            //        {
-                       
-            //        }
+            window.location = "SelectExtras?idString=" + id ;
 
-            //    },
-            //    error: function () {
-
-            //    },
-            //});
         });
         
         // Calculate Charge
         $('.Charge').click(function () {
-            alert('Charge');
+            var id = this.id;
+            document.getElementById(id).disabled = true;
+            $.ajax({
+                type: 'POST',
+                data: "{'hireGroupDetailId':'" + id + "'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'CalculateCharge',
+                dataType: 'json',
+                success: function (response) {
+                    document.getElementById(id).disabled = false;
+                    if (response.detail !== null) {
+                        debugger;
+                        if (response.hGcharge.TariffTypeCode == null)
+                        {alert("Standard rates are not defined for current tarrif type!");
+                            return;
+                        }
+                      //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
+                        document.getElementById("TCode_" + id.substring(7, id.length)).innerHTML = response.hGcharge.TariffTypeCode;
+                        document.getElementById("TotalC_" + id.substring(7, id.length)).innerHTML = response.hGcharge.TotalStandardCharge;
+                    }
+                    else
+                    {
+
+                    }
+
+                },
+                error: function () {
+
+                },
+            });
         });
     </script>
 </body>

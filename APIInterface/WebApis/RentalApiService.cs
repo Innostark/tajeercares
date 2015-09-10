@@ -44,6 +44,14 @@ namespace APIInterface.WebApis
              }
          }
 
+         private string HireGroupRateUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.HireGroupRate;
+             }
+         }
+
          #endregion
         #region Public 
 
@@ -111,7 +119,7 @@ namespace APIInterface.WebApis
 
 
         #endregion
-        #region HG Detail
+         #region HG Detail
         /// <summary>
         /// Get Parent Hire Groups via APis
         /// </summary>
@@ -144,8 +152,37 @@ namespace APIInterface.WebApis
 
 
         #endregion
+        #region Hire Group Charge
 
-       #endregion
+        /// <summary>
+        /// get Charge for hire group detail 
+        /// </summary>
+        public string GetCharge(GetCandidateHireGroupChargeRequest request)
+        {
+            return GetChargeAsync(request).Result;
+        }
+        /// <summary>
+        /// Register User Api Call
+        /// </summary>
+        private async Task<string> GetChargeAsync(GetCandidateHireGroupChargeRequest request)
+        {
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(HireGroupRateUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+        #endregion
+
+        #endregion
     }
 }
   

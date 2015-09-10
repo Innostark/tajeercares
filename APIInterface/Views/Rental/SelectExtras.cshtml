@@ -25,50 +25,22 @@
             <div id="branding-content">
                 <div class="title-content">
                     <a href="01-home-v1.html" title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
-                    <h1 class="site-title"><a href="01-home-v1.html" title="">Renty</a></h1>
+                    <h1 class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
-                    <ul>
-                        <li>
-                            <a href="01-home-v1.html" title="">Home</a>
-                            <ul class="children">
-                                <li><a href="01-home-v1.html" title="">Home v.1</a></li>
-                                <li><a href="02-home-v2.html" title="">Home v.2</a></li>
-                                <li><a href="03-home-v3.html" title="">Home v.3</a></li>
-                            </ul>
-                        </li>
-                        <li class="current_page_item">
-                            <a href="#" title="">Pages</a>
-                            <ul class="children">
-                                <li><a href="04-choose-car.html" title="">Choose Car</a></li>
-                                <li class="current_page_item"><a href="05-choose-extras.html" title="">Choose Extras</a></li>
-                                <li><a href="06-review-book.html" title="">Review &amp; Book</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="07-shortcodes.html" title="">Shortcodes</a></li>
-                        <li><a href="10-faq.html" title="">FAQ</a></li>
-                    </ul>
+
                 </div><!-- .access -->
                 <div class="menus-content">
                     <div class="menus">
                         <div class="language">
                             <select class="select" name="select_language">
-                                <option>English</option>
-                                <option selected="selected">French</option>
+                                <option selected="selected">English</option>
+                                <option>Arabic</option>
                             </select>
                         </div>
-                        <div class="country">
-                            <select class="select" name="select_country">
-                                <option selected="selected">Choose Country</option>
-                                <option>USA</option>
-                                <option>England</option>
-                            </select>
-                        </div>
+
                     </div>
-                    <div class="member">
-                        <span class="sign_in"><a class="sign_button tab_link_button" href="#sign_in" title="">Sign in</a></span>
-                        <span class="register"><a class="sign_button tab_link_button" href="#register" title="">Register</a></span>
-                    </div>
+
                 </div>
             </div><!-- #branding-content -->
             <div class="clear"></div>
@@ -105,21 +77,21 @@
                     <div class="location-block">
                         <div class="form-block location">Location</div>
                         <div class="form-block airport_codes"><a href="#" title="">Airport codes</a></div>
-                        <input class="location" type="text" value="New York, JSB" placeholder="Enter airport, city or zip code" name="select_time_from" disabled="disabled" />
+                        <input class="location" type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="select_time_from" disabled="disabled" />
                         <input id="location-checkbox" type="checkbox" class="styled" name="checkbox_location" value="1" disabled="disabled" />
                         <label for="location-checkbox"> Return at different location</label>
                     </div>
                     <div class="form-block pick-up">
                         <h4>Pick-up date</h4>
-                        <input class="datepicker" type="text" value="20/12/2013" name="data_from" disabled="disabled" />
-                        <input class="time-select" type="text" size="5" value="10:00" name="time_from" disabled="disabled" />
+                        <input style="width: 83%;"class="datepicker" type="text" value='@Session["pickupDate"]' name="data_from" disabled="disabled" />
+                        @*<input class="time-select" type="text" size="5" value="10:00" name="time_from" disabled="disabled" />*@
                     </div>
                     <div class="form-block drop-off">
                         <h4>Drop-off date</h4>
-                        <input class="datepicker" type="text" name="data_to" value="20/12/2013" disabled="disabled" />
-                        <input class="time-select" type="text" size="5" value="10:00" name="time_to" disabled="disabled" />
+                        <input style ="width: 83%;" class="datepicker" type="text" name="data_to" value='@Session["dropoffDate"]' disabled="disabled" />
+                        @*<input class="time-select" type="text" size="5" value="10:00" name="time_to" disabled="disabled" />*@
                     </div>
-                    <div class="form-block car-type">
+                    @*<div class="form-block car-type">
                         <h4>Car type</h4>
                         <div class="car-type-select">
                             <select class="select" name="select_cartype" disabled="disabled">
@@ -127,10 +99,8 @@
                                 <option>Mini</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-block form-submit">
-                        <input class="form-edit orange_button" type="submit" value="Edit" />
-                    </div>
+                    </div>*@
+                   
                 </div>
                 <div class="clear"></div>
             </form>
@@ -175,23 +145,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4>
-                            Date &amp; Location
-                            <a href="01-home-v1.html" title="">Edit</a>
-                        </h4>
-                        <div class="widget-content widget-info">
-                            <h4>Pick Up time</h4>
-                            <p>Wed, 06 Mar, 2013 at 10:00</p>
-                            <h4>Return time</h4>
-                            <p>Thu, 21 Mar, 2013 at 10:00</p>
-                            <h4>Pickup and Return Location</h4>
-                            <p>New York City JFK Airport</p>
-                            <div class="subtotal_content">
-                                <div class="subtotal">
-                                    Subtotal: <span class="price">$3568.00</span>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <h4 class="extras">Extras</h4>
                         <div class="widget-content widget-extras">
                             <p>Infant Child Seats x 2 <span class="price">$200.00</span></p>
@@ -319,76 +273,7 @@
         </div>
         <div class="clear"></div>
         <footer id="footer">
-            <div id="footer-menu" class="footer-content">
-                <div class="widget-area">
-                    <div class="clear"></div>
-                    <div class="footer-nav footer-widget-single">
-                        <h3 class="widget-title">Renty</h3>
-                        <ul>
-                            <li><a href="01-home-v1.html" title="">Home</a></li>
-                            <li><a href="#" title="">Privacy</a></li>
-                            <li><a href="#" title="">Services</a></li>
-                            <li><a href="#" title="">Partners</a></li>
-                            <li><a href="#" title="">News</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-nav footer-widget-single">
-                        <h3 class="widget-title">About</h3>
-                        <ul>
-                            <li><a href="#" title="">Latest News</a></li>
-                            <li><a href="#" title="">Press Releases</a></li>
-                            <li><a href="#" title="">Careers</a></li>
-                            <li><a href="#" title="">Terms of Use</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-nav footer-widget-single">
-                        <h3 class="widget-title">Support</h3>
-                        <ul>
-                            <li><a href="#" title="">Contact Us</a></li>
-                            <li><a href="#" title="">Find Your Invois</a></li>
-                            <li><a href="10-faq.html" title="">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div class="recent_tweets footer-widget-single">
-                        <h3>Recent tweets</h3>
-                        <div class="recent_tweets_content"><a href="#" title=""></a> velit, vitae tincidunt orci. Proin vitae auctor lectus.</div>
-                        <div class="recent_tweets_url"><a href="#" title="">http://bestwebsoft.com</a></div>
-                        <div class="recent_tweets_time">posted 2 days ago</div>
-                    </div>
-                    <div class="support footer-widget-single">
-                        <img src="~/Images/images/support-icon.png" alt="" />
-                        <div class="title">Online support</div>
-                        <div class="phone">+1 (555) 555 - 28 - 28</div>
-                        <div class="email"><a href="#" title="">sales@bestwebsoft.com</a></div>
-                    </div>
-                    <div class="social-plugins">
-                        <div class="fcbk_like">
-                            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.bestwebsoft.com&amp;locale=en_US&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" style="border-width:0; border:none; overflow:hidden; width:110px; height:21px; background-color: transparent;"></iframe>
-                        </div>
-                        <div class="twitter_like">
-                            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-                            <script type="text/javascript">!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
-                            </script>
-                        </div>
-                        <div class="google_plus_one">
-                            <div class="g-plusone" data-size="medium"></div>
-                            <script type="text/javascript">
-                                (function () {
-                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                                    po.src = 'https://apis.google.com/js/plusone.js';
-                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                                })();
-                            </script>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div><!-- #div-content -->
-            </div>
-            <div id="footer-content">
-                <img class="site-logo" src="~/Images/images/thumb.png" alt="" />
-                <h1 class="site-title">Renty</h1>
-                <div class="company-name">Renty Company Inc,120 CA 15th Avenue - Suite 214</div>
-            </div><!-- #div-content -->
+          
         </footer><!--end:footer-->
     </div><!--end:conteiner-->
     <div id="overlay_block"></div>

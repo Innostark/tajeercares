@@ -23,5 +23,10 @@ namespace APIInterface.WebApiInterfaces
         /// </summary>
         string GetHireGroupDetail(WebApiGetAvailableHireGroupsRequest request);
 
+        /// <summary>
+        /// get Charge for hire group detail 
+        /// </summary>
+        string GetCharge(GetCandidateHireGroupChargeRequest request);
+
     }
 }

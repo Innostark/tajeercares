@@ -17,5 +17,10 @@ namespace APIInterface.Models
         /// City Id 
         /// </summary>
         public short? CityId { get; set; }
+
+        /// <summary>
+        /// Operation Id
+        /// </summary>
+        public long OperationId { get; set; }
     }
 }
