@@ -28,5 +28,10 @@ namespace APIInterface.WebApiInterfaces
         /// </summary>
         string GetCharge(GetCandidateHireGroupChargeRequest request);
 
+        /// <summary>
+        /// Gets Extras & Insurances
+        /// </summary>
+        string GetExtras_Insurances(long domainKey);
+
     }
 }

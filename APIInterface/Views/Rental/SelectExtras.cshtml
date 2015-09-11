@@ -166,102 +166,78 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <div class="post">
-                                <div class="checkbox-block_container">
-                                    <div class="main-block_container">
-                                        <div class="additional-block_container">
-                                            <div class="checkbox-block">
-                                                <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
-                                            </div>
-                                            <div class="main-block">
-                                                <div class="product-img">
-                                                    <img src="http://placehold.it/105x95" alt="" />
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="entry-format">NeverLost GPS Navigator</h3>
-                                                    <div>Satellite Navigation System provides turn-by-turn directions. If your pickup and return location are not the same you may be charged a surcharge fee</div>
-                                                    <div class="details">
-                                                        <div class="view-details">[+] More details</div>
-                                                        <div class="close-details">[-] Close details</div>
+                            @if (ViewBag.Data != null)
+                            {
+                                var extras = ViewBag.Data.ServiceItems;
+                                foreach (var item in extras)
+                                {
+                                    <div class="post">
+                                        <div class="checkbox-block_container">
+                                            <div class="main-block_container">
+                                                <div class="additional-block_container">
+                                                    <div class="checkbox-block extra" id="@(item.ServiceTypeId)">
+                                                        <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
                                                     </div>
-                                                </div>
-                                                <p class="details-more">Proin a ipsum neque, sit amet adipiscing est. Donec iaculis erat ut ante ultricies at congue lectus lobortis. Maecenas ac varius felis. Nam sollicitudin dignissim nisl, non pretium urna luctus vitae. Phasellus et dolor ipsum, a vestibulum est. Phasellus eros leo, rutrum ac tempor nec.</p>
-                                            </div>
-                                            <div class="additional-block">
-                                                <p>$129.99</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="post">
-                                <div class="checkbox-block_container">
-                                    <div class="main-block_container">
-                                        <div class="additional-block_container">
-                                            <div class="checkbox-block">
-                                                <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
-                                            </div>
-                                            <div class="main-block">
-                                                <div class="product-img">
-                                                    <img src="http://placehold.it/105x95" alt="" />
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="entry-format">Infant Child Seats</h3>
-                                                    <div>
-                                                        For infants less than one year and under 9kg.
-                                                        <div class="product-select-count">
-                                                            <select class="select" name="select_extras">
-                                                                <option>1</option>
-                                                                <option >2</option>
-                                                            </select>
+                                                    <div class="main-block">
+                                                        <div class="product-img">
+                                                            <img src="http://placehold.it/105x95" alt="" />
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h3 class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
+                                                            <div>@item.ServiceItemDescription</div>
                                                         </div>
                                                     </div>
-                                                    <div class="details">
-                                                        <div class="view-details">[+] More details</div>
-                                                        <div class="close-details">[-] Close details</div>
+                                                    <div class="additional-block">
+                                                        <p id=@(item.ServiceTypeId)>$0</p>
                                                     </div>
                                                 </div>
-                                                <p class="details-more">Proin a ipsum neque, sit amet adipiscing est. Donec iaculis erat ut ante ultricies at congue lectus lobortis. Maecenas ac varius felis. Nam sollicitudin dignissim nisl, non pretium urna luctus vitae. Phasellus et dolor ipsum, a vestibulum est. Phasellus eros leo, rutrum ac tempor nec.</p>
-                                            </div>
-                                            <div class="additional-block">
-                                                <p>$200.00</p>
-                                                <p class="span">2  items x $100.00</p>
                                             </div>
                                         </div>
+                                        <div class="clear"></div>
                                     </div>
+                                } <!--extras loop ends-->
+                            }   <!-- extras Null ends-->
+                        </div>
+                        <div class="widget main-widget product-widget main-widget-3column">
+                            <div class="widget-title">
+                                <div>
+                                    <img src="~/Images/images/list.png" alt="" />
+                                    Available Insurances
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <div class="post last_child">
-                                <div class="checkbox-block_container">
-                                    <div class="main-block_container">
-                                        <div class="additional-block_container">
-                                            <div class="checkbox-block">
-                                                <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
-                                            </div>
-                                            <div class="main-block">
-                                                <div class="product-img">
-                                                    <img src="http://placehold.it/95x75" alt="" />
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="entry-format">Hand Controls</h3>
-                                                    <div>Left or Right steering wheel controls for the physically challenged.</div>
-                                                    <div class="details">
-                                                        <div class="view-details">[+] More details</div>
-                                                        <div class="close-details">[-] Close details</div>
+                            @if (ViewBag.Data != null)
+                            {
+                                var insurances = ViewBag.Data.InsuranceTypes;
+                                foreach (var item in insurances)
+                                {
+                                    <div class="post">
+                                        <div class="checkbox-block_container">
+                                            <div class="main-block_container">
+                                                <div class="additional-block_container">
+                                                    <div class="checkbox-block insurance" id="@(item.InsuranceTypeId)">
+                                                        <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                    </div>
+                                                    <div class="main-block">
+                                                        <div class="product-img">
+                                                            <img src="http://placehold.it/105x95" alt="" />
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h3 class="entry-format">@item.InsuranceTypeCode-@item.InsuranceTypeName</h3>
+                                                            <div>@item.InsuranceTypeDescription</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="additional-block">
+                                                        <p id=@(item.InsuranceTypeId)>$0</p>
                                                     </div>
                                                 </div>
-                                                <p class="details-more">Proin a ipsum neque, sit amet adipiscing est. Donec iaculis erat ut ante ultricies at congue lectus lobortis. Maecenas ac varius felis. Nam sollicitudin dignissim nisl, non pretium urna luctus vitae. Phasellus et dolor ipsum, a vestibulum est. Phasellus eros leo, rutrum ac tempor nec.</p>
-                                            </div>
-                                            <div class="additional-block">
-                                                $85.59
                                             </div>
                                         </div>
+                                        <div class="clear"></div>
                                     </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
+                                } <!--extras loop ends-->
+                            }   <!-- extras Null ends-->
+
                         </div>
                         <div class="next_page">
                             <input class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;"onclick="location.href='@Url.Action("Checkout", "Best/Rental")'"  value="Continue to checkout" />
@@ -277,72 +253,7 @@
         </footer><!--end:footer-->
     </div><!--end:conteiner-->
     <div id="overlay_block"></div>
-    <div class="admin-form-content sign_register_block">
-        <div class="admin-form-block">
-            <form class="main-form admin-form" >
-                <div class="main_form_navigation">
-                    <div id="tab_register" class="title-form back"><span class="register"><a href="#register" title="">Register</a></span></div>
-                    <div id="tab_sign_in" class="title-form current"><span class="sign_in"><a href="#sign_in" title="">Sign In</a></span></div>
-                </div>
-                <div id="tab_sign_in_content" class="content-form">
-                    <div>
-                        <input id="sign_in_email" class="input_placeholder" type="text" value="" placeholder="Email address" name="sign_in_email" />
-                    </div>
-                    <div>
-                        <input id="sign_in_pass" type="password" value="" name="sign_in_pass" />
-                    </div>
-                    <div>
-                        <input id="remember_me_checkbox" type="checkbox" class="styled" name="remember_me" value="1" />
-                        <label for="remember_me_checkbox"> Remember me next time</label>
-                    </div>
-                    <input class="admin-form-submit orange_button" type="submit" value="Continue" />
-                    <div class="admin_form_link">
-                        <span class="forgot_passwd"><a class="tab_link_button" href="#forgot_passwd" title="">Forgot password?</a></span>
-                    </div>
-                </div>
-                <div id="tab_register_content" class="content-form hidden">
-                    <div>
-                        <input id="register_email" class="input_placeholder" type="text" value="" placeholder="Email address" name="register_email" />
-                    </div>
-                    <div>
-                        <input id="register_name" type="text" value="" name="register_name" />
-                    </div>
-                    <div>
-                        <input id="register_remember_me_checkbox" type="checkbox" class="styled" name="remember_me" value="1" />
-                        <label for="register_remember_me_checkbox"> Remember me next time</label>
-                    </div>
-                    <input class="admin-form-submit orange_button" type="submit" value="Continue" />
-                    <div class="admin_form_link">
-                        <span class="sign_in"><a class="tab_link_button" href="#sign_in" title="">Already registered?</a></span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </form>
-            <div class="admin-form-separator">
-                <div class="separator">Or</div>
-            </div>
-            <input class="connect_fb" type="button" value="Connect With Facebook" />
-            <input class="connect_twitter" type="button" value="Connect With Twitter" />
-        </div>
-    </div>
-    <div class="admin-form-content forgot_passwd_block">
-        <div class="admin-form-block">
-            <form class="main-form admin-form">
-                <div class="main_form_navigation">
-                    <div id="tab_forgot_passwd" class="title-form current">Forgot Password?</div>
-                </div>
-                <div id="tab_forgot_passwd_content" class="content-form">
-                    <input id="forgot_pass_email" class="input_placeholder" type="text" value="" placeholder="Email address" name="forgot_pass_email" />
-                    <div id="forgot_pass_text"> We will send you the password in few minutes.</div>
-                    <input class="admin-form-submit orange_button" type="submit" value="Continue" />
-                    <div class="admin_form_link">
-                        <span class="sign_in"><a class="tab_link_button" href="#sign_in" title="">Sign In</a></span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </form>
-        </div>
-    </div>
+    
     <script type="text/javascript" src="~/Scripts/js/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-ui.js"></script>
@@ -354,5 +265,20 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    
+    <script>
+      
+        function theFuncToCall(event) {
+            //func code
+            alert(this.id);
+        }
+        $(document).on('click', '.insurance', theFuncToCall);
+        
+        function theFuncToCall(event) {
+            //func code
+            alert(this.id);
+        }
+        $(document).on('click', '.extra', theFuncToCall);
+    </script>
 </body>
 </html>

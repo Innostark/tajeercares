@@ -786,7 +786,10 @@
     </Compile>
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\CountryList.cs" />
-    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\InsuranceRtMainContent.cs" />
+    <Compile Include="Models\InsuranceType.cs" />
+    <Compile Include="Models\ResponseModels\ExtrasResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />
     <Compile Include="Models\RaCandidateHireGroupCharge.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -795,9 +798,10 @@
     <Compile Include="Models\ReservationForm.cs" />
     <Compile Include="Models\ResponseModels\WebApiHireGroupDetailResponse.cs" />
     <Compile Include="Models\ResponseModels\WebApiParentHireGroupsApiResponse.cs" />
+    <Compile Include="Models\ServiceItem.cs" />
     <Compile Include="Models\Sitecontent.cs" />
-    <Compile Include="Models\GeneralRequest.cs" />
-    <Compile Include="Models\SiteContentResponseModel.cs" />
+    <Compile Include="Models\RequestModels\GeneralRequest.cs" />
+    <Compile Include="Models\ResponseModels\SiteContentResponseModel.cs" />
     <Compile Include="Models\WebApiOperationWorkplace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ApiResources.Designer.cs">

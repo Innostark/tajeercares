@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace APIInterface.Models
+namespace APIInterface.Models.ResponseModels
 {
     public class SiteContentResponseModel
     {

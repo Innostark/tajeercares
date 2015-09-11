@@ -51,7 +51,13 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.HireGroupRate;
              }
          }
-
+         private string ExtrasInsuranceUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.ExtrasInsurances;
+             }
+         }
          #endregion
         #region Public 
 
@@ -152,7 +158,7 @@ namespace APIInterface.WebApis
 
 
         #endregion
-        #region Hire Group Charge
+         #region Hire Group Charge
 
         /// <summary>
         /// get Charge for hire group detail 
@@ -161,6 +167,9 @@ namespace APIInterface.WebApis
         {
             return GetChargeAsync(request).Result;
         }
+
+       
+
         /// <summary>
         /// Register User Api Call
         /// </summary>
@@ -181,7 +190,37 @@ namespace APIInterface.WebApis
             return result;
         }
         #endregion
+        #region Extras & Insurances
+        /// <summary>
+        /// Get Extras n Insurances
+        /// </summary>
+        public string GetExtras_Insurances(long domainKey)
+        {
+            return GetExtras_InsurancesAsync(domainKey).Result;
+        }
 
+
+        /// <summary>
+        /// Get Extras n Insurances api async
+        /// </summary>
+        private async Task<string> GetExtras_InsurancesAsync(long domainkey)
+        {
+            var request = new GeneralRequest {DomainKey = domainkey,URL = null};
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(ExtrasInsuranceUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+        #endregion
         #endregion
     }
 }

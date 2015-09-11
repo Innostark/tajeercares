@@ -48,7 +48,6 @@ namespace APIInterface.Controllers
                     var jss = new JavaScriptSerializer();
                     try
                     {
-
                          data = jss.Deserialize<SiteContentResponseModel>(response);
                          data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
                          data.SiteContent.Banner1SourceLocal = GetBytes(data.SiteContent.Banner1Bytes);
@@ -151,8 +150,23 @@ namespace APIInterface.Controllers
         public ActionResult SelectExtras(string idString)
         {
             string id = idString.Substring(7, idString.Length - 7);
+            var rawResponse =   rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
+            ExtrasResponseModel data= null;
 
-            return View();
+            if (rawResponse != "null")
+             {
+                 var rawData = new JavaScriptSerializer();
+                 try
+                 {
+                      data = rawData.Deserialize<ExtrasResponseModel>(rawResponse);
+                      ViewBag.Data = data;
+                 }
+                 catch (Exception exc)
+                 {
+                     throw new Exception("Error while getting data from server!");
+                 }
+             }
+            return View(data);
         }
 
         /// <summary>

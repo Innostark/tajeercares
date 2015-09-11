@@ -70,6 +70,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetServiceItemsInsurances.
+        /// </summary>
+        internal static string ExtrasInsurances {
+            get {
+                return ResourceManager.GetString("ExtrasInsurances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetSiteContents.
         /// </summary>
         internal static string GetSiteContents {
