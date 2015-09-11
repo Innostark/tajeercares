@@ -76,8 +76,10 @@
                                         <!-- navigation menu -->
                                         <a href="#" class="menu-toggle-close btn"><i class="fa fa-times"></i></a>
                                         <ul class="nav sf-menu">
-                                            <li><a href="#find-car-new">Find a Car</a></li> 
-                                            <li><a href="#contact-us">Contact</a></li>
+                                            <li><a href="#FindACar">Find a Car</a></li> 
+                                            <li><a href="#WhoWeAre">Who we Are?</a></li> 
+                                            <li><a href="#PickYourCar">Pick your Car</a></li> 
+                                            <li><a href="#contact-us">Contact Us</a></li>
                                         </ul>
                                         <!-- /navigation menu -->
                                     </div>
@@ -96,7 +98,7 @@
         <div class="content-area">
             @model APIInterface.Models.HomeModel
             <!-- PAGE -->
-            <section class="page-section no-padding slider">
+            <section id="FindACar" class="page-section no-padding slider">
                 <div class="container full-width">
                     <div class="main-slider">
                         <div class="owl-carousel" id="main-slider">
@@ -138,7 +140,30 @@
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
                                                                                     <label>Picking Up Hour</label>
-                                                                                    <input type="text" class="form-control" />
+                                                                                    <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                                                                            data-toggle="tooltip" title="Select">
+
+
+                                                                                        <option>20:00</option>
+                                                                                        <option>20:30</option>
+                                                                                        <option>21:00</option>
+                                                                                        <option>21:30</option>
+                                                                                        <option>22:00</option>
+                                                                                        <option>22:30</option>
+                                                                                        <option>23:00</option>
+                                                                                        <option>23:30</option>
+                                                                                        <option>00:00</option>
+                                                                                        <option>20:00</option>
+                                                                                        <option>20:30</option>
+                                                                                        <option>21:00</option>
+                                                                                        <option>21:30</option>
+                                                                                        <option>22:00</option>
+                                                                                        <option>22:30</option>
+                                                                                        <option>23:00</option>
+                                                                                        <option>23:30</option>
+                                                                                        <option>00:00</option>
+
+                                                                                    </select>
                                                                                     <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
                                                                                 </div>
                                                                             </div>
@@ -165,7 +190,31 @@
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
                                                                                     <label>Dropping Off Hour</label>
-                                                                                    <input type="text" class="form-control" />
+                                                                                    <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                                                                            data-toggle="tooltip" title="Select">
+                                                                                        
+                                                                                      
+                                                                                            <option>20:00</option>
+                                                                                            <option>20:30</option>
+                                                                                            <option>21:00</option>
+                                                                                            <option>21:30</option>
+                                                                                            <option>22:00</option>
+                                                                                            <option>22:30</option>
+                                                                                            <option>23:00</option>
+                                                                                            <option>23:30</option>
+                                                                                            <option>00:00</option>
+                                                                                            <option>20:00</option>
+                                                                                            <option>20:30</option>
+                                                                                            <option>21:00</option>
+                                                                                            <option>21:30</option>
+                                                                                            <option>22:00</option>
+                                                                                            <option>22:30</option>
+                                                                                            <option>23:00</option>
+                                                                                            <option>23:30</option>
+                                                                                            <option>00:00</option>
+                                                                                        
+                                                                                    </select>
+                                                                                    @*<input type="text" class="form-control" />*@
                                                                                     <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
                                                                                 </div>
                                                                             </div>
@@ -426,7 +475,7 @@
 
             <!-- /PAGE -->
             <!-- PAGE -->
-            <section class="page-section">
+            <section id="WhoWeAre" class="page-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 wow flipInY" data-wow-offset="70" data-wow-duration="1s">
@@ -447,6 +496,7 @@
                                                 <div class="caption-inner div-cell">
                                                     <div class="caption-icon"><i class="fa fa-support"></i></div>
                                                     <h4 class="caption-title">Our Services</h4>
+                                                    <div class="caption-text" style="color:black">@(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -464,7 +514,7 @@
                                                     <div class="caption-icon"><i class="fa fa-user"></i></div>
                                                     <h4 class="caption-title">About Us</h4>
                                                     <div class="caption-text">@Model.Sitecontent.AboutusContents</div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -473,6 +523,7 @@
                                                 <div class="caption-inner div-cell">
                                                     <div class="caption-icon"><i class="fa fa-user"></i></div>
                                                     <h4 class="caption-title">About Us</h4>
+                                                    <div class="caption-text" style="color:black">@(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -485,7 +536,7 @@
             </section>
             <!-- /PAGE -->
             <!-- PAGE -->
-            <section id="find-car-new" class="page-section find-car dark">
+            @*<section id="find-car-new" class="page-section find-car dark">
                 <div class="container">
                     <form action="#" class="form-find-car">
                         <div class="row">
@@ -524,11 +575,11 @@
                         </div>
                     </form>
                 </div>
-            </section>
+            </section>*@
             <!-- /PAGE -->
             
             <!-- PAGE -->
-            <section class="page-section no-padding no-bottom-space-off">
+            <section id="PickYourCar" class="page-section no-padding no-bottom-space-off">
                 <div class="container full-width">
                     <!-- Google map -->
                     <div class="google-map">
@@ -600,7 +651,7 @@
                             <!-- /Contact form -->
                         </div>
                         <div class="col-md-6 wow fadeInRight" data-wow-offset="200" data-wow-delay="200ms">
-                            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.</p>
+                            <p>You are always welcome to Contact us at the following.</p>
                             <ul class="media-list contact-list">
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-home"></i></div>
@@ -694,5 +745,9 @@
     <script src="~/assets/js/theme-ajax-mail.js"></script>
     <script src="~/assets/js/theme.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script>
+        $(document).ready(function () {
+        });
+    </script>
 </body>
 </html>
