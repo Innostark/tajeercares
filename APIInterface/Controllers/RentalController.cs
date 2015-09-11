@@ -128,18 +128,18 @@ namespace APIInterface.Controllers
             {
                 var rawData = new JavaScriptSerializer();
                 var parentHireGroups = rawData.Deserialize<List<WebApiParentHireGroupsApiResponse>>(response);
-                ViewBag.ProgList = parentHireGroups;
-                // Getting detail of first hire group 
-                requestModel.StartDateTime = model.ReservationForm.PickupDateTime;
-                requestModel.EndDateTime = model.ReservationForm.DropoffDateTime;
-                requestModel.OutLocationId = long.Parse(model.ReservationForm.PickupLocation);
-                requestModel.ReturnLocationId = long.Parse(model.ReservationForm.DropoffLocation);
-                requestModel.DomainKey = long.Parse(Session["UserDomainKey"].ToString());
-                requestModel.HireGroupId = parentHireGroups.FirstOrDefault(hg => hg.HireGroupId!=null).HireGroupId;
-                requestModel.PickUpCityId = short.Parse(Session["pickupCityId"].ToString());
-                requestModel.DropOffCityId = short.Parse(Session["dropoffCityId"].ToString());
-                var data= GetHireGroupDetail(requestModel);
-                ViewBag.HGDetail = data.Count == 0 ? null : data;
+                //ViewBag.ProgList = parentHireGroups;
+                //// Getting detail of first hire group 
+                //requestModel.StartDateTime = model.ReservationForm.PickupDateTime;
+                //requestModel.EndDateTime = model.ReservationForm.DropoffDateTime;
+                //requestModel.OutLocationId = long.Parse(model.ReservationForm.PickupLocation);
+                //requestModel.ReturnLocationId = long.Parse(model.ReservationForm.DropoffLocation);
+                //requestModel.DomainKey = long.Parse(Session["UserDomainKey"].ToString());
+                //requestModel.HireGroupId = parentHireGroups.FirstOrDefault(hg => hg.HireGroupId!=null).HireGroupId;
+                //requestModel.PickUpCityId = short.Parse(Session["pickupCityId"].ToString());
+                //requestModel.DropOffCityId = short.Parse(Session["dropoffCityId"].ToString());
+              //  var data= GetHireGroupDetail(requestModel);
+                ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
             }
             return View(model.ReservationForm);
         }
@@ -149,7 +149,6 @@ namespace APIInterface.Controllers
          /// </summary>
         public ActionResult SelectExtras(string idString)
         {
-            string id = idString.Substring(7, idString.Length - 7);
             var rawResponse =   rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
             ExtrasResponseModel data= null;
 
@@ -221,14 +220,13 @@ namespace APIInterface.Controllers
         [HttpPost]
         public JsonResult CalculateCharge(string hireGroupDetailId)
         {
-            string id = hireGroupDetailId.Substring(7, hireGroupDetailId.Length - 7);
-
+           
             var requestModel = new GetCandidateHireGroupChargeRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
                 StartDtTime = (DateTime)Session["pickupDate"],
                 EndDtTime = (DateTime)Session["dropoffDate"],
-                HireGroupDetailId = long.Parse(id),
+                HireGroupDetailId = long.Parse(hireGroupDetailId),
                 RaCreatedDate = DateTime.Now,
                 UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
             };

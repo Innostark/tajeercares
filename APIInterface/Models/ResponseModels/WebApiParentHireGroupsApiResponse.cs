@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace APIInterface.Models.ResponseModels
 {
     public class WebApiParentHireGroupsApiResponse
@@ -21,5 +23,11 @@ namespace APIInterface.Models.ResponseModels
         /// Dropoff Charge
         /// </summary>
         public double? DropoffCharge { get; set; }
+
+
+        /// <summary>
+        /// List of children Hire Group 
+        /// </summary>
+        public List<WebApiHireGroupDetailResponse> SubHireGroups { set; get; }
     }
 }

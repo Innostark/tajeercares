@@ -765,6 +765,7 @@
     <Content Include="Scripts\js\PIE.js" />
     <Content Include="Scripts\js\placeholder_ie.js" />
     <Content Include="Scripts\js\script.js" />
+    <Content Include="Scripts\js\_jquery.blockUI.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\typeahead.js" />

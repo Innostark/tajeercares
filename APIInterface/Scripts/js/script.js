@@ -5,6 +5,9 @@
 			$('#slider-img').blueberry();
 		};
 	});
+    
+   
+
 	$(document).ready(function(){
 		"use strict";
 		// add calendar
@@ -171,7 +174,24 @@
 		});
 	});
 })(jQuery);
+function hideUi() {
+    $.blockUI({
+        css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        }
+    });
+}
 
+function showUi() {
+
+    setTimeout($.unblockUI, 500);
+}
 function Display_tab_div(name){
 	(function($){
 		"use strict";

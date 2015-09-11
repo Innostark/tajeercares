@@ -131,22 +131,19 @@
                             <div class="post">
                                 <div class="main-block_container" style="margin-left: 5px; width: 99%; margin-top: 1px; margin-bottom: 5px; ">
                                     <div id="accordion">
-                                        @if (ViewBag.ProgList != null)
+                                        @if (ViewBag.HGDetail != null)
                                         {
                                             int i = 0;
-                                            foreach (var item in ViewBag.ProgList)
+                                            foreach (var item in ViewBag.HGDetail)
                                             {
-
-                                                <h3 id=@(+item.HireGroupId) class="clickedHG">@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
-
+                                                <h3 id=@(+item.HireGroupId) >@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
                                                 <div class="container-fluid">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
-                                                    @if (ViewBag.HGDetail != null && i==0)
+                                                    @if (item.SubHireGroups != null)
                                                     {
-                                                        i++;
-                                                        foreach (var obj in ViewBag.HGDetail)
+                                                        foreach (var obj in item.SubHireGroups)
                                                         {
-                                                            <div class="row" id=@("div_"+item.HireGroupId) >
+                                                            <div class="row"  >
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
                                                                     <div class="product-img">
                                                                         <img src="http://placehold.it/150x75" alt="" />
@@ -154,16 +151,16 @@
                                                                 </div>
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
                                                                     <div class="product-info">
-                                                                        <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)>@obj.HireGroup</span> |<span id=@("catV_"+item.HireGroupId)> @obj.VehicleCategory</span></h3>
+                                                                        <h3 class="entry-format">  <span>@item.HireGroupName</span> | <span> @obj.VehicleCategory</span></h3>
                                                                         <div class="features" style="margin-bottom: 12px;">
-                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)>@obj.VehicleMake</span></p>
-                                                                            <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)>@obj.VehicleModel</span> </p>
-                                                                            <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)>@obj.ModelYear</span> </p>
-                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)>@obj.TariffType</span> </p>
-                                                                            <p style=" margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span id=@("SRate_"+item.HireGroupId)></span> <span id=@("TCode_"+item.HireGroupId)></span>&nbsp;  <span id=@("TotalC_"+item.HireGroupId)></span> </p>
+                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
+                                                                            <p><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
+                                                                            <p><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_"+obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
+                                                                            <p style=" margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px"id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
                                                                         </div>
-                                                                        <input type="button" name="SelectBtn" id=@("charge_" + item.HireGroupId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
-                                                                        <input id=@("select_" + item.HireGroupId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                        <input type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                        <input id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -172,33 +169,7 @@
                                                             </div>
                                                         }   <!-- HG Det Loop-->
                                                     }      
-                                                    else
-                                                    {
-                                                    <div class="row" id=@("div_"+item.HireGroupId) style=" visibility: hidden">
-                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
-                                                            <div class="product-img">
-                                                                <img src="http://placehold.it/150x75" alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
-                                                            <div class="product-info">
-                                                                <h3 class="entry-format">  <span id=@("HG_"+item.HireGroupId)></span> |<span id=@("catV_"+item.HireGroupId)> </span></h3>
-                                                                <div class="features" style="margin-bottom: 12px;">
-                                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("VMake_"+item.HireGroupId)></span></p>
-                                                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /><span id=@("VModel_"+item.HireGroupId)></span> </p>
-                                                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /><span id=@("VModelYear_"+item.HireGroupId)></span> </p>
-                                                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TType_"+item.HireGroupId)></span> </p>
-                                                                    <p style=" margin-left: 2px;"><img style="width: 4%" src="~/Images/images/currency.png" alt="" /><span id=@("SRate_"+item.HireGroupId)></span> <span id=@("TCode_"+item.HireGroupId)></span>&nbsp; <span id=@("TotalC_"+item.HireGroupId)></span> </p>
-
-                                                                </div>
-                                                                <input type="button" name="SelectBtn" id=@("charge_" + item.HireGroupId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
-                                                                <input id=@("select_" + item.HireGroupId)  type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    }
-                                                   
+                                             
                                                 </div>
                                             } <!-- HG Loop-->
                                         } <!-- HG Null-->
@@ -235,58 +206,19 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/_jquery.blockUI.js"></script>
+
     <script>
         $(function() {
             $( "#accordion" ).accordion();
         });
        
-        // Get Hire Group Detail
-        $('.clickedHG').click(function () {
-            var id = this.id;
-            $.ajax({
-                type: 'POST',
-                data: "{'hireGroupid':'" + id + "'}",
-                contentType: "application/json; charset=utf-8",
-                url: 'GetHireGroupDetailOnClick',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.detail !== null) {
-                        var elementId = 'div_' + id;
-                        debugger;
-                        document.getElementById("HG_" + id).innerHTML = response.detail[0].HireGroup;
-                        document.getElementById(elementId).style.visibility = "visible";
-
-                        document.getElementById("catV_" + id).innerHTML = response.detail[0].VehicleCategory;
-                        document.getElementById("VMake_" + id).innerHTML = response.detail[0].VehicleMake;
-                        document.getElementById("VModel_" + id).innerHTML = response.detail[0].VehicleModel;
-                        document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
-                        document.getElementById("VModelYear_" + id).innerHTML = response.detail[0].ModelYear;
-                        document.getElementById("TType_" + id).innerHTML = response.detail[0].TariffType || '(No Tariff)';                        
-                        document.getElementById("charge_" + id).id = "charge_"+response.detail[0].HireGroupDetailId;
-                        document.getElementById("select_" + id).id = "select_"+response.detail[0].HireGroupDetailId;
-                        
-                        document.getElementById("SRate_" + id).id ="SRate_"+ response.detail[0].HireGroupDetailId;
-                        document.getElementById("TCode_" + id).id ="TCode_"+ response.detail[0].HireGroupDetailId;
-                        document.getElementById("TotalC_" + id).id = "TotalC_"+response.detail[0].HireGroupDetailId;
-                      
-                    } else {
-                         elementId = 'div_' + id;
-                        debugger;
-                        document.getElementById(elementId).innerHTML = "<p>No Item!</p>";
-                        document.getElementById(elementId).style.visibility = "visible";
-
-                    }
-                   
-                },
-                error: function () {
-
-                },
-            });
-        });
+       
 
         // Vehicle Selection submition
         $('.Select').click(function() {
-         //   alert();
+           
+
             var id = this.id;
             window.location = "SelectExtras?idString=" + id ;
 
@@ -294,6 +226,7 @@
         
         // Calculate Charge
         $('.Charge').click(function () {
+            hideUi();
             var id = this.id;
             document.getElementById(id).disabled = true;
             $.ajax({
@@ -305,14 +238,14 @@
                 success: function (response) {
                     document.getElementById(id).disabled = false;
                     if (response.detail !== null) {
-                        debugger;
+                        showUi();
                         if (response.hGcharge.TariffTypeCode == null)
                         {alert("Standard rates are not defined for current tarrif type!");
                             return;
                         }
                       //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
-                        document.getElementById("TCode_" + id.substring(7, id.length)).innerHTML = response.hGcharge.TariffTypeCode;
-                        document.getElementById("TotalC_" + id.substring(7, id.length)).innerHTML = response.hGcharge.TotalStandardCharge;
+                        document.getElementById("TCode_" +id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
+                        document.getElementById("TotalC_" + id).innerHTML = response.hGcharge.TotalStandardCharge || '(No Standard Rate)';
                     }
                     else
                     {
