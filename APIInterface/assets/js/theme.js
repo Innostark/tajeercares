@@ -1303,17 +1303,40 @@ function updater() {
     // refresh owl carousels/sliders
     //owlCarouselSelector.trigger('refresh');
     //owlCarouselSelector.trigger('refresh.owl.carousel');
+    var dateNow = new Date();
+    var szFormat = 'MM/DD/YYYY';
+    $('#formSearchUpDate').datetimepicker(
+    {
+        format: szFormat
+            
+        });
+    $('#formSearchOffDate').datetimepicker({
+        format: szFormat
 
-    $('#formSearchUpDate').datetimepicker();
-    $('#formSearchOffDate').datetimepicker();
+    });
 
-    $('#formSearchUpDate2').datetimepicker();
-    $('#formSearchOffDate2').datetimepicker();
+    $('#formSearchUpDate2').datetimepicker({
+        format: szFormat
 
-    $('#formSearchUpDate3').datetimepicker();
-    $('#formSearchOffDate3').datetimepicker();
+    });
+    $('#formSearchOffDate2').datetimepicker({
+        format: szFormat
 
-    $('#formFindCarDate').datetimepicker();
+    });
+
+    $('#formSearchUpDate3').datetimepicker({
+        format: szFormat
+
+    });
+    $('#formSearchOffDate3').datetimepicker({
+        format: szFormat
+
+    });
+
+    $('#formFindCarDate').datetimepicker({
+        format: szFormat
+
+    });
 }
 
 jQuery(window).resize(function () {

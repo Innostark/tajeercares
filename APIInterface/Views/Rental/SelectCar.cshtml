@@ -139,7 +139,7 @@
                                                 <h3 id=@(+item.HireGroupId) >@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
                                                 <div class="container-fluid">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
-                                                    @if (item.SubHireGroups != null)
+                                                    @if (item.SubHireGroups.Count !=0)
                                                     {
                                                         foreach (var obj in item.SubHireGroups)
                                                         {
@@ -156,8 +156,8 @@
                                                                             <p><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
                                                                             <p><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
                                                                             <p><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
-                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_"+obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
-                                                                            <p style=" margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px"id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
+                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
+                                                                            <p style="margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px"id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
                                                                         </div>
                                                                         <input type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
                                                                         <input id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
@@ -167,9 +167,13 @@
                                                             <div class="row">
                                                                 <hr />
                                                             </div>
-                                                        }   <!-- HG Det Loop-->
-                                                    }      
-                                             
+                                                        }
+                                                        <!-- HG Det Loop-->
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>No Sub-Hire Groups!</p>
+                                                    }
                                                 </div>
                                             } <!-- HG Loop-->
                                         } <!-- HG Null-->
