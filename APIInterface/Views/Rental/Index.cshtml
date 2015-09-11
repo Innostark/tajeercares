@@ -61,7 +61,7 @@
                         <!-- Logo -->
                         <div class="col-md-2">
                             <div class="logo">
-                                <a href='Model'><img src="~/assets/img/logo-rentit.png" alt=@Model.Sitecontent.WebsiteClickURL /></a>
+                                <a target="_blank" onclick="window.open('@Model.Sitecontent.WebsiteClickURL')" href=''><img src="~/assets/img/logo-rentit.png" alt='@Model.Sitecontent.CompanyDisplayName' /></a>
                             </div>
                         </div>
                         <!-- /Logo -->
@@ -101,7 +101,7 @@
                     <div class="main-slider">
                         <div class="owl-carousel" id="main-slider">
                             <!-- Slide 1 -->
-                            <div class="item slide1 ver1">
+                            <div class="item slide1 ver1" >
                                 <div class="caption">
                                     <div class="container">
                                         <div class="div-table">
@@ -604,23 +604,20 @@
                             <ul class="media-list contact-list">
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-home"></i></div>
-                                    <div class="media-body">Adress: 1600 Pennsylvania Ave NW, Washington, D.C.</div>
+                                    <div class="media-body">Adress: @Model.Sitecontent.Address</div>
                                 </li>
-                                <li class="media">
-                                    <div class="media-left"><i class="fa fa"></i></div>
-                                    <div class="media-body">DC 20500, ABD</div>
-                                </li>
+                               
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-phone"></i></div>
-                                    <div class="media-body">Support Phone: 01865 339665</div>
+                                    <div class="media-body">Support Phone: @Model.Sitecontent.Telephone</div>
                                 </li>
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-envelope"></i></div>
-                                    <div class="media-body">E mails: info@example.com</div>
+                                    <div class="media-body">E mails: @Model.Sitecontent.Email</div>
                                 </li>
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-clock-o"></i></div>
-                                    <div class="media-body">Working Hours: 09:30-21:00 except on Sundays</div>
+                                    <div class="media-body">Working Hours: 09:30 - 21:00 except on Sundays</div>
                                 </li>
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-map-marker"></i></div>
@@ -645,9 +642,8 @@
                             <p class="btn-row text-center">
                                 <a target="_blank" onclick="window.open('@Model.Sitecontent.FBLink')" href='' class=" btn btn-theme ripple-effect btn-icon-left facebook wow fadeindown" data-wow-offset="20" data-wow-delay="100ms"><i class="fa fa-facebook"></i>FACEBOOK</a>
                                 <a target="_blank" onclick="window.open('@Model.Sitecontent.TwiterLink')"  href="" class="btn btn-theme btn-icon-left ripple-effect twitter wow fadeInDown" data-wow-offset="20" data-wow-delay="200ms"><i class="fa fa-twitter"></i>TWITTER</a>
-
                             </p>
-                            <div class="copyright">&copy; 2015 Rent It â€” An One Page Rental Car Theme made with passion by jThemes Studio</div>
+                            <div class="copyright">&copy; 2015 @Model.Sitecontent.CompanyDisplayName &nbsp;|&nbsp; @Model.Sitecontent.Address .</div>
                         </div>
                     </div>
                 </div>

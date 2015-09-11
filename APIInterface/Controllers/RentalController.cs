@@ -20,7 +20,12 @@ namespace APIInterface.Controllers
         {
             rentalApiService = new RentalApiService();
         }
-
+        private static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
         private string ParseExceptionMessgeFromResponse(string response)
         {
             dynamic dymaincResponse = System.Web.Helpers.Json.Decode(response);
@@ -39,14 +44,27 @@ namespace APIInterface.Controllers
                 var response = rentalApiService.GetSitecontent(parms[1].ToUpper());
                 if (response != "null")
                 {
+                    SiteContentResponseModel data;
                     var jss = new JavaScriptSerializer();
-                    var data = jss.Deserialize<SiteContentResponseModel>(response);
+                    try
+                    {
+
+                         data = jss.Deserialize<SiteContentResponseModel>(response);
+                         data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
+                         data.SiteContent.Banner1SourceLocal = GetBytes(data.SiteContent.Banner1Bytes);
+                         data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
+                         data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
+                    }
+                    catch (Exception exc)
+                    {
+                        throw new Exception("Error while getting data from server!");
+                    }
                     if (data.SiteContent == null)
                     {
                         Session["siteName"] = "404 Error";
                         return RedirectToAction("Index", "ErrorHandler", new { area = "" });
                     }
-                    Session["siteName"] = parms[1].ToUpper();
+                    Session["siteName"] = data.SiteContent.CompanyDisplayName;
                     Session["siteTitle"] = data.SiteContent.Slogan.ToUpper();
                     Session["UserDomainKey"] = data.SiteContent.UserDomainKey;
                     var model = new HomeModel
