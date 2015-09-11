@@ -150,4 +150,7 @@
   <data name="HireGroupRate" xml:space="preserve">
     <value>HireGroupStandardRate</value>
   </data>
+  <data name="ExtrasInsurances" xml:space="preserve">
+    <value>GetServiceItemsInsurances</value>
+  </data>
 </root>

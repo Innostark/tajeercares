@@ -1,5 +1,6 @@
 ﻿using System.Web.Helpers;
 using APIInterface.Models;
+using APIInterface.Models.RequestModels;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
 using APIInterface.WebApis;
@@ -11,10 +12,10 @@ namespace APIInterface.Controllers
     public class HomeController : Controller
     {
         #region Private
-        private readonly IWebApiService webApiService;
+        private readonly IWebApiService _webApiService;
         public HomeController()
         {
-            webApiService = new WebApiService();
+            _webApiService = new WebApiService();
         }
 
         private string ParseExceptionMessgeFromResponse(string response)
@@ -50,7 +51,7 @@ namespace APIInterface.Controllers
         {
             if (ModelState.IsValid)
             {
-                string registerUserResponse = webApiService.RegisterUser(model);
+                string registerUserResponse = _webApiService.RegisterUser(model);
                 if (registerUserResponse.Contains("Success"))
                 {
                     RedirectToAction("Home","RegistrationSuccess");
@@ -101,7 +102,7 @@ namespace APIInterface.Controllers
 
             if (ModelState.IsValid)
             {
-                string registerUserResponse = webApiService.CheckCompanyUrlAvailability(request.URL);
+                string registerUserResponse = _webApiService.CheckCompanyUrlAvailability(request.URL);
                 if (registerUserResponse.Contains("true"))
                 {
                     return Json(new { status = true });
