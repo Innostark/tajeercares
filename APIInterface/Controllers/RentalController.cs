@@ -150,7 +150,7 @@ namespace APIInterface.Controllers
                          {
                              if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                              {
-                                 Session["selectedHG"] = cHireGroup;
+                                 Session["selectedHireGroupDetailId"] = cHireGroup;
                              }
                          }
                      }
@@ -167,6 +167,7 @@ namespace APIInterface.Controllers
                  {
                       data = rawData.Deserialize<ExtrasResponseModel>(rawResponse);
                       ViewBag.Data = data;
+                     Session["Extras"] = data;
                  }
                  catch (Exception exc)
                  {
@@ -179,11 +180,26 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Final Screen | Checkout
         /// </summary>
+        [HttpGet]
         public ActionResult Checkout()
         {
-            return View();
+            var model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+            return View(model);
         }
 
+        /// <summary>
+        /// Final Screen | Checkout
+        /// </summary>
+         [HttpPost]
+        public ActionResult Checkout(UserInfoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+            }
+            model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+            return View(model);
+        }
         /// <summary>
         /// Get Hire Group Detail On Car Seelction
         /// </summary>
@@ -286,13 +302,46 @@ namespace APIInterface.Controllers
                 UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
             };
            var rawResponse=  rentalApiService.GetServiceItemRate(requestModel);
+         
            if (rawResponse != "null")
             {
                 var rawData = new JavaScriptSerializer();
                 var charge = rawData.Deserialize<RaCandidateExtrasCharge>(rawResponse);
+                 var extras = Session["Extras"] as ExtrasResponseModel;
+               foreach (var item in extras.ServiceItems)
+                {
+                    if (item.ServiceItemId == serviceItemId)
+                    {
+                        item.ServiceRate = charge.ServiceRate;
+                        item.ServiceCharge = charge.ServiceCharge;
+                    }
+                }
+                Session["Extras"] = extras;
                 return Json(new { itemCharge = charge });
             }
             return null;
+        }
+
+        public JsonResult GetChargeForInsuranceType(short insuranceTypeId)
+        {
+            var requestModel = new GetCandidateInsuranceChargeRequest
+            {
+                OperationId = long.Parse(Session["pickupOperationId"].ToString()),
+                StartDtTime = (DateTime)Session["pickupDate"],
+                EndDtTime = (DateTime)Session["dropoffDate"],
+                HireGroupDetailId = long.Parse(Session["selectedHireGroupDetailId"].ToString()),
+                RaCreatedDate = DateTime.Now,
+                Domainkey = long.Parse(Session["UserDomainKey"].ToString()),
+                InsuranceTypeId = insuranceTypeId
+            };
+            var rawResponse= rentalApiService.GetInsuranceTypeRate(requestModel);
+            if (rawResponse != "null")
+            {
+                var rawData = new JavaScriptSerializer();
+                var charge = rawData.Deserialize<RaCandidateItemCharge>(rawResponse);
+                return Json(new { insuranceCharge = charge });
+            }
+            return null;     
         }
         #endregion
     }

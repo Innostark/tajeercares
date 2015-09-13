@@ -216,19 +216,19 @@
                                             <div class="main-block_container">
                                                 <div class="additional-block_container">
                                                     <div class="checkbox-block insurance" id="@(item.InsuranceTypeId)">
-                                                        <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                        <input id="@("box_" + item.InsuranceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
                                                     </div>
                                                     <div class="main-block">
                                                         <div class="product-img">
                                                             <img src="http://placehold.it/105x95" alt="" />
                                                         </div>
                                                         <div class="product-info">
-                                                            <h3 class="entry-format">@item.InsuranceTypeCode-@item.InsuranceTypeName</h3>
+                                                            <h3 id="@("ItemName_" + item.InsuranceTypeId)" class="entry-format">@item.InsuranceTypeCode-@item.InsuranceTypeName</h3>
                                                             <div>@item.InsuranceTypeDescription</div>
                                                         </div>
                                                     </div>
                                                     <div class="additional-block">
-                                                        <p id=@(item.InsuranceTypeId)>$0</p>
+                                                        <p id=@("rate_" +item.InsuranceTypeId)>(Select Item)</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,14 +267,58 @@
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script>
-      
-        function theFuncToCall(event) {
-            //func code
-            //   alert(this.id);
-            showUi();
+      var extrasList = new Array();
+      function callInsurance() {
+            var Id = this.id;
+            if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
+                var valueToMinus = document.getElementById("rate_" + Id).textContent;
+                document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
+                var list = document.getElementById('extras_Total_Sidebar');
+                var entryToBeRemoved = document.getElementById("ins_" + Id);
+                list.removeChild(entryToBeRemoved);
+                if ($("#extras_Total_Sidebar").children().length == 1) {
+                    $('#defaultItem').show();
+                }
+                var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
+                document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+                return false;
+            }
             hideUi();
+            $.ajax({
+                type: 'POST',
+                data: "{'insuranceTypeId':'" + Id + "'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'GetChargeForInsuranceType',
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        document.getElementById("rate_" + Id).innerHTML = response.insuranceCharge.Charge;
+                        list = document.getElementById('extras_Total_Sidebar');
+                        var itemName = document.getElementById('ItemName_' + Id).textContent;
+                        
+                        var newdiv = document.createElement('p');
+                        newdiv.setAttribute('id', 'ins_'+Id);
+                        newdiv.innerHTML = itemName+ ' <span class="price">' + response.insuranceCharge.Charge + '</span>';
+                        list.appendChild(newdiv);
+                       
+                        //  var newTotal =  response.itemCharge.ServiceCharge;
+                        prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
+                        document.getElementById('overAllTotal').textContent = prevTotal + response.insuranceCharge.Charge;
+                        extrasList.add(Id);
+                        
+                        $('#defaultItem').hide();
+                    }
+                    else {
+
+                    }
+                    showUi();
+                },
+                error: function () {
+                    showUi();
+                },
+            });
         }
-        $(document).on('click', '.insurance', theFuncToCall);
+        $(document).on('click', '.insurance', callInsurance);
        
         function callExtra() {
             var Id = this.id;
@@ -289,8 +333,6 @@
                 }
                 var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                 document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
-
-
                 return false;
             }
             hideUi();
@@ -303,7 +345,7 @@
                 success: function (response) {
                     if (response) {
                         document.getElementById("rate_" + Id).innerHTML = response.itemCharge.ServiceCharge;
-                        var list = document.getElementById('extras_Total_Sidebar');
+                        list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         
                         var newdiv = document.createElement('p');
@@ -314,7 +356,7 @@
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
-
+                        extrasList.add(Id);
                         
                         $('#defaultItem').hide();
                     }

@@ -790,6 +790,7 @@
     <Compile Include="Models\CountryList.cs" />
     <Compile Include="Models\InsuranceRtMainContent.cs" />
     <Compile Include="Models\InsuranceType.cs" />
+    <Compile Include="Models\RequestModels\GetCandidateInsuranceChargeRequest.cs" />
     <Compile Include="Models\RequestModels\GetServiceItemRateRequest.cs" />
     <Compile Include="Models\ResponseModels\ExtrasResponseModel.cs" />
     <Compile Include="Models\ResponseModels\HomeModel.cs" />
@@ -800,12 +801,14 @@
     <Compile Include="Models\RequestModels\WebApiGetAvailableHireGroupsRequest.cs" />
     <Compile Include="Models\ReservationForm.cs" />
     <Compile Include="Models\ResponseModels\RaCandidateExtrasCharge.cs" />
+    <Compile Include="Models\ResponseModels\RaCandidateItemCharge.cs" />
     <Compile Include="Models\ResponseModels\WebApiHireGroupDetailResponse.cs" />
     <Compile Include="Models\ResponseModels\WebApiParentHireGroupsApiResponse.cs" />
     <Compile Include="Models\ServiceItem.cs" />
     <Compile Include="Models\Sitecontent.cs" />
     <Compile Include="Models\RequestModels\GeneralRequest.cs" />
     <Compile Include="Models\ResponseModels\SiteContentResponseModel.cs" />
+    <Compile Include="Models\UserInfoModel.cs" />
     <Compile Include="Models\WebApiOperationWorkplace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ApiResources.Designer.cs">

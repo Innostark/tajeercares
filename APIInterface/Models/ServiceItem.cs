@@ -38,5 +38,18 @@ namespace APIInterface.Models
         /// Service Item Description
         /// </summary>
         public string ServiceItemDescription { get; set; }
+
+
+        /// <summary>
+        /// Service Rate
+        /// </summary>
+        public double ServiceRate { get; set; }
+
+       
+
+        /// <summary>
+        /// Service Charge
+        /// </summary>
+        public double ServiceCharge { get; set; }
     }
 }

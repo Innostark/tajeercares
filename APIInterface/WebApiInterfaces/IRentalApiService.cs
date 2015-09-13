@@ -36,5 +36,11 @@ namespace APIInterface.WebApiInterfaces
         /// </summary>
         string GetServiceItemRate(GetServiceItemRateRequest request);
 
+
+        /// <summary>
+        /// Get Insurance Type Rate
+        /// </summary>
+        string GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request);
+
     }
 }

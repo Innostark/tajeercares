@@ -106,6 +106,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RentalAgreementCandidateInsuranceCharge.
+        /// </summary>
+        internal static string InsuranceTypeRate {
+            get {
+                return ResourceManager.GetString("InsuranceTypeRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetAllParentHireGroups.
         /// </summary>
         internal static string ParentHireGroup {

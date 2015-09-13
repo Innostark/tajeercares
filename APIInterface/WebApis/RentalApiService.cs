@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using APIInterface.Models;
-using APIInterface.Models.RequestModels;
-using APIInterface.Models.ResponseModels;
+﻿using APIInterface.Models.RequestModels;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace APIInterface.WebApis
 {
@@ -64,6 +59,14 @@ namespace APIInterface.WebApis
              get
              {
                  return ApiResources.BaseAddress + ApiResources.ServiceItemRate;
+             }
+         }
+
+         private string InsuranceTypeRateUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.InsuranceTypeRate;
              }
          }
          #endregion
@@ -247,6 +250,35 @@ namespace APIInterface.WebApis
         {
             string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
             HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(ServiceItemRateUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+
+        /// <summary>
+        /// Get Insurance Type Rate
+        /// </summary>
+        public string GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request)
+        {
+            return GetInsuranceTypeRateAsync(request).Result;
+        }
+
+
+        /// <summary>
+        /// Get Insurance Type Rate Asyns
+        /// </summary>
+        private async Task<string> GetInsuranceTypeRateAsync(GetCandidateInsuranceChargeRequest request)
+        {
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(InsuranceTypeRateUri)).ConfigureAwait(false);
             if (responseMessage == null)
             {
                 return "Failure";

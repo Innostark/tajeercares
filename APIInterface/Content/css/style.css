@@ -30,6 +30,29 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	line-height: 1;
 }
+    .validation-summary-errors > ul > li {
+            padding: 0 0 5px;
+            color: red;
+        }
+        .validation-summary-errors > ul {
+            list-style: disc outside none;
+            padding: 11px 0 0px 40px;
+        }
+        #countryList {
+            border: 1px solid #d2d2d2;
+            font-size: 14px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            height: 45px;
+            background: #f9f9f9;
+            -moz-box-shadow: inset 0px 1px 4px #e8e8e8;
+            -webkit-box-shadow: inset 0px 1px 4px #e8e8e8;
+            box-shadow: inset 0px 1px 4px #e8e8e8;
+            color: #656d78;
+            margin: 4px 0 0;
+            padding-left: 42px;
+        }
 h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 	clear: both;
