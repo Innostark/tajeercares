@@ -1,4 +1,8 @@
-﻿using APIInterface.Models.RequestModels;
+﻿using System.Collections.Generic;
+using System.Web.Script.Serialization;
+using APIInterface.Models;
+using APIInterface.Models.RequestModels;
+using APIInterface.Models.ResponseModels;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
 using System;
@@ -69,6 +73,16 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.InsuranceTypeRate;
              }
          }
+
+         /// <summary>
+         /// Converts String To Byte Array
+         /// </summary>
+         private static byte[] GetBytes(string str)
+         {
+             var bytes = new byte[str.Length * sizeof(char)];
+             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+             return bytes;
+         }
          #endregion
         #region Public 
 
@@ -76,11 +90,29 @@ namespace APIInterface.WebApis
          /// <summary>
          /// Get Contents from Cares
          /// </summary>
-         public string GetSitecontent(string url)
+         public SiteContentResponseModel GetSitecontent(string url)
          {
              var obj = new GeneralRequest { URL = url };
              Task<string> sitecontentAsync = GetSitecontentAsync(obj);
-             return sitecontentAsync.Result;
+             var response = sitecontentAsync.Result;
+             if (response != "null")
+             {
+                 var jss = new JavaScriptSerializer();
+                 try
+                 {
+                     var data = jss.Deserialize<SiteContentResponseModel>(response);
+                     data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
+                     data.SiteContent.Banner1SourceLocal = GetBytes(data.SiteContent.Banner1Bytes);
+                     data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
+                     data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
+                     return data;
+                 }
+                 catch (Exception exc)
+                 {
+                     throw new Exception("Error while getting data from server!");
+                 }
+             }
+             return null;
          }
 
          /// <summary>
@@ -107,10 +139,12 @@ namespace APIInterface.WebApis
         /// <summary>
          /// Get Parent Hire Groups via APis
         /// </summary>
-        public string GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request)
+         public List<WebApiParentHireGroupsApiResponse> GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request)
         {
-           Task<string> response= GetParentHireGroupsAsync(request);
-            return response.Result;
+           Task<string> data= GetParentHireGroupsAsync(request);
+            var response= data.Result;
+             var rawData = new JavaScriptSerializer();
+            return rawData.Deserialize<List<WebApiParentHireGroupsApiResponse>>(response);
         }
 
         /// <summary>
@@ -174,9 +208,11 @@ namespace APIInterface.WebApis
         /// <summary>
         /// get Charge for hire group detail 
         /// </summary>
-        public string GetCharge(GetCandidateHireGroupChargeRequest request)
+        public RaCandidateHireGroupCharge GetHireGroupCharge(GetCandidateHireGroupChargeRequest request)
         {
-            return GetChargeAsync(request).Result;
+            var response= GetChargeAsync(request).Result;
+             var rawData = new JavaScriptSerializer();
+             return rawData.Deserialize<RaCandidateHireGroupCharge>(response);
         }
 
        
@@ -205,9 +241,19 @@ namespace APIInterface.WebApis
         /// <summary>
         /// Get Extras n Insurances
         /// </summary>
-        public string GetExtras_Insurances(long domainKey)
+        public ExtrasResponseModel GetExtras_Insurances(long domainKey)
         {
-            return GetExtras_InsurancesAsync(domainKey).Result;
+            var rawResponse = GetExtras_InsurancesAsync(domainKey).Result;
+
+            var rawData = new JavaScriptSerializer();
+            try
+            {
+                 return rawData.Deserialize<ExtrasResponseModel>(rawResponse);
+            }
+            catch (Exception exc)
+            {
+                throw new Exception("Error while getting data from server!");
+            }
         }
 
 
@@ -237,9 +283,11 @@ namespace APIInterface.WebApis
         /// <summary>
         /// Get Service Item Rate
         /// </summary>
-        public string GetServiceItemRate(GetServiceItemRateRequest request)
+        public RaCandidateExtrasCharge GetServiceItemRate(GetServiceItemRateRequest request)
         {
-            return GetServiceItemRateAsync(request).Result;
+            var response= GetServiceItemRateAsync(request).Result;
+            var rawData = new JavaScriptSerializer();
+            return rawData.Deserialize<RaCandidateExtrasCharge>(response);
         }
 
 
@@ -266,9 +314,11 @@ namespace APIInterface.WebApis
         /// <summary>
         /// Get Insurance Type Rate
         /// </summary>
-        public string GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request)
+        public RaCandidateItemCharge GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request)
         {
-            return GetInsuranceTypeRateAsync(request).Result;
+            var rawResponse = GetInsuranceTypeRateAsync(request).Result;
+            var rawData = new JavaScriptSerializer();
+           return rawData.Deserialize<RaCandidateItemCharge>(rawResponse);
         }
 
 

@@ -1,6 +1,9 @@
 ﻿
 namespace APIInterface.Models.ResponseModels
 {
+    /// <summary>
+    /// Charge for Service Items 
+    /// </summary>
     public class RaCandidateItemCharge
     {
         /// <summary>

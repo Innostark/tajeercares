@@ -1,6 +1,9 @@
 ﻿
 namespace APIInterface.Models.RequestModels
 {
+    /// <summary>
+    /// Request Model for General Requests
+    /// </summary>
     public class GeneralRequest
     {
         /// <summary>

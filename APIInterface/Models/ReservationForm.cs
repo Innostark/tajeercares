@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace APIInterface.Models
 {
+    /// <summary>
+    /// For Booking Reservations
+    /// </summary>
     public class ReservationForm
     {
         [Required]

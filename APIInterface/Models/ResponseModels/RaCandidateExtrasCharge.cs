@@ -1,6 +1,9 @@
 ﻿
 namespace APIInterface.Models.ResponseModels
 {
+    /// <summary>
+    /// Service Charge for Insurances 
+    /// </summary>
     public class RaCandidateExtrasCharge
     {
 

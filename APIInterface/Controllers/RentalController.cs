@@ -7,264 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace APIInterface.Controllers
 {
+    /// <summary>
+    /// Rental Controller To Handle Client's Booking 
+    /// </summary>
     public class RentalController : Controller
     {
 
         #region Private
         private readonly IRentalApiService rentalApiService;
-        public RentalController()
-        {
-            rentalApiService = new RentalApiService();
-        }
-        private static byte[] GetBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
-        private string ParseExceptionMessgeFromResponse(string response)
-        {
-            dynamic dymaincResponse = System.Web.Helpers.Json.Decode(response);
-            return dymaincResponse.Message;
-        }
-        #endregion
-        #region Public
-       /// <summary>
-       /// Index Of URL
-       /// </summary>
-        public ActionResult Index()
-        {
-            if (Request.Url != null)
-            {
-                string[] parms = Request.Url.LocalPath.Split('/');
-                var response = rentalApiService.GetSitecontent(parms[1].ToUpper());
-                if (response != "null")
-                {
-                    SiteContentResponseModel data;
-                    var jss = new JavaScriptSerializer();
-                    try
-                    {
-                         data = jss.Deserialize<SiteContentResponseModel>(response);
-                         data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
-                         data.SiteContent.Banner1SourceLocal = GetBytes(data.SiteContent.Banner1Bytes);
-                         data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
-                         data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
-                    }
-                    catch (Exception exc)
-                    {
-                        throw new Exception("Error while getting data from server!");
-                    }
-                    if (data.SiteContent == null)
-                    {
-                        Session["siteName"] = "404 Error";
-                        return RedirectToAction("Index", "ErrorHandler", new { area = "" });
-                    }
-                    Session["siteName"] = data.SiteContent.CompanyDisplayName;
-                    Session["siteTitle"] = data.SiteContent.Slogan.ToUpper();
-                    Session["UserDomainKey"] = data.SiteContent.UserDomainKey;
-                    var model = new HomeModel
-                    {
-                        ReservationForm = new ReservationForm
-                        {
-                            PickupDateTime = DateTime.Now,
-                            DropoffDateTime = DateTime.Now.AddDays(1)
-                        },
-                        Sitecontent = data.SiteContent,
-                        OperationsWorkPlaces = data.OperationsWorkPlaces
-                    };
-                    Session["WPS"] = data.OperationsWorkPlaces;
-                    return View(model);
-                }
-
-            }
-            return View();
-
-        }
-
-        /// <summary>
-        /// Car Selection
-        /// </summary>
-        [HttpPost]
-        public ActionResult SelectCar(HomeModel model)
-        {
-            var list = Session["WPS"]  as List<WebApiOperationWorkplace>;
-            if (list != null)
-                foreach (var obj in list)
-                {
-                    if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.PickupLocation)
-                    {
-                        Session["pickupId"] = obj.OperationWorkplaceId;
-                        Session["pickupName"] = obj.LocationName;
-                        Session["pickupCityId"] = obj.CityId;
-                        Session["pickupOperationId"] = obj.OperationId;
-                    }
-                    if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.DropoffLocation)
-                    {
-                        Session["dropoffId"] = obj.OperationWorkplaceId;
-                        Session["dropoffName"] = obj.LocationName;
-                        Session["dropoffCityId"] = obj.CityId;
-                    }
-                }
-            Session["pickupDate"] = model.ReservationForm.PickupDateTime;
-            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime;
-           
-            var requestModel = new WebApiGetAvailableHireGroupsRequest
-            {
-                StartDateTime = model.ReservationForm.PickupDateTime,
-                EndDateTime = model.ReservationForm.DropoffDateTime,
-                OutLocationId = long.Parse(model.ReservationForm.PickupLocation),
-                ReturnLocationId = long.Parse(model.ReservationForm.DropoffLocation),
-                DomainKey = long.Parse(Session["UserDomainKey"].ToString()),
-                HireGroupId = 0,
-                PickUpCityId = short.Parse(Session["pickupCityId"].ToString()),
-                DropOffCityId = short.Parse(Session["dropoffCityId"].ToString())
-            };
-            string response = rentalApiService.GetParentHireGroups(requestModel);
-            if (response != "null")
-            {
-                var rawData = new JavaScriptSerializer();
-                var parentHireGroups = rawData.Deserialize<List<WebApiParentHireGroupsApiResponse>>(response);
-                Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
-            }
-            return View();
-        }
-
-         /// <summary>
-         /// Extra's Selection
-         /// </summary>
-        public ActionResult SelectExtras(string hireGroupDetailId)
-         {
-             var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
-             if (parentHireGroups != null)
-             {
-                 foreach (var pHireGroup in parentHireGroups)
-                 {
-                     var cHireGroups = pHireGroup.SubHireGroups;
-                     if (cHireGroups != null)
-                     {
-                         foreach (var cHireGroup in cHireGroups)
-                         {
-                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
-                             {
-                                 Session["selectedHireGroupDetailId"] = cHireGroup;
-                             }
-                         }
-                     }
-                 }
-             }
-           
-            var rawResponse =   rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
-            ExtrasResponseModel data= null;
-
-            if (rawResponse != "null")
-             {
-                 var rawData = new JavaScriptSerializer();
-                 try
-                 {
-                      data = rawData.Deserialize<ExtrasResponseModel>(rawResponse);
-                      ViewBag.Data = data;
-                     Session["Extras"] = data;
-                 }
-                 catch (Exception exc)
-                 {
-                     throw new Exception("Error while getting data from server!");
-                 }
-             }
-            return View(data);
-        }
-
-        /// <summary>
-        /// Final Screen | Checkout
-        /// </summary>
-        [HttpGet]
-        public ActionResult Checkout()
-        {
-            var model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
-            return View(model);
-        }
-
-        /// <summary>
-        /// Final Screen | Checkout
-        /// </summary>
-         [HttpPost]
-        public ActionResult Checkout(UserInfoModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                //
-            }
-            model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
-            return View(model);
-        }
-        /// <summary>
-        /// Get Hire Group Detail On Car Seelction
-        /// </summary>
-        //private List<WebApiHireGroupDetailResponse> GetHireGroupDetail(WebApiGetAvailableHireGroupsRequest request)
-        //{
-        //   string response=  rentalApiService.GetHireGroupDetail(request);
-        //   if (response != "null")
-        //   {
-        //       Session["HireGroupId"] = request.HireGroupId;
-        //       var rawData = new JavaScriptSerializer();
-        //       var parentHireGroups = rawData.Deserialize<List<WebApiHireGroupDetailResponse>>(response);
-        //       return parentHireGroups;
-        //   }
-        //  return null;
-        //}
-        
-       
-
-        /// <summary>
-        /// Calculate Charge For hire Group on Car Selection
-        /// </summary>
-        [HttpPost]
-        public JsonResult CalculateCharge(string hireGroupDetailId)
-        {
-           
-            var requestModel = new GetCandidateHireGroupChargeRequest
-            {
-                OperationId = long.Parse(Session["pickupOperationId"].ToString()),
-                StartDtTime = (DateTime)Session["pickupDate"],
-                EndDtTime = (DateTime)Session["dropoffDate"],
-                HireGroupDetailId = long.Parse(hireGroupDetailId),
-                RaCreatedDate = DateTime.Now,
-                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
-            };
-            string response = rentalApiService.GetCharge(requestModel);
-            if (response != "null")
-            {
-                var rawData = new JavaScriptSerializer();
-                var charge = rawData.Deserialize<RaCandidateHireGroupCharge>(response);
-                charge.TariffTypeCode = GetHireGroupFullName(charge.TariffTypeCode);
-                // setting up charge for hiregroup in the list
-                var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
-                if (parentHireGroups != null)
-                {
-                    foreach (var pHireGroup in parentHireGroups)
-                    {
-                        var cHireGroups = pHireGroup.SubHireGroups;
-                        if (cHireGroups != null)
-                        {
-                            foreach (var cHireGroup in cHireGroups)
-                            {
-                                if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
-                                {
-                                    cHireGroup.StandardRt = charge.TotalStandardCharge;
-                                    cHireGroup.TariffType = charge.TariffTypeCode;
-                                }
-                            }
-                        }
-                    }   
-                }
-                Session["HGDetail"] = parentHireGroups;
-                return Json(new { hGcharge = charge });
-            }
-            return null;
-        }
+        #region Private Funcs
 
         /// <summary>
         /// Sets up Hire Group Name
@@ -288,41 +42,170 @@ namespace APIInterface.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult GetChargeForServiceItem(long serviceItemId, int quantity)
+
+        /// <summary>
+        /// Sets data from reservation form to session
+        /// </summary>
+        private void ExtractDataFromReservationForm(HomeModel model)
+        {
+            // Restoring Workplaces stored in Index 
+            var list = Session["WPS"] as List<WebApiOperationWorkplace>;
+
+            if (list != null)
+                foreach (var obj in list)
+                {
+                    if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.PickupLocation)
+                    {
+                        Session["pickupId"] = obj.OperationWorkplaceId;
+                        Session["pickupName"] = obj.LocationName;
+                        Session["pickupCityId"] = obj.CityId;
+                        Session["pickupOperationId"] = obj.OperationId;
+                    }
+                    if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.DropoffLocation)
+                    {
+                        Session["dropoffId"] = obj.OperationWorkplaceId;
+                        Session["dropoffName"] = obj.LocationName;
+                        Session["dropoffCityId"] = obj.CityId;
+                    }
+                }
+            Session["pickupDate"] = model.ReservationForm.PickupDateTime;
+            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime;
+        }
+
+
+        /// <summary>
+        /// Sets Request
+        /// </summary>
+        private WebApiGetAvailableHireGroupsRequest MakeGetAvailableHireGroupsRequest(HomeModel model)
+        {
+            var requestModel = new WebApiGetAvailableHireGroupsRequest
+            {
+                StartDateTime = model.ReservationForm.PickupDateTime,
+                EndDateTime = model.ReservationForm.DropoffDateTime,
+                OutLocationId = long.Parse(model.ReservationForm.PickupLocation),
+                ReturnLocationId = long.Parse(model.ReservationForm.DropoffLocation),
+                DomainKey = long.Parse(Session["UserDomainKey"].ToString()),
+                HireGroupId = 0,
+                PickUpCityId = short.Parse(Session["pickupCityId"].ToString()),
+                DropOffCityId = short.Parse(Session["dropoffCityId"].ToString())
+            };
+            return requestModel;
+        }
+
+
+        /// <summary>
+        /// Finds Hire Group detail by Detail Id
+        /// </summary>
+        private void ExtractHireGroupById(string hireGroupDetailId)
+        {
+            var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
+            if (parentHireGroups != null)
+            {
+                foreach (var pHireGroup in parentHireGroups)
+                {
+                    var cHireGroups = pHireGroup.SubHireGroups;
+                    if (cHireGroups != null)
+                    {
+                        foreach (var cHireGroup in cHireGroups)
+                        {
+                            if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
+                            {
+                                Session["selectedHireGroupDetailId"] = cHireGroup;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Sets Request For HG Charge
+        /// </summary>
+        private GetCandidateHireGroupChargeRequest SetCandidateHireGroupChargeRequest(string hireGroupDetailId)
+        {
+            var requestModel = new GetCandidateHireGroupChargeRequest
+            {
+                OperationId = long.Parse(Session["pickupOperationId"].ToString()),
+                StartDtTime = (DateTime)Session["pickupDate"],
+                EndDtTime = (DateTime)Session["dropoffDate"],
+                HireGroupDetailId = long.Parse(hireGroupDetailId),
+                RaCreatedDate = DateTime.Now,
+                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
+            };
+            return requestModel;
+        }
+
+
+        /// <summary>
+        /// Sets Hire Group rate for requested HG
+        /// </summary>
+        private void SetHireGroupCharge(string hireGroupDetailId, RaCandidateHireGroupCharge response)
+        {
+            var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
+            if (parentHireGroups != null)
+            {
+                foreach (var pHireGroup in parentHireGroups)
+                {
+                    var cHireGroups = pHireGroup.SubHireGroups;
+                    if (cHireGroups != null)
+                    {
+                        foreach (var cHireGroup in cHireGroups)
+                        {
+                            if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
+                            {
+                                cHireGroup.StandardRt = response.TotalStandardCharge;
+                                cHireGroup.TariffType = response.TariffTypeCode;
+                            }
+                        }
+                    }
+                }
+            }
+            Session["HGDetail"] = parentHireGroups;
+        }
+
+
+        /// <summary>
+        /// Sets Request For rate Service Item
+        /// </summary>
+        private GetServiceItemRateRequest GetServiceItemRateRequest(long serviceItemId, int quantity)
         {
             var requestModel = new GetServiceItemRateRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
-                StartDateTime = (DateTime) Session["pickupDate"],
-                EndDateTime = (DateTime) Session["dropoffDate"],
+                StartDateTime = (DateTime)Session["pickupDate"],
+                EndDateTime = (DateTime)Session["dropoffDate"],
                 ServiceItemId = serviceItemId,
                 RaCreationDateTime = DateTime.Now,
                 Quantity = quantity,
                 UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
             };
-           var rawResponse=  rentalApiService.GetServiceItemRate(requestModel);
-         
-           if (rawResponse != "null")
-            {
-                var rawData = new JavaScriptSerializer();
-                var charge = rawData.Deserialize<RaCandidateExtrasCharge>(rawResponse);
-                 var extras = Session["Extras"] as ExtrasResponseModel;
-               foreach (var item in extras.ServiceItems)
-                {
-                    if (item.ServiceItemId == serviceItemId)
-                    {
-                        item.ServiceRate = charge.ServiceRate;
-                        item.ServiceCharge = charge.ServiceCharge;
-                    }
-                }
-                Session["Extras"] = extras;
-                return Json(new { itemCharge = charge });
-            }
-            return null;
+            return requestModel;
         }
 
-        public JsonResult GetChargeForInsuranceType(short insuranceTypeId)
+
+        /// <summary>
+        /// Sets rate for Service Item
+        /// </summary>
+        private void SetRateForServiceItem(long serviceItemId, RaCandidateExtrasCharge response)
+        {
+            var extras = Session["Extras"] as ExtrasResponseModel;
+            foreach (var item in extras.ServiceItems)
+            {
+                if (item.ServiceItemId == serviceItemId)
+                {
+                    item.ServiceRate = response.ServiceRate;
+                    item.ServiceCharge = response.ServiceCharge;
+                }
+            }
+            Session["Extras"] = extras;
+        }
+
+
+        /// <summary>
+        /// Sets Request For rate Insurance Type
+        /// </summary>
+        private GetCandidateInsuranceChargeRequest GetCandidateInsuranceChargeRequest(short insuranceTypeId)
         {
             var requestModel = new GetCandidateInsuranceChargeRequest
             {
@@ -334,15 +217,173 @@ namespace APIInterface.Controllers
                 Domainkey = long.Parse(Session["UserDomainKey"].ToString()),
                 InsuranceTypeId = insuranceTypeId
             };
-            var rawResponse= rentalApiService.GetInsuranceTypeRate(requestModel);
-            if (rawResponse != "null")
+            return requestModel;
+        }
+
+        #endregion
+        public RentalController()
+        {
+            rentalApiService = new RentalApiService();
+        }
+        
+        #endregion
+        #region Public
+
+
+       /// <summary>
+       /// Index Of URL
+       /// </summary>
+       [HttpPost]
+        public ActionResult Index()
+        {
+            if (Request.Url != null)
             {
-                var rawData = new JavaScriptSerializer();
-                var charge = rawData.Deserialize<RaCandidateItemCharge>(rawResponse);
-                return Json(new { insuranceCharge = charge });
+                // Getting URL & calling server
+                string[] parms = Request.Url.LocalPath.Split('/');
+                var response = rentalApiService.GetSitecontent(parms[1].ToUpper());
+                if (response != null)
+                {
+                    // Handling Bad Requests
+                    if (response.SiteContent == null)
+                    {
+                        Session["siteName"] = "404 Error";
+                        return RedirectToAction("Index", "ErrorHandler", new { area = "" });
+                    }
+
+                    // Setting up session 
+                    Session["siteName"] = response.SiteContent.CompanyDisplayName;
+                    Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
+                    Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
+                    var model = new HomeModel
+                    {
+                        ReservationForm = new ReservationForm
+                        {
+                            PickupDateTime = DateTime.Now,
+                            DropoffDateTime = DateTime.Now.AddDays(1)
+                        },
+                        Sitecontent = response.SiteContent,
+                        OperationsWorkPlaces = response.OperationsWorkPlaces
+                    };
+
+                    // For further Use on next pages 
+                    Session["WPS"] = response.OperationsWorkPlaces;
+                    return View(model);
+                }
+
+            }
+            return View();
+
+        }
+
+
+        /// <summary>
+        /// Car Selection
+        /// </summary>
+        [HttpPost]
+        public ActionResult SelectCar(HomeModel model)
+        {
+            ExtractDataFromReservationForm(model);
+            var requestModel = MakeGetAvailableHireGroupsRequest(model);
+            var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
+            if (parentHireGroups != null)
+            {
+                Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
+            }
+            return View();
+        }
+
+
+         /// <summary>
+         /// Extra's Selection
+         /// </summary>
+         [HttpPost]
+        public ActionResult SelectExtras(string hireGroupDetailId)
+         {
+            ExtractHireGroupById(hireGroupDetailId);
+            var response =   rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
+            ViewBag.Data =  Session["Extras"]=response;
+            return View();
+        }
+
+
+        /// <summary>
+        /// Final Screen | Checkout
+        /// </summary>
+        [HttpGet]
+        public ActionResult Checkout()
+        {
+            var model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+            return View(model);
+        }
+
+
+        /// <summary>
+        /// Final Screen | Checkout
+        /// </summary>
+         [HttpPost]
+        public ActionResult Checkout(UserInfoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+            }
+            model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+            return View(model);
+        }
+      
+       
+        /// <summary>
+        /// Calculate Charge For hire Group on Car Selection
+        /// </summary>
+        [HttpPost]
+        public JsonResult CalculateCharge(string hireGroupDetailId)
+        {
+            var requestModel = SetCandidateHireGroupChargeRequest(hireGroupDetailId);
+            RaCandidateHireGroupCharge response = rentalApiService.GetHireGroupCharge(requestModel);
+            if (response != null)
+            {
+                response.TariffTypeCode = GetHireGroupFullName(response.TariffTypeCode);
+                // setting up charge for hiregroup in the list
+                SetHireGroupCharge(hireGroupDetailId, response);
+                return Json(new { hGcharge = response });
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// Get Service rate For Service Item
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetChargeForServiceItem(long serviceItemId, int quantity)
+        {
+            var requestModel = GetServiceItemRateRequest(serviceItemId, quantity);
+            var response=  rentalApiService.GetServiceItemRate(requestModel);
+           if (response != null)
+           {
+               SetRateForServiceItem(serviceItemId, response);
+               return Json(new { itemCharge = response });
+           }
+            return null;
+        }
+
+
+        /// <summary>
+        /// Get Service rate For Insurance Type
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetChargeForInsuranceType(short insuranceTypeId)
+        {
+            var requestModel = GetCandidateInsuranceChargeRequest(insuranceTypeId);
+            var response= rentalApiService.GetInsuranceTypeRate(requestModel);
+            if (response != null)
+            {
+                return Json(new { insuranceCharge = response });
             }
             return null;     
         }
+
+      
         #endregion
     }
 }

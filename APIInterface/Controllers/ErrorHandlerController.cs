@@ -2,6 +2,9 @@
 
 namespace APIInterface.Controllers
 {
+    /// <summary>
+    /// Handls Bad Requests
+    /// </summary>
     public class ErrorHandlerController : Controller
     {
         //

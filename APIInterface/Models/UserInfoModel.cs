@@ -6,9 +6,11 @@ using System.Web;
 
 namespace APIInterface.Models
 {
+    /// <summary>
+    /// User Info Model on Booking Confirmation 
+    /// </summary>
     public class UserInfoModel
     {
-
 
         [Required]
         [Display(Name = "First Name")]

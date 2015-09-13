@@ -1,5 +1,4 @@
-﻿using System.Web.Helpers;
-using APIInterface.Models;
+﻿using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
@@ -25,6 +24,9 @@ namespace APIInterface.Controllers
         }
         #endregion
         #region Public
+
+
+
         /// <summary>
        /// welcome page
        /// </summary>
@@ -32,6 +34,8 @@ namespace APIInterface.Controllers
         {
             return View();
         }
+
+
         /// <summary>
         /// Register user [page rendring]
         /// </summary>
@@ -43,6 +47,8 @@ namespace APIInterface.Controllers
             var model = new RegisterViewModel {CountryList = CountryList.Countries.ToList(),AccountType = (int) id};
             return View(model);
         }
+
+
         /// <summary>
         /// Register User [Page posting ]
         /// </summary>
@@ -73,6 +79,7 @@ namespace APIInterface.Controllers
             return View(model);
         }
 
+
         /// <summary>
         /// Features page
         /// </summary>
@@ -80,6 +87,8 @@ namespace APIInterface.Controllers
         {
             return View();
         }
+
+
         /// <summary>
         /// Registration Confirm
         /// </summary>
@@ -88,6 +97,7 @@ namespace APIInterface.Controllers
             return View();
         }
 
+
         /// <summary>
         /// Gives Overview of system
         /// </summary>
@@ -95,6 +105,7 @@ namespace APIInterface.Controllers
         {
             return View();
         }
+
 
         [HttpPost]
         public JsonResult CompanyURLAvailability(GeneralRequest request)

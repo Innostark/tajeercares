@@ -1,5 +1,8 @@
 ﻿
+using System.Collections.Generic;
+using APIInterface.Models;
 using APIInterface.Models.RequestModels;
+using APIInterface.Models.ResponseModels;
 
 namespace APIInterface.WebApiInterfaces
 {
@@ -8,13 +11,13 @@ namespace APIInterface.WebApiInterfaces
         /// <summary>
         /// Get Contents from Cares
         /// </summary>
-        string GetSitecontent(string url);
+        SiteContentResponseModel GetSitecontent(string url);
 
 
         /// <summary>
         /// Get Parent Hire Groups via APis
         /// </summary>
-        string GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request);
+        List<WebApiParentHireGroupsApiResponse> GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request);
 
         /// <summary>
         /// Get Hire Group Detail
@@ -24,23 +27,23 @@ namespace APIInterface.WebApiInterfaces
         /// <summary>
         /// get Charge for hire group detail 
         /// </summary>
-        string GetCharge(GetCandidateHireGroupChargeRequest request);
+        RaCandidateHireGroupCharge GetHireGroupCharge(GetCandidateHireGroupChargeRequest request);
 
         /// <summary>
         /// Gets Extras & Insurances
         /// </summary>
-        string GetExtras_Insurances(long domainKey);
+        ExtrasResponseModel GetExtras_Insurances(long domainKey);
 
         /// <summary>
         /// Get Service Item Rate
         /// </summary>
-        string GetServiceItemRate(GetServiceItemRateRequest request);
+        RaCandidateExtrasCharge GetServiceItemRate(GetServiceItemRateRequest request);
 
 
         /// <summary>
         /// Get Insurance Type Rate
         /// </summary>
-        string GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request);
+        RaCandidateItemCharge GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request);
 
     }
 }

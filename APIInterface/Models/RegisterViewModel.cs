@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APIInterface.Models
 {
+    /// <summary>
+    /// For User Registration 
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]

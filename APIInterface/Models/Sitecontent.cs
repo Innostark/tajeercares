@@ -1,32 +1,115 @@
-﻿using System;
-using Castle.Core.Internal;
+﻿using Castle.Core.Internal;
+using System;
 
 namespace APIInterface.Models
 {
+    /// <summary>
+    /// Client's Site Contents 
+    /// </summary>
     public class Sitecontent
     {
+        /// <summary>
+        /// Title of site 
+        /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Logo 
+        /// </summary>
         public string CompanyLogo { get; set; }
+
+        /// <summary>
+        /// Id 
+        /// </summary>
         public short SiteContentId { get; set; }
+
+        /// <summary>
+        /// Company Name
+        /// </summary>
         public string CompanyDisplayName { get; set; }
+
+        /// <summary>
+        /// Company Slogan 
+        /// </summary>
         public string Slogan { get; set; }
+
+        /// <summary>
+        /// Banner 1 
+        /// </summary>
         public string Banner1 { get; set; }
+
+        /// <summary>
+        /// Banner 2 
+        /// </summary>
         public string Banner2 { get; set; }
+
+        /// <summary>
+        /// Banner 3
+        /// </summary>
         public string Banner3 { get; set; }
+
+        /// <summary>
+        /// Service Contents 
+        /// </summary>
         public string ServiceContents { get; set; }
+
+        /// <summary>
+        /// About US contents 
+        /// </summary>
         public string AboutusContents { get; set; }
+
+        /// <summary>
+        /// Company Address 
+        /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Company telephone 
+        /// </summary>
         public string Telephone { get; set; }
+
+        /// <summary>
+        /// Company Facebook link
+        /// </summary>
         public string FBLink { get; set; }
+
+        /// <summary>
+        /// Company twiter LInk 
+        /// </summary>
         public string TwiterLink { get; set; }
+
+        /// <summary>
+        /// Company's Logo click URL 
+        /// </summary>
         public string WebsiteClickURL { get; set; }
+
+        /// <summary>
+        /// Background color Company site 
+        /// </summary>
         public string BodyBGColor { get; set; }
+
+        /// <summary>
+        /// Company Email 
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Company URL for searching 
+        /// </summary>
         public string CompanyShortName { get; set; }
+
+        /// <summary>
+        /// Extra Fields [not under use ]
+        /// </summary>
         public string ExtraField1 { get; set; }
         public string ExtraField2 { get; set; }
         public string ExtraField3 { get; set; }
         public string ExtraField4 { get; set; }
+
+
+        /// <summary>
+        /// User domain key 
+        /// </summary>
         public long UserDomainKey { get; set; }
 
         public string CompanyLogoBytes { get; set; }

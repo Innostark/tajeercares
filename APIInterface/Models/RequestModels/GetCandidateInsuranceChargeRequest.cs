@@ -2,6 +2,9 @@
 
 namespace APIInterface.Models.RequestModels
 {
+    /// <summary>
+    /// For Insurance Type Charge
+    /// </summary>
     public class GetCandidateInsuranceChargeRequest
     {
         /// <summary>

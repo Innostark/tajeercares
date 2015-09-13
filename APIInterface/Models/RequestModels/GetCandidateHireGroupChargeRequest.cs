@@ -2,6 +2,9 @@
 
 namespace APIInterface.Models.RequestModels
 {
+    /// <summary>
+    /// For HG Charge
+    /// </summary>
     public class GetCandidateHireGroupChargeRequest
     {
         /// <summary>
@@ -29,7 +32,9 @@ namespace APIInterface.Models.RequestModels
         /// </summary>
         public long HireGroupDetailId { get; set; }
 
-
+        /// <summary>
+        /// User Domain key
+        /// </summary>
         public long UserDomainKey { get; set; }
     }
 }
