@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
-    <!--[if IE]>
-    <script type="text/javascript" src="~/Scripts/js/html5.js"></script>
-    <link rel="stylesheet" id="stylesheet-ie" href="css/css_ie.css" type="text/css" media="all" />
-    <![endif]-->
+    <style>
+    
+    </style>
 </head>
 <body class="page page-two-column">
     <div id="conteiner">
@@ -26,7 +25,7 @@
             <div id="branding-content">
                 <div class="title-content">
                     <a href="01-home-v1.html" title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
-                    <h1 class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
+                    <h1 style=" width: 200%;"class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
                  
@@ -69,7 +68,6 @@
         </div>
         <div id="main">
             
-            @model APIInterface.Models.ReservationForm
             <form id="slider-form" action="04-choose-car.html" class="main-form">
                 <div id="book_car" class="title-form current">
                     <img src="~/Images/images/search.png" alt="" />
@@ -141,32 +139,38 @@
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
                                                     @if (item.SubHireGroups.Count !=0)
                                                     {
+                                                        int count = 0;
                                                         foreach (var obj in item.SubHireGroups)
                                                         {
                                                             <div class="row"  >
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
                                                                     <div class="product-img">
-                                                                        <img src="http://placehold.it/150x75" alt="" />
+                                                                        <img src="~/Images/carPlaceHolder.png" />
                                                                     </div>
+                                                                    
                                                                 </div>
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
                                                                     <div class="product-info">
-                                                                        <h3 class="entry-format">  <span>@item.HireGroupName</span> | <span> @obj.VehicleCategory</span></h3>
+                                                                        <h3 class="entry-format">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
                                                                         <div class="features" style="margin-bottom: 12px;">
-                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
-                                                                            <p><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
-                                                                            <p><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
-                                                                            <p><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
-                                                                            <p style="margin-left: 2px;"><img  style="width: 4%"src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px"id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
+                                                                            <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
+                                                                            <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
+                                                                            <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                            <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
+                                                                            <p title="Charge" style="margin-left: 2px;"><img style="width: 4%" src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px" id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
                                                                         </div>
-                                                                        <input type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
-                                                                        <input id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                        <input  title="Select Vehicle" id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <hr />
-                                                            </div>
+                                                            if (item.SubHireGroups.Count != (count + 1))
+                                                            {
+                                                                <div class="row">
+                                                                    <hr />
+                                                                </div>
+                                                            }
+                                                            count++;
                                                         }
                                                         <!-- HG Det Loop-->
                                                     }
@@ -213,55 +217,64 @@
     <script src="~/Scripts/_jquery.blockUI.js"></script>
 
     <script>
-        $(function() {
-            $( "#accordion" ).accordion();
-        });
-       
-       
 
-        // Vehicle Selection submition
-        $('.Select').click(function() {
+        $(document).ready(function () {
+            $(function () {
+                $("#accordion").accordion();
+            });
+
+
+
+            // Vehicle Selection submition
+            $('.Select').click(function () {
+                var id = this.id;
+                if (document.getElementById("TCode_" + id).innerHTML == '(No Tariff Type)') {
+                    $.growlUI('', 'Calculate Charge First!');
+                    return false;
+                }
+                window.location = "SelectExtras?hireGroupDetailId=" + id;
+
+            });
            
-
-            var id = this.id;
-            window.location = "SelectExtras?idString=" + id ;
-
-        });
-        
-        // Calculate Charge
-        $('.Charge').click(function () {
-            hideUi();
-            var id = this.id;
-            document.getElementById(id).disabled = true;
-            $.ajax({
-                type: 'POST',
-                data: "{'hireGroupDetailId':'" + id + "'}",
-                contentType: "application/json; charset=utf-8",
-                url: 'CalculateCharge',
-                dataType: 'json',
-                success: function (response) {
-                    document.getElementById(id).disabled = false;
-                    if (response.detail !== null) {
-                        showUi();
-                        if (response.hGcharge.TariffTypeCode == null)
-                        {alert("Standard rates are not defined for current tarrif type!");
-                            return;
+            // Calculate Charge
+            $('.Charge').click(function () {
+                var id = this.id;
+                if (document.getElementById("TCode_" + id).innerHTML != '(No Tariff Type)') {
+                    return false;
+                }
+                hideUi();
+                document.getElementById(id).disabled = true;
+                $.ajax({
+                    type: 'POST',
+                    data: "{'hireGroupDetailId':'" + id + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    url: 'CalculateCharge',
+                    dataType: 'json',
+                    success: function (response) {
+                        document.getElementById(id).disabled = false;
+                        if (response.detail !== null) {
+                            showUi();
+                            if (response.hGcharge.TariffTypeCode == null) {
+                                alert("Standard rates are not defined for current tarrif type!");
+                                return;
+                            }
+                            //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
+                            document.getElementById("TCode_" + id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
+                            document.getElementById("TotalC_" + id).innerHTML = response.hGcharge.TotalStandardCharge || '(No Standard Rate)';
                         }
-                      //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
-                        document.getElementById("TCode_" +id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
-                        document.getElementById("TotalC_" + id).innerHTML = response.hGcharge.TotalStandardCharge || '(No Standard Rate)';
-                    }
-                    else
-                    {
+                        else {
 
-                    }
+                        }
 
-                },
-                error: function () {
+                    },
+                    error: function () {
 
-                },
+                    },
+                });
             });
         });
+
+      
     </script>
 </body>
 </html>

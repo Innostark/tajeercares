@@ -133,6 +133,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetServiceItemRate.
+        /// </summary>
+        internal static string ServiceItemRate {
+            get {
+                return ResourceManager.GetString("ServiceItemRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CheckUserAvailability.
         /// </summary>
         internal static string UserAvailability {

@@ -1,7 +1,5 @@
 ﻿
-using System.Collections.Generic;
 using APIInterface.Models.RequestModels;
-using APIInterface.Models.ResponseModels;
 
 namespace APIInterface.WebApiInterfaces
 {
@@ -32,6 +30,11 @@ namespace APIInterface.WebApiInterfaces
         /// Gets Extras & Insurances
         /// </summary>
         string GetExtras_Insurances(long domainKey);
+
+        /// <summary>
+        /// Get Service Item Rate
+        /// </summary>
+        string GetServiceItemRate(GetServiceItemRateRequest request);
 
     }
 }

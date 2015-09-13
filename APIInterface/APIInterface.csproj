@@ -610,6 +610,7 @@
     <Content Include="Images\1397140769 - Copy.jpg" />
     <Content Include="Images\1397140769.jpg" />
     <Content Include="Images\213.png" />
+    <Content Include="Images\carPlaceHolder.png" />
     <Content Include="Images\FeatureBanner.PNG" />
     <Content Include="Images\FeatureBanner_1.PNG" />
     <Content Include="Images\featured-bg.png" />
@@ -789,6 +790,7 @@
     <Compile Include="Models\CountryList.cs" />
     <Compile Include="Models\InsuranceRtMainContent.cs" />
     <Compile Include="Models\InsuranceType.cs" />
+    <Compile Include="Models\RequestModels\GetServiceItemRateRequest.cs" />
     <Compile Include="Models\ResponseModels\ExtrasResponseModel.cs" />
     <Compile Include="Models\ResponseModels\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />
@@ -797,6 +799,7 @@
     <Compile Include="Models\RequestModels\GetCandidateHireGroupChargeRequest.cs" />
     <Compile Include="Models\RequestModels\WebApiGetAvailableHireGroupsRequest.cs" />
     <Compile Include="Models\ReservationForm.cs" />
+    <Compile Include="Models\ResponseModels\RaCandidateExtrasCharge.cs" />
     <Compile Include="Models\ResponseModels\WebApiHireGroupDetailResponse.cs" />
     <Compile Include="Models\ResponseModels\WebApiParentHireGroupsApiResponse.cs" />
     <Compile Include="Models\ServiceItem.cs" />

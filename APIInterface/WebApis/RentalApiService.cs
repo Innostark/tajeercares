@@ -58,6 +58,14 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.ExtrasInsurances;
              }
          }
+
+         private string ServiceItemRateUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.ServiceItemRate;
+             }
+         }
          #endregion
         #region Public 
 
@@ -67,7 +75,7 @@ namespace APIInterface.WebApis
          /// </summary>
          public string GetSitecontent(string url)
          {
-             GeneralRequest obj = new GeneralRequest { URL = url };
+             var obj = new GeneralRequest { URL = url };
              Task<string> sitecontentAsync = GetSitecontentAsync(obj);
              return sitecontentAsync.Result;
          }
@@ -208,6 +216,37 @@ namespace APIInterface.WebApis
             var request = new GeneralRequest {DomainKey = domainkey,URL = null};
             string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
             HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(ExtrasInsuranceUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+
+
+
+        /// <summary>
+        /// Get Service Item Rate
+        /// </summary>
+        public string GetServiceItemRate(GetServiceItemRateRequest request)
+        {
+            return GetServiceItemRateAsync(request).Result;
+        }
+
+
+        /// <summary>
+        ///  Get Service Item Rate api async
+        /// </summary>
+        private async Task<string> GetServiceItemRateAsync(GetServiceItemRateRequest request)
+        {
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(ServiceItemRateUri)).ConfigureAwait(false);
             if (responseMessage == null)
             {
                 return "Failure";

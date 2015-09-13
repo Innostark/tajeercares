@@ -1,4 +1,5 @@
-﻿@{
+﻿@using APIInterface.Models.ResponseModels
+@{
     ViewBag.Title = "SelectCar";
     Layout = null;
 }
@@ -25,7 +26,7 @@
             <div id="branding-content">
                 <div class="title-content">
                     <a href="01-home-v1.html" title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
-                    <h1 class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
+                    <h1 style=" width: 200%;" class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
 
@@ -120,39 +121,38 @@
                             <div class="product-img">
                                 <img src="http://placehold.it/105x55" alt="" />
                             </div>
+                            @{
+                                var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHG"];
+                            }
                             <div class="product-info">
                                 <div class="entry-format">
-                                    <div>Ford Escape</div>
-                                    <span>Economy</span>
+                                    <div>@hireGroup.HireGroup</div>
+                                    <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <p><img src="~/Images/images/passenger-icon.png" alt="" /> 5 passengers</p>
-                                    <p><img src="~/Images/images/suitcase-icon.png" alt="" /> 3 large suitcases, 2 small suitcase</p>
-                                    <p><img src="~/Images/images/transmission-icon.png" alt="" /> automatic transmission</p>
-                                    <p><img src="~/Images/images/air-icon.png" alt="" /> air conditioning</p>
-                                    <p><img src="~/Images/images/km_l-icon.png" alt="" /> 9 km/l</p>
+                                    <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.VehicleMake</span></p>
+                                    <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
+                                    <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
+                                    <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>
+                                    <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">$@hireGroup.StandardRt</span>  </p>
                                 </div>
                                 <div class="details">
                                     <div class="view-details">[+] View car details</div>
                                     <div class="close-details">[-] Close car details</div>
                                     <ul class="details-more">
-                                        <li>6-speaker radio/CD system</li>
-                                        <li>Escaro black fabric</li>
-                                        <li>Hybrid System display</li>
-                                        <li>Vehicle Stability Control</li>
-                                        <li>Hill-start Assist Control</li>
+                                        <li>No Detail!</li>
+                                       
                                     </ul>
                                 </div>
                             </div>
                         </div>
                        
                         <h4 class="extras">Extras</h4>
-                        <div class="widget-content widget-extras">
-                            <p>Infant Child Seats x 2 <span class="price">$200.00</span></p>
-                            <p>NeverLost <span class="price">$129.99</span></p>
+                        <div class="widget-content widget-extras" id="extras_Total_Sidebar">
+                            <p id="defaultItem">No Extra Item Added!</p>
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total: <span class="price">$3897.99</span>
+                            Total: <span class="price"></span><span id="overAllTotal"class="price">@hireGroup.StandardRt</span>
                         </div>
                     </div>
                 </aside>
@@ -176,19 +176,19 @@
                                             <div class="main-block_container">
                                                 <div class="additional-block_container">
                                                     <div class="checkbox-block extra" id="@(item.ServiceTypeId)">
-                                                        <input type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                        <input id="@("box_"+item.ServiceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
                                                     </div>
                                                     <div class="main-block">
                                                         <div class="product-img">
                                                             <img src="http://placehold.it/105x95" alt="" />
                                                         </div>
                                                         <div class="product-info">
-                                                            <h3 class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
+                                                            <h3 id="@("ItemName_"+item.ServiceTypeId)" class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
                                                             <div>@item.ServiceItemDescription</div>
                                                         </div>
                                                     </div>
                                                     <div class="additional-block">
-                                                        <p id=@(item.ServiceTypeId)>$0</p>
+                                                        <p id=@("rate_"+item.ServiceTypeId)>(Select Item)</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,7 +265,7 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
-    
+    <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script>
       
         function theFuncToCall(event) {
@@ -275,12 +275,60 @@
             hideUi();
         }
         $(document).on('click', '.insurance', theFuncToCall);
-        
-        function theFuncToCall(event) {
-            //func code
-          //  alert(this.id);
+       
+        function callExtra() {
+            var Id = this.id;
+            if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
+                var valueToMinus = document.getElementById("rate_" + Id).textContent;
+                document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
+                var list = document.getElementById('extras_Total_Sidebar');
+                var entryToBeRemoved = document.getElementById("exs_" + Id);
+                list.removeChild(entryToBeRemoved);
+                if ($("#extras_Total_Sidebar").children().length == 1) {
+                    $('#defaultItem').show();
+                }
+                var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
+                document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+
+
+                return false;
+            }
+            hideUi();
+            $.ajax({
+                type: 'POST',
+                data: "{'serviceItemId':'" + Id + "','quantity':'1'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'GetChargeForServiceItem',
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        document.getElementById("rate_" + Id).innerHTML = response.itemCharge.ServiceCharge;
+                        var list = document.getElementById('extras_Total_Sidebar');
+                        var itemName = document.getElementById('ItemName_' + Id).textContent;
+                        
+                        var newdiv = document.createElement('p');
+                        newdiv.setAttribute('id', 'exs_'+Id);
+                        newdiv.innerHTML = itemName+ ' <span class="price">' + response.itemCharge.ServiceCharge + '</span>';
+                        list.appendChild(newdiv);
+                       
+                        //  var newTotal =  response.itemCharge.ServiceCharge;
+                        var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
+                        document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
+
+                        
+                        $('#defaultItem').hide();
+                    }
+                    else {
+
+                    }
+                    showUi();
+                },
+                error: function () {
+                    showUi();
+                },
+            });
         }
-        $(document).on('click', '.extra', theFuncToCall);
+        $(document).on('click', '.extra', callExtra);
     </script>
 </body>
 </html>
