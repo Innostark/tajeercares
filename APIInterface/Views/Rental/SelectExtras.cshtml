@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>Renty - Car Rental &amp; Booking HTML5 Template</title>
+    <title>@Session["siteName"] &amp; @Session["siteTitle"]</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,7 +122,7 @@
                                 <img src="http://placehold.it/105x55" alt="" />
                             </div>
                             @{
-                                var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHG"];
+                                var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHireGroupDetail"];
                             }
                             <div class="product-info">
                                 <div class="entry-format">
@@ -240,7 +240,7 @@
 
                         </div>
                         <div class="next_page">
-                            <input class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;"onclick="location.href='@Url.Action("Checkout", "Best/Rental")'"  value="Continue to checkout" />
+                            <input type="button"class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;"onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"  value="Continue to checkout" />
                         </div>
                     </form>
                 </div>
@@ -304,7 +304,7 @@
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.insuranceCharge.Charge;
-                        extrasList.add(Id);
+                        extrasList.push(Id);
                         
                         $('#defaultItem').hide();
                     }
@@ -356,7 +356,7 @@
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
-                        extrasList.add(Id);
+                      //  extrasList.add(Id);
                         
                         $('#defaultItem').hide();
                     }
@@ -371,6 +371,39 @@
             });
         }
         $(document).on('click', '.extra', callExtra);
+        
+        function moveToCheckout() {
+            var total = parseInt(document.getElementById('overAllTotal').textContent);
+            
+            $.ajax({
+                url: "Checkout?total=" + 5,
+                type: 'GET',
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+         //   location.href = '@Url.Action("Checkout?total=" + 5, "Best/Rental")';
+            //$.ajax({
+            //    type: 'GET',
+            //    data: "{'total':'" + total + "','extras':'" + extrasList + "'}",
+            //    contentType: "application/json; charset=utf-8",
+            //    url: 'Checkout',
+            //    dataType: 'json',
+            //    success: function (response) {
+            //        if (response) {
+                       
+            //        }
+            //        else {
+            //            alert('failed');
+            //        }
+            //    },
+            //    error: function (aaa,aaaf,dfdf) {
+            //        alert('failed');
+            //    },
+            //});
+        }
+     
     </script>
 </body>
 </html>

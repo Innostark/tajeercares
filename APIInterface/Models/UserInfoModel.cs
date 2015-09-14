@@ -65,6 +65,16 @@ namespace APIInterface.Models
         /// <summary>
         /// List of all countries
         /// </summary>
-        public List<string> CountryList { get; set; } 
+        public List<string> CountryList { get; set; }
+
+
+        public double ServiceItemsTotal { get; set; }
+
+        public double InsurancesTotal { get; set; }
+
+        public double? SubTotal { get; set; }
+        public double? GrandTotal { get; set; }
+
+        public List<string> ItemsHtml { get; set; }
     }
 }

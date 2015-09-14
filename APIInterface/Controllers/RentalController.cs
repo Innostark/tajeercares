@@ -110,7 +110,7 @@ namespace APIInterface.Controllers
                         {
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
-                                Session["selectedHireGroupDetailId"] = cHireGroup;
+                                Session["selectedHireGroupDetail"] = cHireGroup;
                             }
                         }
                     }
@@ -203,21 +203,94 @@ namespace APIInterface.Controllers
 
 
         /// <summary>
+        /// Sets rate for Insurance Types
+        /// </summary>
+        private void SetRateForInsuranceType(long insuranceTyped, RaCandidateItemCharge response)
+        {
+            var extras = Session["Extras"] as ExtrasResponseModel;
+            foreach (var item in extras.InsuranceTypes)
+            {
+                if (item.InsuranceTypeId == insuranceTyped)
+                {
+                    item.InsuranceRate = response.Rate;
+                    item.InsuranceCharge = response.Charge;
+                }
+            }
+            Session["Extras"] = extras;
+        }
+
+        /// <summary>
         /// Sets Request For rate Insurance Type
         /// </summary>
         private GetCandidateInsuranceChargeRequest GetCandidateInsuranceChargeRequest(short insuranceTypeId)
         {
+            var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
             var requestModel = new GetCandidateInsuranceChargeRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
                 StartDtTime = (DateTime)Session["pickupDate"],
                 EndDtTime = (DateTime)Session["dropoffDate"],
-                HireGroupDetailId = long.Parse(Session["selectedHireGroupDetailId"].ToString()),
+                HireGroupDetailId = detailHireGroup.HireGroupDetailId,
                 RaCreatedDate = DateTime.Now,
                 Domainkey = long.Parse(Session["UserDomainKey"].ToString()),
                 InsuranceTypeId = insuranceTypeId
             };
             return requestModel;
+        }
+        
+        /// <summary>
+        /// Extras Total
+        /// </summary>
+        private  double GetExtrasTotal(int[] extrasIds, int[] insurancesIds, ExtrasResponseModel extras,
+           out double insuranceTotal, out double serviceItemsTotal, out double? total, out List<string> items )
+        {
+            serviceItemsTotal = 0;
+            items = new List<string>();
+            foreach (var extra in extras.ServiceItems)
+            {
+                if (extrasIds.Any(id => id == extra.ServiceItemId))
+                {
+                    items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" + extra.ServiceCharge + "</span></p>");
+                    serviceItemsTotal = serviceItemsTotal + extra.ServiceCharge;
+                }
+            }
+            insuranceTotal = 0;
+            foreach (var ins in extras.InsuranceTypes)
+            {
+                if (insurancesIds.Any(id => id == ins.InsuranceTypeId))
+                {
+                    items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + ins.InsuranceCharge + "</span></p>");
+                    insuranceTotal = insuranceTotal + ins.InsuranceCharge;
+                }
+            }
+            var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
+            total = detailHireGroup.StandardRt;
+            return serviceItemsTotal;
+        }
+
+
+        /// <summary>
+        /// Setting up Request n Session
+        /// </summary>
+        private HomeModel SettingRequestNSession(SiteContentResponseModel response)
+        {
+            Session["siteName"] = response.SiteContent.CompanyDisplayName;
+            Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
+            Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
+            var model = new HomeModel
+            {
+                ReservationForm = new ReservationForm
+                {
+                    PickupDateTime = DateTime.Now,
+                    DropoffDateTime = DateTime.Now.AddDays(1)
+                },
+                Sitecontent = response.SiteContent,
+                OperationsWorkPlaces = response.OperationsWorkPlaces
+            };
+
+            // For further Use on next pages 
+            Session["WPS"] = response.OperationsWorkPlaces;
+            return model;
         }
 
         #endregion
@@ -233,7 +306,6 @@ namespace APIInterface.Controllers
        /// <summary>
        /// Index Of URL
        /// </summary>
-       [HttpPost]
         public ActionResult Index()
         {
             if (Request.Url != null)
@@ -251,22 +323,7 @@ namespace APIInterface.Controllers
                     }
 
                     // Setting up session 
-                    Session["siteName"] = response.SiteContent.CompanyDisplayName;
-                    Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
-                    Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
-                    var model = new HomeModel
-                    {
-                        ReservationForm = new ReservationForm
-                        {
-                            PickupDateTime = DateTime.Now,
-                            DropoffDateTime = DateTime.Now.AddDays(1)
-                        },
-                        Sitecontent = response.SiteContent,
-                        OperationsWorkPlaces = response.OperationsWorkPlaces
-                    };
-
-                    // For further Use on next pages 
-                    Session["WPS"] = response.OperationsWorkPlaces;
+                    var model = SettingRequestNSession(response);
                     return View(model);
                 }
 
@@ -276,10 +333,10 @@ namespace APIInterface.Controllers
         }
 
 
+
         /// <summary>
         /// Car Selection
         /// </summary>
-        [HttpPost]
         public ActionResult SelectCar(HomeModel model)
         {
             ExtractDataFromReservationForm(model);
@@ -296,7 +353,6 @@ namespace APIInterface.Controllers
          /// <summary>
          /// Extra's Selection
          /// </summary>
-         [HttpPost]
         public ActionResult SelectExtras(string hireGroupDetailId)
          {
             ExtractHireGroupById(hireGroupDetailId);
@@ -310,17 +366,34 @@ namespace APIInterface.Controllers
         /// Final Screen | Checkout
         /// </summary>
         [HttpGet]
-        public ActionResult Checkout()
+        public ActionResult Checkout(int[] extrasIds, int[] insurancesIds)
         {
-            var model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+            var extras = Session["Extras"] as ExtrasResponseModel;
+            double insuranceTotal=0;
+            double serviceItemsTotal=40;
+            double? total=180;
+            List<string> items = new List<string>();
+            items.Add("<p>GPS-GPS Navigation <span class='price'>" + 40 + "</span></p>");
+       //     GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
+            var model = new UserInfoModel
+            {
+                CountryList = CountryList.Countries.ToList(),
+                ItemsHtml = items,
+                InsurancesTotal = insuranceTotal,
+                ServiceItemsTotal = serviceItemsTotal,
+                SubTotal = total, // hire group wala
+                GrandTotal = total + serviceItemsTotal + insuranceTotal
+            };
+
             return View(model);
         }
 
+       
 
         /// <summary>
         /// Final Screen | Checkout
         /// </summary>
-         [HttpPost]
+        [HttpPost]
         public ActionResult Checkout(UserInfoModel model)
         {
             if (ModelState.IsValid)
@@ -335,7 +408,6 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Calculate Charge For hire Group on Car Selection
         /// </summary>
-        [HttpPost]
         public JsonResult CalculateCharge(string hireGroupDetailId)
         {
             var requestModel = SetCandidateHireGroupChargeRequest(hireGroupDetailId);
@@ -354,7 +426,6 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Get Service rate For Service Item
         /// </summary>
-        [HttpPost]
         public JsonResult GetChargeForServiceItem(long serviceItemId, int quantity)
         {
             var requestModel = GetServiceItemRateRequest(serviceItemId, quantity);
@@ -371,13 +442,13 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Get Service rate For Insurance Type
         /// </summary>
-        [HttpPost]
         public JsonResult GetChargeForInsuranceType(short insuranceTypeId)
         {
             var requestModel = GetCandidateInsuranceChargeRequest(insuranceTypeId);
             var response= rentalApiService.GetInsuranceTypeRate(requestModel);
             if (response != null)
             {
+                SetRateForInsuranceType(insuranceTypeId, response);
                 return Json(new { insuranceCharge = response });
             }
             return null;     

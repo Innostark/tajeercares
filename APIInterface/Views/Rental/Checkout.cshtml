@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>Renty - Car Rental &amp; Booking HTML5 Template</title>
+    <title>@Session["siteName"] &amp; @Session["siteTitle"]</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +22,11 @@
             <div id="branding-content">
                 <div class="title-content">
                     <a href="01-home-v1.html" title=""><img class="site-logo" src="images/thumb.png" alt="" /></a>
-                    <h1 class="site-title"><a href="01-home-v1.html" title="">Renty</a></h1>
+                    <h1 style=" width: 200%;" class="site-title"><a href="01-home-v1.html" title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
                     <ul>
-                       <!--menue here-->
+                        <!--menue here-->
                     </ul>
                 </div><!-- .access -->
                 <div class="menus-content">
@@ -34,12 +34,12 @@
                         <div class="language">
                             <select class="select" name="select_language">
                                 <option selected="selected">English</option>
-                                <option >Arabic</option>
+                                <option>Arabic</option>
                             </select>
                         </div>
-                       
+
                     </div>
-                   
+
                 </div>
             </div><!-- #branding-content -->
             <div class="clear"></div>
@@ -82,27 +82,26 @@
                             <div class="product-img">
                                 <img src="http://placehold.it/105x55" alt="" />
                             </div>
+                            @{
+                                var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHireGroupDetail"];
+                            }
                             <div class="product-info">
                                 <div class="entry-format">
-                                    <div>Ford Escape</div>
-                                    <span>Economy</span>
+                                    <div>@hireGroup.HireGroup</div>
+                                    <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <p><img src="images/passenger-icon.png" alt="" /> 5 passengers</p>
-                                    <p><img src="images/suitcase-icon.png" alt="" /> 3 large suitcases, 2 small suitcase</p>
-                                    <p><img src="images/transmission-icon.png" alt="" /> automatic transmission</p>
-                                    <p><img src="images/air-icon.png" alt="" /> air conditioning</p>
-                                    <p><img src="images/km_l-icon.png" alt="" /> 9 km/l</p>
+                                    <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.VehicleMake</span></p>
+                                    <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
+                                    <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
+                                    <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>
+                                    <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">$@hireGroup.StandardRt</span>  </p>
                                 </div>
                                 <div class="details">
                                     <div class="view-details">[+] View car details</div>
                                     <div class="close-details">[-] Close car details</div>
                                     <ul class="details-more">
-                                        <li>6-speaker radio/CD system</li>
-                                        <li>Escaro black fabric</li>
-                                        <li>Hybrid System display</li>
-                                        <li>Vehicle Stability Control</li>
-                                        <li>Hill-start Assist Control</li>
+                                        <li>No Detail!</li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,14 +112,16 @@
                         </h4>
                         <div class="widget-content widget-info">
                             <h4>Pick Up time</h4>
-                            <p>Wed, 06 Mar, 2013 at 10:00</p>
+                            <p>@Session["pickupDate"]</p>
                             <h4>Return time</h4>
-                            <p>Thu, 21 Mar, 2013 at 10:00</p>
-                            <h4>Pickup and Return Location</h4>
-                            <p>New York City JFK Airport</p>
+                            <p>@Session["dropoffDate"]</p>
+                            <h4>Pickup Location</h4>
+                            <p>@Session["pickupName"]</p>
+                            <h4>Return Location</h4>
+                            <p>@Session["dropoffName"]</p>
                             <div class="subtotal_content">
                                 <div class="subtotal">
-                                    Subtotal: <span class="price">$3568.00</span>
+                                    Subtotal: <span class="price">@(Model.SubTotal) </span>
                                 </div>
                             </div>
                         </div>
@@ -129,107 +130,108 @@
                             <a href="05-choose-extras.html" title="">Edit</a>
                         </h4>
                         <div class="widget-content widget-extras">
-                            <p>Infant Child Seats x 2 <span class="price">$200.00</span></p>
-                            <p>NeverLost <span class="price">$129.99</span></p>
+                            @if (Model.ItemsHtml != null)
+                            {
+                                foreach (var item in Model.ItemsHtml)
+                                {
+                                    @Html.Raw(item)
+                                }
+                            }
+                            
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total: <span class="price">$3897.99</span>
+                            Total: <span class="price">@Model.GrandTotal</span>
                         </div>
                     </div>
                 </aside>
                 <div id="content" class="sidebar-middle">
+                    @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-@using (Html.BeginForm("Checkout", "Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
-{
-        <div class="widget main-widget main-widget-3column">
-            <div class="widget-title">
-                <div>
-                    <img src="images/list.png" alt="" />
-                    Complete reservation form
-                </div>
-                <div class="clear"></div>
-            </div>
-            <h4>Note</h4>
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
-            <div class="widget-content widget-note">
-                <h4>Upon completing this reservation, you will receive:</h4>
-                <ul>
-                    <li>Your rental voucher to produce on arrival at the rental desk</li>
-                    <li>A toll-free customer support number</li>
-                </ul>
-            </div>
-            <h4>Personal information</h4>
-            <div class="widget-content">
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.FName, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control", placeholder = "Enter your first name" })
-                    
-                </div>
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.LName, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control", placeholder = "Enter your last name" })
-                </div>
-               
-                <div class="clear"></div>
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.Email, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email address" })
-                </div>
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.ConfirmEmail, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", placeholder = "Re-enter your email address" })
-                </div>
-                <div class="clear"></div>
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter your Phone Number" })
-                </div>
-                <div class="clear"></div>
+                    @using (Html.BeginForm("Checkout", "Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
+                    {
+                        <div class="widget main-widget main-widget-3column">
+                            <div class="widget-title">
+                                <div>
+                                    <img src="images/list.png" alt="" />
+                                    Complete reservation form
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <h4>Note</h4>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
+                            <div class="widget-content widget-note">
+                                <h4>Upon completing this reservation, you will receive:</h4>
+                                <ul>
+                                    <li>Your rental voucher to produce on arrival at the rental desk</li>
+                                    <li>A toll-free customer support number</li>
+                                </ul>
+                            </div>
+                            <h4>Personal information</h4>
+                            <div class="widget-content">
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.FName, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control", placeholder = "Enter your first name" })
+                                    @Html.ValidationMessageFor(m => m.FName)
+                                </div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.LName, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control", placeholder = "Enter your last name" })
+                                    @Html.ValidationMessageFor(m => m.LName)
+                                </div>
 
-            </div>
-            <h4>Billing address</h4>
-            <div class="widget-content personal_info">
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.City, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter City" })
-                </div>
-                <div class="form_element">
-                    @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "" })
-                    <div class="card_country" style="    margin-top: 0px;">
-                        @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { name = "card_country", id = "countryList" })
-                    </div>
-                </div>
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.PostalCode, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Enter Post Code" })
-                </div>
-                
-                <div class="form_element">
-                    <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
-                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", style="width: 171%", placeholder = "Enter Billing Address" })
-                </div>
+                                <div class="clear"></div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.Email, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email address" })
+                                </div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.ConfirmEmail, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", placeholder = "Re-enter your email address" })
+                                </div>
+                                <div class="clear"></div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter your Phone Number" })
+                                </div>
+                                <div class="clear"></div>
 
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="next_page">
-            <input class="continue_button blue_button" type="submit" value="Book Now" />
-        </div>
-}
+                            </div>
+                            <h4>Billing address</h4>
+                            <div class="widget-content personal_info">
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.City, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter City" })
+                                </div>
+                                <div class="form_element">
+                                    @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "" })
+                                    <div class="card_country" style="    margin-top: 0px;">
+                                        @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { name = "card_country", id = "countryList" })
+                                    </div>
+                                </div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.PostalCode, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Enter Post Code" })
+                                </div>
+
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", style = "width: 171%", placeholder = "Enter Billing Address" })
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="next_page">
+                            <input class="continue_button blue_button" type="submit" value="Book Now" />
+                        </div>
+                    }
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>
-        <footer id="footer">
-         
-            <div id="footer-content">
-                <img class="site-logo" src="images/thumb.png" alt="" />
-                <h1 class="site-title">Renty</h1>
-                <div class="company-name">Renty Company Inc,120 CA 15th Avenue - Suite 214</div>
-            </div><!-- #div-content -->
-        </footer><!--end:footer-->
+        <footer id="footer"></footer><!--end:footer-->
     </div><!--end:conteiner-->
 
     <script type="text/javascript" src="~/Scripts/js/jquery-1.10.1.min.js"></script>
@@ -243,5 +245,16 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    <script>
+        $("form").submit(function () {
+            alert('wiat');
+            if (!$(this).valid()) {
+                alert('if');
+                return false;
+            } else {
+                alert('else');
+            }
+        });
+    </script>
 </body>
 </html>

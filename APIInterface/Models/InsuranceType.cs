@@ -22,5 +22,16 @@ namespace APIInterface.Models
         /// Insurance Type Description
         /// </summary>
         public string InsuranceTypeDescription { get; set; }
+
+
+        /// <summary>
+        /// Rate
+        /// </summary>
+        public double InsuranceRate { get; set; }
+
+        /// <summary>
+        /// Charge
+        /// </summary>
+        public double InsuranceCharge { get; set; }
     }
 }
