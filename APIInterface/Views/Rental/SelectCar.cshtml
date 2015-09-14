@@ -149,18 +149,22 @@
                                                                     </div>
                                                                     
                                                                 </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 60%; float: left;">
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
                                                                     <div class="product-info">
                                                                         <h3 class="entry-format">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
                                                                         <div class="features" style="margin-bottom: 12px;">
                                                                             <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
                                                                             <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
                                                                             <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
-                                                                            <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>
-                                                                            <p title="Charge" style="margin-left: 2px;"><img style="width: 4%" src="~/Images/images/currency.png" alt="" /><span style="margin-left: -4px" id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
+                                                                            @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>*@
                                                                         </div>
-                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Calculate Charge" />
+                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
                                                                         <input  title="Select Vehicle" id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
+                                                                    <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
+                                                                        <p title="Charge" style="margin-left: 2px;"><span></span><span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -228,7 +232,7 @@
             // Vehicle Selection submition
             $('.Select').click(function () {
                 var id = this.id;
-                if (document.getElementById("TCode_" + id).innerHTML == '(No Tariff Type)') {
+                if (document.getElementById("TotalC_" + id).innerHTML == '(No Standard Rate)') {
                     $.growlUI('', 'Calculate Charge First!');
                     return false;
                 }
@@ -239,7 +243,7 @@
             // Calculate Charge
             $('.Charge').click(function () {
                 var id = this.id;
-                if (document.getElementById("TCode_" + id).innerHTML != '(No Tariff Type)') {
+                if (document.getElementById("TotalC_" + id).innerHTML != '(No Standard Rate)') {
                     return false;
                 }
                 hideUi();
@@ -259,7 +263,7 @@
                                 return;
                             }
                             //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
-                            document.getElementById("TCode_" + id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
+                         //   document.getElementById("TCode_" + id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
                             document.getElementById("TotalC_" + id).innerHTML = response.hGcharge.TotalStandardCharge || '(No Standard Rate)';
                         }
                         else {

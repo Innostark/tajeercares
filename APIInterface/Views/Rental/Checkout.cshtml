@@ -95,7 +95,7 @@
                                     <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
                                     <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
                                     <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>
-                                    <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">$@hireGroup.StandardRt</span>  </p>
+                                    @*<p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">$@hireGroup.StandardRt</span>  </p>*@
                                 </div>
                                 <div class="details">
                                     <div class="view-details">[+] View car details</div>
@@ -147,7 +147,7 @@
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("Checkout", "Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
+                    @using (Html.BeginForm("BookCar", "Best/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">
@@ -205,8 +205,8 @@
                                 </div>
                                 <div class="form_element">
                                     @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "" })
-                                    <div class="card_country" style="    margin-top: 0px;">
-                                        @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { name = "card_country", id = "countryList" })
+                                    <div class="card_country" style="margin-top: 0px;">
+                                        @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { name = "card_country", id = "countryList", style = "width: 108%;" })
                                     </div>
                                 </div>
                                 <div class="form_element">

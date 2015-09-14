@@ -788,6 +788,7 @@
     </Compile>
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\CountryList.cs" />
+    <Compile Include="Models\ExtrasIdsContainer.cs" />
     <Compile Include="Models\InsuranceRtMainContent.cs" />
     <Compile Include="Models\InsuranceType.cs" />
     <Compile Include="Models\RequestModels\GetCandidateInsuranceChargeRequest.cs" />
@@ -833,6 +834,7 @@
     <Content Include="Views\Rental\SelectExtras.cshtml" />
     <Content Include="Views\Rental\Checkout.cshtml" />
     <Content Include="Views\ErrorHandler\Index.cshtml" />
+    <Content Include="Views\Rental\BookCar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

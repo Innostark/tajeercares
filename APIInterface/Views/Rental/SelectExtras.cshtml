@@ -133,7 +133,7 @@
                                     <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.VehicleMake</span></p>
                                     <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
                                     <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
-                                    <p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>
+                                    @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>*@
                                     <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">$@hireGroup.StandardRt</span>  </p>
                                 </div>
                                 <div class="details">
@@ -157,7 +157,6 @@
                     </div>
                 </aside>
                 <div id="content" class="sidebar-middle">
-                    <form >
                         <div class="widget main-widget product-widget main-widget-3column">
                             <div class="widget-title">
                                 <div>
@@ -166,7 +165,8 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @if (ViewBag.Data != null)
+                      
+                             @if (ViewBag.Data != null)
                             {
                                 var extras = ViewBag.Data.ServiceItems;
                                 foreach (var item in extras)
@@ -239,10 +239,19 @@
                             }   <!-- extras Null ends-->
 
                         </div>
-                        <div class="next_page">
-                            <input type="button"class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;"onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"  value="Continue to checkout" />
-                        </div>
-                    </form>
+                        @model APIInterface.Models.ExtrasIdsContainer
+                        @{
+                                               
+                        }
+                        @using (Html.BeginForm("Checkout", "Best/Rental", FormMethod.Get, new { @class = "form-horizontal  custom-group", role = "form", id="temp" }))
+                        {
+                            <input type="hidden" name="ServiceItemsIds" id="ServiceItemsIds" value="shurmkro"/>
+                            <input type="hidden" name="InsurancesIds" id="InsurancesIds" value="shurmkro" />
+                            <div class="next_page" >
+                                <input id="done" type="submit" class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;" @*onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"*@ value="Continue to checkout" />
+                            </div>
+                        }
+                       
                 </div>
                 <div class="clear"></div>
             </div>
@@ -267,7 +276,22 @@
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script>
-      var extrasList = new Array();
+        var extrasList = new Array();
+        var insurancesList = new Array();
+       
+        $("form").submit(function () {
+            var index;
+            var text = '-99';
+            for (index = 0; index < extrasList.length; index++) {
+                text = extrasList[index] + "," + text;
+            }
+            $("#ServiceItemsIds").val(text);
+            text = '-99';
+            for (index = 0; index < insurancesList.length; index++) {
+                text = insurancesList[index] + "," + text;
+            }
+            $("#InsurancesIds").val(text);
+        });
       function callInsurance() {
             var Id = this.id;
             if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
@@ -281,6 +305,10 @@
                 }
                 var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                 document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+                var index = insurancesList.indexOf(Id);
+                if (index > -1) {
+                    insurancesList.splice(index, 1);
+                }
                 return false;
             }
             hideUi();
@@ -304,7 +332,7 @@
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.insuranceCharge.Charge;
-                        extrasList.push(Id);
+                        insurancesList.push(Id);
                         
                         $('#defaultItem').hide();
                     }
@@ -333,6 +361,10 @@
                 }
                 var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                 document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+                var index = extrasList.indexOf(Id);
+                if (index > -1) {
+                    extrasList.splice(index, 1);
+                }
                 return false;
             }
             hideUi();
@@ -356,7 +388,7 @@
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
-                      //  extrasList.add(Id);
+                         extrasList.push(Id);
                         
                         $('#defaultItem').hide();
                     }

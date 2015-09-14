@@ -241,14 +241,14 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Extras Total
         /// </summary>
-        private  double GetExtrasTotal(int[] extrasIds, int[] insurancesIds, ExtrasResponseModel extras,
+        private  double GetExtrasTotal(string[] extrasIds, string[] insurancesIds, ExtrasResponseModel extras,
            out double insuranceTotal, out double serviceItemsTotal, out double? total, out List<string> items )
         {
             serviceItemsTotal = 0;
             items = new List<string>();
             foreach (var extra in extras.ServiceItems)
             {
-                if (extrasIds.Any(id => id == extra.ServiceItemId))
+                if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
                 {
                     items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" + extra.ServiceCharge + "</span></p>");
                     serviceItemsTotal = serviceItemsTotal + extra.ServiceCharge;
@@ -257,7 +257,7 @@ namespace APIInterface.Controllers
             insuranceTotal = 0;
             foreach (var ins in extras.InsuranceTypes)
             {
-                if (insurancesIds.Any(id => id == ins.InsuranceTypeId))
+                if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
                 {
                     items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + ins.InsuranceCharge + "</span></p>");
                     insuranceTotal = insuranceTotal + ins.InsuranceCharge;
@@ -293,6 +293,14 @@ namespace APIInterface.Controllers
             return model;
         }
 
+
+        /// <summary>
+        /// Converts string to Ids
+        /// </summary>
+        private string[] GetIdsFromString(string rawString)
+        {
+            return rawString.Split(',');
+        }
         #endregion
         public RentalController()
         {
@@ -356,7 +364,7 @@ namespace APIInterface.Controllers
         public ActionResult SelectExtras(string hireGroupDetailId)
          {
             ExtractHireGroupById(hireGroupDetailId);
-            var response =   rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
+            ExtrasResponseModel response = rentalApiService.GetExtras_Insurances(long.Parse(Session["UserDomainKey"].ToString()));
             ViewBag.Data =  Session["Extras"]=response;
             return View();
         }
@@ -366,15 +374,17 @@ namespace APIInterface.Controllers
         /// Final Screen | Checkout
         /// </summary>
         [HttpGet]
-        public ActionResult Checkout(int[] extrasIds, int[] insurancesIds)
+        public ActionResult Checkout(string ServiceItemsIds, string InsurancesIds)
         {
             var extras = Session["Extras"] as ExtrasResponseModel;
+            var extrasIds = GetIdsFromString(ServiceItemsIds);
+            var insurancesIds = GetIdsFromString(InsurancesIds);
             double insuranceTotal=0;
-            double serviceItemsTotal=40;
-            double? total=180;
-            List<string> items = new List<string>();
+            double serviceItemsTotal=0;
+            double? total=0;
+            var items = new List<string>();
             items.Add("<p>GPS-GPS Navigation <span class='price'>" + 40 + "</span></p>");
-       //     GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
+            GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
             var model = new UserInfoModel
             {
                 CountryList = CountryList.Countries.ToList(),
@@ -401,7 +411,7 @@ namespace APIInterface.Controllers
                 //
             }
             model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
-            return View(model);
+            return View();
         }
       
        
@@ -454,6 +464,14 @@ namespace APIInterface.Controllers
             return null;     
         }
 
+        /// <summary>
+        /// Booking Finalize
+        /// </summary>
+        public ActionResult BookCar(UserInfoModel model)
+        {
+
+            return View();
+        }
       
         #endregion
     }
