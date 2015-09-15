@@ -24,6 +24,11 @@ namespace APIInterface.Models.ResponseModels
         /// </summary>
         public double? DropoffCharge { get; set; }
 
+        /// <summary>
+        /// Hire Group Description
+        /// </summary>
+        public string Description { get; set; }
+
 
         /// <summary>
         /// List of children Hire Group 

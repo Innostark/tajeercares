@@ -134,7 +134,7 @@
                                             int i = 0;
                                             foreach (var item in ViewBag.HGDetail)
                                             {
-                                                <h3 id=@(+item.HireGroupId) >@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
+                                                <h3 title="@item.Description" id=@(+item.HireGroupId) >@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
                                                 <div class="container-fluid">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
                                                     @if (item.SubHireGroups.Count !=0)
@@ -151,7 +151,7 @@
                                                                 </div>
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
                                                                     <div class="product-info">
-                                                                        <h3 class="entry-format">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
+                                                                        <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
                                                                         <div class="features" style="margin-bottom: 12px;">
                                                                             <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
                                                                             <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>

@@ -157,6 +157,6 @@
     <value>GetServiceItemRate</value>
   </data>
   <data name="InsuranceTypeRate" xml:space="preserve">
-    <value>RentalAgreementCandidateInsuranceCharge</value>
+    <value>GetInsuranceTypeRate</value>
   </data>
 </root>

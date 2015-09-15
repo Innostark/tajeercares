@@ -106,7 +106,7 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RentalAgreementCandidateInsuranceCharge.
+        ///   Looks up a localized string similar to GetInsuranceTypeRate.
         /// </summary>
         internal static string InsuranceTypeRate {
             get {
