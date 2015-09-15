@@ -33,5 +33,10 @@ namespace APIInterface.Models
         /// Charge
         /// </summary>
         public double InsuranceCharge { get; set; }
+
+        /// <summary>
+        /// ImageUrl
+        /// </summary>
+        public string ImageUrl { get; set; }
     }
 }

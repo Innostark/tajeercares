@@ -22,5 +22,15 @@ namespace APIInterface.Models
         /// Operation Id
         /// </summary>
         public long OperationId { get; set; }
+
+        /// <summary>
+        /// Longitude
+        /// </summary>
+        public string Longitude { get; set; }
+
+        /// <summary>
+        /// Latitude
+        /// </summary>
+        public string Latitude { get; set; }
     }
 }

@@ -45,7 +45,11 @@ namespace APIInterface.Models
         /// </summary>
         public double ServiceRate { get; set; }
 
-       
+
+        /// <summary>
+        /// ImageUrl
+        /// </summary>
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// Service Charge
