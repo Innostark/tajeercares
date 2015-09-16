@@ -70,6 +70,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SAR.
+        /// </summary>
+        internal static string CurrencySymbol {
+            get {
+                return ResourceManager.GetString("CurrencySymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetServiceItemsInsurances.
         /// </summary>
         internal static string ExtrasInsurances {

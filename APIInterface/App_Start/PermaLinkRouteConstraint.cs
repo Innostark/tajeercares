@@ -73,6 +73,13 @@ namespace APIInterface.App_Start
                values["customRoute"] = "Best/Rental/BookCar";
                return true;
            }
+           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "Index")
+           {
+               values["controller"] = "Rental";
+               values["action"] = "Index";
+               values["customRoute"] = "Best/Rental/Index";
+               return true;
+           }
             if (parms.Count()== 1)
             {
                 values["controller"] = "Rental";

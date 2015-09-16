@@ -255,7 +255,7 @@ namespace APIInterface.Controllers
             {
                 if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
                 {
-                    items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" + extra.ServiceCharge + "</span></p>");
+                    items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" +"SAR "+ extra.ServiceCharge + "</span></p>");
                     serviceItemsTotal = serviceItemsTotal + extra.ServiceCharge;
                 }
             }
@@ -264,7 +264,7 @@ namespace APIInterface.Controllers
             {
                 if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
                 {
-                    items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + ins.InsuranceCharge + "</span></p>");
+                    items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + "SAR "+ins.InsuranceCharge + "</span></p>");
                     insuranceTotal = insuranceTotal + ins.InsuranceCharge;
                 }
             }
@@ -389,7 +389,6 @@ namespace APIInterface.Controllers
             double serviceItemsTotal=0;
             double? total=0;
             var items = new List<string>();
-            items.Add("<p>GPS-GPS Navigation <span class='price'>" + 40 + "</span></p>");
             GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
             var model = new UserInfoModel
             {

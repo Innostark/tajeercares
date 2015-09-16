@@ -16,9 +16,7 @@
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
     <style>
-        container-fluid ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active {
-            background-color: red
-        }
+     
     </style>
 </head>
 <body class="page page-two-column">
@@ -163,7 +161,7 @@
                                                                             @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>*@
                                                                         </div>
                                                                         <input title="Get Standard Rate" type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
-                                                                        <input  title="Select Vehicle" id=@(obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                        <input  title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn"  class="continue_button blue_button Select" hidden="" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
@@ -185,7 +183,7 @@
                                                     else
                                                     {
                                                         <center>
-                                                            @*<img src="~/Images/soldout.png" />*@  </center>
+                                                            <img src="~/Images/soldout.png" />  </center>
                                                     }
                                                 </div>
                                             } <!-- HG Loop-->
@@ -236,7 +234,7 @@
 
             // Vehicle Selection submition
             $('.Select').click(function () {
-                var id = this.id;
+                var id = this.id.substring(9, this.id.length);
                 if (document.getElementById("TotalC_" + id).innerHTML == '(No Standard Rate)') {
                     $.growlUI('', 'Calculate Charge First!');
                     return false;
@@ -267,9 +265,8 @@
                                 alert("Standard rates are not defined for current tarrif type!");
                                 return;
                             }
-                            //  document.getElementById("SRate_" + id.substring(7, id.length)).innerHTML = response.hGcharge.StandardRate;
-                         //   document.getElementById("TCode_" + id).innerHTML = response.hGcharge.TariffTypeCode || '(No Tariff Type)';
-                            document.getElementById("TotalC_" + id).innerHTML = response.hGcharge.TotalStandardCharge || '(No Standard Rate)';
+                            document.getElementById("TotalC_" + id).innerHTML = ("SAR "+ response.hGcharge.TotalStandardCharge);
+                            $("#selectId_"+id).show();
                         }
                         else {
 

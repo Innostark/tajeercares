@@ -159,4 +159,7 @@
   <data name="InsuranceTypeRate" xml:space="preserve">
     <value>GetInsuranceTypeRate</value>
   </data>
+  <data name="CurrencySymbol" xml:space="preserve">
+    <value>SAR</value>
+  </data>
 </root>
