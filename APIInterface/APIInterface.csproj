@@ -707,6 +707,7 @@
     <Content Include="Images\pics10.jpg" />
     <Content Include="Images\Rate_Banner.PNG" />
     <Content Include="Images\Service_Rate.PNG" />
+    <Content Include="Images\soldout.png" />
     <Content Include="Images\VehicleBanner.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -793,6 +794,7 @@
     <Compile Include="Models\InsuranceType.cs" />
     <Compile Include="Models\RequestModels\GetCandidateInsuranceChargeRequest.cs" />
     <Compile Include="Models\RequestModels\GetServiceItemRateRequest.cs" />
+    <Compile Include="Models\ReservationHours.cs" />
     <Compile Include="Models\ResponseModels\ExtrasResponseModel.cs" />
     <Compile Include="Models\ResponseModels\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />

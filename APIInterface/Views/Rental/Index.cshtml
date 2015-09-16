@@ -115,7 +115,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-10 col-md-offset-1">
                                                             <div class="form-search dark">
-                                                                @using (Html.BeginForm("SelectCar", "best/Rental", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
+                                                                @using (Html.BeginForm("SelectCar", "best/Rental", FormMethod.Post, new {@class = "form-horizontal  custom-group", role = "form"}))
                                                                 {
                                                                     <div class="form-title">
                                                                         <i class="fa fa-globe"></i>
@@ -125,44 +125,34 @@
                                                                         <div class="container-fluid">
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group has-icon has-label">
-                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupLocation, new { @class = "control-label", @for = "formSearchUpLocation" })
-                                                                                    @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location", new { @class = "form-control", style="width:97.5%"})
+                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupLocation, new {@class = "control-label", @for = "formSearchUpLocation"})
+                                                                                    @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location", new {@class = "form-control", style = "width:97.5%"})
                                                                                     <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3">
                                                                                 <div class="form-group has-icon has-label">
-                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupDateTime, new { @class = "control-label", @for = "formSearchUpDate" })
-                                                                                    @Html.TextBoxFor(m => m.ReservationForm.PickupDateTime, new { @class = "form-control", id = "formSearchUpDate", style = "width:95.5%" })
+                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupDateTime, new {@class = "control-label", @for = "formSearchUpDate"})
+                                                                                    @Html.TextBoxFor(m => m.ReservationForm.PickupDateTime, new {@class = "form-control", id = "formSearchUpDate", style = "width:95.5%"})
                                                                                     <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
                                                                                     <label>Picking Up Hour</label>
-                                                                                    <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                                                                    <select class="selectpicker input-price" id="pickUpForm" data-live-search="true" data-width="100%"
                                                                                             data-toggle="tooltip" title="Select">
-
-
-                                                                                        <option>20:00</option>
-                                                                                        <option>20:30</option>
-                                                                                        <option>21:00</option>
-                                                                                        <option>21:30</option>
-                                                                                        <option>22:00</option>
-                                                                                        <option>22:30</option>
-                                                                                        <option>23:00</option>
-                                                                                        <option>23:30</option>
-                                                                                        <option>00:00</option>
-                                                                                        <option>20:00</option>
-                                                                                        <option>20:30</option>
-                                                                                        <option>21:00</option>
-                                                                                        <option>21:30</option>
-                                                                                        <option>22:00</option>
-                                                                                        <option>22:30</option>
-                                                                                        <option>23:00</option>
-                                                                                        <option>23:30</option>
-                                                                                        <option>00:00</option>
-
+                                                                                        @foreach (var hour in @Model.ReservationForm.HoursList)
+                                                                                        {
+                                                                                            if (hour == "08:00")
+                                                                                            {
+                                                                                                <option selected="">@hour</option>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <option>@hour</option>
+                                                                                            }
+                                                                                        }
                                                                                     </select>
                                                                                     <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
                                                                                 </div>
@@ -173,46 +163,36 @@
                                                                         <div class="container-fluid">
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group has-icon has-label">
-                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffLocation, new { @class = "control-label", @for = "formSearchOffLocation" })
-                                                                                    @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new { @class = "form-control", style = "width:97.5%" })
+                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffLocation, new {@class = "control-label", @for = "formSearchOffLocation"})
+                                                                                    @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new {@class = "form-control", style = "width:97.5%"})
                                                                                     @*<input type="text" class="form-control" id="formSearchUpLocation" placeholder="Airport or Anywhere">*@
                                                                                     <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3">
                                                                                 <div class="form-group has-icon has-label">
-                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffDateTime, new { @class = "control-label", @for = "formSearchOffDate" })
+                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffDateTime, new {@class = "control-label", @for = "formSearchOffDate"})
                                                                                     @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
-                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new { @class = "form-control", id = "formSearchOffDate", style = "width:95.5%" })
+                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new {@class = "form-control", id = "formSearchOffDate", style = "width:95.5%"})
                                                                                     <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
                                                                                     <label>Dropping Off Hour</label>
-                                                                                    <select class="selectpicker input-price" data-live-search="true" data-width="100%"
+                                                                                    <select class="selectpicker input-price" id="dropoffForm" data-live-search="true" data-width="100%"
                                                                                             data-toggle="tooltip" title="Select">
-                                                                                        
-                                                                                      
-                                                                                            <option>20:00</option>
-                                                                                            <option>20:30</option>
-                                                                                            <option>21:00</option>
-                                                                                            <option>21:30</option>
-                                                                                            <option>22:00</option>
-                                                                                            <option>22:30</option>
-                                                                                            <option>23:00</option>
-                                                                                            <option>23:30</option>
-                                                                                            <option>00:00</option>
-                                                                                            <option>20:00</option>
-                                                                                            <option>20:30</option>
-                                                                                            <option>21:00</option>
-                                                                                            <option>21:30</option>
-                                                                                            <option>22:00</option>
-                                                                                            <option>22:30</option>
-                                                                                            <option>23:00</option>
-                                                                                            <option>23:30</option>
-                                                                                            <option>00:00</option>
-                                                                                        
+                                                                                        @foreach (var hour in @Model.ReservationForm.HoursList)
+                                                                                        {
+                                                                                            if (hour == "08:00")
+                                                                                            {
+                                                                                                <option selected="">@hour</option>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <option>@hour</option>
+                                                                                            }
+                                                                                        }
                                                                                     </select>
                                                                                     @*<input type="text" class="form-control" />*@
                                                                                     <span class="form-control-icon"><i class="fa fa-clock-o"></i></span>
@@ -223,10 +203,12 @@
                                                                     <div class="row row-submit">
                                                                         <div class="container-fluid">
                                                                             <div class="inner">
-                                                                                <button type="submit" id="formSearchSubmit" class="btn btn-submit btn-theme pull-right">Find Car</button>
+                                                                                <button type="submit" style="    margin-bottom: 20px;" id="formSearchSubmit" class="btn btn-submit btn-theme pull-right">Find Car</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    @Html.HiddenFor(m => m.ReservationForm.DropoffHours, new { @Value = "00:00", id = "DropoffHours" })
+                                                                    @Html.HiddenFor(m => m.ReservationForm.PickupHours, new { @Value = "0:00", id = "PickupHours" })
                                                                 }
                                                             </div>
                                                         </div>
@@ -248,8 +230,7 @@
                                                 <div class="caption-content">
                                                     <!-- Search form -->
                                                     <div class="form-search light">
-                                                    @using (Html.BeginForm("SelectCar", "best/Rental", FormMethod.Post, new {@class = "form-horizontal  custom-group", role = "form"}))
-                                                    {
+                                                    
                                                         <div class="form-title">
                                                             <i class="fa fa-globe"></i>
                                                             <h2>Search for Cheap Rental Cars Wherever Your Are</h2>
@@ -326,7 +307,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    }
                                                     </div>
                                                     <!-- /Search form -->
                                                     <h2 class="caption-subtitle">Find Your Car!<br /> Rent A Car Theme</h2>
@@ -745,9 +725,24 @@
     <script src="~/assets/js/theme-ajax-mail.js"></script>
     <script src="~/assets/js/theme.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="~/Scripts/_jquery.blockUI.js"></script>
+
     <script>
         $(document).ready(function () {
+            $("form").submit(function () {
+                $('#DropoffHours').val($('#dropoffForm').val());
+                $('#PickupHours').val($('#pickUpForm').val());
+                if ($("#ReservationForm_PickupLocation").val() == "") {
+                    $.growlUI('', 'Set Pick-up Location!');
+                    return false;
+                }
+                if ($("#ReservationForm_DropoffLocation").val() == "") {
+                    $.growlUI('', 'Set Drop-off Location!');
+                    return false;
+                }
+            });
         });
+        
     </script>
 </body>
 </html>

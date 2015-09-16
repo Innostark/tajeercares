@@ -1352,3 +1352,21 @@ jQuery(window).scroll(function () {
         $('.header.fixed').sticky('update');
     }
 });
+function hideUi() {
+    $.blockUI({
+        css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        }
+    });
+}
+
+function showUi() {
+
+    setTimeout($.unblockUI, 500);
+}

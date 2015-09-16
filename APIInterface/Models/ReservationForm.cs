@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace APIInterface.Models
@@ -14,8 +15,12 @@ namespace APIInterface.Models
 
 
         [Required]
-        [Display(Name = "Pick-Up Date Time")]
+        [Display(Name = "Pick-Up Date")]
         public DateTime PickupDateTime { get; set; }
+
+        [Required]
+        [Display(Name = "Pick-Up Hours")]
+        public string PickupHours { get; set; }
 
 
         [Required]
@@ -24,7 +29,17 @@ namespace APIInterface.Models
 
 
         [Required]
-        [Display(Name = "Drop-off Date Time")]
+        [Display(Name = "Drop-off Date")]
         public DateTime DropoffDateTime { get; set; }
+
+        [Required]
+        [Display(Name = "Drop-off Hours")]
+        public string DropoffHours { get; set; }
+
+
+        /// <summary>
+        /// Hours Data for Reservation
+        /// </summary>
+        public IEnumerable<string> HoursList { get; set; }
     }
 }

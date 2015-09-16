@@ -68,8 +68,13 @@ namespace APIInterface.Controllers
                         Session["dropoffCityId"] = obj.CityId;
                     }
                 }
-            Session["pickupDate"] = model.ReservationForm.PickupDateTime;
-            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime;
+            string[] parms=  model.ReservationForm.PickupHours.Split(':');
+            var span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
+            Session["pickupDate"] = model.ReservationForm.PickupDateTime = model.ReservationForm.PickupDateTime+span;
+
+            parms = model.ReservationForm.DropoffHours.Split(':');
+            span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
+            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime = model.ReservationForm.DropoffDateTime+span;
         }
 
 
@@ -282,7 +287,8 @@ namespace APIInterface.Controllers
                 ReservationForm = new ReservationForm
                 {
                     PickupDateTime = DateTime.Now,
-                    DropoffDateTime = DateTime.Now.AddDays(1)
+                    DropoffDateTime = DateTime.Now.AddDays(1),
+                    HoursList = ReservationHours.Hours.ToList()
                 },
                 Sitecontent = response.SiteContent,
                 OperationsWorkPlaces = response.OperationsWorkPlaces

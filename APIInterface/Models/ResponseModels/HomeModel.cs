@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace APIInterface.Models.ResponseModels
 {
@@ -22,5 +24,7 @@ namespace APIInterface.Models.ResponseModels
         /// Operations Work Places For Reservation Form 
         /// </summary>
         public IEnumerable<WebApiOperationWorkplace> OperationsWorkPlaces { get; set; }
+
+
     }
 }

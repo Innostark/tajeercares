@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
     <style>
-    
+        container-fluid ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active {
+            background-color: red
+        }
     </style>
 </head>
 <body class="page page-two-column">
@@ -123,7 +125,6 @@
                                     <img src="~/Images/images/list.png" alt="" />
                                     Results <span>(3 from 3)</span>
                                 </div>
-                                <div class="widget-title-sort"><span class="viev-all">Sort by: </span> <a href="#" title="" class="current">Price</a> | <a href="#" title="">Type</a></div>
                                 <div class="clear"></div>
                             </div>
                             <div class="post">
@@ -134,7 +135,10 @@
                                             int i = 0;
                                             foreach (var item in ViewBag.HGDetail)
                                             {
-                                                <h3 title="@item.Description" id=@(+item.HireGroupId) >@item.HireGroupCodeName -@item.HireGroupName | @item.DropoffCharge</h3>
+                                                <h3 title="@item.Description" id=@(+item.HireGroupId) ><span style=""> @item.HireGroupName</span><span style="float: right; margin-right: 3px;">@if (@item.DropoffCharge != 0)
+                                                                                                                                                                                                                         {
+                                                                                                                                                                                                                             <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
+                                                                                                                                                                                                                         }</span>   </h3>
                                                 <div class="container-fluid">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
                                                     @if (item.SubHireGroups.Count !=0)
@@ -180,7 +184,8 @@
                                                     }
                                                     else
                                                     {
-                                                        <p>No Sub-Hire Groups!</p>
+                                                        <center>
+                                                            @*<img src="~/Images/soldout.png" />*@  </center>
                                                     }
                                                 </div>
                                             } <!-- HG Loop-->
@@ -224,7 +229,7 @@
 
         $(document).ready(function () {
             $(function () {
-                $("#accordion").accordion();
+                $("#accordion").accordion({ collapsible: true, active: false });
             });
 
 
