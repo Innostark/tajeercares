@@ -263,7 +263,8 @@
                 if (document.getElementById("TotalC_" + id).innerHTML != '(No Standard Rate)') {
                     return false;
                 }
-                hideUi();
+                //hideUi();
+                
                 $.ajax({
                     type: 'POST',
                     data: "{'hireGroupDetailId':'" + id + "'}",
@@ -273,7 +274,7 @@
                     success: function (response) {
                        // document.getElementById(id).disabled = false;
                         if (response.detail !== null) {
-                            showUi();
+                           // showUi();
                             if (response.hGcharge.TariffTypeCode == null) {
                                 alert("Standard rates are not defined for current tarrif type!");
                                 return;
