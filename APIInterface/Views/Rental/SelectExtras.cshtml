@@ -68,40 +68,33 @@
             <div class="clear"></div>
         </div>
         <div id="main">
-            <form class="main-form disabled_form">
+            <form class="main-form">
                 <div id="book_car" class="title-form current">
-                    <img src="~/Images/images/edit_location.png" alt="" />
-                    Edit Location &amp; Date
+                    @*<img src="~/Images/images/search.png" alt="" />*@
+                    @*Search for a car:*@
                 </div>
                 <div id="book_car_content" class="content-form ">
-                    <div class="disabled_form_overlay"></div>
                     <div class="location-block">
-                        <div class="form-block location">Location</div>
-                        <div class="form-block airport_codes"><a href="#" title="">Airport codes</a></div>
-                        <input class="location" type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="select_time_from" disabled="disabled" />
-                        <input id="location-checkbox" type="checkbox" class="styled" name="checkbox_location" value="1" disabled="disabled" />
-                        <label for="location-checkbox"> Return at different location</label>
+                        <div class="form-block location">Pick-up Location</div>
+                        <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
+
                     </div>
-                    <div class="form-block pick-up">
+                    <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
                         <h4>Pick-up date</h4>
-                        <input style="width: 83%;"class="datepicker" type="text" value='@Session["pickupDate"]' name="data_from" disabled="disabled" />
-                        @*<input class="time-select" type="text" size="5" value="10:00" name="time_from" disabled="disabled" />*@
+                        <input class="datepicker" disabled type="text" style="width: 70%" name="data_from" value='@Session["pickupDate"]' />
+                        @*<input class="time-select" type="text" size="5"  name="time_from" />*@
                     </div>
-                    <div class="form-block drop-off">
+                    <div class="form-block drop-off" style=" margin-left: 8px;">
+                        <h4 style=" height: 18px;">Drop-off Location</h4>
+                        <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
+                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
+                    </div>
+                    <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
                         <h4>Drop-off date</h4>
-                        <input style ="width: 83%;" class="datepicker" type="text" name="data_to" value='@Session["dropoffDate"]' disabled="disabled" />
-                        @*<input class="time-select" type="text" size="5" value="10:00" name="time_to" disabled="disabled" />*@
+                        <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
+                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                     </div>
-                    @*<div class="form-block car-type">
-                        <h4>Car type</h4>
-                        <div class="car-type-select">
-                            <select class="select" name="select_cartype" disabled="disabled">
-                                <option selected="selected">Standard</option>
-                                <option>Mini</option>
-                            </select>
-                        </div>
-                    </div>*@
-                   
+
                 </div>
                 <div class="clear"></div>
             </form>

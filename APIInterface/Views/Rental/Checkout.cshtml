@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <style>
     
     </style>
@@ -22,7 +24,7 @@
             <div id="branding-content">
                 <div class="title-content">
                     <a title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
-                    <h1 style=" width: 200%;" class="site-title"><a  title="">@Session["siteName"]</a></h1>
+                    <h1 style=" width: 200%;" class="site-title"><a title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
                     <ul>
@@ -46,7 +48,7 @@
         </div><!-- #branding -->
         <div id="progress-bar">
             <div id="progress-bar-steps">
-                <a id="startingForm"class="progress-bar-step done" href='@Url.Action("Index", "Best/Rental/Index")'>
+                <a id="startingForm" class="progress-bar-step done" href='@Url.Action("Index", "Best/Rental/Index")'>
                     <div class="step_number">1</div>
                     <div class="step_name">Create request</div>
                 </a>
@@ -94,8 +96,9 @@
                                     <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
                                     <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
                                     @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>*@
-                                    <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </p></div>
-                                
+                                    <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </p>
+                                </div>
+
                             </div>
                         </div>
                         <h4>
@@ -129,7 +132,7 @@
                                     @Html.Raw(item)
                                 }
                             }
-                            
+
                         </div>
                         <div class="widget-footer widget-footer-total">
                             Total(SAR): <span class="price">@Model.GrandTotal</span>
@@ -149,9 +152,46 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <h4>Note</h4>
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
+                            <h4>Personal information</h4>
+                            <div class="widget-content">
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.FName, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", placeholder = "Enter your first name" })
+                                    @Html.ValidationMessageFor(m => m.FName)
+                                </div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.LName, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", placeholder = "Enter your last name" })
+                                    @Html.ValidationMessageFor(m => m.LName)
+                                </div>
+
+                                <div class="clear"></div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter your Phone Number" })
+                                </div>
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.Email, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", placeholder = "Enter your email address" })
+                                </div>
+                                <div class="clear"></div>
+
+                                <div class="form_element">
+                                    <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
+                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", placeholder = "Enter your billing address" })
+                                </div>
+                                <div class="form_element form-block pick-up" style="    margin-top: 12px;">
+                                    <h4>Date of Birth</h4>
+                                    <input class="datepicker validateMandatory" style="width: 75%;" type="text" id="dob_value" value="" name="data_from" />
+                                </div>
+                                <div class="clear"></div>
+                                @Html.HiddenFor(x => x.DOB)
+
+
+                            </div>
+                            <h4>Note</h4>
                             <div class="widget-content widget-note">
                                 <h4>Upon completing this reservation, you will receive:</h4>
                                 <ul>
@@ -159,40 +199,11 @@
                                     <li>A toll-free customer support number</li>
                                 </ul>
                             </div>
-                            <h4>Personal information</h4>
-                            <div class="widget-content">
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.FName, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control", placeholder = "Enter your first name" })
-                                    @Html.ValidationMessageFor(m => m.FName)
-                                </div>
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.LName, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control", placeholder = "Enter your last name" })
-                                    @Html.ValidationMessageFor(m => m.LName)
-                                </div>
 
-                                <div class="clear"></div>
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.Email, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email address" })
-                                </div>
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.ConfirmEmail, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", placeholder = "Re-enter your email address" })
-                                </div>
-                                <div class="clear"></div>
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter your Phone Number" })
-                                </div>
-                                <div class="clear"></div>
-
-                            </div>
-                          
                         </div>
                         <div class="next_page">
                             <input class="continue_button blue_button" type="submit" value="Book Now" />
+                            <input onclick="@Url.Action("Index", "Best/Rental/Index")" class="blue_button" type="submit" value="Cancel" style="background-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px;" />
                         </div>
                     }
                 </div>
@@ -214,6 +225,8 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/ISTUtility.js"></script>
     <script>
         $("#startingForm").hover(function () {
             var cls = document.getElementById("startingForm").className;
@@ -222,8 +235,14 @@
                 return false;
             }
             $("#startingForm").removeClass("progress-bar-step current").addClass("progress-bar-step done");
-            
+
+        });
+
+        $("form").submit(function () {
+            $("#DOB").val($("#dob_value").val());
+            return validateForm();
         });
     </script>
 </body>
+
 </html>

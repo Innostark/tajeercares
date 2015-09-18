@@ -16,6 +16,19 @@
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
     <style>
+        #accordion > h3 {
+            margin-top: 5px;
+        }
+
+        #accordion > h3:first-child {
+            margin-top: 0;
+        }
+        .ui-accordion-header-icon.ui-icon.ui-icon-minus {
+            height: 17px;
+            width: 16px;
+            background-color: rgb(231, 231, 231);
+        }
+
      
     </style>
 </head>
@@ -68,45 +81,33 @@
         </div>
         <div id="main">
             
-            <form id="slider-form" action="04-choose-car.html" class="main-form">
+            <form  class="main-form">
                 <div id="book_car" class="title-form current">
-                    <img src="~/Images/images/search.png" alt="" />
-                    Search for a car:
+                    @*<img src="~/Images/images/search.png" alt="" />*@
+                    @*Search for a car:*@
                 </div>
                 <div id="book_car_content" class="content-form ">
                     <div class="location-block">
-                        <div class="form-block location">Location</div>
-                        <div class="form-block airport_codes"><a href="#" title="">Airport codes</a></div>
+                        <div class="form-block location">Pick-up Location</div>
                         <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
-                        <input id="location-checkbox" type="checkbox" class="styled" name="checkbox_location" value="1" />
-                        <label for="location-checkbox"> Return at different location</label>
-                        <div class="location-block return_location">
-                            <div class="form-block location">Return location</div>
-                            <input class="location" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
-                        </div>
+                       
                     </div>
-                    <div class="form-block pick-up" style="margin-left: 29px;">
+                    <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
                         <h4>Pick-up date</h4>
                         <input class="datepicker" disabled type="text" style="width: 70%" name="data_from" value='@Session["pickupDate"]' />
                         @*<input class="time-select" type="text" size="5"  name="time_from" />*@
                     </div>
-                    <div class="form-block drop-off" style="margin-left: 0px;">
+                    <div class="form-block drop-off" style=" margin-left: 8px;">
+                        <h4 style=" height: 18px;">Drop-off Location</h4>
+                        <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
+                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
+                    </div>
+                    <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
                         <h4>Drop-off date</h4>
                         <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
                         @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                     </div>
-                    @*<div class="form-block car-type">
-                        <h4>Car type</h4>
-                        <div class="car-type-select">
-                            <select class="select" name="select_cartype">
-                                <option selected="selected">Standard</option>
-                                <option>Mini</option>
-                            </select>
-                        </div>
-                    </div>*@
-                    <div class="form-block form-submit">
-                        <input class="orange_button form-update" type="submit" value="Update" />
-                    </div>
+                  
                 </div>
                 <div class="clear"></div>
             </form>
@@ -147,7 +148,7 @@
                                                             <div class="row"  >
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
                                                                     <div class="product-img">
-                                                                        <img src="~/Images/carPlaceHolder.png" />
+                                                                        <img src="@obj.ImageUrl" style="height: 130px; width: 290px;"/>
                                                                     </div>
                                                                     
                                                                 </div>
@@ -160,7 +161,7 @@
                                                                             <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
                                                                             @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>*@
                                                                         </div>
-                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@(obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
+                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
                                                                         <input  title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn"  class="continue_button blue_button Select" hidden="" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
                                                                     </div>
                                                                 </div>
@@ -168,6 +169,9 @@
                                                                     <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
                                                                         <p title="Charge" style="margin-left: 2px;"><span></span><span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
+                                                                   <p>@obj.ImageDescription</p>
                                                                 </div>
                                                             </div>
                                                             if (item.SubHireGroups.Count != (count + 1))
@@ -183,7 +187,7 @@
                                                     else
                                                     {
                                                         <center>
-                                                            <img src="~/Images/soldout.png" />  </center>
+                                                            <img src="~/Images/soldout.png"  style=" height: 72px;"/>  </center>
                                                     }
                                                 </div>
                                             } <!-- HG Loop-->
@@ -222,12 +226,22 @@
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/_jquery.blockUI.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script>
 
         $(document).ready(function () {
             $(function () {
-                $("#accordion").accordion({ collapsible: true, active: false });
+                $("#accordion").accordion({
+                    collapsible: true,
+                    active: false,
+                    heightStyle: "content",
+                    icons: {
+                        "header": "ui-icon-plus",
+                        "activeHeader": "ui-icon-minus"
+                    }
+                });
             });
 
 
@@ -245,12 +259,11 @@
            
             // Calculate Charge
             $('.Charge').click(function () {
-                var id = this.id;
+                var id = this.id.substring(9, this.id.length);
                 if (document.getElementById("TotalC_" + id).innerHTML != '(No Standard Rate)') {
                     return false;
                 }
                 hideUi();
-                document.getElementById(id).disabled = true;
                 $.ajax({
                     type: 'POST',
                     data: "{'hireGroupDetailId':'" + id + "'}",
@@ -258,7 +271,7 @@
                     url: 'CalculateCharge',
                     dataType: 'json',
                     success: function (response) {
-                        document.getElementById(id).disabled = false;
+                       // document.getElementById(id).disabled = false;
                         if (response.detail !== null) {
                             showUi();
                             if (response.hGcharge.TariffTypeCode == null) {
@@ -266,7 +279,9 @@
                                 return;
                             }
                             document.getElementById("TotalC_" + id).innerHTML = ("SAR "+ response.hGcharge.TotalStandardCharge);
-                            $("#selectId_"+id).show();
+                            $("#selectId_" + id).show();
+                            $("#chargeId_" + id).css('display', 'none');
+
                         }
                         else {
 
@@ -282,5 +297,8 @@
 
       
     </script>
+    <style>
+   
+    </style>
 </body>
 </html>

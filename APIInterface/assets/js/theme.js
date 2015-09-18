@@ -1315,23 +1315,23 @@ function updater() {
 
     });
 
-    $('#formSearchUpDate2').datetimepicker({
-        format: szFormat
+    //$('#formSearchUpDate2').datetimepicker({
+    //    format: szFormat
 
-    });
-    $('#formSearchOffDate2').datetimepicker({
-        format: szFormat
+    //});
+    //$('#formSearchOffDate2').datetimepicker({
+    //    format: szFormat
 
-    });
+    //});
 
-    $('#formSearchUpDate3').datetimepicker({
-        format: szFormat
+    //$('#formSearchUpDate3').datetimepicker({
+    //    format: szFormat
 
-    });
-    $('#formSearchOffDate3').datetimepicker({
-        format: szFormat
+    //});
+    //$('#formSearchOffDate3').datetimepicker({
+    //    format: szFormat
 
-    });
+    //});
 
     $('#formFindCarDate').datetimepicker({
         format: szFormat

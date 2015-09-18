@@ -22,17 +22,7 @@ namespace APIInterface.Models
         public string LName { get; set; }
 
 
-        [Display(Name = "Age")]
-        public string Age { get; set; }
 
-        [Required]
-        [Display(Name = "City")]
-        public string City { get; set; }
-
-
-        [Required]
-        [Display(Name = "PostalCode")]
-        public string PostalCode { get; set; }
 
         [Required]
         [EmailAddress]
@@ -41,9 +31,6 @@ namespace APIInterface.Models
 
         
 
-        [Display(Name = "Retype Email Address")]
-        [Compare("Email", ErrorMessage = "The email and confirmation email do not match!")]
-        public string ConfirmEmail { get; set; }
 
 
         [Display(Name = "Phone Number")]
@@ -56,16 +43,8 @@ namespace APIInterface.Models
         public string BillingAddress { get; set; }
 
         [Required]
-        [Display(Name = "Country")]
-        public string CountryName { get; set; }
-
-
-        
-
-        /// <summary>
-        /// List of all countries
-        /// </summary>
-        public List<string> CountryList { get; set; }
+        [Display(Name = "Date of Birht")]
+        public DateTime DOB { get; set; }
 
 
         public double ServiceItemsTotal { get; set; }

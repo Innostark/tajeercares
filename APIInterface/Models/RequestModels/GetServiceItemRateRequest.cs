@@ -15,12 +15,12 @@ namespace APIInterface.Models.RequestModels
         /// <summary>
         /// Booking Start Date Time
         /// </summary>
-        public DateTime StartDateTime { get; set; }
+        public string StartDateTime { get; set; }
 
         /// <summary>
         /// Booking End Date Time
         /// </summary>
-        public DateTime EndDateTime { get; set; }
+        public string EndDateTime { get; set; }
 
         /// <summary>
         /// Service Item Id [Extra]

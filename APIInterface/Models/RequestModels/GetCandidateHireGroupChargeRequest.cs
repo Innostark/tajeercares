@@ -15,12 +15,12 @@ namespace APIInterface.Models.RequestModels
         /// <summary>
         /// Start Date Time
         /// </summary>
-        public DateTime StartDtTime { get; set; }
+        public string StartDtTime { get; set; }
 
         /// <summary>
         /// End Date Time
         /// </summary>
-        public DateTime EndDtTime { get; set; }
+        public string EndDtTime { get; set; }
 
         /// <summary>
         /// RA Creation Dt

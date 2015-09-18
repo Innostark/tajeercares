@@ -162,4 +162,7 @@
   <data name="CurrencySymbol" xml:space="preserve">
     <value>SAR</value>
   </data>
+  <data name="BookingMain" xml:space="preserve">
+    <value>SetOnlineBooking</value>
+  </data>
 </root>

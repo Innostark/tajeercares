@@ -70,6 +70,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SetOnlineBooking.
+        /// </summary>
+        internal static string BookingMain {
+            get {
+                return ResourceManager.GetString("BookingMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SAR.
         /// </summary>
         internal static string CurrencySymbol {

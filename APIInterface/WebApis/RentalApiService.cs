@@ -18,6 +18,10 @@ namespace APIInterface.WebApis
     {
         #region Private
          private readonly HttpClient client = new HttpClient();
+
+        /// <summary>
+        /// Uris For Apis Requests
+        /// </summary>
          private string GetSiteContentsUri
         {
             get
@@ -25,8 +29,6 @@ namespace APIInterface.WebApis
                 return ApiResources.BaseAddress + ApiResources.GetSiteContents;
             }
         }
-
-
          private string ParentHireGroupUri
          {
              get
@@ -34,7 +36,6 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.ParentHireGroup;
              }
          }
-
          private string HireGroupDetailUri
          {
              get
@@ -42,7 +43,6 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.HireGroupDetail;
              }
          }
-
          private string HireGroupRateUri
          {
              get
@@ -57,7 +57,6 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.ExtrasInsurances;
              }
          }
-
          private string ServiceItemRateUri
          {
              get
@@ -65,7 +64,6 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.ServiceItemRate;
              }
          }
-
          private string InsuranceTypeRateUri
          {
              get
@@ -73,6 +71,14 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.InsuranceTypeRate;
              }
          }
+         private string BookingMainUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.BookingMain;
+             }
+         }
+
 
          /// <summary>
          /// Converts String To Byte Array
@@ -237,7 +243,7 @@ namespace APIInterface.WebApis
             return result;
         }
         #endregion
-        #region Extras & Insurances
+         #region Extras & Insurances
         /// <summary>
         /// Get Extras n Insurances
         /// </summary>
@@ -329,6 +335,36 @@ namespace APIInterface.WebApis
         {
             string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(request);
             HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(InsuranceTypeRateUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+        #endregion
+         #region Booking Main
+
+        /// <summary>
+        /// Sets Final Booking to Cares API
+        /// </summary>
+        public string OnlineBooking(BookingModel model)
+        {
+            return SetBookingMainAsync(model).Result;
+        }
+
+        /// <summary>
+        /// Get Extras n Insurances api async
+        /// </summary>
+        private async Task<string> SetBookingMainAsync(BookingModel model)
+        {
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(BookingMainUri)).ConfigureAwait(false);
             if (responseMessage == null)
             {
                 return "Failure";

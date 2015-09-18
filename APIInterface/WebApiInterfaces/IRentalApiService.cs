@@ -45,5 +45,10 @@ namespace APIInterface.WebApiInterfaces
         /// </summary>
         RaCandidateItemCharge GetInsuranceTypeRate(GetCandidateInsuranceChargeRequest request);
 
+        /// <summary>
+        /// Sets Final Booking to Cares API
+        /// </summary>
+        string OnlineBooking(BookingModel model);
+
     }
 }

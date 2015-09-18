@@ -28,7 +28,7 @@ namespace APIInterface.Models.ResponseModels
         /// Vehicle Category
         /// </summary>
         public string VehicleCategory { get; set; }
-        /// <summary>
+        /// <summary>t
         /// Model Year
         /// </summary>
         public short ModelYear { get; set; }
@@ -43,5 +43,16 @@ namespace APIInterface.Models.ResponseModels
         /// Tariff Type Code
         /// </summary>
         public string TariffType { get; set; }
+
+        /// <summary>
+        /// Image path to hire group
+        /// </summary>
+        public string ImageUrl { get; set; }
+
+
+        /// <summary>
+        /// Image Description
+        /// </summary>
+        public string ImageDescription { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using APIInterface.Models;
+﻿using System.Activities.Statements;
+using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
 using APIInterface.WebApiInterfaces;
@@ -70,11 +71,13 @@ namespace APIInterface.Controllers
                 }
             string[] parms=  model.ReservationForm.PickupHours.Split(':');
             var span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
-            Session["pickupDate"] = model.ReservationForm.PickupDateTime = model.ReservationForm.PickupDateTime+span;
+             model.ReservationForm.PickupDateTime = model.ReservationForm.PickupDateTime+span;
+             Session["pickupDate"] = model.ReservationForm.PickupDateTime.ToString("MM/dd/yyyy HH:mm"); 
 
             parms = model.ReservationForm.DropoffHours.Split(':');
             span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
-            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime = model.ReservationForm.DropoffDateTime+span;
+            model.ReservationForm.DropoffDateTime = model.ReservationForm.DropoffDateTime+span;
+            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime.ToString("MM/dd/yyyy HH:mm"); 
         }
 
 
@@ -103,6 +106,7 @@ namespace APIInterface.Controllers
         /// </summary>
         private void ExtractHireGroupById(string hireGroupDetailId)
         {
+            Session["HireGroupDetailId"] = hireGroupDetailId;
             var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
             if (parentHireGroups != null)
             {
@@ -116,6 +120,8 @@ namespace APIInterface.Controllers
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
                                 Session["selectedHireGroupDetail"] = cHireGroup;
+                                Session["DropOffCharges"] = pHireGroup.DropoffCharge;
+                               
                             }
                         }
                     }
@@ -132,8 +138,8 @@ namespace APIInterface.Controllers
             var requestModel = new GetCandidateHireGroupChargeRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
-                StartDtTime = (DateTime)Session["pickupDate"],
-                EndDtTime = (DateTime)Session["dropoffDate"],
+                StartDtTime = Session["pickupDate"].ToString(),
+                EndDtTime = Session["dropoffDate"].ToString(),
                 HireGroupDetailId = long.Parse(hireGroupDetailId),
                 RaCreatedDate = DateTime.Now,
                 UserDomainKey = long.Parse(Session["UserDomainKey"].ToString())
@@ -161,6 +167,8 @@ namespace APIInterface.Controllers
                             {
                                 cHireGroup.StandardRt = response.TotalStandardCharge;
                                 cHireGroup.TariffType = response.TariffTypeCode;
+                                Session["standardRate"] = cHireGroup.StandardRt;
+                                Session["TariffType"] = cHireGroup.TariffType;
                             }
                         }
                     }
@@ -178,8 +186,8 @@ namespace APIInterface.Controllers
             var requestModel = new GetServiceItemRateRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
-                StartDateTime = (DateTime)Session["pickupDate"],
-                EndDateTime = (DateTime)Session["dropoffDate"],
+                StartDateTime = Session["pickupDate"].ToString(),
+                EndDateTime = Session["dropoffDate"].ToString(),
                 ServiceItemId = serviceItemId,
                 RaCreationDateTime = DateTime.Now,
                 Quantity = quantity,
@@ -233,8 +241,8 @@ namespace APIInterface.Controllers
             var requestModel = new GetCandidateInsuranceChargeRequest
             {
                 OperationId = long.Parse(Session["pickupOperationId"].ToString()),
-                StartDtTime = (DateTime)Session["pickupDate"],
-                EndDtTime = (DateTime)Session["dropoffDate"],
+                StartDtTime = Session["pickupDate"].ToString(),
+                EndDtTime = Session["dropoffDate"].ToString(),
                 HireGroupDetailId = detailHireGroup.HireGroupDetailId,
                 RaCreatedDate = DateTime.Now,
                 Domainkey = long.Parse(Session["UserDomainKey"].ToString()),
@@ -249,6 +257,8 @@ namespace APIInterface.Controllers
         private  double GetExtrasTotal(string[] extrasIds, string[] insurancesIds, ExtrasResponseModel extras,
            out double insuranceTotal, out double serviceItemsTotal, out double? total, out List<string> items )
         {
+            Session["extrasList"] = extrasIds;
+            Session["insuranceTypeList"] = insurancesIds;
             serviceItemsTotal = 0;
             items = new List<string>();
             foreach (var extra in extras.ServiceItems)
@@ -270,6 +280,7 @@ namespace APIInterface.Controllers
             }
             var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
             total = detailHireGroup.StandardRt;
+          
             return serviceItemsTotal;
         }
 
@@ -392,14 +403,15 @@ namespace APIInterface.Controllers
             GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
             var model = new UserInfoModel
             {
-                CountryList = CountryList.Countries.ToList(),
                 ItemsHtml = items,
                 InsurancesTotal = insuranceTotal,
                 ServiceItemsTotal = serviceItemsTotal,
                 SubTotal = total, // hire group wala
-                GrandTotal = total + serviceItemsTotal + insuranceTotal
+                GrandTotal = total + serviceItemsTotal + insuranceTotal,
+                DOB = DateTime.Now
             };
-
+            Session["GrandTotal"] = model.GrandTotal;
+            Session["SubTotal"] = model.SubTotal;
             return View(model);
         }
 
@@ -415,7 +427,7 @@ namespace APIInterface.Controllers
             {
                 //
             }
-            model = new UserInfoModel { CountryList = CountryList.Countries.ToList() };
+          
             return View();
         }
       
@@ -474,10 +486,54 @@ namespace APIInterface.Controllers
         /// </summary>
         public ActionResult BookCar(UserInfoModel model)
         {
-
+           var onlineBookingModel= SetOnlineBookingModel(model);
+            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             return View();
         }
-      
+
+        private BookingModel SetOnlineBookingModel(UserInfoModel userInfo)
+        {
+            var extrasIds= Session["extrasList"] as string[]; 
+            var insuranceTypesIds= Session["insuranceTypeList"] as string[];
+
+            var extrasObjectList = extrasIds.Where(id => id != "-99").Select(double.Parse).ToList();
+            var insuranceTypesObjectList = insuranceTypesIds.Where(id => id != "-99").Select(double.Parse).ToList();
+
+            var model = new BookingModel
+            {
+                UserInfo = new UserInfoModel
+                {
+                  BillingAddress  = userInfo.BillingAddress,
+                  DOB = userInfo.DOB,
+                  Email = userInfo.Email,
+                  FName = userInfo.FName,
+                  LName = userInfo.LName,
+                  PhoneNumber = userInfo.PhoneNumber
+                },
+                PickUpLocationId = double.Parse(Session["pickupId"].ToString()),
+                DropOffLocationId = double.Parse(Session["dropoffId"].ToString()),
+                PickupOperationId = double.Parse(Session["pickupOperationId"].ToString()),
+
+                PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString())),
+                DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString())),
+
+                HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString()),
+                DropOffCharges = double.Parse(Session["DropOffCharges"].ToString()),
+
+                StandardRate = double.Parse(Session["standardRate"].ToString()),
+
+                SubTotal = double.Parse(Session["SubTotal"].ToString()),
+                FullTotal = double.Parse(Session["GrandTotal"].ToString()),
+
+                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString()),
+                TariffType = Session["TariffType"].ToString(),
+
+                ServiceItems = extrasObjectList.ToList(),
+                InsuranceTypes = insuranceTypesObjectList
+            };
+            return model;
+        }
+
         #endregion
     }
 }
