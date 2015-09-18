@@ -28,7 +28,7 @@ namespace APIInterface.Models.ResponseModels
         /// Vehicle Category
         /// </summary>
         public string VehicleCategory { get; set; }
-        /// <summary>t
+        /// <summary>
         /// Model Year
         /// </summary>
         public short ModelYear { get; set; }
@@ -43,6 +43,43 @@ namespace APIInterface.Models.ResponseModels
         /// Tariff Type Code
         /// </summary>
         public string TariffType { get; set; }
+
+        /// <summary>
+        /// Hire Group Code
+        /// </summary>
+        public string HireGroupCodeName { get; set; }
+
+        /// <summary>
+        /// Hire Group Name
+        /// </summary>
+        public string HireGroupName { get; set; }
+
+        /// <summary>
+        /// Dropoff Charge
+        /// </summary>
+        public double? DropoffCharge { get; set; }
+
+        /// <summary>
+        /// Hire Group Description
+        /// </summary>
+        public string Description { get; set; }
+
+
+        /// <summary>
+        /// Vehicle Category ID
+        /// </summary>
+        public short VehicleCategoryId { get; set; }
+
+        /// <summary>
+        /// Vehicle Make ID
+        /// </summary>
+        public short VehicleMakeId { get; set; }
+
+        /// <summary>
+        /// Vehicle Mode ld
+        /// </summary>
+        public short VehicleModelId { get; set; }
+
 
         /// <summary>
         /// Image path to hire group

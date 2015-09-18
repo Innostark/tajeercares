@@ -262,11 +262,12 @@
     <Content Include="assets\img\preview\portfolio\portfolio-x8.jpg" />
     <Content Include="assets\img\preview\portfolio\portfolio-x9-big.jpg" />
     <Content Include="assets\img\preview\portfolio\portfolio-x9.jpg" />
-    <Content Include="assets\img\preview\slider\slide-1.jpg" />
+    <Content Include="assets\img\preview\slider\slide-11.jpg" />
     <Content Include="assets\img\preview\slider\slide-1920x900.jpg" />
     <Content Include="assets\img\preview\slider\slide-2.jpg" />
     <Content Include="assets\img\preview\slider\slide-3.jpg" />
     <Content Include="assets\img\preview\slider\slide-775x500x1.jpg" />
+    <Content Include="assets\img\preview\slider\slide-1.jpg" />
     <Content Include="assets\img\preview\team\team-270x270.jpg" />
     <Content Include="assets\img\preview\team\team-270x270x1.jpg" />
     <Content Include="assets\img\preview\team\team-270x270x2.jpg" />

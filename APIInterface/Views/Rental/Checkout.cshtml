@@ -142,7 +142,7 @@
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("BookCar", "Best/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
+                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"]+"/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">

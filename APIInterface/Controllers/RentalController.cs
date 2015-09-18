@@ -165,7 +165,7 @@ namespace APIInterface.Controllers
                         {
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
-                                cHireGroup.StandardRt = response.TotalStandardCharge;
+                                cHireGroup.StandardRt = Math.Round(response.TotalStandardCharge);
                                 cHireGroup.TariffType = response.TariffTypeCode;
                                 Session["standardRate"] = cHireGroup.StandardRt;
                                 Session["TariffType"] = cHireGroup.TariffType;
@@ -207,8 +207,8 @@ namespace APIInterface.Controllers
             {
                 if (item.ServiceItemId == serviceItemId)
                 {
-                    item.ServiceRate = response.ServiceRate;
-                    item.ServiceCharge = response.ServiceCharge;
+                    item.ServiceRate = Math.Round(response.ServiceRate);
+                    item.ServiceCharge = Math.Round(response.ServiceCharge);
                 }
             }
             Session["Extras"] = extras;
@@ -225,8 +225,8 @@ namespace APIInterface.Controllers
             {
                 if (item.InsuranceTypeId == insuranceTyped)
                 {
-                    item.InsuranceRate = response.Rate;
-                    item.InsuranceCharge = response.Charge;
+                    item.InsuranceRate = Math.Round(response.Rate);
+                    item.InsuranceCharge = Math.Round(response.Charge);
                 }
             }
             Session["Extras"] = extras;
@@ -266,7 +266,7 @@ namespace APIInterface.Controllers
                 if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
                 {
                     items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" +"SAR "+ extra.ServiceCharge + "</span></p>");
-                    serviceItemsTotal = serviceItemsTotal + extra.ServiceCharge;
+                    serviceItemsTotal = Math.Round(serviceItemsTotal + extra.ServiceCharge);
                 }
             }
             insuranceTotal = 0;
@@ -275,7 +275,7 @@ namespace APIInterface.Controllers
                 if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
                 {
                     items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + "SAR "+ins.InsuranceCharge + "</span></p>");
-                    insuranceTotal = insuranceTotal + ins.InsuranceCharge;
+                    insuranceTotal = Math.Round(insuranceTotal + ins.InsuranceCharge);
                 }
             }
             var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
@@ -290,9 +290,14 @@ namespace APIInterface.Controllers
         /// </summary>
         private HomeModel SettingRequestNSession(SiteContentResponseModel response)
         {
+            if (response == null)
+            {
+                throw  new Exception("Response contains no data!");
+            }
             Session["siteName"] = response.SiteContent.CompanyDisplayName;
             Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
             Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
+            Session["CompanyShortName"] = response.SiteContent.CompanyShortName.ToUpper();
             var model = new HomeModel
             {
                 ReservationForm = new ReservationForm
@@ -338,10 +343,8 @@ namespace APIInterface.Controllers
                 // Getting URL & calling server
                 string[] parms = Request.Url.LocalPath.Split('/');
                 var response = rentalApiService.GetSitecontent(parms[1].ToUpper());
-                if (response != null)
-                {
                     // Handling Bad Requests
-                    if (response.SiteContent == null)
+                    if (response==null || response.SiteContent == null)
                     {
                         Session["siteName"] = "404 Error";
                         return RedirectToAction("Index", "ErrorHandler", new { area = "" });
@@ -350,8 +353,6 @@ namespace APIInterface.Controllers
                     // Setting up session 
                     var model = SettingRequestNSession(response);
                     return View(model);
-                }
-
             }
             return View();
 

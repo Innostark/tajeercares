@@ -22,6 +22,10 @@
     <link href="~/assets/plugins/animate/animate.min.css" rel="stylesheet">
     <link href="~/assets/plugins/swiper/css/swiper.min.css" rel="stylesheet">
     <link href="~/assets/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
+
+
     <!-- Theme CSS -->
     <link href="~/assets/css/theme.css" rel="stylesheet">
     <!-- Head Libs -->
@@ -60,8 +64,8 @@
                     <div class="row">
                         <!-- Logo -->
                         <div class="col-md-2">
-                            <div class="logo">
-                                <a target="_blank" onclick="window.open('@Model.Sitecontent.WebsiteClickURL')" href=''><img src="~/assets/img/logo-rentit.png" alt='@Model.Sitecontent.CompanyDisplayName' /></a>
+                            <div class="logo" style="background-color: inherit">
+                                <a target="_blank" onclick="window.open('@Model.Sitecontent.WebsiteClickURL')" href=''><img style="width: 212px; height: 74px;" src="http://www.birdsofafeather.ca/sites/default/files//national.gif" alt='@Model.Sitecontent.CompanyDisplayName' /></a>
                             </div>
                         </div>
                         <!-- /Logo -->
@@ -115,7 +119,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-10 col-md-offset-1">
                                                             <div class="form-search dark">
-                                                                @using (Html.BeginForm("SelectCar", "best/Rental", FormMethod.Post, new {@class = "form-horizontal  custom-group", role = "form"}))
+                                                                @using (Html.BeginForm("SelectCar", Session["CompanyShortName"]+"/Rental", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
                                                                 {
                                                                     <div class="form-title">
                                                                         <i class="fa fa-globe"></i>
@@ -126,7 +130,7 @@
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group has-icon has-label">
                                                                                     @Html.LabelFor(m => m.ReservationForm.PickupLocation, new {@class = "control-label", @for = "formSearchUpLocation"})
-                                                                                    @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location", new {@class = "form-control", style = "width:97.5%"})
+                                                                                    @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location", new { @class = "form-control validateMandatory", style = "width:97.5%" })
                                                                                     <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
                                                                                 </div>
                                                                             </div>
@@ -164,7 +168,7 @@
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group has-icon has-label">
                                                                                     @Html.LabelFor(m => m.ReservationForm.DropoffLocation, new {@class = "control-label", @for = "formSearchOffLocation"})
-                                                                                    @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new {@class = "form-control", style = "width:97.5%"})
+                                                                                    @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new { @class = "form-control validateMandatory", style = "width:97.5%" })
                                                                                     @*<input type="text" class="form-control" id="formSearchUpLocation" placeholder="Airport or Anywhere">*@
                                                                                     <span class="form-control-icon"><i class="fa fa-map-marker"></i></span>
                                                                                 </div>
@@ -468,6 +472,8 @@
     <script src="~/assets/plugins/jquery.sticky.min.js"></script>
     <script src="~/assets/plugins/jquery.easing.min.js"></script>
     <script src="~/assets/plugins/jquery.smoothscroll.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
     <!--<script src="~/assets/plugins/smooth-scrollbar.min.js"></script>-->
     <!--<script src="~/assets/plugins/wow/wow.min.js"></script>-->
     <script>
@@ -504,16 +510,18 @@
     <script>
         $(document).ready(function () {
             $("form").submit(function () {
-                $('#DropoffHours').val($('#dropoffForm').val());
-                $('#PickupHours').val($('#pickUpForm').val());
-                if ($("#ReservationForm_PickupLocation").val() == "") {
-                    $.growlUI('', 'Set Pick-up Location!');
-                    return false;
-                }
-                if ($("#ReservationForm_DropoffLocation").val() == "") {
-                    $.growlUI('', 'Set Drop-off Location!');
-                    return false;
-                }
+                //$('#DropoffHours').val($('#dropoffForm').val());
+                //$('#PickupHours').val($('#pickUpForm').val());
+                //if ($("#ReservationForm_PickupLocation").val() == "") {
+                //    $.growlUI('', 'Set Pick-up Location!');
+                //    return false;
+                //}
+                //if ($("#ReservationForm_DropoffLocation").val() == "") {
+                //    $.growlUI('', 'Set Drop-off Location!');
+                //    return false;
+                //}
+                
+                return validateForm();
             });
         });
         

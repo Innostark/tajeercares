@@ -29,7 +29,6 @@ namespace APIInterface.Models.ResponseModels
         /// </summary>
         public string Description { get; set; }
 
-
         /// <summary>
         /// List of children Hire Group 
         /// </summary>

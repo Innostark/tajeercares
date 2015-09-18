@@ -232,7 +232,7 @@
                         @{
                                                
                         }
-                        @using (Html.BeginForm("Checkout", "Best/Rental", FormMethod.Get, new { @class = "form-horizontal  custom-group", role = "form", id="temp" }))
+                        @using (Html.BeginForm("Checkout", Session["CompanyShortName"]+"/Rental", FormMethod.Get, new { @class = "form-horizontal  custom-group", role = "form", id="temp" }))
                         {
                             <input type="hidden" name="ServiceItemsIds" id="ServiceItemsIds" value="shurmkro"/>
                             <input type="hidden" name="InsurancesIds" id="InsurancesIds" value="shurmkro" />
@@ -410,7 +410,7 @@
                     alert(thrownError);
                 }
             });
-         //   location.href = '@Url.Action("Checkout?total=" + 5, "Best/Rental")';
+        
             //$.ajax({
             //    type: 'GET',
             //    data: "{'total':'" + total + "','extras':'" + extrasList + "'}",

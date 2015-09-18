@@ -85,6 +85,7 @@ namespace APIInterface.WebApis
          /// </summary>
          private static byte[] GetBytes(string str)
          {
+             
              var bytes = new byte[str.Length * sizeof(char)];
              System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
              return bytes;
@@ -107,10 +108,12 @@ namespace APIInterface.WebApis
                  try
                  {
                      var data = jss.Deserialize<SiteContentResponseModel>(response);
+                     if(data.SiteContent==null || data.OperationsWorkPlaces==null)
+                         return null;
                      data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
-                     data.SiteContent.Banner1SourceLocal = GetBytes(data.SiteContent.Banner1Bytes);
-                     data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
-                     data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
+                     data.SiteContent.Banner1SourceLocal = data.SiteContent.Banner1Bytes ==null ? null : GetBytes(data.SiteContent.Banner1Bytes);
+                     //data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
+                     //data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
                      return data;
                  }
                  catch (Exception exc)
