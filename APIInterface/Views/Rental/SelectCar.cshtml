@@ -163,6 +163,7 @@
                                                                         </div>
                                                                         <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
                                                                         <input  title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn"  class="continue_button blue_button Select" hidden="" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                        <span id=@("period_"+obj.HireGroupDetailId)> </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
@@ -280,6 +281,7 @@
                                 return;
                             }
                             document.getElementById("TotalC_" + id).innerHTML = ("SAR "+ response.hGcharge.TotalStandardCharge);
+                            document.getElementById("period_" + id).innerHTML = (response.hGcharge.CalculatedPeriod);
                             $("#selectId_" + id).show();
                             $("#chargeId_" + id).css('display', 'none');
 
