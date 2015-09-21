@@ -81,7 +81,7 @@
                         </h4>
                         <div class="widget-content main-block product-widget-mini">
                             <div class="product-img">
-                                <img style="width: 105px;height: 55px"src="http://jfs24.com/data_images/reviews/toyota-corolla/toyota-corolla-02.jpg" alt="" />
+                                <img style="width: 105px;height: 55px" src="http://jfs24.com/data_images/reviews/toyota-corolla/toyota-corolla-02.jpg" alt="" />
                             </div>
                             @{
                                 var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHireGroupDetail"];
@@ -142,7 +142,7 @@
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"]+"/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
+                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">
@@ -157,50 +157,62 @@
                             <h4>Personal information</h4>
                             <div class="widget-content">
                                 <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.FName, new { @class = "" }) </div>
+                                    <div>
+                                        @Html.LabelFor(m => m.FName, new { @class = "" })
+                                        <label class="control-label validationAsterikLabel">*</label>
+                                    </div>
                                     @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", placeholder = "Enter your first name" })
                                     @Html.ValidationMessageFor(m => m.FName)
                                 </div>
                                 <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.LName, new { @class = "" }) </div>
+                                    <div>
+                                        @Html.LabelFor(m => m.LName, new { @class = "" })
+                                        <label class="control-label validationAsterikLabel">*</label>
+                                    </div>
                                     @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", placeholder = "Enter your last name" })
                                     @Html.ValidationMessageFor(m => m.LName)
                                 </div>
 
                                 <div class="clear"></div>
                                 <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.PhoneNumber, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Enter your Phone Number" })
+                                    <div>
+                                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "" })
+                                        <label class="control-label validationAsterikLabel">*</label>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", placeholder = "Enter your Phone Number" })
                                 </div>
                                 <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.Email, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", placeholder = "Enter your email address" })
+                                    <div>
+                                        @Html.LabelFor(m => m.Email, new { @class = "" })
+                                        <label class="control-label validationAsterikLabel">*</label>
                                 </div>
-                                <div class="clear"></div>
-
-                                <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", placeholder = "Enter your billing address" })
-                                </div>
-                                <div class="form_element form-block pick-up" style="    margin-top: 12px;">
-                                    <h4>Date of Birth</h4>
-                                    <input class="datepicker validateMandatory" style="width: 75%;" type="text" id="dob_value" value="" name="data_from" />
-                                </div>
-                                <div class="clear"></div>
-                                @Html.HiddenFor(x => x.DOB)
-
-
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", placeholder = "Enter your email address" })
                             </div>
-                            <h4>Note</h4>
-                            <div class="widget-content widget-note">
-                                <h4>Upon completing this reservation, you will receive:</h4>
-                                <ul>
-                                    <li>Your rental voucher to produce on arrival at the rental desk</li>
-                                    <li>A toll-free customer support number</li>
-                                </ul>
+                            <div class="clear"></div>
+
+                            <div class="form_element">
+                                <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
+                                @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", placeholder = "Enter your billing address" })
                             </div>
+                            <div class="form_element form-block pick-up" style="    margin-top: 12px;">
+                                <h4>Date of Birth</h4>
+                                <input class="datepicker" style="width: 75%;" type="text" id="dob_value" value="" name="data_from" />
+                            </div>
+                            <div class="clear"></div>
+                            @Html.HiddenFor(x => x.DOB)
+
 
                         </div>
+                        <h4>Note</h4>
+                        <div class="widget-content widget-note">
+                            <h4>Upon completing this reservation, you will receive:</h4>
+                            <ul>
+                                <li>Your rental voucher to produce on arrival at the rental desk</li>
+                                <li>A toll-free customer support number</li>
+                            </ul>
+                        </div>
+
+                    </div>
                         <div class="next_page">
                             <input class="continue_button blue_button" type="submit" value="Book Now" />
                             <input onclick="@Url.Action("Index", "Best/Rental/Index")" class="blue_button" type="submit" value="Cancel" style="background-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px;" />

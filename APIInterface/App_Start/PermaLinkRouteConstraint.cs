@@ -44,7 +44,7 @@ namespace APIInterface.App_Start
            {
                values["controller"] = "Rental";
                values["action"] = "SelectCar";
-               values["customRoute"] = "Best/Rental/SelectExtras";
+               values["customRoute"] = parms[0]+"/Rental/SelectExtras";
                return true;
            }
 
@@ -53,7 +53,7 @@ namespace APIInterface.App_Start
            {
                values["controller"] = "Rental";
                values["action"] = "SelectExtras";
-               values["customRoute"] = "Best/Rental/Checkout";
+               values["customRoute"] = parms[0] + "/Rental/Checkout";
                return true;
            }
 
@@ -62,7 +62,7 @@ namespace APIInterface.App_Start
            {
                values["controller"] = "Rental";
                values["action"] = "Checkout";
-               values["customRoute"] = "Best/Rental/Checkout";
+               values["customRoute"] = parms[0] + "/Rental/Checkout";
                return true;
            }
 
@@ -70,14 +70,14 @@ namespace APIInterface.App_Start
            {
                values["controller"] = "Rental";
                values["action"] = "BookCar";
-               values["customRoute"] = "Best/Rental/BookCar";
+               values["customRoute"] = parms[0] + "/Rental/BookCar";
                return true;
            }
            if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "Index")
            {
                values["controller"] = "Rental";
                values["action"] = "Index";
-               values["customRoute"] = "Best/Rental/Index";
+               values["customRoute"] = parms[0] + "/Rental/Index";
                return true;
            }
             if (parms.Count()== 1)
