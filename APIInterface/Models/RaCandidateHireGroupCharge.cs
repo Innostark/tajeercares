@@ -20,6 +20,12 @@ namespace APIInterface.Models
         /// </summary>
         public double TotalStandardCharge { get; set; }
 
+
+        /// <summary>
+        /// Period in dasys & Minutes 
+        /// </summary>
+        public string CalculatedPeriod { get; set; }
+
         #endregion
     }
 }

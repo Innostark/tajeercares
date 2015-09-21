@@ -160,7 +160,7 @@
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.FName, new { @class = "" })
-                                        <label class="control-label validationAsterikLabel">*</label>
+                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", placeholder = "Enter your first name" })
                                     @Html.ValidationMessageFor(m => m.FName)
@@ -168,7 +168,7 @@
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.LName, new { @class = "" })
-                                        <label class="control-label validationAsterikLabel">*</label>
+                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", placeholder = "Enter your last name" })
                                     @Html.ValidationMessageFor(m => m.LName)
@@ -178,14 +178,14 @@
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "" })
-                                        <label class="control-label validationAsterikLabel">*</label>
+                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", placeholder = "Enter your Phone Number" })
                                 </div>
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.Email, new { @class = "" })
-                                        <label class="control-label validationAsterikLabel">*</label>
+                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                 </div>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", placeholder = "Enter your email address" })
                             </div>
@@ -253,8 +253,23 @@
 
         $("form").submit(function () {
             $("#DOB").val($("#dob_value").val());
-            return validateForm();
+            if (DOBCheck())
+                return validateForm();
+            else
+                return false;
         });
+        
+        function DOBCheck() {
+            var today = new Date();
+            var birthDate = new Date($("#dob_value").val());
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+           if (isNaN(age) ||  age < 21) {
+               toastr.error("Age must be greater that 21 years!");
+               return false;
+           }
+            return true;
+        }
     </script>
 </body>
 

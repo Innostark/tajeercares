@@ -47,13 +47,13 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Sets data from reservation form to session
         /// </summary>
-        private void ExtractDataFromReservationForm(HomeModel model)
+        private HomeModel ExtractDataFromReservationForm(HomeModel model)
         {
             // Restoring Workplaces stored in Index 
-            var list = Session["WPS"] as List<WebApiOperationWorkplace>;
+            var operationsWorkPlacesst = Session["WPS"] as List<WebApiOperationWorkplace>;
 
-            if (list != null)
-                foreach (var obj in list)
+            if (operationsWorkPlacesst != null)
+                foreach (var obj in operationsWorkPlacesst)
                 {
                     if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.PickupLocation)
                     {
@@ -69,6 +69,7 @@ namespace APIInterface.Controllers
                         Session["dropoffCityId"] = obj.CityId;
                     }
                 }
+           
             string[] parms=  model.ReservationForm.PickupHours.Split(':');
             var span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
              model.ReservationForm.PickupDateTime = model.ReservationForm.PickupDateTime+span;
@@ -77,7 +78,20 @@ namespace APIInterface.Controllers
             parms = model.ReservationForm.DropoffHours.Split(':');
             span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
             model.ReservationForm.DropoffDateTime = model.ReservationForm.DropoffDateTime+span;
-            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime.ToString("MM/dd/yyyy HH:mm"); 
+            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime.ToString("MM/dd/yyyy HH:mm");
+
+            // Re-creating model in case user want to update dates or time 
+            var selectCarModel = new HomeModel
+            {
+                ReservationForm = new ReservationForm
+                {
+                    PickupDateTime = Convert.ToDateTime(Session["pickupDate"].ToString()),
+                    DropoffDateTime = Convert.ToDateTime(Session["dropoffDate"].ToString()),
+                    HoursList = ReservationHours.Hours.ToList()
+                },
+                OperationsWorkPlaces = operationsWorkPlacesst
+            };
+            return selectCarModel;
         }
 
 
@@ -151,9 +165,10 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Sets Hire Group rate for requested HG
         /// </summary>
-        private void SetHireGroupCharge(string hireGroupDetailId, RaCandidateHireGroupCharge response)
+        private string SetHireGroupCharge(string hireGroupDetailId, RaCandidateHireGroupCharge response)
         {
             var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
+            string period = null;
             if (parentHireGroups != null)
             {
                 foreach (var pHireGroup in parentHireGroups)
@@ -169,12 +184,20 @@ namespace APIInterface.Controllers
                                 cHireGroup.TariffType = response.TariffTypeCode;
                                 Session["standardRate"] = cHireGroup.StandardRt;
                                 Session["TariffType"] = cHireGroup.TariffType;
+                                DateTime startDateTime = Convert.ToDateTime(Session["pickupDate"].ToString());
+                                DateTime endDateTime = Convert.ToDateTime(Session["dropoffDate"].ToString());
+
+                                TimeSpan span = (endDateTime - startDateTime);
+
+                               period= String.Format("{0} days, {1} hours",
+                                    span.Days, span.Hours);
                             }
                         }
                     }
                 }
             }
             Session["HGDetail"] = parentHireGroups;
+            return period;
         }
 
 
@@ -307,7 +330,7 @@ namespace APIInterface.Controllers
                     HoursList = ReservationHours.Hours.ToList()
                 },
                 Sitecontent = response.SiteContent,
-                OperationsWorkPlaces = response.OperationsWorkPlaces
+                OperationsWorkPlaces = response.OperationsWorkPlaces // here
             };
 
             // For further Use on next pages 
@@ -365,14 +388,14 @@ namespace APIInterface.Controllers
         /// </summary>
         public ActionResult SelectCar(HomeModel model)
         {
-            ExtractDataFromReservationForm(model);
+           var newModel= ExtractDataFromReservationForm(model);
             var requestModel = MakeGetAvailableHireGroupsRequest(model);
             var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
             if (parentHireGroups != null)
             {
                 Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
             }
-            return View();
+            return View(newModel);
         }
 
 
@@ -444,7 +467,7 @@ namespace APIInterface.Controllers
             {
                 response.TariffTypeCode = GetHireGroupFullName(response.TariffTypeCode);
                 // setting up charge for hiregroup in the list
-                SetHireGroupCharge(hireGroupDetailId, response);
+               response.CalculatedPeriod = SetHireGroupCharge(hireGroupDetailId, response);
                 return Json(new { hGcharge = response });
             }
             return null;
