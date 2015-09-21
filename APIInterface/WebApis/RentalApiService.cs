@@ -110,7 +110,7 @@ namespace APIInterface.WebApis
                      var data = jss.Deserialize<SiteContentResponseModel>(response);
                      if(data.SiteContent==null || data.OperationsWorkPlaces==null)
                          return null;
-                     data.SiteContent.LogoSourceLocal = GetBytes(data.SiteContent.CompanyLogoBytes);
+                     data.SiteContent.LogoSourceLocal = data.SiteContent.CompanyLogoBytes == null ? null : GetBytes(data.SiteContent.CompanyLogoBytes)  ;
                      data.SiteContent.Banner1SourceLocal = data.SiteContent.Banner1Bytes ==null ? null : GetBytes(data.SiteContent.Banner1Bytes);
                      //data.SiteContent.Banner2SourceLocal = GetBytes(data.SiteContent.Banner2Bytes);
                      //data.SiteContent.Banner3SourceLocal = GetBytes(data.SiteContent.Banner3Bytes);
