@@ -135,7 +135,7 @@ namespace APIInterface.Controllers
                             {
                                 Session["selectedHireGroupDetail"] = cHireGroup;
                                 Session["DropOffCharges"] = pHireGroup.DropoffCharge;
-                               
+                                Session["vehicleImgUrl"] = cHireGroup.ImageUrl;
                             }
                         }
                     }
