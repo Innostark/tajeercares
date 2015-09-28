@@ -25,6 +25,8 @@ namespace APIInterface.Models.ResponseModels
         /// </summary>
         public IEnumerable<WebApiOperationWorkplace> OperationsWorkPlaces { get; set; }
 
+       
+
 
     }
 }

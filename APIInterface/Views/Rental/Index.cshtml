@@ -38,6 +38,9 @@
         option {
             background-color: rgb(81, 79, 87);
         }
+        .thumbnail.no-border.no-padding.thumbnail-car-card {
+            margin-left: 50px;
+        }
     </style>
 </head>
 <body id="home" class="wide">
@@ -225,11 +228,11 @@
                                 </div>
                             </div>
                             <!-- /Slide 1 -->
-                        
                         </div>
                     </div>
                 </div>
             </section>
+            
 
             <!-- /PAGE -->
             <!-- PAGE -->
@@ -457,6 +460,15 @@
                     </div>
                 </div>
             </div>
+            @foreach (var loc in Model.OperationsWorkPlaces)
+            {
+                <input type="hidden" class="loc" value="@loc.RawString" id='loc_+@loc.OperationWorkplaceId' />
+                <input type="hidden" class="cor"value="@loc.CoordinatesContents" id='cor_+@loc.OperationWorkplaceId' />
+            }
+            @if (Model.OperationsWorkPlaces != null)
+            {
+                <input type="hidden" value="@Model.OperationsWorkPlaces.Count()" id="locationCount" />
+            }
         </footer>
         <!-- /FOOTER -->
         <div id="to-top" class="to-top"><i class="fa fa-angle-up"></i></div>
@@ -508,8 +520,8 @@
     <script src="~/Scripts/_jquery.blockUI.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $("form").submit(function () {
+        $(document).ready(function() {
+            $("form").submit(function() {
                 $('#DropoffHours').val($('#dropoffForm').val());
                 $('#PickupHours').val($('#pickUpForm').val());
                 //if ($("#ReservationForm_PickupLocation").val() == "") {
@@ -520,11 +532,86 @@
                 //    $.growlUI('', 'Set Drop-off Location!');
                 //    return false;
                 //}
-                
                 return validateForm();
             });
+
+            Initialize();
         });
-        
+
+        function Initialize() {
+            var infowindow;
+            var locationCount = parseInt($("#locationCount").val());
+            var lat = 0;
+            var log = 0;
+            var locname = "";
+            if (locationCount > 0) {
+                var firstCoordinates = document.getElementsByClassName("loc")[0].value;
+                var firstContents = document.getElementsByClassName("cor")[0].value;
+                
+                var array = firstCoordinates.split("-");
+                lat = array[0];
+                log = array[1];
+                locname = array[2];
+            }
+
+            var liverpool = new google.maps.LatLng(lat, log);
+            var mapOptions = {
+                zoom: 12,
+                center: liverpool,
+            };
+            var image = 'assets/img/icon-google-map.png'; // marker icon
+
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+            var myLatlng = new google.maps.LatLng(lat, log);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                icon: image,
+                title: locname
+            });
+
+            infowindow = new google.maps.InfoWindow({
+                content: firstContents
+                , maxWidth: 350
+                //,maxHeight: 500
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+            
+         
+            if (locationCount > 1) {
+                for (var i = 1; i < locationCount; i++) {
+                     var coordinates = document.getElementsByClassName("loc")[i].value;
+                     var contents = document.getElementsByClassName("cor")[i].value;
+                     array = coordinates.split("-");
+                     lat = array[0];
+                     log = array[1];
+                     locname = array[2];
+
+                     myLatlng = new google.maps.LatLng(lat, log);
+                     marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        icon: image,
+                        title: locname
+                    });
+
+                    infowindow = new google.maps.InfoWindow({
+                        content: contents
+                        , maxWidth: 350
+                        //,maxHeight: 500
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.open(map, marker);
+                    });
+
+                }
+            }
+
+          
+
+        }
     </script>
 </body>
 </html>

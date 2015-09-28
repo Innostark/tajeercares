@@ -32,5 +32,14 @@ namespace APIInterface.Models
         /// Latitude
         /// </summary>
         public string Latitude { get; set; }
+
+
+        public string Address { get; set; }
+
+        public string Phone { get; set; }
+
+        public string RawString { get; set; }
+
+        public string CoordinatesContents { get; set; }
     }
 }

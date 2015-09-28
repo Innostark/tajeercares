@@ -332,13 +332,58 @@ namespace APIInterface.Controllers
                 Sitecontent = response.SiteContent,
                 OperationsWorkPlaces = response.OperationsWorkPlaces // here
             };
-
+            string temp = null;
+            foreach (var workPlace in response.OperationsWorkPlaces)
+            {
+                temp =  workPlace.Latitude + "-" + workPlace.Longitude + "-"+workPlace.LocationName;
+                workPlace.RawString = temp;
+                temp = null;
+                workPlace.CoordinatesContents = MakeLocationOnMap(workPlace);
+            }
             // For further Use on next pages 
             Session["WPS"] = response.OperationsWorkPlaces;
             return model;
         }
 
-
+        /// <summary>
+        /// Makes Co-ordinate Div on Map
+        /// </summary>
+        private string MakeLocationOnMap(WebApiOperationWorkplace source)
+        {
+             var mapIWcontent = "" +
+                "" +
+                "<div class='map-info-window'>" +
+                "<div class='thumbnail no-border no-padding thumbnail-car-card'>" +
+                "<div class='media'>" +
+                "<a class='media-link' href='#'>" +
+                
+                "<span class='icon-view'><strong><i class='fa fa-eye'></i></strong></span>" +
+                "</a>" +
+                "</div>" +
+                "<div class='caption text-center'>" +
+                "<h4 class='caption-title'><a href='#'>"+source.LocationName+"</a></h4>" 
+                +
+                "<table class='table'>" +
+                "<tr>" +
+                "<td><i class='fa fa-dashboard'></i> "+source.Phone+"</td>" +
+                "<td><i class='fa fa-cog'></i>"+source.Address+"</td>" +
+                "</tr>" +
+                "</table>" +
+                "</div>" +
+                "</div>" +
+                "</div>" +"";
+            var contentString = "" +
+                "" +
+                "<div class='iw-container'>" +
+                "<div class='iw-content'>" +
+                "" + mapIWcontent +
+                "</div>"+
+                "<div class='iw-bottom-gradient'></div>" +
+                "</div>" +
+                "" +
+                "";
+            return contentString;
+        }
         /// <summary>
         /// Converts string to Ids
         /// </summary>
