@@ -25,6 +25,52 @@ namespace APIInterface.Controllers
         #region Private Funcs
 
         /// <summary>
+        /// Final Booking MOdel
+        /// </summary>
+        private BookingModel SetOnlineBookingModel(UserInfoModel userInfo)
+        {
+            var extrasIds = Session["extrasList"] as string[];
+            var insuranceTypesIds = Session["insuranceTypeList"] as string[];
+
+            var extrasObjectList = extrasIds.Where(id => id != "-99").Select(double.Parse).ToList();
+            var insuranceTypesObjectList = insuranceTypesIds.Where(id => id != "-99").Select(double.Parse).ToList();
+
+            var model = new BookingModel
+            {
+                UserInfo = new UserInfoModel
+                {
+                    BillingAddress = userInfo.BillingAddress,
+                    DOB = userInfo.DOB,
+                    Email = userInfo.Email,
+                    FName = userInfo.FName,
+                    LName = userInfo.LName,
+                    PhoneNumber = userInfo.PhoneNumber
+                },
+                PickUpLocationId = double.Parse(Session["pickupId"].ToString()),
+                DropOffLocationId = double.Parse(Session["dropoffId"].ToString()),
+                PickupOperationId = double.Parse(Session["pickupOperationId"].ToString()),
+
+                PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString())),
+                DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString())),
+
+                HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString()),
+                DropOffCharges = double.Parse(Session["DropOffCharges"].ToString()),
+
+                StandardRate = double.Parse(Session["standardRate"].ToString()),
+
+                SubTotal = double.Parse(Session["SubTotal"].ToString()),
+                FullTotal = double.Parse(Session["GrandTotal"].ToString()),
+
+                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString()),
+                TariffType = Session["TariffType"].ToString(),
+
+                ServiceItems = extrasObjectList.ToList(),
+                InsuranceTypes = insuranceTypesObjectList
+            };
+            return model;
+        }
+
+        /// <summary>
         /// Sets up Hire Group Name
         /// </summary>
         private string GetHireGroupFullName(string hireGroupCode)
@@ -46,6 +92,32 @@ namespace APIInterface.Controllers
             }
         }
 
+        /// <summary>
+        /// Check out Model for Data
+        /// </summary>
+        private UserInfoModel MakCheckoutModel(string ServiceItemsIds, string InsurancesIds)
+        {
+            var extras = Session["Extras"] as ExtrasResponseModel;
+            var extrasIds = GetIdsFromString(ServiceItemsIds);
+            var insurancesIds = GetIdsFromString(InsurancesIds);
+            double insuranceTotal = 0;
+            double serviceItemsTotal = 0;
+            double? total = 0;
+            var items = new List<string>();
+            GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal, out serviceItemsTotal, out total, out items);
+            var model = new UserInfoModel
+            {
+                ItemsHtml = items,
+                InsurancesTotal = insuranceTotal,
+                ServiceItemsTotal = serviceItemsTotal,
+                SubTotal = total, // hire group wala
+                GrandTotal = total + serviceItemsTotal + insuranceTotal,
+                DOB = DateTime.Now
+            };
+            Session["GrandTotal"] = model.GrandTotal;
+            Session["SubTotal"] = model.SubTotal;
+            return model;
+        }
 
         /// <summary>
         /// Sets data from reservation form to session
@@ -203,11 +275,8 @@ namespace APIInterface.Controllers
                                 string period = String.Format("{0}",
                                       periodSpan.Days);
                                 int day= int.Parse(period)!=0?int.Parse(period):  1;
-                                response.PerDayCost = (response.TotalStandardCharge / day).ToString();
-
+                                response.PerDayCost =Math.Round( (response.TotalStandardCharge / day),2).ToString();c
                             }
-
-
                         }
                     }
                 }
@@ -245,8 +314,8 @@ namespace APIInterface.Controllers
             {
                 if (item.ServiceItemId == serviceItemId)
                 {
-                    item.ServiceRate = Math.Round(response.ServiceRate);
-                    item.ServiceCharge = Math.Round(response.ServiceCharge);
+                    item.ServiceRate = Math.Round(response.ServiceRate,2);
+                    item.ServiceCharge = Math.Round(response.ServiceCharge,2);
                 }
             }
             Session["Extras"] = extras;
@@ -263,8 +332,8 @@ namespace APIInterface.Controllers
             {
                 if (item.InsuranceTypeId == insuranceTyped)
                 {
-                    item.InsuranceRate = Math.Round(response.Rate);
-                    item.InsuranceCharge = Math.Round(response.Charge);
+                    item.InsuranceRate = Math.Round(response.Rate,2);
+                    item.InsuranceCharge = Math.Round(response.Charge,2);
                 }
             }
             Session["Extras"] = extras;
@@ -437,7 +506,31 @@ namespace APIInterface.Controllers
             };
             client.Send(oEmail);
         }
+
+        /// <summary>
+        /// Add Count 
+        /// </summary>
+        private static void AddChildHireGroupCount(IEnumerable<WebApiParentHireGroupsApiResponse> parentHireGroups)
+        {
+            if (parentHireGroups == null)
+                throw new ArgumentNullException("parentHireGroups");
+            foreach (var pHireGroup in parentHireGroups)
+            {
+                if (pHireGroup.SubHireGroups != null && pHireGroup.SubHireGroups.Count > 0)
+                {
+                    pHireGroup.ChildHireGroupCount = "( " + pHireGroup.SubHireGroups.Count.ToString() + " Cars available )";
+                }
+                else
+                {
+                    pHireGroup.ChildHireGroupCount = "";
+                }
+            }
+        }
+
         #endregion
+        /// <summary>
+        /// Constructor 
+        /// </summary>
         public RentalController()
         {
             rentalApiService = new RentalApiService();
@@ -473,7 +566,6 @@ namespace APIInterface.Controllers
         }
 
 
-
         /// <summary>
         /// Car Selection
         /// </summary>
@@ -482,17 +574,7 @@ namespace APIInterface.Controllers
             var newModel= ExtractDataFromReservationForm(model);
             var requestModel = MakeGetAvailableHireGroupsRequest(model);
             var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
-            foreach (var pHireGroup in parentHireGroups)
-            {
-                if (pHireGroup.SubHireGroups != null && pHireGroup.SubHireGroups.Count > 0)
-                {
-                    pHireGroup.ChildHireGroupCount = "( "+pHireGroup.SubHireGroups.Count.ToString()+" Cars available )";
-                }
-                else
-                {
-                    pHireGroup.ChildHireGroupCount = "";
-                }
-            }
+            AddChildHireGroupCount(parentHireGroups);
             if (parentHireGroups != null)
             {
                 Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
@@ -502,7 +584,7 @@ namespace APIInterface.Controllers
         }
 
 
-         /// <summary>
+        /// <summary>
          /// Extra's Selection
          /// </summary>
         public ActionResult SelectExtras(string hireGroupDetailId)
@@ -535,29 +617,10 @@ namespace APIInterface.Controllers
         [HttpGet]
         public ActionResult Checkout(string ServiceItemsIds, string InsurancesIds)
         {
-            var extras = Session["Extras"] as ExtrasResponseModel;
-            var extrasIds = GetIdsFromString(ServiceItemsIds);
-            var insurancesIds = GetIdsFromString(InsurancesIds);
-            double insuranceTotal=0;
-            double serviceItemsTotal=0;
-            double? total=0;
-            var items = new List<string>();
-            GetExtrasTotal(extrasIds, insurancesIds, extras, out insuranceTotal,out serviceItemsTotal, out total, out items);
-            var model = new UserInfoModel
-            {
-                ItemsHtml = items,
-                InsurancesTotal = insuranceTotal,
-                ServiceItemsTotal = serviceItemsTotal,
-                SubTotal = total, // hire group wala
-                GrandTotal = total + serviceItemsTotal + insuranceTotal,
-                DOB = DateTime.Now
-            };
-            Session["GrandTotal"] = model.GrandTotal;
-            Session["SubTotal"] = model.SubTotal;
+            var model = MakCheckoutModel(ServiceItemsIds, InsurancesIds);
             return View(model);
         }
 
-       
 
         /// <summary>
         /// Final Screen | Checkout
@@ -631,49 +694,6 @@ namespace APIInterface.Controllers
            var onlineBookingModel= SetOnlineBookingModel(model);
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             return View();
-        }
-
-        private BookingModel SetOnlineBookingModel(UserInfoModel userInfo)
-        {
-            var extrasIds= Session["extrasList"] as string[]; 
-            var insuranceTypesIds= Session["insuranceTypeList"] as string[];
-
-            var extrasObjectList = extrasIds.Where(id => id != "-99").Select(double.Parse).ToList();
-            var insuranceTypesObjectList = insuranceTypesIds.Where(id => id != "-99").Select(double.Parse).ToList();
-
-            var model = new BookingModel
-            {
-                UserInfo = new UserInfoModel
-                {
-                  BillingAddress  = userInfo.BillingAddress,
-                  DOB = userInfo.DOB,
-                  Email = userInfo.Email,
-                  FName = userInfo.FName,
-                  LName = userInfo.LName,
-                  PhoneNumber = userInfo.PhoneNumber
-                },
-                PickUpLocationId = double.Parse(Session["pickupId"].ToString()),
-                DropOffLocationId = double.Parse(Session["dropoffId"].ToString()),
-                PickupOperationId = double.Parse(Session["pickupOperationId"].ToString()),
-
-                PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString())),
-                DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString())),
-
-                HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString()),
-                DropOffCharges = double.Parse(Session["DropOffCharges"].ToString()),
-
-                StandardRate = double.Parse(Session["standardRate"].ToString()),
-
-                SubTotal = double.Parse(Session["SubTotal"].ToString()),
-                FullTotal = double.Parse(Session["GrandTotal"].ToString()),
-
-                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString()),
-                TariffType = Session["TariffType"].ToString(),
-
-                ServiceItems = extrasObjectList.ToList(),
-                InsuranceTypes = insuranceTypesObjectList
-            };
-            return model;
         }
 
         #endregion
