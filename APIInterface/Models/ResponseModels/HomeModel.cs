@@ -1,7 +1,5 @@
 ﻿
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace APIInterface.Models.ResponseModels
 {
@@ -25,8 +23,9 @@ namespace APIInterface.Models.ResponseModels
         /// </summary>
         public IEnumerable<WebApiOperationWorkplace> OperationsWorkPlaces { get; set; }
 
-       
-
-
+        /// <summary>
+        /// For Contact Us Form
+        /// </summary>
+        public EmailModel EmailModel { get; set; }
     }
 }

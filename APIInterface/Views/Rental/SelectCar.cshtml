@@ -28,7 +28,10 @@
             width: 16px;
             background-color: rgb(231, 231, 231);
         }
-
+       
+        input[type='button'] {
+            cursor: pointer;
+        }
      
     </style>
 </head>
@@ -60,10 +63,10 @@
         </div><!-- #branding -->
         <div id="progress-bar">
             <div id="progress-bar-steps">
-                <div class="progress-bar-step done">
+                <a id="startingForm" class="progress-bar-step done" href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
                     <div class="step_number">1</div>
                     <div class="step_name">Create request</div>
-                </div>
+                </a>
                 <div class="progress-bar-step current">
                     <div class="step_number">2</div>
                     <div class="step_name">Choose a car</div>
@@ -90,12 +93,12 @@
                     <div class="location-block">
                         <div class="form-block location">Pick-up Location</div>
                         <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
-                       
+                        <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> Update Reservation Date/Time</a>
                     </div>
                     <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
                         <h4>Pick-up date</h4>
-                        <input class="datepicker" disabled type="text" style="width: 70%" name="data_from" value='@Session["pickupDate"]' />
-                        @*<input class="time-select" type="text" size="5"  name="time_from" />*@
+                        <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
+                       <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
                     </div>
                     <div class="form-block drop-off" style=" margin-left: 8px;">
                         <h4 style=" height: 18px;">Drop-off Location</h4>
@@ -122,7 +125,7 @@
                             <div class="widget-title">
                                 <div>
                                     <img src="~/Images/images/list.png" alt="" />
-                                    Results <span>(3 from 3)</span>
+                                    Number of classes available :<span id="total_hg">@Session["HGCount"]</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -134,63 +137,69 @@
                                             int i = 0;
                                             foreach (var item in ViewBag.HGDetail)
                                             {
-                                                <h3 title="@item.Description" id=@(+item.HireGroupId) ><span style=""> @item.HireGroupName</span><span style="float: right; margin-right: 3px;">@if (@item.DropoffCharge != 0)
-                                                                                                                                                                                                                         {
-                                                                                                                                                                                                                             <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
-                                                                                                                                                                                                                         }</span>   </h3>
-                                                <div class="container-fluid">
-                                                    <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
-                                                    @if (item.SubHireGroups.Count !=0)
-                                                    {
-                                                        int count = 0;
-                                                        foreach (var obj in item.SubHireGroups)
+                                                <h3 title="@item.Description" id=@(+item.HireGroupId)>
+                                                    <span style=""> @item.HireGroupName</span><span style="float: right; margin-right: 3px;">
+                                                        @if (@item.DropoffCharge != 0)
                                                         {
-                                                            <div class="row"  >
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
-                                                                    <div class="product-img">
-                                                                        <img src="@obj.ImageUrl" style="height: 130px; width: 290px;"/>
-                                                                    </div>
-                                                                    
+                                                            <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
+                                                        }
+                                                </span>
+                                            </h3>
+                                            <div class="container-fluid">
+                                                <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+                                                @if (item.SubHireGroups.Count != 0)
+                                                {
+                                                    int count = 0;
+                                                    foreach (var obj in item.SubHireGroups)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
+                                                                <div class="product-img">
+                                                                    <img src="@obj.ImageUrl" style="height: 130px; width: 290px;" />
                                                                 </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
-                                                                    <div class="product-info">
-                                                                        <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
-                                                                        <div class="features" style="margin-bottom: 12px;">
-                                                                            <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
-                                                                            <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
-                                                                            <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
-                                                                            @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>*@
-                                                                        </div>
-                                                                        <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style="float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
-                                                                        <input  title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn"  class="continue_button blue_button Select" hidden="" style="margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
-                                                                        <span id=@("period_"+obj.HireGroupDetailId)> </span>
+
+                                                            </div>
+                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
+                                                                <div class="product-info">
+                                                                    <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
+                                                                    <div class="features" style="margin-bottom: 12px;">
+                                                                        <p title="Vehicle Maker"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@obj.VehicleMake</span></p>
+                                                                        <p title="Vehicle Model"><img src="~/Images/images/transmission-icon.png" alt="" /><span>@obj.VehicleModel</span> </p>
+                                                                        <p title="Vehicle Model-Year"><img src="~/Images/images/km_l-icon.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                        @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span id=@("TCode_" + obj.HireGroupDetailId)>(No Tariff Type)</span> </p>*@
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
-                                                                    <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
-                                                                        <p title="Charge" style="margin-left: 2px;"><span></span><span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)>(No Standard Rate)</span>  </p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
-                                                                   <p>@obj.ImageDescription</p>
+
                                                                 </div>
                                                             </div>
-                                                            if (item.SubHireGroups.Count != (count + 1))
-                                                            {
-                                                                <div class="row">
-                                                                    <hr />
+                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
+                                                                <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
+                                                                <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
+                                                                    <span style="margin-left: -4px; font-size: 23px;" class="chargeDiv" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
+                                                                    <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId) ></span>
                                                                 </div>
-                                                            }
-                                                            count++;
+                                                            </div>
+                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
+                                                                <p>@obj.ImageDescription</p>
+                                                            </div>
+                                                        </div>
+                                                        if (item.SubHireGroups.Count != (count + 1))
+                                                        {
+                                                            <div class="row">
+                                                                <hr />
+                                                            </div>
                                                         }
+                                                        count++;
+                                                    }
                                                         <!-- HG Det Loop-->
-                                                    }
-                                                    else
-                                                    {
-                                                        <center>
-                                                            <img src="~/Images/soldout.png"  style=" height: 72px;"/>  </center>
-                                                    }
-                                                </div>
+                                                }
+                                                else
+                                                {
+                                                    <center>
+                                                        <img src="~/Images/soldout.png" style=" height: 72px;" />
+                                                    </center>
+                                                }
+                                            </div>
                                             } <!-- HG Loop-->
                                         } <!-- HG Null-->
 
@@ -200,6 +209,10 @@
                             </div>
 
                         </form>
+
+
+
+
 
 
 
@@ -229,10 +242,13 @@
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.pulsate.min.js"></script>
+    
 
     <script>
 
         $(document).ready(function () {
+
             $(function () {
                 $("#accordion").accordion({
                     collapsible: true,
@@ -249,6 +265,7 @@
 
             // Vehicle Selection submition
             $('.Select').click(function () {
+                hideUi();
                 var id = this.id.substring(9, this.id.length);
                 if (document.getElementById("TotalC_" + id).innerHTML == '(No Standard Rate)') {
                     $.growlUI('', 'Calculate Charge First!');
@@ -261,10 +278,10 @@
             // Calculate Charge
             $('.Charge').click(function () {
                 var id = this.id.substring(9, this.id.length);
-                if (document.getElementById("TotalC_" + id).innerHTML != '(No Standard Rate)') {
+                if (document.getElementById("TotalC_" + id).innerHTML != ' ') {
                     return false;
                 }
-                //hideUi();
+                hideUi();
                 
                 $.ajax({
                     type: 'POST',
@@ -275,16 +292,24 @@
                     success: function (response) {
                        // document.getElementById(id).disabled = false;
                         if (response.detail !== null) {
-                           // showUi();
+                            showUi();
                             if (response.hGcharge.TariffTypeCode == null) {
                                 alert("Standard rates are not defined for current tarrif type!");
                                 return;
                             }
                             document.getElementById("TotalC_" + id).innerHTML = ("SAR "+ response.hGcharge.TotalStandardCharge);
-                            document.getElementById("period_" + id).innerHTML = (response.hGcharge.CalculatedPeriod);
+                            document.getElementById("perdaycost_" + id).innerHTML = ("(SAR " + response.hGcharge.PerDayCost + "/day)");
                             $("#selectId_" + id).show();
                             $("#chargeId_" + id).css('display', 'none');
 
+
+                            $('.chargeDiv').pulsate({
+                                color: "#e80c4d",
+                                reach: 50,
+                                repeat: 5,
+                                speed: 800,
+                                glow: true
+                            });
                         }
                         else {
 
@@ -298,7 +323,16 @@
             });
         });
 
-      
+        $("#startingForm").hover(function () {
+            var cls = document.getElementById("startingForm").className;
+            if (cls == "progress-bar-step done") {
+                $("#startingForm").removeClass("progress-bar-step done").addClass("progress-bar-step current");
+                return false;
+            }
+            $("#startingForm").removeClass("progress-bar-step current").addClass("progress-bar-step done");
+
+        });
+
     </script>
     <style>
    

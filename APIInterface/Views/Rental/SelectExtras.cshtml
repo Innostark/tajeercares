@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
     <!--[if IE]>
     <script type="text/javascript" src="~/Scripts/js/html5.js"></script>
     <link rel="stylesheet" id="stylesheet-ie" href="css/css_ie.css" type="text/css" media="all" />
@@ -25,8 +27,8 @@
         <div id="branding">
             <div id="branding-content">
                 <div class="title-content">
-                    <a  title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
-                    <h1 style=" width: 200%;" class="site-title"><a  title="">@Session["siteName"]</a></h1>
+                    <a title=""><img class="site-logo" src="~/Images/images/thumb.png" alt="" /></a>
+                    <h1 style=" width: 200%;" class="site-title"><a title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
 
@@ -77,12 +79,13 @@
                     <div class="location-block">
                         <div class="form-block location">Pick-up Location</div>
                         <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
+                        <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> Update Reservation Date/Time</a>
 
                     </div>
                     <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
                         <h4>Pick-up date</h4>
-                        <input class="datepicker" disabled type="text" style="width: 70%" name="data_from" value='@Session["pickupDate"]' />
-                        @*<input class="time-select" type="text" size="5"  name="time_from" />*@
+                        <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
+                        <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
                     </div>
                     <div class="form-block drop-off" style=" margin-left: 8px;">
                         <h4 style=" height: 18px;">Drop-off Location</h4>
@@ -108,7 +111,7 @@
                         </h3>
                         <h4>
                             Car
-                          
+
                         </h4>
                         <div class="widget-content main-block product-widget-mini">
                             <div class="product-img">
@@ -129,129 +132,127 @@
                                     @*<p title="Tariff Type"><img src="~/Images/images/passenger-icon.png" alt="" /><span>@hireGroup.TariffType</span> </p>*@
                                     <p title="Charge" style="margin-left: 2px;"><img style="width: 8%" src="~/Images/images/currency.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </p>
                                 </div>
-                               
+
                             </div>
                         </div>
-                       
+
                         <h4 class="extras">Extras</h4>
                         <div class="widget-content widget-extras" id="extras_Total_Sidebar">
                             <p id="defaultItem">No Extra Item Added!</p>
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total (SAR): <span class="price"></span><span id="overAllTotal"class="price"> @hireGroup.StandardRt</span>
+                            Total (SAR): <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.StandardRt</span>
                         </div>
                     </div>
                 </aside>
                 <div id="content" class="sidebar-middle">
-                        <div class="widget main-widget product-widget main-widget-3column">
-                            <div class="widget-title">
-                                <div>
-                                    <img src="~/Images/images/list.png" alt="" />
-                                    Available Extras
-                                </div>
-                                <div class="clear"></div>
+                    <div class="widget main-widget product-widget main-widget-3column">
+                        <div class="widget-title">
+                            <div>
+                                <img src="~/Images/images/list.png" alt="" />
+                                Available Extras
                             </div>
-                      
-                             @if (ViewBag.Data != null)
-                            {
-                                var extras = ViewBag.Data.ServiceItems;
-                                foreach (var item in extras)
-                                {
-                                    <div class="post">
-                                        <div class="checkbox-block_container">
-                                            <div class="main-block_container">
-                                                <div class="additional-block_container">
-                                                    <div class="checkbox-block extra" id="@(item.ServiceTypeId)">
-                                                        <input id="@("box_"+item.ServiceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
-                                                    </div>
-                                                    <div class="main-block">
-                                                        <div class="product-img">
-                                                            <img src="@item.ImageUrl" alt="" style="height: 80px;width: 80px;" />
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h3 id="@("ItemName_"+item.ServiceTypeId)" class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
-                                                            <div>@item.ServiceItemDescription</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="additional-block">
-                                                        <span id=@("currency_"+item.ServiceTypeId) hidden="">SAR </span>
-                                                        <span id=@("rate_"+item.ServiceTypeId)>(Select Item)</span>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                } <!--extras loop ends-->
-                            }   <!-- extras Null ends-->
+                            <div class="clear"></div>
                         </div>
-                        <div class="widget main-widget product-widget main-widget-3column">
-                            <div class="widget-title">
-                                <div>
-                                    <img src="~/Images/images/list.png" alt="" />
-                                    Available Insurances
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            @if (ViewBag.Data != null)
-                            {
-                                var insurances = ViewBag.Data.InsuranceTypes;
-                                foreach (var item in insurances)
-                                {
-                                    <div class="post">
-                                        <div class="checkbox-block_container">
-                                            <div class="main-block_container">
-                                                <div class="additional-block_container">
-                                                    <div class="checkbox-block insurance" id="@(item.InsuranceTypeId)">
-                                                        <input id="@("box_" + item.InsuranceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
-                                                    </div>
-                                                    <div class="main-block">
-                                                        <div class="product-img">
-                                                            <img src="@item.ImageUrl" alt="" style="height: 80px;width: 80px;" />
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h3 id="@("ItemName_" + item.InsuranceTypeId)" class="entry-format">@item.InsuranceTypeCode-@item.InsuranceTypeName</h3>
-                                                            <div>@item.InsuranceTypeDescription</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="additional-block">
-                                                        <span id=@("currency_" + item.InsuranceTypeId) hidden="">SAR</span>
-                                                        <span id=@("rate_" +item.InsuranceTypeId)>(Select Item)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                } <!--extras loop ends-->
-                            }   <!-- extras Null ends-->
 
-                        </div>
-                        @model APIInterface.Models.ExtrasIdsContainer
-                        @{
-                                               
-                        }
-                        @using (Html.BeginForm("Checkout", Session["CompanyShortName"]+"/Rental", FormMethod.Get, new { @class = "form-horizontal  custom-group", role = "form", id="temp" }))
+                        @if (ViewBag.Data != null)
                         {
-                            <input type="hidden" name="ServiceItemsIds" id="ServiceItemsIds" value="shurmkro"/>
-                            <input type="hidden" name="InsurancesIds" id="InsurancesIds" value="shurmkro" />
-                            <div class="next_page" >
-                                <input id="done" type="submit" class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;" @*onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"*@ value="Checkout" />
+                            var extras = ViewBag.Data.ServiceItems;
+                            foreach (var item in extras)
+                            {
+                                <div class="post">
+                                    <div class="checkbox-block_container">
+                                        <div class="main-block_container">
+                                            <div class="additional-block_container">
+                                                <div class="checkbox-block extra" id="@(item.ServiceTypeId)">
+                                                    <input id="@("box_"+item.ServiceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                </div>
+                                                <div class="main-block">
+                                                    <div class="product-img">
+                                                        <img src="@item.ImageUrl" alt="" style="height: 80px;width: 80px;" />
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <h3 id="@("ItemName_"+item.ServiceTypeId)" class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
+                                                        <div>@item.ServiceItemDescription</div>
+                                                    </div>
+                                                </div>
+                                                <div class="additional-block">
+                                                    <span id=@("currency_"+item.ServiceTypeId) hidden="">SAR </span>
+                                                    <span id=@("rate_"+item.ServiceTypeId)>(Select Item)</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            } <!--extras loop ends-->
+                        }   <!-- extras Null ends-->
+                    </div>
+                    <div class="widget main-widget product-widget main-widget-3column">
+                        <div class="widget-title">
+                            <div>
+                                <img src="~/Images/images/list.png" alt="" />
+                                Available Insurances
                             </div>
-                        }
-                       
+                            <div class="clear"></div>
+                        </div>
+                        @if (ViewBag.Data != null)
+                        {
+                            var insurances = ViewBag.Data.InsuranceTypes;
+                            foreach (var item in insurances)
+                            {
+                                <div class="post">
+                                    <div class="checkbox-block_container">
+                                        <div class="main-block_container">
+                                            <div class="additional-block_container">
+                                                <div class="checkbox-block insurance" id="@(item.InsuranceTypeId)">
+                                                    <input id="@("box_" + item.InsuranceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                </div>
+                                                <div class="main-block">
+                                                    <div class="product-img">
+                                                        <img src="@item.ImageUrl" alt="" style="height: 80px;width: 80px;" />
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <h3 id="@("ItemName_" + item.InsuranceTypeId)" class="entry-format">@item.InsuranceTypeCode-@item.InsuranceTypeName</h3>
+                                                        <div>@item.InsuranceTypeDescription</div>
+                                                    </div>
+                                                </div>
+                                                <div class="additional-block">
+                                                    <span id=@("currency_" + item.InsuranceTypeId) hidden="">SAR</span>
+                                                    <span id=@("rate_" +item.InsuranceTypeId)>(Select Item)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            } <!--extras loop ends-->
+                        }   <!-- extras Null ends-->
+
+                    </div>
+                    @model APIInterface.Models.ExtrasIdsContainer
+                    @{
+
+                    }
+                    @using (Html.BeginForm("Checkout", Session["CompanyShortName"] + "/Rental", FormMethod.Get, new { @class = "form-horizontal  custom-group", role = "form", id = "temp" }))
+                    {
+                        <input type="hidden" name="ServiceItemsIds" id="ServiceItemsIds" value="shurmkro" />
+                        <input type="hidden" name="InsurancesIds" id="InsurancesIds" value="shurmkro" />
+                        <div class="next_page">
+                            <input id="done" type="submit" class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;" @*onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"*@ value="Checkout" />
+                        </div>
+                    }
+
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>
-        <footer id="footer">
-          
-        </footer><!--end:footer-->
+        <footer id="footer"></footer><!--end:footer-->
     </div><!--end:conteiner-->
     <div id="overlay_block"></div>
-    
+
     <script type="text/javascript" src="~/Scripts/js/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-ui.js"></script>
@@ -263,11 +264,14 @@
     <script type="text/javascript" src="~/Scripts/js/custom-form-elements.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
     <script src="~/Scripts/_jquery.blockUI.js"></script>
+
     <script>
         var extrasList = new Array();
         var insurancesList = new Array();
-       
+
         $("form").submit(function () {
             var index;
             var text = '-99';
@@ -281,13 +285,13 @@
             }
             $("#InsurancesIds").val(text);
         });
-      function callInsurance() {
+        function callInsurance() {
             var Id = this.id;
             if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
                 var valueToMinus = document.getElementById("rate_" + Id).textContent;
                 document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
                 $("#currency_" + Id).hide();
-                
+
                 var list = document.getElementById('extras_Total_Sidebar');
                 var entryToBeRemoved = document.getElementById("ins_" + Id);
                 list.removeChild(entryToBeRemoved);
@@ -302,7 +306,7 @@
                 }
                 return false;
             }
-           // hideUi();
+             hideUi();
             $.ajax({
                 type: 'POST',
                 data: "{'insuranceTypeId':'" + Id + "'}",
@@ -315,23 +319,23 @@
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
-                        
+
                         var newdiv = document.createElement('p');
-                        newdiv.setAttribute('id', 'ins_'+Id);
-                        newdiv.innerHTML = itemName+ ' <span class="price">' + "SAR "+response.insuranceCharge.Charge + '</span>';
+                        newdiv.setAttribute('id', 'ins_' + Id);
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + response.insuranceCharge.Charge + '</span>';
                         list.appendChild(newdiv);
-                       
+
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.insuranceCharge.Charge;
                         insurancesList.push(Id);
-                        
+                        toastr.success("Item added!");
                         $('#defaultItem').hide();
                     }
                     else {
 
                     }
-                    //showUi();
+                    showUi();
                 },
                 error: function () {
                     //showUi();
@@ -339,14 +343,14 @@
             });
         }
         $(document).on('click', '.insurance', callInsurance);
-       
+
         function callExtra() {
             var Id = this.id;
             if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
                 var valueToMinus = document.getElementById("rate_" + Id).textContent;
                 document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
                 $("#currency_" + Id).hide();
-                
+
                 var list = document.getElementById('extras_Total_Sidebar');
                 var entryToBeRemoved = document.getElementById("exs_" + Id);
                 list.removeChild(entryToBeRemoved);
@@ -361,7 +365,7 @@
                 }
                 return false;
             }
-            //hideUi();
+            hideUi();
             $.ajax({
                 type: 'POST',
                 data: "{'serviceItemId':'" + Id + "','quantity':'1'}",
@@ -374,18 +378,19 @@
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
-                        
+
                         var newdiv = document.createElement('p');
-                        newdiv.setAttribute('id', 'exs_'+Id);
-                        newdiv.innerHTML = itemName+ ' <span class="price">'+"SAR " + response.itemCharge.ServiceCharge + '</span>';
+                        newdiv.setAttribute('id', 'exs_' + Id);
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + response.itemCharge.ServiceCharge + '</span>';
                         list.appendChild(newdiv);
-                       
+
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
                         document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
-                         extrasList.push(Id);
-                        
+                        extrasList.push(Id);
+
                         $('#defaultItem').hide();
+                        toastr.success("Item added!");
                     }
                     else {
 
@@ -398,10 +403,10 @@
             });
         }
         $(document).on('click', '.extra', callExtra);
-        
+
         function moveToCheckout() {
             var total = parseInt(document.getElementById('overAllTotal').textContent);
-            
+
             $.ajax({
                 url: "Checkout?total=" + 5,
                 type: 'GET',
@@ -410,7 +415,7 @@
                     alert(thrownError);
                 }
             });
-        
+
             //$.ajax({
             //    type: 'GET',
             //    data: "{'total':'" + total + "','extras':'" + extrasList + "'}",
@@ -419,7 +424,7 @@
             //    dataType: 'json',
             //    success: function (response) {
             //        if (response) {
-                       
+
             //        }
             //        else {
             //            alert('failed');
@@ -430,7 +435,8 @@
             //    },
             //});
         }
-     
+
     </script>
 </body>
+
 </html>

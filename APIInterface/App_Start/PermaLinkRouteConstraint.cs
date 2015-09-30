@@ -53,7 +53,15 @@ namespace APIInterface.App_Start
            {
                values["controller"] = "Rental";
                values["action"] = "SelectExtras";
-               values["customRoute"] = parms[0] + "/Rental/Checkout";
+               values["customRoute"] = parms[0] + "/Rental/SelectExtras";
+               return true;
+           }
+
+           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "SendEmail")
+           {
+               values["controller"] = "Rental";
+               values["action"] = "SendEmail";
+               values["customRoute"] = parms[0] + "/Rental/SendEmail";
                return true;
            }
 

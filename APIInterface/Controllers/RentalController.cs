@@ -1,4 +1,7 @@
 ﻿using System.Activities.Statements;
+using System.Configuration;
+using System.Net;
+using System.Net.Mail;
 using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
@@ -91,6 +94,16 @@ namespace APIInterface.Controllers
                 },
                 OperationsWorkPlaces = operationsWorkPlacesst
             };
+
+            DateTime startDateTime = Convert.ToDateTime(Session["pickupDate"].ToString());
+            DateTime endDateTime = Convert.ToDateTime(Session["dropoffDate"].ToString());
+
+           TimeSpan periodSpan = (endDateTime - startDateTime);
+
+           string period = String.Format("{0} days, {1} hours",
+                 periodSpan.Days, periodSpan.Hours);
+            Session["period"] = period;
+
             return selectCarModel;
         }
 
@@ -165,10 +178,9 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Sets Hire Group rate for requested HG
         /// </summary>
-        private string SetHireGroupCharge(string hireGroupDetailId, RaCandidateHireGroupCharge response)
+        private void SetHireGroupCharge(string hireGroupDetailId, RaCandidateHireGroupCharge response)
         {
             var parentHireGroups = Session["HGDetail"] as List<WebApiParentHireGroupsApiResponse>;
-            string period = null;
             if (parentHireGroups != null)
             {
                 foreach (var pHireGroup in parentHireGroups)
@@ -186,18 +198,21 @@ namespace APIInterface.Controllers
                                 Session["TariffType"] = cHireGroup.TariffType;
                                 DateTime startDateTime = Convert.ToDateTime(Session["pickupDate"].ToString());
                                 DateTime endDateTime = Convert.ToDateTime(Session["dropoffDate"].ToString());
+                                // Per day cost
+                                TimeSpan periodSpan = (endDateTime - startDateTime);
+                                string period = String.Format("{0}",
+                                      periodSpan.Days);
+                                int day= int.Parse(period)!=0?int.Parse(period):  1;
+                                response.PerDayCost = (response.TotalStandardCharge / day).ToString();
 
-                                TimeSpan span = (endDateTime - startDateTime);
-
-                               period= String.Format("{0} days, {1} hours",
-                                    span.Days, span.Hours);
                             }
+
+
                         }
                     }
                 }
             }
             Session["HGDetail"] = parentHireGroups;
-            return period;
         }
 
 
@@ -321,6 +336,7 @@ namespace APIInterface.Controllers
             Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
             Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
             Session["CompanyShortName"] = response.SiteContent.CompanyShortName.ToUpper();
+            Session["EmailForContact"] = response.SiteContent.Email;
             var model = new HomeModel
             {
                 ReservationForm = new ReservationForm
@@ -365,8 +381,8 @@ namespace APIInterface.Controllers
                 +
                 "<table class='table'>" +
                 "<tr>" +
-                "<td><i class='fa fa-dashboard'></i> "+source.Phone+"</td>" +
-                "<td><i class='fa fa-cog'></i>"+source.Address+"</td>" +
+                "<td><i class='fa fa-phone'></i> " + source.Phone + "</td>" +
+                "<td><i class='fa fa-user'></i>" + source.Address + "</td>" +
                 "</tr>" +
                 "</table>" +
                 "</div>" +
@@ -390,6 +406,37 @@ namespace APIInterface.Controllers
         private string[] GetIdsFromString(string rawString)
         {
             return rawString.Split(',');
+        }
+        /// <summary>
+        /// Send Email 
+        /// </summary>
+        public static void SendEmail(string email, string subject, string body, string fromDisplayName)
+        {
+
+            string fromAddress = ConfigurationManager.AppSettings["FromAddress"];
+            string fromPwd = ConfigurationManager.AppSettings["FromPassword"];
+            //string cc = ConfigurationManager.AppSettings["CC"];
+            //string bcc = ConfigurationManager.AppSettings["BCC"];
+
+            //Getting the file from config, to send
+            var oEmail = new MailMessage
+            {
+                From = new MailAddress(fromAddress, fromDisplayName),
+                Subject = subject,
+                IsBodyHtml = true,
+                Body = body,
+                Priority = MailPriority.High
+            };
+            oEmail.To.Add(email);
+            string smtpServer = ConfigurationManager.AppSettings["SMTPServer"];
+            string smtpPort = ConfigurationManager.AppSettings["SMTPPort"];
+            string enableSsl = ConfigurationManager.AppSettings["EnableSSL"];
+            var client = new SmtpClient(smtpServer, Convert.ToInt32(smtpPort))
+            {
+                EnableSsl = enableSsl == "1",
+                Credentials = new NetworkCredential(fromAddress, fromPwd)
+            };
+            client.Send(oEmail);
         }
         #endregion
         public RentalController()
@@ -439,6 +486,7 @@ namespace APIInterface.Controllers
             if (parentHireGroups != null)
             {
                 Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
+                Session["HGCount"] = parentHireGroups.Count;
             }
             return View(newModel);
         }
@@ -455,6 +503,21 @@ namespace APIInterface.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Send Email 
+        /// </summary>
+        [HttpPost]
+        public JsonResult SendEmail(EmailModel email)
+        {
+            string companyEmail = Session["EmailForContact"].ToString();
+            var emailContent = email;
+            if (emailContent != null)
+            {
+                SendEmail(companyEmail, emailContent.EmailSubject, emailContent.EmailBody, emailContent.SenderName);
+                return Json(new { status = "ok" });
+            }
+            return Json(new { status = "error" });
+        }
 
         /// <summary>
         /// Final Screen | Checkout
@@ -512,7 +575,7 @@ namespace APIInterface.Controllers
             {
                 response.TariffTypeCode = GetHireGroupFullName(response.TariffTypeCode);
                 // setting up charge for hiregroup in the list
-               response.CalculatedPeriod = SetHireGroupCharge(hireGroupDetailId, response);
+                SetHireGroupCharge(hireGroupDetailId, response);
                 return Json(new { hGcharge = response });
             }
             return null;

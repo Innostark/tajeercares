@@ -122,7 +122,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-10 col-md-offset-1">
                                                             <div class="form-search dark">
-                                                                @using (Html.BeginForm("SelectCar", Session["CompanyShortName"]+"/Rental", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
+                                                                @using (Html.BeginForm("SelectCar", Session["CompanyShortName"]+"/Rental", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form", id="reservationForm" }))
                                                                 {
                                                                     <div class="form-title">
                                                                         <i class="fa fa-globe"></i>
@@ -341,7 +341,7 @@
             
             <!-- PAGE -->
             <section id="PickYourCar" class="page-section no-padding no-bottom-space-off">
-                <div class="container full-width">
+                <div class="container full-width" style="height: 400px">
                     <!-- Google map -->
                     <div class="google-map">
                         <div id="map-canvas"></div>
@@ -362,15 +362,13 @@
                     <div class="row">
                         <div class="col-md-6 wow fadeInLeft" data-wow-offset="200" data-wow-delay="200ms">
                             <!-- Contact form -->
-                            <form name="contact-form" method="post" action="#" class="contact-form" id="contact-form">
-                                <div class="row">
+                           
+                                  <div class="row">
                                     <div class="col-md-6">
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
                                                 <label class="sr-only" for="name">Name</label>
-                                                <input type="text" name="name" id="name" placeholder="Name" value="" size="30"
-                                                       data-toggle="tooltip" title="Name is required"
-                                                       class="form-control placeholder" />
+                                                @Html.TextBoxFor(m => m.EmailModel.SenderName, new {placeholder="Name", @class = "form-control placeholder", id = "name", style = "width:95.5%" })
                                                 <span class="form-control-icon"><i class="fa fa-user"></i></span>
                                             </div>
                                         </div>
@@ -379,9 +377,7 @@
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
                                                 <label class="sr-only" for="email">Email</label>
-                                                <input type="text" name="email" id="email" placeholder="Email" value="" size="30"
-                                                       data-toggle="tooltip" title="Email is required"
-                                                       class="form-control placeholder" />
+                                                @Html.TextBoxFor(m => m.EmailModel.SenderEmail, new { placeholder = "Email", @class = "form-control placeholder", id = "email", style = "width:95.5%" })
                                                 <span class="form-control-icon"><i class="fa fa-envelope"></i></span>
                                             </div>
                                         </div>
@@ -390,25 +386,24 @@
                                 <div class="outer required">
                                     <div class="form-group af-inner has-icon">
                                         <label class="sr-only" for="subject">Subject</label>
-                                        <input type="text" name="subject" id="subject" placeholder="Subject" value="" size="30"
-                                               data-toggle="tooltip" title="Subject is required"
-                                               class="form-control placeholder" />
+                                        @Html.TextBoxFor(m => m.EmailModel.EmailSubject, new { placeholder = "Subject", @class = "form-control placeholder", id = "subject", style = "width:95.5%" })
+
+
                                         <span class="form-control-icon"><i class="fa fa-bars"></i></span>
                                     </div>
                                 </div>
                                 <div class="form-group af-inner has-icon">
                                     <label class="sr-only" for="input-message">Message</label>
-                                    <textarea name="message" id="input-message" placeholder="Message" rows="4" cols="50"
-                                              data-toggle="tooltip" title="Message is required"
-                                              class="form-control placeholder"></textarea>
+                                    @Html.TextAreaFor(m => m.EmailModel.EmailBody, new { rows="4" ,cols="50",placeholder = "Message", @class = "form-control placeholder", id = "body", style = "width:95.5%" })
+
                                     <span class="form-control-icon"><i class="fa fa-bars"></i></span>
                                 </div>
                                 <div class="outer required">
                                     <div class="form-group af-inner">
-                                        <input type="submit" name="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" id="submit_btn" value="Send message" />
+                                        <input id="contact-form" type="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" value="Send message" />
                                     </div>
                                 </div>
-                            </form>
+                           
                             <!-- /Contact form -->
                         </div>
                         <div class="col-md-6 wow fadeInRight" data-wow-offset="200" data-wow-delay="200ms">
@@ -485,6 +480,7 @@
     <script src="~/assets/plugins/jquery.easing.min.js"></script>
     <script src="~/assets/plugins/jquery.smoothscroll.min.js"></script>
     <script src="~/Scripts/toastr.js"></script>
+    <script src="~/assets/js/googleMapApisMapper.js"></script>   <!--Baqer added this-->
 
     <!--<script src="~/assets/plugins/smooth-scrollbar.min.js"></script>-->
     <!--<script src="~/assets/plugins/wow/wow.min.js"></script>-->
@@ -521,97 +517,55 @@
 
     <script>
         $(document).ready(function() {
-            $("form").submit(function() {
+            $("#reservationForm").submit(function () {
                 $('#DropoffHours').val($('#dropoffForm').val());
                 $('#PickupHours').val($('#pickUpForm').val());
-                //if ($("#ReservationForm_PickupLocation").val() == "") {
-                //    $.growlUI('', 'Set Pick-up Location!');
-                //    return false;
-                //}
-                //if ($("#ReservationForm_DropoffLocation").val() == "") {
-                //    $.growlUI('', 'Set Drop-off Location!');
-                //    return false;
-                //}
+                if ($("#ReservationForm_PickupLocation").val() == "") {
+                    //  $.growlUI('', 'Set Pick-up Location!');
+                    toastr.error("Set Pick-up Location!");
+                    return false;
+                }
+                if ($("#ReservationForm_DropoffLocation").val() == "") {
+                    //  $.growlUI('', 'Set Drop-off Location!');
+                    toastr.error("Set Drop-off Location!");
+                    return false;
+                }
                 return validateForm();
             });
+            
+            // google map co-oridnates intialization
+            InitializeMap();
 
-            Initialize();
+            $("#contact-form").click(function () {
+                var senderName = $("#name").val();
+                var senderEmail = $("#email").val();
+                var emailSubject = $("#subject").val();
+                var emailBody = $("#body").val();
+
+                var email = "{'SenderName':'" + senderName + "'," +
+                    "'SenderEmail':'" + senderEmail + "'," +
+                    "'EmailSubject':'" + emailSubject + "'," +
+                    "'EmailBody':'" + emailBody + "'}";
+
+                $.ajax({
+                    type: 'POST',
+                    data: email,
+                    contentType: "application/json; charset=utf-8",
+                    url: 'Rental/SendEmail',
+                    dataType: 'json',
+                    success: function (response) {
+                        toastr.success("Email sent!");
+                    },
+                    error: function () {
+                        toastr.error("Failed to send email.Try agian later!");
+                    },
+                });
+                
+            });
         });
 
-        function Initialize() {
-            var infowindow;
-            var locationCount = parseInt($("#locationCount").val());
-            var lat = 0;
-            var log = 0;
-            var locname = "";
-            if (locationCount > 0) {
-                var firstCoordinates = document.getElementsByClassName("loc")[0].value;
-                var firstContents = document.getElementsByClassName("cor")[0].value;
-                
-                var array = firstCoordinates.split("-");
-                lat = array[0];
-                log = array[1];
-                locname = array[2];
-            }
-
-            var liverpool = new google.maps.LatLng(lat, log);
-            var mapOptions = {
-                zoom: 12,
-                center: liverpool,
-            };
-            var image = 'assets/img/icon-google-map.png'; // marker icon
-
-            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-            var myLatlng = new google.maps.LatLng(lat, log);
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                icon: image,
-                title: locname
-            });
-
-            infowindow = new google.maps.InfoWindow({
-                content: firstContents
-                , maxWidth: 350
-                //,maxHeight: 500
-            });
-            google.maps.event.addListener(marker, 'click', function () {
-                infowindow.open(map, marker);
-            });
-            
-         
-            if (locationCount > 1) {
-                for (var i = 1; i < locationCount; i++) {
-                     var coordinates = document.getElementsByClassName("loc")[i].value;
-                     var contents = document.getElementsByClassName("cor")[i].value;
-                     array = coordinates.split("-");
-                     lat = array[0];
-                     log = array[1];
-                     locname = array[2];
-
-                     myLatlng = new google.maps.LatLng(lat, log);
-                     marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        icon: image,
-                        title: locname
-                    });
-
-                    infowindow = new google.maps.InfoWindow({
-                        content: contents
-                        , maxWidth: 350
-                        //,maxHeight: 500
-                    });
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.open(map, marker);
-                    });
-
-                }
-            }
-
-          
-
-        }
+        
+        
     </script>
 </body>
 </html>
