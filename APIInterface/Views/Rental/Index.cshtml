@@ -180,7 +180,7 @@
                                                                                 <div class="form-group has-icon has-label">
                                                                                     @Html.LabelFor(m => m.ReservationForm.DropoffDateTime, new {@class = "control-label", @for = "formSearchOffDate"})
                                                                                     @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
-                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new {@class = "form-control", id = "formSearchOffDate", style = "width:95.5%"})
+                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new { @class = "form-control", id = "formSearchOffDate", style = "width:95.5%" })
                                                                                     <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
                                                                                 </div>
                                                                             </div>
@@ -297,46 +297,7 @@
             </section>
             <!-- /PAGE -->
             <!-- PAGE -->
-            @*<section id="find-car-new" class="page-section find-car dark">
-                <div class="container">
-                    <form action="#" class="form-find-car">
-                        <div class="row">
-                            <div class="col-md-3 wow fadeInDown" data-wow-offset="200" data-wow-delay="100ms">
-                                <h2 class="section-title text-left no-margin">
-                                    <small>Great Rental Cars</small>
-                                    <span>Find your car</span>
-                                </h2>
-                            </div>
-                            <div class="col-md-3 wow fadeInDown" data-wow-offset="200" data-wow-delay="200ms">
-                                <div class="form-group has-icon has-label">
-                                    <label for="formFindCarLocation">Picking Up Location</label>
-                                    <input type="text" class="form-control" id="formFindCarLocation" placeholder="Airport or Anywhere">
-                                    <span class="form-control-icon"><i class="fa fa-location-arrow"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 wow fadeInDown" data-wow-offset="200" data-wow-delay="300ms">
-                                <div class="form-group has-icon has-label">
-                                    <label for="formFindCarDate">Picking Up Date</label>
-                                    <input type="text" class="form-control" id="formFindCarDate" placeholder="dd/mm/yyyy">
-                                    <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 wow fadeInDown" data-wow-offset="200" data-wow-delay="400ms">
-                                <div class="form-group has-icon has-label">
-                                    <label for="formFindCarCategory">Price Category</label>
-                                    <input type="text" class="form-control" id="formFindCarCategory" placeholder="Select Car Group">
-                                    <span class="form-control-icon"><i class="fa fa-bars"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 wow fadeInDown" data-wow-offset="200" data-wow-delay="500ms">
-                                <div class="form-group">
-                                    <button type="submit" id="formFindCarSubmit" class="btn btn-block btn-submit ripple-effect btn-theme">Find Car</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>*@
+           
             <!-- /PAGE -->
             
             <!-- PAGE -->
@@ -518,13 +479,36 @@
                 $('#DropoffHours').val($('#dropoffForm').val());
                 $('#PickupHours').val($('#pickUpForm').val());
                 if ($("#ReservationForm_PickupLocation").val() == "") {
-                    //  $.growlUI('', 'Set Pick-up Location!');
                     toastr.error("Set Pick-up Location!");
                     return false;
                 }
                 if ($("#ReservationForm_DropoffLocation").val() == "") {
-                    //  $.growlUI('', 'Set Drop-off Location!');
                     toastr.error("Set Drop-off Location!");
+                    return false;
+                }
+
+                var pickdate = new Date($("#formSearchUpDate").val());
+                var pk = pickdate.getDate() + "/"
+                                + (pickdate.getMonth() + 1) + "/"
+                                + pickdate.getFullYear();
+                
+                var dropDate = new Date($("#formSearchOffDate").val());
+                var dk = dropDate.getDate() + "/"
+                               + (dropDate.getMonth() + 1) + "/"
+                               + dropDate.getFullYear();
+
+                var date = new Date();
+                var currentDate = date.getDate() + "/"
+                                + (date.getMonth() + 1) + "/"
+                                + date.getFullYear();
+
+                if (dropDate < currentDate || pk < currentDate) {
+                    toastr.error("Reservation can not be in the past!");
+                    return false;
+                }
+                
+                if (pk < dk) {
+                    toastr.error("Invalid drop-off date!");
                     return false;
                 }
                 return validateForm();

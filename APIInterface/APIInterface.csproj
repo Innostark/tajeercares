@@ -936,7 +936,6 @@
     <Content Include="Views\Rental\SelectExtras.cshtml" />
     <Content Include="Views\Rental\Checkout.cshtml" />
     <Content Include="Views\ErrorHandler\Index.cshtml" />
-    <Content Include="Views\Rental\BookCar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -949,7 +948,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ApiResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ApiResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

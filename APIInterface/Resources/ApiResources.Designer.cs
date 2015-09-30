@@ -22,7 +22,7 @@ namespace APIInterface.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApiResources {
+    public class ApiResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace APIInterface.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("APIInterface.Resources.ApiResources", typeof(ApiResources).Assembly);
@@ -51,7 +51,7 @@ namespace APIInterface.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,9 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost/WebApi/Api/.
+        ///   Looks up a localized string similar to https://careswebapi.azurewebsites.net/api/.
         /// </summary>
-        internal static string BaseAddress {
+        public static string BaseAddress {
             get {
                 return ResourceManager.GetString("BaseAddress", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to SetOnlineBooking.
         /// </summary>
-        internal static string BookingMain {
+        public static string BookingMain {
             get {
                 return ResourceManager.GetString("BookingMain", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to SAR.
         /// </summary>
-        internal static string CurrencySymbol {
+        public static string CurrencySymbol {
             get {
                 return ResourceManager.GetString("CurrencySymbol", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetServiceItemsInsurances.
         /// </summary>
-        internal static string ExtrasInsurances {
+        public static string ExtrasInsurances {
             get {
                 return ResourceManager.GetString("ExtrasInsurances", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetSiteContents.
         /// </summary>
-        internal static string GetSiteContents {
+        public static string GetSiteContents {
             get {
                 return ResourceManager.GetString("GetSiteContents", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetAvailableHireGroupDetails.
         /// </summary>
-        internal static string HireGroupDetail {
+        public static string HireGroupDetail {
             get {
                 return ResourceManager.GetString("HireGroupDetail", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to HireGroupStandardRate.
         /// </summary>
-        internal static string HireGroupRate {
+        public static string HireGroupRate {
             get {
                 return ResourceManager.GetString("HireGroupRate", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetInsuranceTypeRate.
         /// </summary>
-        internal static string InsuranceTypeRate {
+        public static string InsuranceTypeRate {
             get {
                 return ResourceManager.GetString("InsuranceTypeRate", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetAllParentHireGroups.
         /// </summary>
-        internal static string ParentHireGroup {
+        public static string ParentHireGroup {
             get {
                 return ResourceManager.GetString("ParentHireGroup", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to RegisterUser.
         /// </summary>
-        internal static string RegisterUser {
+        public static string RegisterUser {
             get {
                 return ResourceManager.GetString("RegisterUser", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Something bad happend. Please try again later. We have recorded your action, and you will be contacted on the email you provided. We apologize for inconvenience!.
         /// </summary>
-        internal static string registerUserError {
+        public static string registerUserError {
             get {
                 return ResourceManager.GetString("registerUserError", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to GetServiceItemRate.
         /// </summary>
-        internal static string ServiceItemRate {
+        public static string ServiceItemRate {
             get {
                 return ResourceManager.GetString("ServiceItemRate", resourceCulture);
             }
@@ -171,16 +171,16 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to CheckUserAvailability.
         /// </summary>
-        internal static string UserAvailability {
+        public static string UserAvailability {
             get {
                 return ResourceManager.GetString("UserAvailability", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost/WebApi/Api/.
+        ///   Looks up a localized string similar to https://careswebapi.azurewebsites.net/api/.
         /// </summary>
-        internal static string WebApiBaseAddress {
+        public static string WebApiBaseAddress {
             get {
                 return ResourceManager.GetString("WebApiBaseAddress", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to QWEasd123.
         /// </summary>
-        internal static string WebApiPassword {
+        public static string WebApiPassword {
             get {
                 return ResourceManager.GetString("WebApiPassword", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace APIInterface.Resources {
         /// <summary>
         ///   Looks up a localized string similar to innoist.
         /// </summary>
-        internal static string WebApiUserName {
+        public static string WebApiUserName {
             get {
                 return ResourceManager.GetString("WebApiUserName", resourceCulture);
             }

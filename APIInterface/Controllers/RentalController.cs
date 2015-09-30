@@ -348,10 +348,9 @@ namespace APIInterface.Controllers
                 Sitecontent = response.SiteContent,
                 OperationsWorkPlaces = response.OperationsWorkPlaces // here
             };
-            string temp = null;
             foreach (var workPlace in response.OperationsWorkPlaces)
             {
-                temp =  workPlace.Latitude + "-" + workPlace.Longitude + "-"+workPlace.LocationName;
+                string temp = workPlace.Latitude + "-" + workPlace.Longitude + "-"+workPlace.LocationName;
                 workPlace.RawString = temp;
                 temp = null;
                 workPlace.CoordinatesContents = MakeLocationOnMap(workPlace);
