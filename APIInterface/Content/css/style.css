@@ -30,6 +30,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	line-height: 1;
 }
+    input[type='button'] {
+            cursor: pointer;
+        }
     .validation-summary-errors > ul > li {
             padding: 0 0 5px;
             color: red;

@@ -30,6 +30,11 @@ namespace APIInterface.Models.ResponseModels
         public string Description { get; set; }
 
         /// <summary>
+        /// Number OF child hire group 
+        /// </summary>
+        public string ChildHireGroupCount { get; set; }
+
+        /// <summary>
         /// List of children Hire Group 
         /// </summary>
         public List<WebApiHireGroupDetailResponse> SubHireGroups { set; get; }

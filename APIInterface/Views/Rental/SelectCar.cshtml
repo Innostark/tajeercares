@@ -123,7 +123,7 @@
                             <div class="widget-title">
                                 <div>
                                     <img src="~/Images/images/list.png" alt="" />
-                                    Number of classes available :<span id="total_hg">@Session["HGCount"]</span>
+                                    Number of classes available:&nbsp;<span id="total_hg">@Session["HGCount"]</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -136,67 +136,68 @@
                                             foreach (var item in ViewBag.HGDetail)
                                             {
                                                 <h3 title="@item.Description" id=@(+item.HireGroupId)>
-                                                    <span style=""> @item.HireGroupName</span><span style="float: right; margin-right: 3px;">
+                                                    <span style=""> @item.HireGroupName &nbsp; @item.ChildHireGroupCount</span><span style="float: right; margin-right: 3px;">
                                                         @if (@item.DropoffCharge != 0)
                                                         {
                                                             <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
                                                         }
-                                                </span>
-                                            </h3>
-                                            <div class="container-fluid">
-                                                <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
-                                                @if (item.SubHireGroups.Count != 0)
-                                                {
-                                                    int count = 0;
-                                                    foreach (var obj in item.SubHireGroups)
+                                                    </span>
+                                                </h3>
+                                                <div class="container-fluid">
+                                                    <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+                                                    @if (item.SubHireGroups.Count != 0)
                                                     {
-                                                        <div class="row">
-                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 40%; float: left;">
-                                                                <div class="product-img">
-                                                                    <img src="@obj.ImageUrl" style="height: 130px; width: 290px;" title="Vehicle photo" />
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
-                                                                <div class="product-info">
-                                                                    <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
-                                                                    <div class="features" style="margin-bottom: 12px;">
-                                                                        <p title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@obj.VehicleMake</span></p>
-                                                                        <p title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@obj.VehicleModel</span> </p>
-                                                                        <p title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                        int count = 0;
+                                                        foreach (var obj in item.SubHireGroups)
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-sm-4 col-lg-4" style="width: 40%; float: left;">
+                                                                    <div class="product-img">
+                                                                        <img src="@obj.ImageUrl" style="height: 130px; width: 290px;" title="Vehicle photo" />
                                                                     </div>
 
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width: 30%; float: left;">
-                                                                <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
-                                                                <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
-                                                                <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
-                                                                    <span style="margin-left: -4px; font-size: 23px;" class="chargeDiv" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
-                                                                    <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId) ></span>
+                                                                <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
+                                                                    <div class="product-info">
+                                                                        <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
+                                                                        <div class="features" style="margin-bottom: 12px;">
+                                                                            <p title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@obj.VehicleMake</span></p>
+                                                                            <p title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@obj.VehicleModel</span> </p>
+                                                                            <p title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                        </div>
+
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
-                                                                <p>@obj.ImageDescription</p>
+                                                                <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
+                                                                    <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
+                                                                    <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 50%; margin-left: 5px;" value="Select" />
+                                                                    <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
+                                                                        <span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
+                                                                        <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId)></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
+                                                                    <p>
+                                                                        @obj.ImageDescription
+                                                                       @if (item.SubHireGroups.Count != (count + 1))
+                                                                        {
+                                                                            <hr style="margin-bottom: 14px;"/>
+                                                                        }
+                                                                    </p>
                                                             </div>
                                                         </div>
-                                                        if (item.SubHireGroups.Count != (count + 1))
-                                                        {
-                                                            <div class="row">
-                                                                <hr />
-                                                            </div>
+
+                                                            count++;
                                                         }
-                                                        count++;
-                                                    }
                                                         <!-- HG Det Loop-->
-                                                }
-                                                else
-                                                {
-                                                    <center>
-                                                        <img src="~/Images/soldout.png" style=" height: 72px;" />
-                                                    </center>
-                                                }
-                                            </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <center>
+                                                            <img src="~/Images/soldout.png" style=" height: 72px;" />
+                                                        </center>
+                                                    }
+                                                </div>
                                             } <!-- HG Loop-->
                                         } <!-- HG Null-->
 
@@ -300,7 +301,7 @@
                             $("#chargeId_" + id).css('display', 'none');
 
 
-                            $('.chargeDiv').pulsate({
+                            $("#TotalC_" + id).pulsate({
                                 color: "#e80c4d",
                                 reach: 50,
                                 repeat: 5,

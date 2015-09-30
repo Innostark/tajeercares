@@ -139,7 +139,7 @@
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { @class = "form-horizontal  complete_reservation", role = "form" }))
+                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id="submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">
@@ -200,7 +200,7 @@
                             </div>
                             <div style="float: right; margin-right: 12px; margin-bottom: 12px;">
                                 <input class="continue_button blue_button" type="submit" value="Book Now" />
-                                <input onclick="@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")" class="blue_button" type="submit" value="Cancel" style="border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px;" />
+                                <input id="cancelRes" onclick="@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")" type="button" class="blue_button"  value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
                             </div>
                         <h4>Note</h4>
                         <div class="widget-content widget-note">
@@ -246,7 +246,7 @@
 
         });
 
-        $("form").submit(function () {
+        $("#submitReservation").submit(function () {
             $("#DOB").val($("#dob_value").val());
             if (DOBCheck())
                 return validateForm();

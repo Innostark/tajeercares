@@ -146,7 +146,7 @@ namespace APIInterface.WebApis
         /// <summary>
          /// Get Parent Hire Groups via APis
         /// </summary>
-         public List<WebApiParentHireGroupsApiResponse> GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request)
+        public List<WebApiParentHireGroupsApiResponse> GetParentHireGroups(WebApiGetAvailableHireGroupsRequest request)
         {
            Task<string> data= GetParentHireGroupsAsync(request);
             var response= data.Result;

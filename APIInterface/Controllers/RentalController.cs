@@ -479,9 +479,20 @@ namespace APIInterface.Controllers
         /// </summary>
         public ActionResult SelectCar(HomeModel model)
         {
-           var newModel= ExtractDataFromReservationForm(model);
+            var newModel= ExtractDataFromReservationForm(model);
             var requestModel = MakeGetAvailableHireGroupsRequest(model);
             var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
+            foreach (var pHireGroup in parentHireGroups)
+            {
+                if (pHireGroup.SubHireGroups != null && pHireGroup.SubHireGroups.Count > 0)
+                {
+                    pHireGroup.ChildHireGroupCount = "( "+pHireGroup.SubHireGroups.Count.ToString()+" Cars available )";
+                }
+                else
+                {
+                    pHireGroup.ChildHireGroupCount = "";
+                }
+            }
             if (parentHireGroups != null)
             {
                 Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
