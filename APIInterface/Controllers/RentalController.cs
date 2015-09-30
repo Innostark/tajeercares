@@ -382,7 +382,7 @@ namespace APIInterface.Controllers
                 "<table class='table'>" +
                 "<tr>" +
                 "<td><i class='fa fa-phone'></i> " + source.Phone + "</td>" +
-                "<td><i class='fa fa-user'></i>" + source.Address + "</td>" +
+                "<td><i class='fa fa-home'></i>&nbsp;" + source.Address + "</td>" +
                 "</tr>" +
                 "</table>" +
                 "</div>" +

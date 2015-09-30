@@ -57,11 +57,11 @@ namespace APIInterface.App_Start
                return true;
            }
 
-           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "SendEmail")
+           if (parms.Count() == 2 && parms[0] == "Rental" && parms[1] == "SendEmail")
            {
                values["controller"] = "Rental";
                values["action"] = "SendEmail";
-               values["customRoute"] = parms[0] + "/Rental/SendEmail";
+               //values["customRoute"] = parms[0] + "/Rental/SendEmail";
                return true;
            }
 

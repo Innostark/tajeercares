@@ -368,7 +368,7 @@
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
                                                 <label class="sr-only" for="name">Name</label>
-                                                @Html.TextBoxFor(m => m.EmailModel.SenderName, new {placeholder="Name", @class = "form-control placeholder", id = "name", style = "width:95.5%" })
+                                                @Html.TextBoxFor(m => m.EmailModel.SenderName, new {placeholder="Name", @class = "form-control placeholder", id = "name", style = "width:98%" })
                                                 <span class="form-control-icon"><i class="fa fa-user"></i></span>
                                             </div>
                                         </div>
@@ -377,7 +377,7 @@
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
                                                 <label class="sr-only" for="email">Email</label>
-                                                @Html.TextBoxFor(m => m.EmailModel.SenderEmail, new { placeholder = "Email", @class = "form-control placeholder", id = "email", style = "width:95.5%" })
+                                                @Html.TextBoxFor(m => m.EmailModel.SenderEmail, new { placeholder = "Email", @class = "form-control placeholder", id = "email", style = "width:96%" })
                                                 <span class="form-control-icon"><i class="fa fa-envelope"></i></span>
                                             </div>
                                         </div>
@@ -386,7 +386,7 @@
                                 <div class="outer required">
                                     <div class="form-group af-inner has-icon">
                                         <label class="sr-only" for="subject">Subject</label>
-                                        @Html.TextBoxFor(m => m.EmailModel.EmailSubject, new { placeholder = "Subject", @class = "form-control placeholder", id = "subject", style = "width:95.5%" })
+                                        @Html.TextBoxFor(m => m.EmailModel.EmailSubject, new { placeholder = "Subject", @class = "form-control placeholder", id = "subject", style = "width:98%" })
 
 
                                         <span class="form-control-icon"><i class="fa fa-bars"></i></span>
@@ -394,13 +394,13 @@
                                 </div>
                                 <div class="form-group af-inner has-icon">
                                     <label class="sr-only" for="input-message">Message</label>
-                                    @Html.TextAreaFor(m => m.EmailModel.EmailBody, new { rows="4" ,cols="50",placeholder = "Message", @class = "form-control placeholder", id = "body", style = "width:95.5%" })
+                                    @Html.TextAreaFor(m => m.EmailModel.EmailBody, new { rows="8" ,cols="50",placeholder = "Message", @class = "form-control placeholder", id = "body", style = "width:98%" })
 
                                     <span class="form-control-icon"><i class="fa fa-bars"></i></span>
                                 </div>
                                 <div class="outer required">
                                     <div class="form-group af-inner">
-                                        <input id="contact-form" type="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" value="Send message" />
+                                        <input id="contact-form" style="    max-width: 543px;" type="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" value="Send message" />
                                     </div>
                                 </div>
                            
@@ -426,10 +426,7 @@
                                     <div class="media-left"><i class="fa fa-clock-o"></i></div>
                                     <div class="media-body">Working Hours: 09:30 - 21:00 except on Sundays</div>
                                 </li>
-                                <li class="media">
-                                    <div class="media-left"><i class="fa fa-map-marker"></i></div>
-                                    <div class="media-body">View on The Map</div>
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>
@@ -542,6 +539,10 @@
                 var emailSubject = $("#subject").val();
                 var emailBody = $("#body").val();
 
+                if (senderName == "" || senderEmail == "" || emailSubject == "" || emailBody == "") {
+                    toastr.error("Field(s) are mandatory!");
+                    return false;
+                }
                 var email = "{'SenderName':'" + senderName + "'," +
                     "'SenderEmail':'" + senderEmail + "'," +
                     "'EmailSubject':'" + emailSubject + "'," +
@@ -554,7 +555,10 @@
                     url: 'Rental/SendEmail',
                     dataType: 'json',
                     success: function (response) {
-                        toastr.success("Email sent!");
+                        if (response.status == "ok")
+                            toastr.success("Email sent!");
+                        else
+                            toastr.error("Failed to send email.Try agian later!");
                     },
                     error: function () {
                         toastr.error("Failed to send email.Try agian later!");

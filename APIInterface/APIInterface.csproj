@@ -662,6 +662,7 @@
     <Content Include="Images\images\coverflow-icon.png" />
     <Content Include="Images\images\currency.png" />
     <Content Include="Images\images\denim.png" />
+    <Content Include="Images\images\dollars19.png" />
     <Content Include="Images\images\dotted.png" />
     <Content Include="Images\images\edit.png" />
     <Content Include="Images\images\edit_location.png" />
@@ -717,6 +718,9 @@
     <Content Include="Images\images\transmission-icon.png" />
     <Content Include="Images\images\ui-icons_222222_256x240.png" />
     <Content Include="Images\images\update.png" />
+    <Content Include="Images\images\vehicelModelYear.png" />
+    <Content Include="Images\images\vehicleMaker.png" />
+    <Content Include="Images\images\vehicleModel.png" />
     <Content Include="Images\images\visa.png" />
     <Content Include="Images\images\widget-title.png" />
     <Content Include="Images\list-bullet.png" />
