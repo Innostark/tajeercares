@@ -248,53 +248,57 @@
                                                 <div class="caption-inner div-cell">
                                                     <div class="caption-icon"><i class="fa fa-support"></i></div>
                                                     <h4 class="caption-title">Our Services</h4>
-                                                    <div class="caption-text">@Model.Sitecontent.ServiceContents</div>
+                                                    <div class="caption-text">
+                                                        @Html.Raw(Model.Sitecontent.ServiceContents)
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="caption hovered">
-                                            <div class="caption-wrapper div-table">
-                                                <div class="caption-inner div-cell">
-                                                    <div class="caption-icon"><i class="fa fa-support"></i></div>
-                                                    <h4 class="caption-title">Our Services</h4>
-                                                    <div class="caption-text" style="color:black">@(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>
-                                                </div>
+                                    </div>
+                                    <div class="caption hovered">
+                                        <div class="caption-wrapper div-table">
+                                            <div class="caption-inner div-cell">
+                                                <div class="caption-icon"><i class="fa fa-support"></i></div>
+                                                <h4 class="caption-title">Our Services</h4>
+                                                @Html.Raw(Model.Sitecontent.ServiceContents)
+                                                @*<div class="caption-text" style="color:black">@(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>*@
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 wow flipInY" data-wow-offset="70" data-wow-duration="1s" data-wow-delay="200ms">
-                            <div class="thumbnail thumbnail-featured no-border no-padding">
-                                <div class="media">
-                                    <a class="media-link" href="#">
-                                        <div class="caption">
-                                            <div class="caption-wrapper div-table">
-                                                <div class="caption-inner div-cell">
-                                                    <div class="caption-icon"><i class="fa fa-user"></i></div>
-                                                    <h4 class="caption-title">About Us</h4>
-                                                    <div class="caption-text">@Model.Sitecontent.AboutusContents</div>
+                    </div>
+                    <div class="col-md-6 wow flipInY" data-wow-offset="70" data-wow-duration="1s" data-wow-delay="200ms">
+                        <div class="thumbnail thumbnail-featured no-border no-padding">
+                            <div class="media">
+                                <a class="media-link" href="#">
+                                    <div class="caption">
+                                        <div class="caption-wrapper div-table">
+                                            <div class="caption-inner div-cell">
+                                                <div class="caption-icon"><i class="fa fa-user"></i></div>
+                                                <h4 class="caption-title">About Us</h4>
+                                                <div class="caption-text">@Html.Raw(Model.Sitecontent.AboutusContents)</div>
 
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="caption hovered">
-                                            <div class="caption-wrapper div-table">
-                                                <div class="caption-inner div-cell">
-                                                    <div class="caption-icon"><i class="fa fa-user"></i></div>
-                                                    <h4 class="caption-title">About Us</h4>
-                                                    <div class="caption-text" style="color:black">@(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>
-                                                </div>
+                                    </div>
+                                    <div class="caption hovered">
+                                        <div class="caption-wrapper div-table">
+                                            <div class="caption-inner div-cell">
+                                                <div class="caption-icon"><i class="fa fa-user"></i></div>
+                                                <h4 class="caption-title">About Us</h4>
+                                                @Html.Raw(Model.Sitecontent.AboutusContents)
+                                                @*<div class="caption-text" style="color:black">@(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>*@
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
             <!-- /PAGE -->
             <!-- PAGE -->
            
