@@ -100,25 +100,34 @@ namespace APIInterface.WebApis
          public SiteContentResponseModel GetSitecontent(string url)
          {
              var obj = new GeneralRequest { URL = url };
-             Task<string> sitecontentAsync = GetSitecontentAsync(obj);
-             var response = sitecontentAsync.Result;
-             if (response != "null")
+             try
              {
-                 var jss = new JavaScriptSerializer();
-                 try
+                 Task<string> sitecontentAsync = GetSitecontentAsync(obj);
+                 var response = sitecontentAsync.Result;
+                 if (response != "null")
                  {
-                     var data = jss.Deserialize<SiteContentResponseModel>(response);
-                     if(data.SiteContent==null || data.OperationsWorkPlaces==null)
-                         return null;
-                     data.SiteContent.LogoSourceLocal = data.SiteContent.CompanyLogoBytes == null ? null : GetBytes(data.SiteContent.CompanyLogoBytes)  ;
-                     data.SiteContent.Banner1SourceLocal = data.SiteContent.Banner1Bytes ==null ? null : GetBytes(data.SiteContent.Banner1Bytes);
-                     return data;
-                 }
-                 catch (Exception exc)
-                 {
-                     throw new Exception("Error while getting data from server!");
+                     var jss = new JavaScriptSerializer();
+                     try
+                     {
+                         var data = jss.Deserialize<SiteContentResponseModel>(response);
+                         if (data.SiteContent == null || data.OperationsWorkPlaces == null)
+                             return null;
+                         data.SiteContent.LogoSourceLocal = data.SiteContent.CompanyLogoBytes == null ? null : GetBytes(data.SiteContent.CompanyLogoBytes);
+                         data.SiteContent.Banner1SourceLocal = data.SiteContent.Banner1Bytes == null ? null : GetBytes(data.SiteContent.Banner1Bytes);
+                         return data;
+                     }
+                     catch (Exception exc)
+                     {
+                         throw new Exception("Error while getting data from server!");
+                     }
                  }
              }
+             catch (Exception exp)
+             {
+                 throw new Exception("Exception from task :"+exp.Message);
+             }
+            
+            
              return null;
          }
 

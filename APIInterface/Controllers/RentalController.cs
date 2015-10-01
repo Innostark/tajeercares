@@ -275,7 +275,7 @@ namespace APIInterface.Controllers
                                 string period = String.Format("{0}",
                                       periodSpan.Days);
                                 int day= int.Parse(period)!=0?int.Parse(period):  1;
-                                response.PerDayCost =Math.Round( (response.TotalStandardCharge / day),2).ToString();c
+                                response.PerDayCost =Math.Round( (response.TotalStandardCharge / day),2).ToString();
                             }
                         }
                     }
@@ -406,6 +406,8 @@ namespace APIInterface.Controllers
             Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
             Session["CompanyShortName"] = response.SiteContent.CompanyShortName.ToUpper();
             Session["EmailForContact"] = response.SiteContent.Email;
+            Session["CompanyLogo"] = response.SiteContent.CompanyLogo;
+
             var model = new HomeModel
             {
                 ReservationForm = new ReservationForm

@@ -68,7 +68,7 @@
                         <!-- Logo -->
                         <div class="col-md-2">
                             <div class="logo" style="background-color: inherit">
-                                <a target="_blank" onclick="window.open('@Model.Sitecontent.WebsiteClickURL')" href=''><img style="width: 212px; height: 74px;" src="http://www.birdsofafeather.ca/sites/default/files//national.gif" alt='@Model.Sitecontent.CompanyDisplayName' /></a>
+                                <a target="_blank" onclick="window.open('@Model.Sitecontent.WebsiteClickURL')" href=''><img style="width: 212px; height: 74px;" src="@Session["CompanyLogo"]" alt='@Model.Sitecontent.CompanyDisplayName' /></a>
                             </div>
                         </div>
                         <!-- /Logo -->
@@ -110,7 +110,7 @@
                     <div class="main-slider">
                         <div >
                             <!-- Slide 1 -->
-                            <div class="item slide1 ver1" >
+                            <div class="item slide1 ver1" style="background-image: url('@Model.Sitecontent.Banner1')">
                                 <div class="caption">
                                     <div class="container">
                                         <div class="div-table">
@@ -507,7 +507,7 @@
                     return false;
                 }
                 
-                if (pk < dk) {
+                if (pk > dk) {
                     toastr.error("Invalid drop-off date!");
                     return false;
                 }
