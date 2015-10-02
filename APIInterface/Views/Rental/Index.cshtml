@@ -506,14 +506,14 @@
                                 + (date.getMonth() + 1) + "/"
                                 + date.getFullYear();
 
-                if (dropDate < currentDate || pk < currentDate) {
-                    toastr.error("Reservation can not be in the past!");
-                    return false;
+                if (dk < currentDate || pk < currentDate) {
+                    //toastr.error("Reservation can not be in the past!");
+                    //return false;
                 }
                 
                 if (pk > dk) {
-                    toastr.error("Invalid drop-off date!");
-                    return false;
+                    //toastr.error("Invalid date(s)!");
+                    //return false;
                 }
                 return validateForm();
             });

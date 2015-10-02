@@ -74,11 +74,11 @@ namespace APIInterface.App_Start
                return true;
            }
 
-           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "BookCar")
+           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "MakeBookingFinal")
            {
                values["controller"] = "Rental";
-               values["action"] = "BookCar";
-               values["customRoute"] = parms[0] + "/Rental/BookCar";
+               values["action"] = "MakeBookingFinal";
+               values["customRoute"] = parms[0] + "/Rental/MakeBookingFinal";
                return true;
            }
            if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "Index")

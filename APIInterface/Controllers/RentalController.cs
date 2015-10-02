@@ -276,6 +276,7 @@ namespace APIInterface.Controllers
                                       periodSpan.Days);
                                 int day= int.Parse(period)!=0?int.Parse(period):  1;
                                 response.PerDayCost =Math.Round( (response.TotalStandardCharge / day),2).ToString();
+                                response.TotalStandardCharge = Math.Round(response.TotalStandardCharge, 2);
                             }
                         }
                     }
@@ -316,6 +317,9 @@ namespace APIInterface.Controllers
                 {
                     item.ServiceRate = Math.Round(response.ServiceRate,2);
                     item.ServiceCharge = Math.Round(response.ServiceCharge,2);
+
+                    response.ServiceRate = Math.Round(response.ServiceRate, 2);
+                    response.ServiceCharge = Math.Round(response.ServiceCharge, 2);
                 }
             }
             Session["Extras"] = extras;
@@ -334,6 +338,9 @@ namespace APIInterface.Controllers
                 {
                     item.InsuranceRate = Math.Round(response.Rate,2);
                     item.InsuranceCharge = Math.Round(response.Charge,2);
+
+                    response.Rate = Math.Round(response.Rate,2);
+                    response.Charge = Math.Round(response.Charge, 2);
                 }
             }
             Session["Extras"] = extras;
@@ -361,8 +368,7 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Extras Total
         /// </summary>
-        private  double GetExtrasTotal(string[] extrasIds, string[] insurancesIds, ExtrasResponseModel extras,
-           out double insuranceTotal, out double serviceItemsTotal, out double? total, out List<string> items )
+        private  void GetExtrasTotal(string[] extrasIds, string[] insurancesIds, ExtrasResponseModel extras, out double insuranceTotal, out double serviceItemsTotal, out double? total, out List<string> items)
         {
             Session["extrasList"] = extrasIds;
             Session["insuranceTypeList"] = insurancesIds;
@@ -387,8 +393,8 @@ namespace APIInterface.Controllers
             }
             var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
             total = detailHireGroup.StandardRt;
-          
-            return serviceItemsTotal;
+
+            return;
         }
 
 
@@ -691,13 +697,27 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Booking Finalize
         /// </summary>
-        public ActionResult BookCar(UserInfoModel model)
+        [HttpGet]
+        public ActionResult MakeBookingFinal(UserInfoModel model)
         {
-           var onlineBookingModel= SetOnlineBookingModel(model);
-            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+        //   var onlineBookingModel= SetOnlineBookingModel(model);
+        //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+
+        //    Session.Clear();
+       //     Session.Abandon();
             return View();
         }
 
+        [HttpPost]
+        public ActionResult MakeBookingFinal( )
+        {
+            //   var onlineBookingModel= SetOnlineBookingModel(model);
+            //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+
+            //    Session.Clear();
+            //     Session.Abandon();
+            return View();
+        }
         #endregion
     }
 }

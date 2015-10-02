@@ -124,10 +124,10 @@
                                     <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <p title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></p>
-                                    <p title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
-                                    <p title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
-                                    <p title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </p>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
+                                    <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
+                                    <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </span>
                                 </div>
 
                             </div>
@@ -161,8 +161,8 @@
                                     <div class="checkbox-block_container">
                                         <div class="main-block_container">
                                             <div class="additional-block_container">
-                                                <div class="checkbox-block extra" id="@(item.ServiceTypeId)">
-                                                    <input id="@("box_"+item.ServiceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                <div class="checkbox-block" id="@(item.ServiceTypeId)"> 
+                                                    <input id="@(item.ServiceTypeId)" type="checkbox" class="seviceItem" name="checkbox_extras" value="1" style="cursor: pointer;  margin-top: -8px;  height: 24px; width: 24px" />
                                                 </div>
                                                 <div class="main-block">
                                                     <div class="product-img">
@@ -203,8 +203,8 @@
                                     <div class="checkbox-block_container">
                                         <div class="main-block_container">
                                             <div class="additional-block_container">
-                                                <div class="checkbox-block insurance" id="@(item.InsuranceTypeId)">
-                                                    <input id="@("box_" + item.InsuranceTypeId)" type="checkbox" class="styled" name="checkbox_extras" value="1" />
+                                                <div class="checkbox-block" id="@(item.InsuranceTypeId)">
+                                                    <input id="@( item.InsuranceTypeId)" type="checkbox" class="insurance" name="checkbox_extras" value="1" style="cursor: pointer;  margin-top: -8px;  height: 24px; width: 24px" />
                                                 </div>
                                                 <div class="main-block">
                                                     <div class="product-img">
@@ -301,7 +301,7 @@
                 if (index > -1) {
                     insurancesList.splice(index, 1);
                 }
-                return false;
+                return true;
             }
              hideUi();
             $.ajax({
@@ -342,6 +342,7 @@
         $(document).on('click', '.insurance', callInsurance);
 
         function callExtra() {
+            
             var Id = this.id;
             if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
                 var valueToMinus = document.getElementById("rate_" + Id).textContent;
@@ -360,7 +361,7 @@
                 if (index > -1) {
                     extrasList.splice(index, 1);
                 }
-                return false;
+                return true;
             }
             hideUi();
             $.ajax({
@@ -399,7 +400,7 @@
                 },
             });
         }
-        $(document).on('click', '.extra', callExtra);
+        $(document).on('change', '.seviceItem', callExtra); //here
 
         function moveToCheckout() {
             var total = parseInt(document.getElementById('overAllTotal').textContent);
@@ -413,25 +414,9 @@
                 }
             });
 
-            //$.ajax({
-            //    type: 'GET',
-            //    data: "{'total':'" + total + "','extras':'" + extrasList + "'}",
-            //    contentType: "application/json; charset=utf-8",
-            //    url: 'Checkout',
-            //    dataType: 'json',
-            //    success: function (response) {
-            //        if (response) {
-
-            //        }
-            //        else {
-            //            alert('failed');
-            //        }
-            //    },
-            //    error: function (aaa,aaaf,dfdf) {
-            //        alert('failed');
-            //    },
-            //});
+           
         }
+
 
     </script>
 </body>

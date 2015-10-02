@@ -90,10 +90,10 @@
                                     <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <p title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></p>
-                                    <p title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span> </p>
-                                    <p title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </p>
-                                    <p title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </p>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
+                                    <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
+                                    <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </span>
                                 </div>
 
                             </div>
@@ -103,14 +103,13 @@
                             <a href="" title=""></a>
                         </h4>
                         <div class="widget-content widget-info">
-                            <h4>Pick Up time</h4>
-                            <p>@Session["pickupDate"]</p>
-                            <h4>Return time</h4>
-                            <p>@Session["dropoffDate"]</p>
-                            <h4>Pickup Location</h4>
-                            <p>@Session["pickupName"]</p>
-                            <h4>Return Location</h4>
-                            <p>@Session["dropoffName"]</p>
+                            <span style="font-weight: bold; margin-left: 20px;">Pick-Up </span> <span style="font-weight: bold; margin-left: 93px;">Drop-Off </span>
+                            <br />
+                            <span style="margin-left: 20px;">@Session["pickupDate"]</span>
+                            <span style="margin-left: 33px;">@Session["dropoffDate"]</span>
+                            <span style=" margin-top: 5px; background-color: rgb(238, 238, 238); word-break: break-word; width: 128px; margin-left: 20px; display: block;">@Session["pickupName"]</span>
+                            <span style="margin-top: -21px; background-color: rgb(238, 238, 238); word-break: break-word; width: 121px; margin-right: 18px; display: block; float: right;">@Session["dropoffName"]</span>
+
                             <div class="subtotal_content">
                                 <div class="subtotal">
                                     Subtotal(SAR) : <span class="price">@(Model.SubTotal) </span>
@@ -139,7 +138,7 @@
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
                     @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("BookCar", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id="submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
+                    @using (Html.BeginForm("MakeBookingFinal", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id = "submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">
@@ -191,9 +190,9 @@
                                     <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
                                     @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", placeholder = "Enter your billing address" })
                                 </div>
-                                <div class="form_element form-block pick-up" style="    margin-top: 12px;">
+                                <div class="form_element form-block pick-up" style=" margin-left: 10px; margin-top: 12px;">
                                     <h4>Date of Birth</h4>
-                                    <input class="datepicker" style="width: 75%;" type="text" id="dob_value" value="" name="data_from" />
+                                    <input  style="padding-left: 36px; background: #F9F9F9 url(../../Images/images/calendar.png) no-repeat left center; margin: 0 0 0 -1px; width: 75%; " type="text" id="dob_value" value="" name="data_from" />
                                 </div>
                                 <div class="clear"></div>
                                 @Html.HiddenFor(x => x.DOB)
@@ -234,6 +233,20 @@
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>
     <script>
+
+        $(document).ready(function() {
+            var d = new Date();
+            var year = d.getFullYear() - 20;
+
+            $( "#dob_value" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1920:' + year, 
+                defaultDate: '01/01/1990'
+            });
+          //  $("#dob_value").datepicker( "setDate" , "8/11/2011" );
+        });
+
         $("#startingForm").hover(function () {
             var cls = document.getElementById("startingForm").className;
             if (cls == "progress-bar-step done") {
@@ -257,10 +270,10 @@
             var birthDate = new Date($("#dob_value").val());
             var age = today.getFullYear() - birthDate.getFullYear();
             var m = today.getMonth() - birthDate.getMonth();
-           if (isNaN(age) ||  age < 21) {
-               toastr.error("Age must be greater that 21 years!");
-               return false;
-           }
+            if (isNaN(age) ||  age < 21) {
+                toastr.error("Age must be greater that 21 years!");
+                return false;
+            }
             return true;
         }
     </script>

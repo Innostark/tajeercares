@@ -936,6 +936,7 @@
     <Content Include="Views\Rental\SelectExtras.cshtml" />
     <Content Include="Views\Rental\Checkout.cshtml" />
     <Content Include="Views\ErrorHandler\Index.cshtml" />
+    <Content Include="Views\Rental\MakeBookingFinal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
