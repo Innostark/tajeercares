@@ -408,9 +408,9 @@ namespace APIInterface.Controllers
                 throw  new Exception("Response contains no data!");
             }
             Session["siteName"] = response.SiteContent.CompanyDisplayName;
-            Session["siteTitle"] = response.SiteContent.Slogan.ToUpper();
+            Session["siteTitle"] = response.SiteContent.Slogan;
             Session["UserDomainKey"] = response.SiteContent.UserDomainKey;
-            Session["CompanyShortName"] = response.SiteContent.CompanyShortName.ToUpper();
+            Session["CompanyShortName"] = response.SiteContent.CompanyShortName;
             Session["EmailForContact"] = response.SiteContent.Email;
             Session["CompanyLogo"] = response.SiteContent.CompanyLogo;
 
