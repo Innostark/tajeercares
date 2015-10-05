@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
 
     <!--[if IE]>
     <script type="text/javascript" src="~/Scripts/js/html5.js"></script>
@@ -127,7 +128,7 @@
                                     <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
                                     <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
                                     <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
-                                    <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.StandardRt</span>  </span>
+                                    <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.FormatedStandardRate</span>  </span>
                                 </div>
 
                             </div>
@@ -138,7 +139,7 @@
                             <p id="defaultItem">No Extra Item Added!</p>
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total (SAR): <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.StandardRt</span>
+                            Total (SAR): <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.FormatedStandardRate</span>
                         </div>
                     </div>
                 </aside>
@@ -295,8 +296,12 @@
                 if ($("#extras_Total_Sidebar").children().length == 1) {
                     $('#defaultItem').show();
                 }
-                var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
-                document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+                var prevTotal = document.getElementById('overAllTotal').textContent;
+                var unformatedTotal = numeral().unformat(prevTotal);
+                var unformatedValueToMinus = numeral().unformat(valueToMinus);
+                var newTotal= unformatedTotal - unformatedValueToMinus ;
+              
+                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0.00');
                 var index = insurancesList.indexOf(Id);
                 if (index > -1) {
                     insurancesList.splice(index, 1);
@@ -312,19 +317,21 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = response.insuranceCharge.Charge;
+                        document.getElementById("rate_" + Id).innerHTML = numeral(response.insuranceCharge.Charge).format('0,0.00');
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
 
                         var newdiv = document.createElement('p');
                         newdiv.setAttribute('id', 'ins_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + response.insuranceCharge.Charge + '</span>';
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.insuranceCharge.Charge).format('0,0.00') + '</span>';
                         list.appendChild(newdiv);
 
                         //  var newTotal =  response.itemCharge.ServiceCharge;
-                        prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
-                        document.getElementById('overAllTotal').textContent = prevTotal + response.insuranceCharge.Charge;
+                        prevTotal = document.getElementById('overAllTotal').textContent;
+                        unformatedTotal = numeral().unformat(prevTotal);
+                        
+                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.insuranceCharge.Charge).format('0,0.00');
                         insurancesList.push(Id);
                         toastr.success("Item added!");
                         $('#defaultItem').hide();
@@ -355,8 +362,16 @@
                 if ($("#extras_Total_Sidebar").children().length == 1) {
                     $('#defaultItem').show();
                 }
-                var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
-                document.getElementById('overAllTotal').textContent = prevTotal - parseInt(valueToMinus);
+               
+                
+                // here
+                var prevTotal = document.getElementById('overAllTotal').textContent;
+                var unformatedTotal = numeral().unformat(prevTotal);
+                var unformatedValueToMinus = numeral().unformat(valueToMinus);
+                var newTotal = unformatedTotal - unformatedValueToMinus;
+
+                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0.00');
+
                 var index = extrasList.indexOf(Id);
                 if (index > -1) {
                     extrasList.splice(index, 1);
@@ -372,21 +387,25 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = response.itemCharge.ServiceCharge;
+                        document.getElementById("rate_" + Id).innerHTML = numeral(response.itemCharge.ServiceCharge).format('0,0.00');
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
 
                         var newdiv = document.createElement('p');
                         newdiv.setAttribute('id', 'exs_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + response.itemCharge.ServiceCharge + '</span>';
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.itemCharge.ServiceCharge).format('0,0.00') + '</span>';
                         list.appendChild(newdiv);
 
+                    
                         //  var newTotal =  response.itemCharge.ServiceCharge;
-                        var prevTotal = parseInt(document.getElementById('overAllTotal').textContent);
-                        document.getElementById('overAllTotal').textContent = prevTotal + response.itemCharge.ServiceCharge;
-                        extrasList.push(Id);
+                        prevTotal = document.getElementById('overAllTotal').textContent;
+                        unformatedTotal = numeral().unformat(prevTotal);
 
+                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.itemCharge.ServiceCharge).format('0,0.00');
+
+
+                        extrasList.push(Id);
                         $('#defaultItem').hide();
                         toastr.success("Item added!");
                     }

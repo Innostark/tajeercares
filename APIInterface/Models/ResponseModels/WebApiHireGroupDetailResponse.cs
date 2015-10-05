@@ -91,5 +91,10 @@ namespace APIInterface.Models.ResponseModels
         /// Image Description
         /// </summary>
         public string ImageDescription { get; set; }
+
+        /// <summary>
+        /// with coma
+        /// </summary>
+        public string FormatedStandardRate { get; set; }
     }
 }

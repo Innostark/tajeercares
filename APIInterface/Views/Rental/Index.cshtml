@@ -24,6 +24,7 @@
     <link href="~/assets/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
 
 
     <!-- Theme CSS -->
@@ -41,6 +42,12 @@
         .thumbnail.no-border.no-padding.thumbnail-car-card {
             margin-left: 50px;
         }
+        #map-canvas {
+            min-height: 400px;
+            height: 80%;
+            border: 1px solid blue;
+        }
+        
     </style>
 </head>
 <body id="home" class="wide">
@@ -305,10 +312,10 @@
             <!-- /PAGE -->
             
             <!-- PAGE -->
-            <section id="PickYourCar" class="page-section no-padding no-bottom-space-off">
+            <section id="PickYourCar" class="page-section no-padding no-bottom-space-off" >
                 <div class="container full-width" style="height: 400px">
                     <!-- Google map -->
-                    <div class="google-map">
+                    <div class="google-map" >
                         <div id="map-canvas"></div>
                     </div>
                     <!-- /Google map -->

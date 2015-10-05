@@ -8032,9 +8032,7 @@ input[type=checkbox] {
   }
 }
 .gm-style-iw {
-  width: 280px !important;
-  height: 380px !important;
-  min-height: 380px !important;
+  min-height: 120px !important;
 }
 .gmap-background .google-map,
 .gmap-background #map-canvas {

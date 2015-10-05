@@ -50,7 +50,10 @@ namespace APIInterface.Models
         public double InsurancesTotal { get; set; }
 
         public double? SubTotal { get; set; }
+
+        public string FormatedSubTotal { get; set; }
         public double? GrandTotal { get; set; }
+        public string FormatedGrandTotal { get; set; }
 
         public List<string> ItemsHtml { get; set; }
     }

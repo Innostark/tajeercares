@@ -23,7 +23,8 @@
     // Default as well as First Workplace on Map
     var defaultLoc = new google.maps.LatLng(lat[0], log[0]);
     var mapOptions = {
-        zoom: 12,
+        zoom: 8,
+        
         center: defaultLoc,
         height:400
     };

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+
     <style>
         #accordion > h3 {
             margin-top: 5px;
@@ -171,7 +173,7 @@
                                                                 <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
                                                                     <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
                                                                     <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 55%; margin-left: 5px;" value="Book Now" />
-                                                                    <div class="product-info" style="    margin-left: 2px; font-size: 27px;margin-top: 70px;">
+                                                                    <div class="product-info" style="    margin-left: -28px; font-size: 27px;margin-top: 70px;">
                                                                         <span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
                                                                         <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId)></span>
                                                                     </div>
@@ -295,11 +297,14 @@
                                 alert("Standard rates are not defined for current tarrif type!");
                                 return;
                             }
-                            document.getElementById("TotalC_" + id).innerHTML = ("SAR "+ response.hGcharge.TotalStandardCharge);
-                            document.getElementById("perdaycost_" + id).innerHTML = ("(SAR " + response.hGcharge.PerDayCost + "/day)");
+                            var total = numeral(response.hGcharge.TotalStandardCharge).format('0,0.00');
+                            var perDay = numeral(response.hGcharge.PerDayCost).format('0,0.00');
+                            document.getElementById("TotalC_" + id).innerHTML = ("SAR " + total);
+                            document.getElementById("perdaycost_" + id).innerHTML = ("(SAR " + perDay + "/day)");
                             $("#selectId_" + id).show();
                             $("#chargeId_" + id).css('display', 'none');
-
+                            
+                         
 
                             $("#TotalC_" + id).pulsate({
                                 color: "#e80c4d",

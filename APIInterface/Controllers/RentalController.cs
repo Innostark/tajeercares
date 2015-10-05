@@ -111,11 +111,14 @@ namespace APIInterface.Controllers
                 InsurancesTotal = insuranceTotal,
                 ServiceItemsTotal = serviceItemsTotal,
                 SubTotal = total, // hire group wala
+                FormatedSubTotal = Convert.ToDecimal(total).ToString("#,##0.00"),
+
                 GrandTotal = total + serviceItemsTotal + insuranceTotal,
+                FormatedGrandTotal = Convert.ToDecimal(total + serviceItemsTotal + insuranceTotal).ToString("#,##0.00"),
                 DOB = DateTime.Now
             };
-            Session["GrandTotal"] = model.GrandTotal;
-            Session["SubTotal"] = model.SubTotal;
+            Session["GrandTotal"] = Convert.ToDecimal(model.GrandTotal).ToString("#,##0.00");
+            Session["SubTotal"] = Convert.ToDecimal(model.SubTotal).ToString("#,##0.00");
             return model;
         }
 
@@ -218,9 +221,14 @@ namespace APIInterface.Controllers
                         {
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
+                                string dropOffWithComma = Convert.ToDecimal(pHireGroup.DropoffCharge).ToString("#,##0.00");
+
+                                // standard rate formated with comma for thousands
+                                cHireGroup.FormatedStandardRate = Convert.ToDecimal(cHireGroup.StandardRt).ToString("#,##0.00");
+                               
                                 Session["selectedHireGroupDetail"] = cHireGroup;
-                                Session["DropOffCharges"] = pHireGroup.DropoffCharge;
-                                Session["vehicleImgUrl"] = cHireGroup.ImageUrl;
+                                Session["DropOffCharges"] = dropOffWithComma;
+                                Session["vehicleImgUrl"] = cHireGroup.ImageUrl;                                
                             }
                         }
                     }
@@ -378,7 +386,7 @@ namespace APIInterface.Controllers
             {
                 if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
                 {
-                    items.Add("<p>"+extra.ServiceItemName + " <span class='price'>" +"SAR "+ extra.ServiceCharge + "</span></p>");
+                    items.Add("<p>" + extra.ServiceItemName + " <span class='price'>" + "SAR " + Convert.ToDecimal(extra.ServiceCharge).ToString("#,##0.00") + "</span></p>");
                     serviceItemsTotal = Math.Round(serviceItemsTotal + extra.ServiceCharge);
                 }
             }
@@ -387,7 +395,7 @@ namespace APIInterface.Controllers
             {
                 if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
                 {
-                    items.Add("<p>"+ins.InsuranceTypeName + " <span class='price'>" + "SAR "+ins.InsuranceCharge + "</span></p>");
+                    items.Add("<p>" + ins.InsuranceTypeName + " <span class='price'>" + "SAR " + Convert.ToDecimal(ins.InsuranceCharge).ToString("#,##0.00") + "</span></p>");
                     insuranceTotal = Math.Round(insuranceTotal + ins.InsuranceCharge);
                 }
             }
@@ -418,8 +426,8 @@ namespace APIInterface.Controllers
             {
                 ReservationForm = new ReservationForm
                 {
-                    PickupDateTime = DateTime.Now,
-                    DropoffDateTime = DateTime.Now.AddDays(1),
+                    PickupDateTime = DateTime.Now.AddDays(1),
+                    DropoffDateTime = DateTime.Now.AddDays(2),
                     HoursList = ReservationHours.Hours.ToList()
                 },
                 Sitecontent = response.SiteContent,
@@ -697,22 +705,22 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Booking Finalize
         /// </summary>
-        [HttpGet]
-        public ActionResult MakeBookingFinal(UserInfoModel model)
-        {
-        //   var onlineBookingModel= SetOnlineBookingModel(model);
-        //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+       // [HttpGet]
+       // public ActionResult MakeBookingFinal(UserInfoModel model)
+       // {
+       // //   var onlineBookingModel= SetOnlineBookingModel(model);
+       // //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
 
-        //    Session.Clear();
-       //     Session.Abandon();
-            return View();
-        }
+       // //    Session.Clear();
+       ////     Session.Abandon();
+       //     return View();
+       // }
 
         [HttpPost]
-        public ActionResult MakeBookingFinal( )
+        public ActionResult MakeBookingFinal(UserInfoModel model)
         {
-            //   var onlineBookingModel= SetOnlineBookingModel(model);
-            //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+               var onlineBookingModel= SetOnlineBookingModel(model);
+                var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
 
             //    Session.Clear();
             //     Session.Abandon();
