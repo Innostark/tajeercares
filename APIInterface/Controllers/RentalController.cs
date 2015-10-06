@@ -630,7 +630,7 @@ namespace APIInterface.Controllers
                 }
                 catch (Exception excp)
                 {
-                    return Json(new { status = "error" });
+                    return Json(new { excp.StackTrace });
                 }
 
             }
