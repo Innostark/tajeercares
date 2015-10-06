@@ -266,8 +266,7 @@
                                             <div class="caption-inner div-cell">
                                                 <div class="caption-icon"><i class="fa fa-support"></i></div>
                                                 <h4 class="caption-title">Our Services</h4>
-                                                @Html.Raw(Model.Sitecontent.ServiceContents)
-                                                @*<div class="caption-text" style="color:black">@(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>*@
+                                                <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>
                                             </div>
                                         </div>
                                     </div>
@@ -294,8 +293,7 @@
                                             <div class="caption-inner div-cell">
                                                 <div class="caption-icon"><i class="fa fa-user"></i></div>
                                                 <h4 class="caption-title">About Us</h4>
-                                                @Html.Raw(Model.Sitecontent.AboutusContents)
-                                                @*<div class="caption-text" style="color:black">@(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>*@
+                                                <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>
                                             </div>
                                         </div>
                                     </div>

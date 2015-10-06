@@ -496,7 +496,7 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Send Email 
         /// </summary>
-        public static void SendEmail(string email, string subject, string body, string fromDisplayName)
+        public static void SendEmailTo(string email, string subject, string body, string fromDisplayName)
         {
 
             string fromAddress = ConfigurationManager.AppSettings["FromAddress"];
@@ -623,8 +623,16 @@ namespace APIInterface.Controllers
             var emailContent = email;
             if (emailContent != null)
             {
-                SendEmail(companyEmail, emailContent.EmailSubject, emailContent.EmailBody, emailContent.SenderName);
-                return Json(new { status = "ok" });
+                try
+                {
+                    SendEmailTo(companyEmail, emailContent.EmailSubject, emailContent.EmailBody, emailContent.SenderName);
+                    return Json(new { status = "ok" });
+                }
+                catch (Exception excp)
+                {
+                    return Json(new { status = "error" });
+                }
+
             }
             return Json(new { status = "error" });
         }
