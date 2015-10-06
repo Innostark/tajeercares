@@ -16,15 +16,14 @@
         var contents = document.getElementsByClassName("cor")[0].value;
 
         var array = coordinates.split("-");
-        lat[0] = array[0];   // Latitude
-        log[0] = array[1];   // Longitude
-        locname[0] = array[2]; // Workplace name
+        lat[0] = array[0] || 24.7116667;   // Latitude   Riaydh-by default 
+        log[0] = array[1] || 46.7241667;   // Longitude  
+        locname[0] = array[2] || "Default Location"; // Workplace name
     }
     // Default as well as First Workplace on Map
-    var defaultLoc = new google.maps.LatLng(lat[0], log[0]);
+    var defaultLoc = new google.maps.LatLng(lat[0] || 24.7116667, log[0] || 46.7241667);
     var mapOptions = {
         zoom: 8,
-        
         center: defaultLoc,
         height:400
     };
@@ -33,12 +32,12 @@
     // Div in which map will be shown
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     // Default as well as First Workplace on Map
-    var myLatlng = new google.maps.LatLng(lat[0], log[0]);
+    var myLatlng = new google.maps.LatLng(lat[0] || 24.7116667, log[0] || 46.7241667);
     markers[0] = new google.maps.Marker({
         position: myLatlng,
         map: map,
         icon: image,
-        title: locname[0]
+        title: locname[0] || "Default Location"
     });
 
     // Div that will show on click 

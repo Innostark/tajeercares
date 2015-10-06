@@ -301,7 +301,7 @@
                 var unformatedValueToMinus = numeral().unformat(valueToMinus);
                 var newTotal= unformatedTotal - unformatedValueToMinus ;
               
-                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0.00');
+                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0');
                 var index = insurancesList.indexOf(Id);
                 if (index > -1) {
                     insurancesList.splice(index, 1);
@@ -317,21 +317,21 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = numeral(response.insuranceCharge.Charge).format('0,0.00');
+                        document.getElementById("rate_" + Id).innerHTML = numeral(response.insuranceCharge.Charge).format('0,0');
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
 
                         var newdiv = document.createElement('p');
                         newdiv.setAttribute('id', 'ins_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.insuranceCharge.Charge).format('0,0.00') + '</span>';
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.insuranceCharge.Charge).format('0,0') + '</span>';
                         list.appendChild(newdiv);
 
                         //  var newTotal =  response.itemCharge.ServiceCharge;
                         prevTotal = document.getElementById('overAllTotal').textContent;
                         unformatedTotal = numeral().unformat(prevTotal);
                         
-                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.insuranceCharge.Charge).format('0,0.00');
+                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.insuranceCharge.Charge).format('0,0');
                         insurancesList.push(Id);
                         toastr.success("Item added!");
                         $('#defaultItem').hide();
@@ -370,7 +370,7 @@
                 var unformatedValueToMinus = numeral().unformat(valueToMinus);
                 var newTotal = unformatedTotal - unformatedValueToMinus;
 
-                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0.00');
+                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0');
 
                 var index = extrasList.indexOf(Id);
                 if (index > -1) {
@@ -387,14 +387,14 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = numeral(response.itemCharge.ServiceCharge).format('0,0.00');
+                        document.getElementById("rate_" + Id).innerHTML = numeral(response.itemCharge.ServiceCharge).format('0,0');
                         list = document.getElementById('extras_Total_Sidebar');
                         var itemName = document.getElementById('ItemName_' + Id).textContent;
                         $("#currency_" + Id).show();
 
                         var newdiv = document.createElement('p');
                         newdiv.setAttribute('id', 'exs_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.itemCharge.ServiceCharge).format('0,0.00') + '</span>';
+                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.itemCharge.ServiceCharge).format('0,0') + '</span>';
                         list.appendChild(newdiv);
 
                     
@@ -402,7 +402,7 @@
                         prevTotal = document.getElementById('overAllTotal').textContent;
                         unformatedTotal = numeral().unformat(prevTotal);
 
-                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.itemCharge.ServiceCharge).format('0,0.00');
+                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.itemCharge.ServiceCharge).format('0,0');
 
 
                         extrasList.push(Id);

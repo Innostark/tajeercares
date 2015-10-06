@@ -297,8 +297,8 @@
                                 alert("Standard rates are not defined for current tarrif type!");
                                 return;
                             }
-                            var total = numeral(response.hGcharge.TotalStandardCharge).format('0,0.00');
-                            var perDay = numeral(response.hGcharge.PerDayCost).format('0,0.00');
+                            var total = numeral(response.hGcharge.TotalStandardCharge).format('0,0');
+                            var perDay = numeral(response.hGcharge.PerDayCost).format('0,0');
                             document.getElementById("TotalC_" + id).innerHTML = ("SAR " + total);
                             document.getElementById("perdaycost_" + id).innerHTML = ("(SAR " + perDay + "/day)");
                             $("#selectId_" + id).show();

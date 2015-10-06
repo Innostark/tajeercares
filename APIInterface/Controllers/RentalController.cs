@@ -45,28 +45,29 @@ namespace APIInterface.Controllers
                     FName = userInfo.FName,
                     LName = userInfo.LName,
                     PhoneNumber = userInfo.PhoneNumber
-                },
-                PickUpLocationId = double.Parse(Session["pickupId"].ToString()),
-                DropOffLocationId = double.Parse(Session["dropoffId"].ToString()),
-                PickupOperationId = double.Parse(Session["pickupOperationId"].ToString()),
-
-                PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString())),
-                DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString())),
-
-                HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString()),
-                DropOffCharges = double.Parse(Session["DropOffCharges"].ToString()),
-
-                StandardRate = double.Parse(Session["standardRate"].ToString()),
-
-                SubTotal = double.Parse(Session["SubTotal"].ToString()),
-                FullTotal = double.Parse(Session["GrandTotal"].ToString()),
-
-                UserDomainKey = long.Parse(Session["UserDomainKey"].ToString()),
-                TariffType = Session["TariffType"].ToString(),
-
-                ServiceItems = extrasObjectList.ToList(),
-                InsuranceTypes = insuranceTypesObjectList
+                }
             };
+            model.PickUpLocationId = double.Parse(Session["pickupId"].ToString());
+            model.DropOffLocationId = double.Parse(Session["dropoffId"].ToString());
+            model.PickupOperationId = double.Parse(Session["pickupOperationId"].ToString());
+
+            model.PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString()));
+            model.DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString()));
+
+            model.HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString());
+            model.DropOffCharges = double.Parse(Session["DropOffCharges"].ToString());
+
+            model.StandardRate = double.Parse(Session["standardRate"].ToString());
+
+            model.SubTotal = double.Parse(Session["SubTotal"].ToString());
+            model.FullTotal = double.Parse(Session["GrandTotal"].ToString());
+
+            model.UserDomainKey = long.Parse(Session["UserDomainKey"].ToString());
+            model.TariffType = Session["TariffType"].ToString();
+
+            model.ServiceItems = extrasObjectList.ToList();
+            model.InsuranceTypes = insuranceTypesObjectList;
+            
             return model;
         }
 
@@ -111,14 +112,14 @@ namespace APIInterface.Controllers
                 InsurancesTotal = insuranceTotal,
                 ServiceItemsTotal = serviceItemsTotal,
                 SubTotal = total, // hire group wala
-                FormatedSubTotal = Convert.ToDecimal(total).ToString("#,##0.00"),
+                FormatedSubTotal = Convert.ToDecimal(total).ToString("#,##"),
 
                 GrandTotal = total + serviceItemsTotal + insuranceTotal,
-                FormatedGrandTotal = Convert.ToDecimal(total + serviceItemsTotal + insuranceTotal).ToString("#,##0.00"),
+                FormatedGrandTotal = Convert.ToDecimal(total + serviceItemsTotal + insuranceTotal).ToString("#,##"),
                 DOB = DateTime.Now
             };
-            Session["GrandTotal"] = Convert.ToDecimal(model.GrandTotal).ToString("#,##0.00");
-            Session["SubTotal"] = Convert.ToDecimal(model.SubTotal).ToString("#,##0.00");
+            Session["GrandTotal"] = Convert.ToDecimal(model.GrandTotal).ToString("#,##");
+            Session["SubTotal"] = Convert.ToDecimal(model.SubTotal).ToString("#,##");
             return model;
         }
 
@@ -221,13 +222,13 @@ namespace APIInterface.Controllers
                         {
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
-                                string dropOffWithComma = Convert.ToDecimal(pHireGroup.DropoffCharge).ToString("#,##0.00");
+                                string dropOffWithComma = Convert.ToDecimal(pHireGroup.DropoffCharge).ToString("#,##");
 
                                 // standard rate formated with comma for thousands
-                                cHireGroup.FormatedStandardRate = Convert.ToDecimal(cHireGroup.StandardRt).ToString("#,##0.00");
+                                cHireGroup.FormatedStandardRate = Convert.ToDecimal(cHireGroup.StandardRt).ToString("#,##");
                                
                                 Session["selectedHireGroupDetail"] = cHireGroup;
-                                Session["DropOffCharges"] = dropOffWithComma;
+                                Session["DropOffCharges"] = dropOffWithComma!=""? (object) dropOffWithComma:0;
                                 Session["vehicleImgUrl"] = cHireGroup.ImageUrl;                                
                             }
                         }
@@ -386,7 +387,7 @@ namespace APIInterface.Controllers
             {
                 if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
                 {
-                    items.Add("<p>" + extra.ServiceItemName + " <span class='price'>" + "SAR " + Convert.ToDecimal(extra.ServiceCharge).ToString("#,##0.00") + "</span></p>");
+                    items.Add("<p>" + extra.ServiceItemName + " <span class='price'>" + "SAR " + Convert.ToDecimal(extra.ServiceCharge).ToString("#,##") + "</span></p>");
                     serviceItemsTotal = Math.Round(serviceItemsTotal + extra.ServiceCharge);
                 }
             }
@@ -395,7 +396,7 @@ namespace APIInterface.Controllers
             {
                 if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
                 {
-                    items.Add("<p>" + ins.InsuranceTypeName + " <span class='price'>" + "SAR " + Convert.ToDecimal(ins.InsuranceCharge).ToString("#,##0.00") + "</span></p>");
+                    items.Add("<p>" + ins.InsuranceTypeName + " <span class='price'>" + "SAR " + Convert.ToDecimal(ins.InsuranceCharge).ToString("#,##") + "</span></p>");
                     insuranceTotal = Math.Round(insuranceTotal + ins.InsuranceCharge);
                 }
             }
@@ -440,6 +441,7 @@ namespace APIInterface.Controllers
                 temp = null;
                 workPlace.CoordinatesContents = MakeLocationOnMap(workPlace);
             }
+           
             // For further Use on next pages 
             Session["WPS"] = response.OperationsWorkPlaces;
             return model;
