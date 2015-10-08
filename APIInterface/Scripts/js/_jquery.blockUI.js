@@ -114,7 +114,7 @@
 			// message displayed when blocking (use null for no message)
 			message:  '<h1>Please wait..sdsd.</h1>',
 
-			title: nullz,		// title string; only used when theme == true
+			title: null,		// title string; only used when theme == true
 			draggable: true,	// only used when theme == true (requires jquery-ui.js to be loaded)
 
 			theme: false, // set to true to use with jQuery UI themes

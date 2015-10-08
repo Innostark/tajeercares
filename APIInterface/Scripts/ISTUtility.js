@@ -81,22 +81,34 @@ function SendEmailToUser() {
         toastr.error("Field(s) are mandatory!");
         return false;
     }
-    var email = "{'SenderName':'" + senderName + "'," +
-        "'SenderEmail':'" + senderEmail + "'," +
-        "'EmailSubject':'" + emailSubject + "'," +
-        "'EmailBody':'" + emailBody + "'}";
+    var email = {
+        SenderName: senderName ,
+        SenderEmail: senderEmail,
+        EmailSubject: emailSubject,
+        EmailBody: emailBody
+    };
+   
+    $('#sendingEmailLabel').css({ 'display': 'block' });
+    $('#sendingEmailLabel').text("Sending email...");
+
 
     $.ajax({
         type: 'POST',
-        data: email,
+        data: JSON.stringify(email),
         contentType: "application/json; charset=utf-8",
         url: 'Rental/SendEmail',
         dataType: 'json',
         success: function (response) {
-            if (response.status == "ok")
+           
+            if (response.status == "ok") {
+                $('#sendingEmailLabel').text("Email sent!");
+                $('#sendingEmailLabel').css({ 'color': 'green' });
                 toastr.success("Email sent!");
-            else
+            } else {
+                $('#sendingEmailLabel').css({ 'color': 'red' });
+                $('#sendingEmailLabel').text("Email sending failed!");
                 toastr.error("Failed to send email.Try agian later!");
+            }
         },
         error: function () {
             toastr.error("Failed to send email.Try agian later!");

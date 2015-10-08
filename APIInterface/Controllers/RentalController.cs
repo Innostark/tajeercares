@@ -641,7 +641,9 @@ namespace APIInterface.Controllers
             {
                 try
                 {
-                    SendEmailTo(companyEmail, emailContent.EmailSubject, emailContent.EmailBody, emailContent.SenderName);
+                    string body = emailContent.EmailBody + " \n From :" + emailContent.SenderName + " " +
+                                  emailContent.SenderEmail;
+                    SendEmailTo(companyEmail, emailContent.EmailSubject, body, emailContent.SenderName);
                     return Json(new { status = "ok" });
                 }
                 catch (Exception excp)
