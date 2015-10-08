@@ -505,8 +505,8 @@ namespace APIInterface.Controllers
         public static void SendEmailTo(string email, string subject, string body, string fromDisplayName)
         {
 
-            string fromAddress = ConfigurationManager.AppSettings["FromAddress"];
-            string fromPwd = ConfigurationManager.AppSettings["FromPassword"];
+            string fromAddress = "testinnostark4@gmail.com";//ConfigurationManager.AppSettings["FromAddress"];
+            string fromPwd = "elegantflower1";//ConfigurationManager.AppSettings["FromPassword"];
             //string cc = ConfigurationManager.AppSettings["CC"];
             //string bcc = ConfigurationManager.AppSettings["BCC"];
 
@@ -520,9 +520,9 @@ namespace APIInterface.Controllers
                 Priority = MailPriority.High
             };
             oEmail.To.Add(email);
-            string smtpServer = ConfigurationManager.AppSettings["SMTPServer"];
-            string smtpPort = ConfigurationManager.AppSettings["SMTPPort"];
-            string enableSsl = ConfigurationManager.AppSettings["EnableSSL"];
+            string smtpServer = "smtp.gmail.com";//ConfigurationManager.AppSettings["SMTPServer"];
+            string smtpPort = "587";//ConfigurationManager.AppSettings["SMTPPort"];
+            string enableSsl = "1";//ConfigurationManager.AppSettings["EnableSSL"];
             var client = new SmtpClient(smtpServer, Convert.ToInt32(smtpPort))
             {
                 EnableSsl = enableSsl == "1",
