@@ -231,51 +231,20 @@
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/toastr.js"></script>
-    <script src="~/Scripts/ISTUtility.js"></script>
+    <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
     <script>
 
         $(document).ready(function() {
-            var d = new Date();
-            var year = d.getFullYear() - 20;
-
-            $( "#dob_value" ).datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1920:' + year, 
-                defaultDate: '01/01/1990'
-            });
-          //  $("#dob_value").datepicker( "setDate" , "8/11/2011" );
+            IntitCheckout();
         });
 
-        $("#startingForm").hover(function () {
-            var cls = document.getElementById("startingForm").className;
-            if (cls == "progress-bar-step done") {
-                $("#startingForm").removeClass("progress-bar-step done").addClass("progress-bar-step current");
-                return false;
-            }
-            $("#startingForm").removeClass("progress-bar-step current").addClass("progress-bar-step done");
-
-        });
+       
 
         $("#submitReservation").submit(function () {
-            $("#DOB").val($("#dob_value").val());
-            if (DOBCheck())
-                return validateForm();
-            else
-                return false;
+           return  validateBookingForm();
         });
         
-        function DOBCheck() {
-            var today = new Date();
-            var birthDate = new Date($("#dob_value").val());
-            var age = today.getFullYear() - birthDate.getFullYear();
-            var m = today.getMonth() - birthDate.getMonth();
-            if (isNaN(age) ||  age < 21) {
-                toastr.error("Age must be greater that 21 years!");
-                return false;
-            }
-            return true;
-        }
+        
     </script>
 </body>
 

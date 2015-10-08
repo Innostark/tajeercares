@@ -94,7 +94,13 @@ namespace APIInterface.App_Start
                 values["action"] = "Index";
                     return true;
             }
-
+            if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "MoveToIndex")
+           {
+               values["controller"] = "Rental";
+               values["action"] = "Index";
+               values["customRoute"] = parms[0] ;
+               return true;
+           }
             if (parms.Count() == 3 && parms[1] == "Rental")
             {
                 values["controller"] = "Rental";

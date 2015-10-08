@@ -874,7 +874,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ApiService.cs" />
-    <Compile Include="App_Start\DatePickerHelperBundleConfig.cs" />
     <Compile Include="App_Start\PermaLinkRouteConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrap Html Helpers\DatePickerFor.cs" />

@@ -9,6 +9,7 @@
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@Session["siteName"] - @Session["siteTitle"]</title>
+    <link rel="shortcut icon" href="@Session["titleIcon"]" />
     <!-- Favicon -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="shortcut icon" href="~/assets/ico/favicon.ico">
@@ -43,9 +44,17 @@
             margin-left: 50px;
         }
         #map-canvas {
-            min-height: 400px;
-            height: 80%;
+            min-height: 500px;
+            height: 90%;
             border: 1px solid blue;
+        }
+        .dropdown-menu.inner.selectpicker {
+            max-height: 200px;
+            overflow-y: auto;
+            min-height: 92px;
+        }
+        .dropdown-menu.open {
+            max-height: 200px;
         }
         
     </style>
@@ -124,7 +133,7 @@
                                             <div class="div-cell">
                                                 <div class="caption-content">
                                                     <h2 class="caption-title">@Session["siteName"] </h2>
-                                                    <h3 class="caption-subtitle">Find Best Rental Car</h3>
+                                                    <h3 class="caption-subtitle">@Session["siteTitle"]</h3>
                                                     <!-- Search form -->
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -154,7 +163,7 @@
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
                                                                                     <label>Picking Up Hour</label>
-                                                                                    <select class="selectpicker input-price" id="pickUpForm" data-live-search="true" data-width="100%"
+                                                                                    <select class="selectpicker input-price" style="max-height: 200px;overflow: auto" id="pickUpForm" data-live-search="true" data-width="100%"
                                                                                             data-toggle="tooltip" title="Select">
                                                                                         @foreach (var hour in @Model.ReservationForm.HoursList)
                                                                                         {
@@ -311,7 +320,7 @@
             
             <!-- PAGE -->
             <section id="PickYourCar" class="page-section no-padding no-bottom-space-off" >
-                <div class="container full-width" style="height: 400px">
+                <div class="container full-width" style="height: 500px">
                     <!-- Google map -->
                     <div class="google-map" >
                         <div id="map-canvas"></div>
@@ -448,9 +457,8 @@
     <script src="~/assets/plugins/jquery.smoothscroll.min.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/assets/js/googleMapApisMapper.js"></script>   <!--Baqer added this-->
+    <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
 
-    <!--<script src="~/assets/plugins/smooth-scrollbar.min.js"></script>-->
-    <!--<script src="~/assets/plugins/wow/wow.min.js"></script>-->
     <script>
         // WOW - animated content
         //new WOW().init();
@@ -460,109 +468,27 @@
     <script src="~/assets/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
     <!-- JS Page Level -->
     <script type="text/javascript">
-        jQuery(window).load(function () { jQuery('body').scrollspy({ offset: 100, target: '.navigation' }); });
-        jQuery(window).load(function () { jQuery('body').scrollspy('refresh'); });
-        jQuery(window).resize(function () { jQuery('body').scrollspy('refresh'); });
-        jQuery(window).load(function () {
-            if (location.hash != '') {
-                var hash = '#' + window.location.hash.substr(1);
-                if (hash.length) {
-                    jQuery('html,body').delay(0).animate({
-                        scrollTop: jQuery(hash).offset().top - 44 + 'px'
-                    }, {
-                        duration: 1200,
-                        easing: "easeInOutExpo"
-                    });
-                }
-            }
-        });
+        IdontKnow();
     </script>
     <script src="~/assets/js/theme-ajax-mail.js"></script>
     <script src="~/assets/js/theme.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
-    <script src="~/Scripts/_jquery.blockUI.js"></script>
 
     <script>
         $(document).ready(function() {
             $("#reservationForm").submit(function () {
-                $('#DropoffHours').val($('#dropoffForm').val());
-                $('#PickupHours').val($('#pickUpForm').val());
-                if ($("#ReservationForm_PickupLocation").val() == "") {
-                    toastr.error("Set Pick-up Location!");
-                    return false;
-                }
-                if ($("#ReservationForm_DropoffLocation").val() == "") {
-                    toastr.error("Set Drop-off Location!");
-                    return false;
-                }
-
-                var pickdate = new Date($("#formSearchUpDate").val());
-                var pk = pickdate.getDate() + "/"
-                                + (pickdate.getMonth() + 1) + "/"
-                                + pickdate.getFullYear();
-                
-                var dropDate = new Date($("#formSearchOffDate").val());
-                var dk = dropDate.getDate() + "/"
-                               + (dropDate.getMonth() + 1) + "/"
-                               + dropDate.getFullYear();
-
-                var date = new Date();
-                var currentDate = date.getDate() + "/"
-                                + (date.getMonth() + 1) + "/"
-                                + date.getFullYear();
-
-                if (dk < currentDate || pk < currentDate) {
-                    //toastr.error("Reservation can not be in the past!");
-                    //return false;
-                }
-                
-                if (pk > dk) {
-                    //toastr.error("Invalid date(s)!");
-                    //return false;
-                }
-                return validateForm();
+                // ISTUtility.js
+               return  ValidateReservationForm();
             });
             
             // google map co-oridnates intialization
             InitializeMap();
 
             $("#contact-form").click(function () {
-                var senderName = $("#name").val();
-                var senderEmail = $("#email").val();
-                var emailSubject = $("#subject").val();
-                var emailBody = $("#body").val();
-
-                if (senderName == "" || senderEmail == "" || emailSubject == "" || emailBody == "") {
-                    toastr.error("Field(s) are mandatory!");
-                    return false;
-                }
-                var email = "{'SenderName':'" + senderName + "'," +
-                    "'SenderEmail':'" + senderEmail + "'," +
-                    "'EmailSubject':'" + emailSubject + "'," +
-                    "'EmailBody':'" + emailBody + "'}";
-
-                $.ajax({
-                    type: 'POST',
-                    data: email,
-                    contentType: "application/json; charset=utf-8",
-                    url: 'Rental/SendEmail',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status == "ok")
-                            toastr.success("Email sent!");
-                        else
-                            toastr.error("Failed to send email.Try agian later!");
-                    },
-                    error: function () {
-                        toastr.error("Failed to send email.Try agian later!");
-                    },
-                });
-                
+                SendEmailToUser();
+                // ISTUtility.js
             });
-        });
-
-        
-        
+        });  
     </script>
 </body>
 </html>

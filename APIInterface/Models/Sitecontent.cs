@@ -211,7 +211,7 @@ namespace APIInterface.Models
         //    }
         //}
 
-
+        public string TitleIcon { get; set; }
         /// <summary>
         /// Image
         /// </summary>

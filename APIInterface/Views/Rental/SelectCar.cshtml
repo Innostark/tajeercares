@@ -243,98 +243,17 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="~/Scripts/jquery.pulsate.min.js"></script>
-    
+    <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
+
 
     <script>
 
         $(document).ready(function () {
 
-            $(function () {
-                $("#accordion").accordion({
-                    collapsible: true,
-                    active: false,
-                    heightStyle: "content",
-                    icons: {
-                        "header": "ui-icon-plus",
-                        "activeHeader": "ui-icon-minus"
-                    }
-                });
-            });
-
-
-
-            // Vehicle Selection submition
-            $('.Select').click(function () {
-                hideUi();
-                var id = this.id.substring(9, this.id.length);
-                if (document.getElementById("TotalC_" + id).innerHTML == '(No Standard Rate)') {
-                    $.growlUI('', 'Calculate Charge First!');
-                    return false;
-                }
-                window.location = "SelectExtras?hireGroupDetailId=" + id;
-
-            });
-           
-            // Calculate Charge
-            $('.Charge').click(function () {
-                var id = this.id.substring(9, this.id.length);
-                if (document.getElementById("TotalC_" + id).innerHTML != ' ') {
-                    return false;
-                }
-                hideUi();
-                
-                $.ajax({
-                    type: 'POST',
-                    data: "{'hireGroupDetailId':'" + id + "'}",
-                    contentType: "application/json; charset=utf-8",
-                    url: 'CalculateCharge',
-                    dataType: 'json',
-                    success: function (response) {
-                       // document.getElementById(id).disabled = false;
-                        if (response.detail !== null) {
-                            showUi();
-                            if (response.hGcharge.TariffTypeCode == null) {
-                                alert("Standard rates are not defined for current tarrif type!");
-                                return;
-                            }
-                            var total = numeral(response.hGcharge.TotalStandardCharge).format('0,0');
-                            var perDay = numeral(response.hGcharge.PerDayCost).format('0,0');
-                            document.getElementById("TotalC_" + id).innerHTML = ("SAR " + total);
-                            document.getElementById("perdaycost_" + id).innerHTML = ("(SAR " + perDay + "/day)");
-                            $("#selectId_" + id).show();
-                            $("#chargeId_" + id).css('display', 'none');
-                            
-                         
-
-                            $("#TotalC_" + id).pulsate({
-                                color: "#e80c4d",
-                                reach: 50,
-                                repeat: 5,
-                                speed: 800,
-                                glow: true
-                            });
-                        }
-                        else {
-
-                        }
-
-                    },
-                    error: function () {
-
-                    },
-                });
-            });
-        });
-
-        $("#startingForm").hover(function () {
-            var cls = document.getElementById("startingForm").className;
-            if (cls == "progress-bar-step done") {
-                $("#startingForm").removeClass("progress-bar-step done").addClass("progress-bar-step current");
-                return false;
-            }
-            $("#startingForm").removeClass("progress-bar-step current").addClass("progress-bar-step done");
+            accordionSetting();
 
         });
+
 
     </script>
     <style>

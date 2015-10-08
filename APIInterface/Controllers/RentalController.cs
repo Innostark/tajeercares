@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
+using System.Web.Routing;
 using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
@@ -422,6 +423,13 @@ namespace APIInterface.Controllers
             Session["CompanyShortName"] = response.SiteContent.CompanyShortName;
             Session["EmailForContact"] = response.SiteContent.Email;
             Session["CompanyLogo"] = response.SiteContent.CompanyLogo;
+            Session["titleIcon"] = response.SiteContent.TitleIcon;
+            Session["companyTelephone"] = response.SiteContent.Telephone;
+            Session["shortUrl"] = response.SiteContent.CompanyShortName;
+
+
+            // For further Use on next pages 
+            Session["WPS"] = response.OperationsWorkPlaces;
 
             var model = new HomeModel
             {
@@ -436,17 +444,15 @@ namespace APIInterface.Controllers
             };
             foreach (var workPlace in response.OperationsWorkPlaces)
             {
-                string temp = workPlace.Latitude + "-" + workPlace.Longitude + "-"+workPlace.LocationName;
+                string temp = workPlace.Latitude + "-" + workPlace.Longitude + "-" + workPlace.LocationName;
                 workPlace.RawString = temp;
                 temp = null;
                 workPlace.CoordinatesContents = MakeLocationOnMap(workPlace);
             }
-           
-            // For further Use on next pages 
-            Session["WPS"] = response.OperationsWorkPlaces;
             return model;
         }
 
+     
         /// <summary>
         /// Makes Co-ordinate Div on Map
         /// </summary>
@@ -540,11 +546,19 @@ namespace APIInterface.Controllers
                 }
                 else
                 {
-                    pHireGroup.ChildHireGroupCount = "";
+                    pHireGroup.ChildHireGroupCount =("( All sold out)");
                 }
             }
         }
 
+        /// <summary>
+        /// Response Form Server for URL
+        /// </summary>
+        private SiteContentResponseModel GetResponseForUrl(string url)
+        {
+            var response = rentalApiService.GetSitecontent(url);
+            return response;
+        }
         #endregion
         /// <summary>
         /// Constructor 
@@ -567,19 +581,21 @@ namespace APIInterface.Controllers
             {
                 // Getting URL & calling server
                 string[] parms = Request.Url.LocalPath.Split('/');
-                var response = rentalApiService.GetSitecontent(parms[1].ToUpper());
+                var response = GetResponseForUrl(parms[1].ToUpper());
                     // Handling Bad Requests
                     if (response==null || response.SiteContent == null)
                     {
                         Session["siteName"] = "404 Error";
                         return RedirectToAction("Index", "ErrorHandler", new { area = "" });
                     }
-
                     // Setting up session 
                     var model = SettingRequestNSession(response);
                     return View(model);
+                    
             }
             return View();
+
+           
 
         }
 
@@ -712,30 +728,25 @@ namespace APIInterface.Controllers
             return null;     
         }
 
+    
         /// <summary>
         /// Booking Finalize
         /// </summary>
-       // [HttpGet]
-       // public ActionResult MakeBookingFinal(UserInfoModel model)
-       // {
-       // //   var onlineBookingModel= SetOnlineBookingModel(model);
-       // //    var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
-
-       // //    Session.Clear();
-       ////     Session.Abandon();
-       //     return View();
-       // }
-
         [HttpPost]
         public ActionResult MakeBookingFinal(UserInfoModel model)
         {
-               var onlineBookingModel= SetOnlineBookingModel(model);
-                var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
-
-            //    Session.Clear();
-            //     Session.Abandon();
+            var onlineBookingModel = SetOnlineBookingModel(model);
+            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+            string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+                " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                 Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+            SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
+            // //    Session.Clear();
+            ////     Session.Abandon();
             return View();
         }
+
+     
         #endregion
     }
 }

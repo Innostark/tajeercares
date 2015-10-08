@@ -4,7 +4,21 @@
     Layout = null;
     
 }
+<head>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+</head>
 <a  href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
     <img src="https://groovehq.s3.amazonaws.com/uploaded/NkRfU31irDKzdiqcyPXx?1409687501" />
-
+    <input type="hidden" name="ServiceItemsIds" id="shortUrl" value="@Session["CompanyShortName"]" />
 </a>
+<script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/toastr.js"></script>
+
+
+<script>
+    
+    $(document).ready(function () {
+        toastr.success("Booking successfully done!");
+        window.location.href = "MoveToIndex";
+    });
+</script>

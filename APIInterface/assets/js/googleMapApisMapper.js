@@ -25,10 +25,10 @@
     var mapOptions = {
         zoom: 8,
         center: defaultLoc,
-        height:400
+        height:500
     };
     // Image for Workplace
-    var image = 'assets/img/icon-google-map.png'; // marker icon
+    var image = '../../assets/img/icon-google-map.png'; // marker icon
     // Div in which map will be shown
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     // Default as well as First Workplace on Map

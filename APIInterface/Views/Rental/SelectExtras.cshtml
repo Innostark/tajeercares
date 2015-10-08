@@ -162,21 +162,21 @@
                                     <div class="checkbox-block_container">
                                         <div class="main-block_container">
                                             <div class="additional-block_container">
-                                                <div class="checkbox-block" id="@(item.ServiceTypeId)"> 
-                                                    <input id="@(item.ServiceTypeId)" type="checkbox" class="seviceItem" name="checkbox_extras" value="1" style="cursor: pointer;  margin-top: -8px;  height: 24px; width: 24px" />
+                                                <div class="checkbox-block" id="@(item.ServiceItemId)"> 
+                                                    <input id="@(item.ServiceItemId)" type="checkbox" class="seviceItem" name="checkbox_extras" value="1" style="cursor: pointer;  margin-top: -8px;  height: 24px; width: 24px" />
                                                 </div>
                                                 <div class="main-block">
                                                     <div class="product-img">
                                                         <img src="@item.ImageUrl" title="Vehicle photo" style="height: 80px;width: 80px;" />
                                                     </div>
                                                     <div class="product-info">
-                                                        <h3 id="@("ItemName_"+item.ServiceTypeId)" class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
+                                                        <h3 id="@("ItemName_" + item.ServiceItemId)" class="entry-format">@item.ServiceTypeCode-@item.ServiceItemName</h3>
                                                         <div>@item.ServiceItemDescription</div>
                                                     </div>
                                                 </div>
                                                 <div class="additional-block">
-                                                    <span id=@("currency_"+item.ServiceTypeId) hidden="">SAR </span>
-                                                    <span id=@("rate_"+item.ServiceTypeId)>(Select Item)</span>
+                                                    <span id=@("currency_" + item.ServiceItemId) hidden="">SAR </span>
+                                                    <span id=@("rate_" + item.ServiceItemId)>(Select Item)</span>
 
                                                 </div>
                                             </div>
@@ -263,179 +263,14 @@
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/toastr.js"></script>
-
     <script src="~/Scripts/_jquery.blockUI.js"></script>
-
+    <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
     <script>
-        var extrasList = new Array();
-        var insurancesList = new Array();
-
-        $("form").submit(function () {
-            var index;
-            var text = '-99';
-            for (index = 0; index < extrasList.length; index++) {
-                text = extrasList[index] + "," + text;
-            }
-            $("#ServiceItemsIds").val(text);
-            text = '-99';
-            for (index = 0; index < insurancesList.length; index++) {
-                text = insurancesList[index] + "," + text;
-            }
-            $("#InsurancesIds").val(text);
-        });
-        function callInsurance() {
-            var Id = this.id;
-            if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
-                var valueToMinus = document.getElementById("rate_" + Id).textContent;
-                document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
-                $("#currency_" + Id).hide();
-
-                var list = document.getElementById('extras_Total_Sidebar');
-                var entryToBeRemoved = document.getElementById("ins_" + Id);
-                list.removeChild(entryToBeRemoved);
-                if ($("#extras_Total_Sidebar").children().length == 1) {
-                    $('#defaultItem').show();
-                }
-                var prevTotal = document.getElementById('overAllTotal').textContent;
-                var unformatedTotal = numeral().unformat(prevTotal);
-                var unformatedValueToMinus = numeral().unformat(valueToMinus);
-                var newTotal= unformatedTotal - unformatedValueToMinus ;
-              
-                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0');
-                var index = insurancesList.indexOf(Id);
-                if (index > -1) {
-                    insurancesList.splice(index, 1);
-                }
-                return true;
-            }
-             hideUi();
-            $.ajax({
-                type: 'POST',
-                data: "{'insuranceTypeId':'" + Id + "'}",
-                contentType: "application/json; charset=utf-8",
-                url: 'GetChargeForInsuranceType',
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = numeral(response.insuranceCharge.Charge).format('0,0');
-                        list = document.getElementById('extras_Total_Sidebar');
-                        var itemName = document.getElementById('ItemName_' + Id).textContent;
-                        $("#currency_" + Id).show();
-
-                        var newdiv = document.createElement('p');
-                        newdiv.setAttribute('id', 'ins_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.insuranceCharge.Charge).format('0,0') + '</span>';
-                        list.appendChild(newdiv);
-
-                        //  var newTotal =  response.itemCharge.ServiceCharge;
-                        prevTotal = document.getElementById('overAllTotal').textContent;
-                        unformatedTotal = numeral().unformat(prevTotal);
-                        
-                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.insuranceCharge.Charge).format('0,0');
-                        insurancesList.push(Id);
-                        toastr.success("Item added!");
-                        $('#defaultItem').hide();
-                    }
-                    else {
-
-                    }
-                    showUi();
-                },
-                error: function () {
-                    //showUi();
-                },
-            });
-        }
+     
+       // Gets rate For Insurance
         $(document).on('click', '.insurance', callInsurance);
-
-        function callExtra() {
-            
-            var Id = this.id;
-            if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
-                var valueToMinus = document.getElementById("rate_" + Id).textContent;
-                document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
-                $("#currency_" + Id).hide();
-
-                var list = document.getElementById('extras_Total_Sidebar');
-                var entryToBeRemoved = document.getElementById("exs_" + Id);
-                list.removeChild(entryToBeRemoved);
-                if ($("#extras_Total_Sidebar").children().length == 1) {
-                    $('#defaultItem').show();
-                }
-               
-                
-                // here
-                var prevTotal = document.getElementById('overAllTotal').textContent;
-                var unformatedTotal = numeral().unformat(prevTotal);
-                var unformatedValueToMinus = numeral().unformat(valueToMinus);
-                var newTotal = unformatedTotal - unformatedValueToMinus;
-
-                document.getElementById('overAllTotal').textContent = numeral(newTotal).format('0,0');
-
-                var index = extrasList.indexOf(Id);
-                if (index > -1) {
-                    extrasList.splice(index, 1);
-                }
-                return true;
-            }
-            hideUi();
-            $.ajax({
-                type: 'POST',
-                data: "{'serviceItemId':'" + Id + "','quantity':'1'}",
-                contentType: "application/json; charset=utf-8",
-                url: 'GetChargeForServiceItem',
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        document.getElementById("rate_" + Id).innerHTML = numeral(response.itemCharge.ServiceCharge).format('0,0');
-                        list = document.getElementById('extras_Total_Sidebar');
-                        var itemName = document.getElementById('ItemName_' + Id).textContent;
-                        $("#currency_" + Id).show();
-
-                        var newdiv = document.createElement('p');
-                        newdiv.setAttribute('id', 'exs_' + Id);
-                        newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.itemCharge.ServiceCharge).format('0,0') + '</span>';
-                        list.appendChild(newdiv);
-
-                    
-                        //  var newTotal =  response.itemCharge.ServiceCharge;
-                        prevTotal = document.getElementById('overAllTotal').textContent;
-                        unformatedTotal = numeral().unformat(prevTotal);
-
-                        document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.itemCharge.ServiceCharge).format('0,0');
-
-
-                        extrasList.push(Id);
-                        $('#defaultItem').hide();
-                        toastr.success("Item added!");
-                    }
-                    else {
-
-                    }
-                    showUi();
-                },
-                error: function () {
-                    showUi();
-                },
-            });
-        }
+        // Gets Rate for Service Item
         $(document).on('change', '.seviceItem', callExtra); //here
-
-        function moveToCheckout() {
-            var total = parseInt(document.getElementById('overAllTotal').textContent);
-
-            $.ajax({
-                url: "Checkout?total=" + 5,
-                type: 'GET',
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                }
-            });
-
-           
-        }
-
 
     </script>
 </body>
