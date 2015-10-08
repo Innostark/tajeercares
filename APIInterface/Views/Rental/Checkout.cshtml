@@ -199,7 +199,7 @@
                             </div>
                             <div style="float: right; margin-right: 12px; margin-bottom: 12px;">
                                 <input class="continue_button blue_button" type="submit" value="Book Now" />
-                                <input id="cancelRes" onclick="@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")" type="button" class="blue_button"  value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
+                                <input id="cancelRes"  type="button" class="blue_button"  value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
                             </div>
                         <h4>Note</h4>
                         <div class="widget-content widget-note">
@@ -236,6 +236,13 @@
 
         $(document).ready(function() {
             IntitCheckout();
+            $("#cancelRes").click(function () {
+                var r = confirm("Do you want to discard booking?");
+                if (r == true) {
+                    toastr.error("Booking canceled!");
+                    window.location.href = "MoveToIndex";
+                } 
+            });
         });
 
        

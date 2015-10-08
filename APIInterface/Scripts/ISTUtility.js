@@ -44,28 +44,22 @@ function ValidateReservationForm() {
     }
 
     var pickdate = new Date($("#formSearchUpDate").val());
-    var pk = pickdate.getDate() + "/"
-                    + (pickdate.getMonth() + 1) + "/"
-                    + pickdate.getFullYear();
+    var   pk = new Date(pickdate.getFullYear(), pickdate.getMonth(), pickdate.getDate());
 
     var dropDate = new Date($("#formSearchOffDate").val());
-    var dk = dropDate.getDate() + "/"
-                   + (dropDate.getMonth() + 1) + "/"
-                   + dropDate.getFullYear();
+    var dk = new Date(dropDate.getFullYear(), dropDate.getMonth(), dropDate.getDate());
 
     var date = new Date();
-    var currentDate = date.getDate() + "/"
-                    + (date.getMonth() + 1) + "/"
-                    + date.getFullYear();
+    var currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     if (dk < currentDate || pk < currentDate) {
-        //toastr.error("Reservation can not be in the past!");
-        //return false;
+        toastr.error("Reservation can not be set in the past!");
+        return false;
     }
 
     if (pk > dk) {
-        //toastr.error("Invalid date(s)!");
-        //return false;
+        toastr.error("Invalid drop-off date!");
+        return false;
     }
     return validateForm();
 }
