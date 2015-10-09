@@ -70,9 +70,11 @@ namespace APIInterface.Controllers
                     errorMessage = errorMessage.Replace("taken", "registered with us");
                     ModelState.AddModelError("", errorMessage);
                 }
-                else
+                else if (registerUserResponse.Contains("Runtime Error"))
                 {
-                    ModelState.AddModelError("", "This is response"+registerUserResponse); //ApiResources.registerUserError
+                    RedirectToAction("Home", "RegistrationSuccess");
+                    return View("RegistrationSuccess");
+                   // ModelState.AddModelError("", "This is response"+registerUserResponse); //ApiResources.registerUserError
                 }
             }
             model = new RegisterViewModel { CountryList = CountryList.Countries.ToList() };

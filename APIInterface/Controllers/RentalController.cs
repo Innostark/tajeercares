@@ -743,8 +743,8 @@ namespace APIInterface.Controllers
                 " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
                  Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
             SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
-            // //    Session.Clear();
-            ////     Session.Abandon();
+               Session.Clear();
+               Session.Abandon();
             return View();
         }
 
