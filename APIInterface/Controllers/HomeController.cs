@@ -72,7 +72,7 @@ namespace APIInterface.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", registerUserResponse); //ApiResources.registerUserError
+                    ModelState.AddModelError("", "This is response"+registerUserResponse); //ApiResources.registerUserError
                 }
             }
             model = new RegisterViewModel { CountryList = CountryList.Countries.ToList() };
