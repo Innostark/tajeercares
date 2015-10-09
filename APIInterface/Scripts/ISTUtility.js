@@ -52,13 +52,17 @@ function ValidateReservationForm() {
     var date = new Date();
     var currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-    if (dk < currentDate || pk < currentDate) {
-        toastr.error("Reservation can not be set in the past!");
+    if (dk < currentDate ) {
+        toastr.error("Drop-off date can't be set in the past!");
+        return false;
+    }
+    if (pk < currentDate) {
+        toastr.error("Pick-up date can't be set in the past!");
         return false;
     }
 
     if (pk > dk) {
-        toastr.error("Invalid drop-off date!");
+        toastr.error("Invalid Drop-off date!");
         return false;
     }
     return validateForm();
@@ -104,7 +108,7 @@ function SendEmailToUser() {
                 toastr.error("Failed to send email.Try agian later!");
             }
         },
-        error: function () {
+        error: function (aa,vv,ff) {
             toastr.error("Failed to send email.Try agian later!");
         },
     });
