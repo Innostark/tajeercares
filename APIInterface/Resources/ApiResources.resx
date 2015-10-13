@@ -165,4 +165,7 @@
   <data name="BookingMain" xml:space="preserve">
     <value>SetOnlineBooking</value>
   </data>
+  <data name="CheckUserRegistration" xml:space="preserve">
+    <value>CheckUserRegistration</value>
+  </data>
 </root>

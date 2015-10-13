@@ -50,5 +50,10 @@ namespace APIInterface.WebApiInterfaces
         /// </summary>
         string OnlineBooking(BookingModel model);
 
+        /// <summary>
+        /// Sees if user is currently registered
+        /// </summary>
+        BusinessPartnerModel CheckUser(string key);
+
     }
 }

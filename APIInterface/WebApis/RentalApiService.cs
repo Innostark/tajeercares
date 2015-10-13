@@ -78,7 +78,15 @@ namespace APIInterface.WebApis
                  return ApiResources.BaseAddress + ApiResources.BookingMain;
              }
          }
+         private string CheckUserRegistrationUri
+         {
+             get
+             {
+                 return ApiResources.BaseAddress + ApiResources.CheckUserRegistration;
+             }
+         }
 
+        
 
          /// <summary>
          /// Converts String To Byte Array
@@ -375,6 +383,39 @@ namespace APIInterface.WebApis
         {
             string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(model);
             HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(BookingMainUri)).ConfigureAwait(false);
+            if (responseMessage == null)
+            {
+                return "Failure";
+            }
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                return response;
+            }
+            string result = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
+        #endregion
+        #region Check User Registration
+
+        /// <summary>
+        /// Sees if user is currently registered
+        /// </summary>
+        public BusinessPartnerModel CheckUser(string key)
+        {
+            var response=  CheckUserAsync(key).Result;
+            var rawData = new JavaScriptSerializer();
+            return rawData.Deserialize<BusinessPartnerModel>(response);
+        }
+
+        /// <summary>
+        /// Get Extras n Insurances api async
+        /// </summary>
+        private async Task<string> CheckUserAsync(string key)
+        {
+            var obj = new GeneralRequest { Key = key };
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(CheckUserRegistrationUri)).ConfigureAwait(false);
             if (responseMessage == null)
             {
                 return "Failure";

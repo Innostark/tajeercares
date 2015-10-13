@@ -66,6 +66,14 @@ namespace APIInterface.App_Start
            }
 
 
+           if (parms.Count() == 3 && parms[0] == "Rental" && parms[1] == "CheckUserRegistration")
+           {
+               values["controller"] = "Rental";
+               values["action"] = "CheckUserRegistration";
+               return true;
+           }
+
+
            if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "Checkout")
            {
                values["controller"] = "Rental";

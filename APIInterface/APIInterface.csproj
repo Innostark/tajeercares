@@ -275,6 +275,7 @@
     <Content Include="assets\img\preview\team\team-270x270x4.jpg" />
     <Content Include="assets\img\transparent-bg.png" />
     <Content Include="assets\js\googleMapApisMapper.js" />
+    <Content Include="assets\js\jquery.inputmask.bundle.min.js" />
     <Content Include="assets\js\theme-ajax-mail.js" />
     <Content Include="assets\js\theme-config.css" />
     <Content Include="assets\js\theme-config.js" />
@@ -894,6 +895,7 @@
     <Compile Include="Models\RequestModels\GetCandidateInsuranceChargeRequest.cs" />
     <Compile Include="Models\RequestModels\GetServiceItemRateRequest.cs" />
     <Compile Include="Models\ReservationHours.cs" />
+    <Compile Include="Models\ResponseModels\BusinessPartnerModel.cs" />
     <Compile Include="Models\ResponseModels\ExtrasResponseModel.cs" />
     <Compile Include="Models\ResponseModels\HomeModel.cs" />
     <Compile Include="Models\MyPolicy.cs" />

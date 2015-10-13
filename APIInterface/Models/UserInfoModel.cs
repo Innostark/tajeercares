@@ -44,6 +44,11 @@ namespace APIInterface.Models
         [Display(Name = "Date of Birht")]
         public DateTime DOB { get; set; }
 
+        [Required]
+        [Display(Name = "Customer Type")]
+        public int CustomerType { get; set; }
+        public int CustomerTypeHidden { get; set; }
+
 
         public double ServiceItemsTotal { get; set; }
 

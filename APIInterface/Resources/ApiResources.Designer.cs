@@ -79,6 +79,15 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CheckUserRegistration.
+        /// </summary>
+        public static string CheckUserRegistration {
+            get {
+                return ResourceManager.GetString("CheckUserRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SAR.
         /// </summary>
         public static string CurrencySymbol {

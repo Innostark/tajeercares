@@ -1,8 +1,5 @@
 ﻿
-using System.Collections.Generic;
 using APIInterface.Models;
-using APIInterface.Models.RequestModels;
-using APIInterface.Models.ResponseModels;
 
 namespace APIInterface.WebApiInterfaces
 {

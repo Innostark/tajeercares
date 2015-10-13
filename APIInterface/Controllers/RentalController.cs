@@ -1,9 +1,4 @@
-﻿using System.Activities.Statements;
-using System.Configuration;
-using System.Net;
-using System.Net.Mail;
-using System.Web.Routing;
-using APIInterface.Models;
+﻿using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
 using APIInterface.WebApiInterfaces;
@@ -11,6 +6,8 @@ using APIInterface.WebApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace APIInterface.Controllers
@@ -35,10 +32,16 @@ namespace APIInterface.Controllers
 
             var extrasObjectList = extrasIds.Where(id => id != "-99").Select(double.Parse).ToList();
             var insuranceTypesObjectList = insuranceTypesIds.Where(id => id != "-99").Select(double.Parse).ToList();
-
-            var model = new BookingModel
+            var model = new BookingModel();
+            // Existing 
+            if (userInfo.CustomerTypeHidden == 2)
             {
-                UserInfo = new UserInfoModel
+                model.BusinessPartnerId =  Convert.ToInt32(Session["BPId"].ToString());
+            }
+                // New 
+            else
+            {
+                model.UserInfo = new UserInfoModel
                 {
                     BillingAddress = userInfo.BillingAddress,
                     DOB = userInfo.DOB,
@@ -46,8 +49,9 @@ namespace APIInterface.Controllers
                     FName = userInfo.FName,
                     LName = userInfo.LName,
                     PhoneNumber = userInfo.PhoneNumber
-                }
-            };
+                };
+            }
+         
             model.PickUpLocationId = double.Parse(Session["pickupId"].ToString());
             model.DropOffLocationId = double.Parse(Session["dropoffId"].ToString());
             model.PickupOperationId = double.Parse(Session["pickupOperationId"].ToString());
@@ -121,6 +125,7 @@ namespace APIInterface.Controllers
             };
             Session["GrandTotal"] = Convert.ToDecimal(model.GrandTotal).ToString("#,##");
             Session["SubTotal"] = Convert.ToDecimal(model.SubTotal).ToString("#,##");
+            model.CustomerType = 1;
             return model;
         }
 
@@ -739,15 +744,36 @@ namespace APIInterface.Controllers
         {
             var onlineBookingModel = SetOnlineBookingModel(model);
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
-            string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-                " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-                 Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-            SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
-               Session.Clear();
-               Session.Abandon();
+            if (resposne.Contains("OK"))
+            {
+                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+               " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+                SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
+                Session.Clear();
+                Session.Abandon();
+            }
+           
             return View();
         }
 
+        /// <summary>
+        /// Get Service rate For Insurance Type
+        /// </summary>
+        public JsonResult CheckUserRegistration(string key)
+        {
+            if (key != null)
+            {
+                var response = rentalApiService.CheckUser(key);
+                if (response != null)
+                {
+                    response.DOB_String = response.DOB.ToString("MM/dd/yyyy HH:mm");
+                    Session["BPId"] = response.BusinessPartnerId;
+                    return Json(new { status = response });    
+                }
+            }
+            return Json(new { status = (BusinessPartnerModel) null }); 
+        }
      
         #endregion
     }

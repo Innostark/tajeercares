@@ -15,5 +15,11 @@ namespace APIInterface.Models.RequestModels
         /// Domain Key
         /// </summary>
         public long DomainKey { get; set; }
+
+
+        /// <summary>
+        ///  Key
+        /// </summary>
+        public string Key { get; set; }
     }
 }

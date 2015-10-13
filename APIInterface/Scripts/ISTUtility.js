@@ -397,8 +397,12 @@ function IntitCheckout() {
 }
 
 // Final Booking FOrm 
-function validateBookingForm() {
+function validateBookingForm(userType) {
+    $("#pNumber").inputmask("unmaskedvalue", {
+        "mask": "(999) 999-9999"
+    }); //specifying fn & option
     $("#DOB").val($("#dob_value").val());
+    $("#CustomerTypeHidden").val(userType);
     if (DOBCheck())
         return validateForm();
     else

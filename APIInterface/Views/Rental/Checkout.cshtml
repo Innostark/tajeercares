@@ -23,7 +23,7 @@
         <div id="branding">
             <div id="branding-content">
                 <div class="title-content">
-                    <a  title=""><img style="width: 128px" class="site-logo" src="@Session["CompanyLogo"]" alt="" /></a>
+                    <a title=""><img style="width: 128px" class="site-logo" src="@Session["CompanyLogo"]" alt="" /></a>
                     <h1 style=" width: 200%;margin-left: 65px" class="site-title"><a title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
@@ -46,7 +46,7 @@
         </div><!-- #branding -->
         <div id="progress-bar">
             <div id="progress-bar-steps">
-                <a title="Create new reservation"id="startingForm" class="progress-bar-step done" href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
+                <a title="Create new reservation" id="startingForm" class="progress-bar-step done" href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
                     <div class="step_number">1</div>
                     <div class="step_name">Create request</div>
                 </a>
@@ -152,12 +152,24 @@
                             @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
                             <h4>Personal information</h4>
                             <div class="widget-content">
+                                <div>
+                                    <div>
+
+                                        @Html.LabelFor(m => m.CustomerType, new { @class = "",  })
+                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
+                                        @Html.RadioButtonFor(m => m.CustomerType, "Male", new {id="1", @checked = "checked", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 20px;height: 20px;" })
+                                        <label class="control-label validationAsterikLabel" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">New</label>
+                                        @Html.RadioButtonFor(m => m.CustomerType, "Female", new { id = "2", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 28px;height: 20px;" })
+                                        <label class="control-label validationAsterikLabel" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">Registered</label>
+                                    </div>
+                                </div>
+                                <br />
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.FName, new { @class = "" })
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", placeholder = "Enter your first name" })
+                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", id="firstName", placeholder = "Enter your first name" })
                                     @Html.ValidationMessageFor(m => m.FName)
                                 </div>
                                 <div class="form_element">
@@ -165,7 +177,7 @@
                                         @Html.LabelFor(m => m.LName, new { @class = "" })
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", placeholder = "Enter your last name" })
+                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", id="lName",placeholder = "Enter your last name" })
                                     @Html.ValidationMessageFor(m => m.LName)
                                 </div>
 
@@ -175,41 +187,42 @@
                                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "" })
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", placeholder = "Enter your Phone Number" })
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", id="pNumber",placeholder = "Enter your Phone Number" })
                                 </div>
                                 <div class="form_element">
                                     <div>
                                         @Html.LabelFor(m => m.Email, new { @class = "" })
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", placeholder = "Enter your email address" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory",id="email", placeholder = "Enter your email address" })
                                 </div>
                                 <div class="clear"></div>
 
                                 <div class="form_element">
                                     <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
-                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", placeholder = "Enter your billing address" })
+                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", id="address", placeholder = "Enter your billing address" })
                                 </div>
                                 <div class="form_element form-block pick-up" style=" margin-left: 10px; margin-top: 12px;">
                                     <h4>Date of Birth</h4>
-                                    <input  style="padding-left: 36px; background: #F9F9F9 url(../../Images/images/calendar.png) no-repeat left center; margin: 0 0 0 -1px; width: 75%; " type="text" id="dob_value" value="" name="data_from" />
+                                    <input style="padding-left: 36px; background: #F9F9F9 url(../../Images/images/calendar.png) no-repeat left center; margin: 0 0 0 -1px; width: 75%; " type="text" id="dob_value" value="" name="data_from" />
                                 </div>
                                 <div class="clear"></div>
                                 @Html.HiddenFor(x => x.DOB)
+                                @Html.HiddenFor(x => x.CustomerTypeHidden)
                             </div>
                             <div style="float: right; margin-right: 12px; margin-bottom: 12px;">
                                 <input class="continue_button blue_button" type="submit" value="Book Now" />
-                                <input id="cancelRes"  type="button" class="blue_button"  value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
+                                <input id="cancelRes" type="button" class="blue_button" value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
                             </div>
-                        <h4>Note</h4>
-                        <div class="widget-content widget-note">
-                            <h4>Upon completing this reservation, you will receive:</h4>
-                            <ul>
-                                <li>Your rental voucher to produce on arrival at the rental desk</li>
-                                <li>A toll-free customer support number</li>
-                            </ul>
+                            <h4>Note</h4>
+                            <div class="widget-content widget-note">
+                                <h4>Upon completing this reservation, you will receive:</h4>
+                                <ul>
+                                    <li>Your rental voucher to produce on arrival at the rental desk</li>
+                                    <li>A toll-free customer support number</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
                 <div class="clear"></div>
@@ -231,28 +244,150 @@
     <script type="text/javascript" src="~/Scripts/js/jquery.selectbox-0.2.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/script.js"></script>
     <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
+    <script src="~/assets/js/jquery.inputmask.bundle.min.js"></script>
+
     <script>
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             IntitCheckout();
             $("#cancelRes").click(function () {
                 var r = confirm("Do you want to discard booking?");
                 if (r == true) {
                     toastr.error("Booking canceled!");
                     window.location.href = "MoveToIndex";
-                } 
+                }
             });
         });
 
-       
+        var tempEmail="";
+        var tempPhone = "";
+        var userType = 0;
 
         $("#submitReservation").submit(function () {
-           return  validateBookingForm();
+            return validateBookingForm(userType);
         });
-        
-        
+
+        $(".userType").click(function() {
+            var id = this.id;
+            if (id == 2) {
+                $('#firstName').attr("disabled", "disabled");
+                $('#firstName').css("background-color", "#E6E6E6");
+                $('#lName').attr("disabled", "disabled");
+                $('#lName').css("background-color", "#E6E6E6");
+                $('#dob_value').attr("disabled", "disabled");
+                $('#dob_value').css("background-color", "#E6E6E6");
+                $('#address').attr("disabled", "disabled");
+                $('#address').css("background-color", "#E6E6E6");
+                $('#pNumber').css("border-color", "#378EEF");
+                $('#email').css("border-color", "#378EEF");
+                
+                $('#pNumber').focus();
+
+                
+
+            } else {
+                $('#firstName').removeAttr("disabled");
+                $('#lName').removeAttr("disabled");
+                $('#dob_value').removeAttr("disabled");
+                $('#address').removeAttr("disabled");
+                
+                $('#firstName').css("background-color", "#F9F9F9");
+                $('#lName').css("background-color", "#F9F9F9");
+                $('#dob_value').css("background-color", "#F9F9F9");
+                $('#address').css("background-color", "#F9F9F9");
+                $('#pNumber').css("border-color", "#F9F9F9");
+                $('#email').css("border-color", "#F9F9F9");
+                
+                $('#firstName').focus();
+                
+                $('#firstName').val("");
+                $('#lName').val("");
+                $('#dob_value').val("");
+                $('#address').val("");
+                $('#pNumber').val("");
+                $('#email').val("");
+            }
+            userType = id;
+        });
+
+        $("#pNumber").focusout(function () {
+            var val = $('#pNumber').val();
+         
+            if (val == "" || tempPhone == val || userType == 1 || userType==0) {
+                return false;
+            }
+            tempPhone = val;
+            hideUi();
+            $.ajax({
+                type: 'POST',
+                data: "{'key':'" + val + "'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'CheckUserRegistration',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status != null) {
+                        $('#firstName').val(response.status.FirstName);
+                        $('#lName').val(response.status.LName);
+                        $('#dob_value').val(response.status.DOB_String.substr(0, 10));
+                        $('#address').val(response.status.Address);
+                        $('#pNumber').val(response.status.Phone);
+                        $('#email').val(response.status.Email);
+                        tempEmail = response.status.Email;
+                    } else {
+                        toastr.error("User not found!");
+                    }
+                    showUi();
+                },
+                error: function () {
+
+                },
+            });
+        });
+        $("#email").focusout(function () {
+            var val = $('#email').val();
+
+            if (val == "" || tempEmail == val || userType == 1 || userType==0) {
+                return false;
+            }
+            tempEmail = val;
+            hideUi();
+            $.ajax({
+                type: 'POST',
+                data: "{'key':'" + val + "'}",
+                contentType: "application/json; charset=utf-8",
+                url: 'CheckUserRegistration',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status != null) {
+                        $('#firstName').val(response.status.FirstName);
+                        $('#lName').val(response.status.LName);
+                        $('#dob_value').val(response.status.DOB_String.substr(0, 10));
+                        $('#address').val(response.status.Address);
+                        $('#pNumber').val(response.status.Phone);
+                        $('#email').val(response.status.Email);
+                        tempPhone = response.status.Phone;
+                    }
+                    showUi();
+                },
+                error: function () {
+
+                },
+            });
+            
+
+           
+        });
+        $("#pNumber").inputmask("mask", {
+            "mask": "(999) 999-9999"
+        });
+        //$("#dob_value").inputmask("d/m/y", {
+        //    "placeholder": "mm/dd/yyyy"
+        //}); //multi-char placeholder
     </script>
 </body>
+
+
 
 </html>

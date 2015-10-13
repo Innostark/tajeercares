@@ -84,6 +84,11 @@ namespace APIInterface.Models
         /// </summary>
         public UserInfoModel UserInfo { get; set; }
 
+        /// <summary>
+        /// Existing customer id 
+        /// </summary>
+        public int BusinessPartnerId { get; set; }
+
 
     }
 }
