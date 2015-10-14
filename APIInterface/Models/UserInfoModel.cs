@@ -61,5 +61,7 @@ namespace APIInterface.Models
         public string FormatedGrandTotal { get; set; }
 
         public List<string> ItemsHtml { get; set; }
+
+        public int IsPostBack { get; set; }
     }
 }

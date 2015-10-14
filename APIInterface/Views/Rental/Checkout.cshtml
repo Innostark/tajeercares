@@ -65,6 +65,7 @@
             </div>
             <div class="clear"></div>
         </div>
+        @model APIInterface.Models.UserInfoModel
         <div id="main">
             <div id="primary">
                 <div class="clear"></div>
@@ -137,8 +138,8 @@
                 </aside>
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
-                    @model APIInterface.Models.UserInfoModel
-                    @using (Html.BeginForm("MakeBookingFinal", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id = "submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
+                    
+                    @using (Html.BeginForm("Checkout", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id = "submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
                             <div class="widget-title">
@@ -149,7 +150,7 @@
                                 <div class="clear"></div>
                             </div>
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
+                            @*@Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })*@
                             <h4>Personal information</h4>
                             <div class="widget-content">
                                 <div>
@@ -170,7 +171,6 @@
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", id="firstName", placeholder = "Enter your first name" })
-                                    @Html.ValidationMessageFor(m => m.FName)
                                 </div>
                                 <div class="form_element">
                                     <div>
@@ -178,7 +178,6 @@
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", id="lName",placeholder = "Enter your last name" })
-                                    @Html.ValidationMessageFor(m => m.LName)
                                 </div>
 
                                 <div class="clear"></div>
@@ -209,6 +208,7 @@
                                 <div class="clear"></div>
                                 @Html.HiddenFor(x => x.DOB)
                                 @Html.HiddenFor(x => x.CustomerTypeHidden)
+                                @Html.HiddenFor(x => x.IsPostBack, new { Value = Model.IsPostBack })
                             </div>
                             <div style="float: right; margin-right: 12px; margin-bottom: 12px;">
                                 <input class="continue_button blue_button" type="submit" value="Book Now" />
@@ -260,7 +260,16 @@
                     toastr.error("Booking canceled!");
                     window.location.href = "MoveToIndex";
                 }
-            });
+            }); 
+ 
+            if ($("#IsPostBack").val() == 2) {
+                toastr.error("Booking failed to save!");
+            }
+            
+            if (userType == 2) {
+                makeDisabledFields();
+            }
+
         });
 
      

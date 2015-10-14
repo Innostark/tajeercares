@@ -101,8 +101,11 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Check out Model for Data
         /// </summary>
-        private UserInfoModel MakCheckoutModel(string ServiceItemsIds, string InsurancesIds)
+        private UserInfoModel MakeCheckoutModel(string ServiceItemsIds, string InsurancesIds)
         {
+            Session["ServiceItemIdsString"] = ServiceItemsIds;
+            Session["InsuranceTypesIdsString"] = InsurancesIds;
+
             var extras = Session["Extras"] as ExtrasResponseModel;
             var extrasIds = GetIdsFromString(ServiceItemsIds);
             var insurancesIds = GetIdsFromString(InsurancesIds);
@@ -666,7 +669,8 @@ namespace APIInterface.Controllers
         [HttpGet]
         public ActionResult Checkout(string ServiceItemsIds, string InsurancesIds)
         {
-            var model = MakCheckoutModel(ServiceItemsIds, InsurancesIds);
+            var model = MakeCheckoutModel(ServiceItemsIds, InsurancesIds);
+            model.IsPostBack = 1;
             return View(model);
         }
 
@@ -677,12 +681,25 @@ namespace APIInterface.Controllers
         [HttpPost]
         public ActionResult Checkout(UserInfoModel model)
         {
-            if (ModelState.IsValid)
+            var onlineBookingModel = SetOnlineBookingModel(model);
+            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+            if (resposne.Contains("OK"))
             {
-                //
+                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+               " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+                SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
+            //    Session.Clear();
+              //  Session.Abandon();
+                return View("MakeBookingFinal");
             }
-          
-            return View();
+            else
+            {
+                var reModel = MakeCheckoutModel(Session["ServiceItemIdsString"].ToString(), Session["InsuranceTypesIdsString"].ToString());
+                reModel.IsPostBack = 2;
+                return View(reModel); 
+            }
+
         }
       
        
@@ -740,21 +757,21 @@ namespace APIInterface.Controllers
         /// Booking Finalize
         /// </summary>
         [HttpPost]
-        public ActionResult MakeBookingFinal(UserInfoModel model)
+        public void MakeBookingFinal(UserInfoModel model)
         {
-            var onlineBookingModel = SetOnlineBookingModel(model);
-            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
-            if (resposne.Contains("OK"))
-            {
-                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-               " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-                Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-                SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
-                Session.Clear();
-                Session.Abandon();
-            }
+            //var onlineBookingModel = SetOnlineBookingModel(model);
+            //var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+            //if (resposne.Contains("OK"))
+            //{
+            //    string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+            //   " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+            //    Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+            //    SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
+            //    Session.Clear();
+            //    Session.Abandon();
+            //}
            
-            return View();
+            //return View();
         }
 
         /// <summary>

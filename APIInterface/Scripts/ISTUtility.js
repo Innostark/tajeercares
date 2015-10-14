@@ -431,20 +431,7 @@ $(".userType").click(function () {
     var id = this.id;
     MakeFieldsEmpty();
     if (id == 2) {
-        $('#firstName').attr("disabled", "disabled");
-        $('#firstName').css("background-color", "#E6E6E6");
-        $('#lName').attr("disabled", "disabled");
-        $('#lName').css("background-color", "#E6E6E6");
-        $('#dob_value').attr("disabled", "disabled");
-        $('#dob_value').css("background-color", "#E6E6E6");
-        $('#address').attr("disabled", "disabled");
-        $('#address').css("background-color", "#E6E6E6");
-        $('#pNumber').css("border-color", "#378EEF");
-        $('#email').css("border-color", "#378EEF");
-
-        $('#pNumber').focus();
-
-
+        makeDisabledFields();
 
     } else {
         $('#firstName').removeAttr("disabled");
@@ -545,4 +532,22 @@ function MakeFieldsEmpty() {
     $('#address').val("");
     $('#pNumber').val("");
     $('#email').val("");
+}
+
+// Make fields disabled For Registered USer
+function makeDisabledFields() {
+    $('#firstName').attr("disabled", "disabled");
+    $('#firstName').css("background-color", "#E6E6E6");
+    $('#lName').attr("disabled", "disabled");
+    $('#lName').css("background-color", "#E6E6E6");
+    $('#dob_value').attr("disabled", "disabled");
+    $('#dob_value').css("background-color", "#E6E6E6");
+    $('#address').attr("disabled", "disabled");
+    $('#address').css("background-color", "#E6E6E6");
+    $('#pNumber').css("border-color", "#378EEF");
+    $('#email').css("border-color", "#378EEF");
+
+    $('#pNumber').focus();
+
+
 }

@@ -698,6 +698,7 @@
     <Content Include="Images\images\Saudi-Arabia-64.png" />
     <Content Include="Images\images\search.png" />
     <Content Include="Images\images\select.png" />
+    <Content Include="Images\images\signature.png" />
     <Content Include="Images\images\signin_email.png" />
     <Content Include="Images\images\signin_name.png" />
     <Content Include="Images\images\signin_pass.png" />
