@@ -384,6 +384,11 @@ function callExtra() {
 }
 
 ///////////////////////// CHECK OUT PAGE
+
+var tempEmail = "";
+var tempPhone = "";
+var userType = 0;
+
 function IntitCheckout() {
     var d = new Date();
     var year = d.getFullYear() - 20;
@@ -398,9 +403,8 @@ function IntitCheckout() {
 
 // Final Booking FOrm 
 function validateBookingForm(userType) {
-    $("#pNumber").inputmask("unmaskedvalue", {
-        "mask": "(999) 999-9999"
-    }); //specifying fn & option
+    var pNum = $("#pNumber").inputmask('unmaskedvalue');
+    $("#pNumber").val(pNum);
     $("#DOB").val($("#dob_value").val());
     $("#CustomerTypeHidden").val(userType);
     if (DOBCheck())
@@ -420,4 +424,125 @@ function DOBCheck() {
         return false;
     }
     return true;
+}
+
+// User Type Radio button Handler
+$(".userType").click(function () {
+    var id = this.id;
+    MakeFieldsEmpty();
+    if (id == 2) {
+        $('#firstName').attr("disabled", "disabled");
+        $('#firstName').css("background-color", "#E6E6E6");
+        $('#lName').attr("disabled", "disabled");
+        $('#lName').css("background-color", "#E6E6E6");
+        $('#dob_value').attr("disabled", "disabled");
+        $('#dob_value').css("background-color", "#E6E6E6");
+        $('#address').attr("disabled", "disabled");
+        $('#address').css("background-color", "#E6E6E6");
+        $('#pNumber').css("border-color", "#378EEF");
+        $('#email').css("border-color", "#378EEF");
+
+        $('#pNumber').focus();
+
+
+
+    } else {
+        $('#firstName').removeAttr("disabled");
+        $('#lName').removeAttr("disabled");
+        $('#dob_value').removeAttr("disabled");
+        $('#address').removeAttr("disabled");
+
+        $('#firstName').css("background-color", "#F9F9F9");
+        $('#lName').css("background-color", "#F9F9F9");
+        $('#dob_value').css("background-color", "#F9F9F9");
+        $('#address').css("background-color", "#F9F9F9");
+        $('#pNumber').css("border-color", "#F9F9F9");
+        $('#email').css("border-color", "#F9F9F9");
+
+        $('#firstName').focus();
+
+    }
+    userType = id;
+});
+
+// Search User for Phone Number on Focus out
+$("#pNumber").focusout(function () {
+    var val = $('#pNumber').val();
+
+    if (val == "" || tempPhone == val || userType == 1 || userType == 0) {
+        return false;
+    }
+    tempPhone = val;
+    hideUi();
+    $.ajax({
+        type: 'POST',
+        data: "{'key':'" + val + "'}",
+        contentType: "application/json; charset=utf-8",
+        url: 'CheckUserRegistration',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status != null) {
+                $('#firstName').val(response.status.FirstName);
+                $('#lName').val(response.status.LName);
+                $('#dob_value').val(response.status.DOB_String.substr(0, 10));
+                $('#address').val(response.status.Address);
+                $('#pNumber').val(response.status.Phone);
+                $('#email').val(response.status.Email);
+                tempEmail = response.status.Email;
+            } else {
+                toastr.error("User not found!");
+            }
+            showUi();
+        },
+        error: function () {
+
+        },
+    });
+});
+
+// Search User for Email on Focus out
+$("#email").focusout(function () {
+    var val = $('#email').val();
+
+    if (val == "" || tempEmail == val || userType == 1 || userType == 0) {
+        return false;
+    }
+    tempEmail = val;
+    hideUi();
+    $.ajax({
+        type: 'POST',
+        data: "{'key':'" + val + "'}",
+        contentType: "application/json; charset=utf-8",
+        url: 'CheckUserRegistration',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status != null) {
+                $('#firstName').val(response.status.FirstName);
+                $('#lName').val(response.status.LName);
+                $('#dob_value').val(response.status.DOB_String.substr(0, 10));
+                $('#address').val(response.status.Address);
+                $('#pNumber').val(response.status.Phone);
+                $('#email').val(response.status.Email);
+                tempPhone = response.status.Phone;
+            }
+            showUi();
+        },
+        error: function () {
+
+        },
+    });
+
+
+
+});
+
+// Make Fields Clear
+function MakeFieldsEmpty() {
+
+    $('#firstName').val("");
+    $('#lName').val("");
+    $('#dob_value').val("");
+    $('#address').val("");
+    $('#pNumber').val("");
+    $('#email').val("");
 }
