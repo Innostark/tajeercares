@@ -431,9 +431,12 @@ $(".userType").click(function () {
     var id = this.id;
     MakeFieldsEmpty();
     if (id == 2) {
+        toastr.success("Please enter Phone No. OR Email to search customer!");
+        $(".validationAsterikLabel").hide();
         makeDisabledFields();
 
     } else {
+        $(".validationAsterikLabel").show();
         $('#firstName').removeAttr("disabled");
         $('#lName').removeAttr("disabled");
         $('#dob_value').removeAttr("disabled");
@@ -443,8 +446,8 @@ $(".userType").click(function () {
         $('#lName').css("background-color", "#F9F9F9");
         $('#dob_value').css("background-color", "#F9F9F9");
         $('#address').css("background-color", "#F9F9F9");
-        $('#pNumber').css("border-color", "#F9F9F9");
-        $('#email').css("border-color", "#F9F9F9");
+        //$('#pNumber').css("border-color", "#F9F9F9");
+        //$('#email').css("border-color", "#F9F9F9");
 
         $('#firstName').focus();
 
@@ -477,7 +480,7 @@ $("#pNumber").focusout(function () {
                 $('#email').val(response.status.Email);
                 tempEmail = response.status.Email;
             } else {
-                toastr.error("User not found!");
+                toastr.error("Customer with provided Phone Number is not registered in the system!");
             }
             showUi();
         },
@@ -512,6 +515,9 @@ $("#email").focusout(function () {
                 $('#email').val(response.status.Email);
                 tempPhone = response.status.Phone;
             }
+            else {
+                toastr.error("Customer with provided Email is not registered in the system!");
+            }
             showUi();
         },
         error: function () {
@@ -544,8 +550,8 @@ function makeDisabledFields() {
     $('#dob_value').css("background-color", "#E6E6E6");
     $('#address').attr("disabled", "disabled");
     $('#address').css("background-color", "#E6E6E6");
-    $('#pNumber').css("border-color", "#378EEF");
-    $('#email').css("border-color", "#378EEF");
+    //$('#pNumber').css("border-color", "#378EEF");
+    //$('#email').css("border-color", "#378EEF");
 
     $('#pNumber').focus();
 

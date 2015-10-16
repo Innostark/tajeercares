@@ -613,6 +613,10 @@ namespace APIInterface.Controllers
         /// </summary>
         public ActionResult SelectCar(HomeModel model)
         {
+            if (model == null)
+            {
+                return View();
+            }
             var newModel= ExtractDataFromReservationForm(model);
             var requestModel = MakeGetAvailableHireGroupsRequest(model);
             var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
@@ -685,10 +689,10 @@ namespace APIInterface.Controllers
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             if (resposne.Contains("OK"))
             {
-                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-               " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-                Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-                SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
+               // string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+               //" to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+               // Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+               // SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
             //    Session.Clear();
               //  Session.Abandon();
                 return View("MakeBookingFinal");

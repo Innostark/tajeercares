@@ -157,11 +157,10 @@
                                     <div>
 
                                         @Html.LabelFor(m => m.CustomerType, new { @class = "",  })
-                                        <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                         @Html.RadioButtonFor(m => m.CustomerType, "Male", new {id="1", @checked = "checked", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 20px;height: 20px;" })
-                                        <label class="control-label validationAsterikLabel" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">New</label>
+                                        <label class="control-label" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">New</label>
                                         @Html.RadioButtonFor(m => m.CustomerType, "Female", new { id = "2", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 28px;height: 20px;" })
-                                        <label class="control-label validationAsterikLabel" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">Registered</label>
+                                        <label class="control-label" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">Registered</label>
                                     </div>
                                 </div>
                                 <br />
