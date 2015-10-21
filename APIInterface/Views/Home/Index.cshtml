@@ -1,373 +1,781 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 3.1.3
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest (the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- Head BEGIN -->
 <head>
+    <meta charset="utf-8">
     <title>CaReS ® - Comprehensive Car-Rental Solution</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Car Rental Solution" />
-    <meta name="keywords" content="Car Rental Solution" />
-    
-        <link rel="stylesheet" href="~/Content/core.css" />
-        <link rel="stylesheet" href="~/Content/core-desktop.css" />
-        <link rel="stylesheet" href="~/Content/core-1200px.css" />
-        <link rel="stylesheet" href="~/Content/core-noscript.css" />
-        <link rel="stylesheet" href="~/Content/style.css" />
-        <link rel="stylesheet" href="~/Content/style-desktop.css" />
-
-    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
-    <script src="~/Scripts/jquery.js"></script>
-    <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-52208796-2', 'auto');
-    ga('send', 'pageview');
-
-    </script>
-    <script src="~/Scripts/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="Metronic Shop UI description" name="description">
+    <meta content="Metronic Shop UI keywords" name="keywords">
+    <meta content="keenthemes" name="author">
+    <meta http-equiv="cleartype" content="on">
+    <meta property="og:site_name" content="-CUSTOMER VALUE-">
+    <meta property="og:title" content="-CUSTOMER VALUE-">
+    <meta property="og:description" content="-CUSTOMER VALUE-">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
+    <meta property="og:url" content="-CUSTOMER VALUE-">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Fonts START -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Pathway+Gothic+One|PT+Sans+Narrow:400+700|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+    <!-- Fonts END -->
+    <!-- Global styles BEGIN -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/assets/css/settings.css" rel="stylesheet">
+    <!-- Global styles END -->
+    <!-- Page level plugin styles BEGIN -->
+    <link href="~/assets/css/jquery.fancybox.css" rel="stylesheet">
+    <!-- Page level plugin styles END -->
+    <!-- Theme styles BEGIN -->
+    <link href="~/assets/css/components.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/style-responsive.css" rel="stylesheet">
+    <link href="~/assets/css/red.css" rel="stylesheet" id="style-color">
+    <link href="~/assets/css/custom.css" rel="stylesheet">
+    <style>
+        label {
+            font-size: 20px;
+        }
+    </style>
+    <!-- Theme styles END -->
 </head>
-    <body>
-    
-        <!-- Header -->
-        <div id="header-wrapper">
-
-            <header id="header">
-                <div class="5grid-layout">
-                    <div class="row">
-                        <div class="4u" id="logo">
-                            <h1><a href="#" class="mobileUI-site-name">CaReS ® </a></h1>
-                        </div>
-                        <div class="8u" id="menu">
-                            <nav class="mobileUI-site-nav">
-                                <ul>
-                                    <li id="1" class="current_page_item"><a href="@Url.Action("Index", "Home")">Home</a></li>
-                                    <li id="2" class="menu_items"> <a href="@Url.Action("Features", "Home")">Features</a></li>
-                                    <li id="3" class="menu_items"> <a href="@Url.Action("Overview", "Home")">Overview</a></li>
-                                    <li class="menu_items"><a href="@Url.Action("RegisterUser", "Home")">Register</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div id="banner" class="5grid-layout">
-                <div class="row">
-                    <div class="12u">
-                        <section>
-                            <div>
-                            </div>
-                            <h2>Solution for your <br>Car-Rental Business</h2>
-                            <p class="banner-text">
-                                If you are a car rental company and looking for a solution to manage your
-                                day-to-day rental-operations, control over fleet and its pricing; you are at the right place.
-                                <br>Register and start using. As simple as that.
-                                We offer risk-free Cloud based solution with zero-down-time. A guarantee of minimum 5% increase in profit with no initial investment.
-                            </p>
-                            <a href="" class="button button-style1 button-style2 readMore">Read More</a>
-                        </section>
-
-                    </div>
-                </div>
-            </div>
-
+<!--DOC: menu-always-on-top class to the body element to set menu on top -->
+<body>
+    <!-- BEGIN STYLE CUSTOMIZER -->
+    <div class="color-panel">
+        <div class="color-mode-icons icon-color"></div>
+        <div class="color-mode-icons icon-color-close"></div>
+        <div class="color-mode">
+            <p>THEME COLOR</p>
+            <ul class="inline">
+                <li class="color-red current color-default" data-style="red"></li>
+                <li class="color-blue" data-style="blue"></li>
+                <li class="color-green" data-style="green"></li>
+                <li class="color-orange" data-style="orange"></li>
+                <li class="color-gray" data-style="gray"></li>
+                <li class="color-turquoise" data-style="turquoise"></li>
+            </ul>
+            <p>MENU POSITION</p>
+            <select class="form-control menu-pos">
+                <option value="bottom">Bottom</option>
+                <option value="top">Top</option>
+            </select>
         </div>
-        <!-- Header Ends Here -->
-        <!-- Featured Area -->
-        <div id="featured-wrapper">
-
-            <div id="featured-content" class="5grid-layout">
-                <div class="row">
-
-                    <div class="4u">
-                        <section>
-                            <h2>Free - 0.0 $/month</h2>
-                            <img src="~/Images/featured-icon01.png" width="91" height="100" alt="">
-                            <p>
-                                <ul class="a">
-                                    <li>
-                                        Unlimited use with no expiry
-                                    </li>
-                                    <li>
-                                        One branch fully automated
-                                    </li>
-                                    <li>
-                                        Reports & dashboards features
-                                    </li>
-                                    <li>
-                                        Featured customization of pricing and tariffs
-                                    </li>
-
-                                </ul>
-                                <ul style="margin-top: 55px"></ul>
-                            </p>
-                            <a href="#" id="1" class="button button-style1 reister_me">Register</a>
-                        </section>
-                    </div>
-
-                    <div class="4u">
-                        <section>
-                            <h2>Pro - 199 $/month</h2>
-                            <img src="~/Images/featured-icon02.png" width="91" height="100" alt="">
-                            <p>
-                                <ul class="a">
-                                    <li>
-                                        Unlimited use with no expiry
-                                    </li>
-                                    <li>
-                                        12 Hours response time on email support
-                                    </li>
-                                    <li>
-                                        Automation for upto 10 branches
-                                    </li>
-                                    <li>
-                                        Fleet upto 200 vehicles
-                                    </li>
-                                    <li>
-                                        Rental agreements cap upto 1000 a month
-                                    </li>
-                                    <li>
-                                        Reports & dashboards features
-                                    </li>
-                                    <li>
-                                        Complete customization of pricing and tariffs
-                                    </li>
-                                </ul>
-                                <ul style="margin-top: 10px"></ul>
-                            </p>
-                            <a href="#" id="2"class="button button-style1 reister_me">Register</a>
-                        </section>
-                    </div>
-
-                    <div class="4u">
-                        <section>
-                            <h2>Ultimate - 499 $/month</h2>
-                            <img src="~/Images/featured-icon03.png" width="91" height="100" alt="">
-                            <p>
-                                <ul class="a">
-
-                                    <li>
-                                        Unlimited use with no expiry
-                                    </li>
-                                    <li>
-                                        24/7 support
-                                    </li>
-                                    <li>
-                                        Unlimited branches automation
-                                    </li>
-                                    <li>
-                                        Unlimited vehicles for fleet
-                                    </li>
-                                    <li>
-                                        No cap on Rental agreements
-                                    </li>
-                                    <li>
-                                        Reports & dashboards features
-                                    </li>
-                                    <li>
-                                        Complete customization of pricing and tariffs
-                                    </li>
-                                </ul>
-                            </p>
-                            <a href="#" id="3"class="button button-style1 reister_me">Register</a>
-                        </section>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Featured Ends Here -->
-        <!-- Wrapper -->
-        <div id="wrapper" class="5grid-layout">
-
-            <!-- Page Content -->
-            <div id="page" class="row">
-
-                <!-- Content Area -->
-                <div id="content" class="8u">
-
-                    <!-- Main Content Area -->
-                    <section>
-                        <h2 class="main-title">Comprehensive Car-Rental Solution</h2>
-
-                        <a href="#" class="image-style1"><img src="~/Images/pic02.jpg" alt=""></a>
-                        <p>
-                            Welcome to <strong>CaReS ®</strong>, a free solution for small businesses. Register with us and we will email you all details, with user manuals and guidelines how you can take advantage of our limited time offer.
-                            <strong>CaReS ®</strong> is a scalable application suite which is designed by highly qualified staff
-                            with decades of experience in car rental industry. It gives its customers, a privilege
-                            to customize pricing, define rates based on vehicles classification, define packages, create and configure
-                            branches. It allows management to keep track of every kilometer milage on each vehicle in their fleet. Design is so
-                            diverse that it offers monthly reporting to view profit & loss made by branch, vehicles and see the affect of pricing on sale.
-                            Sales records give breakdown of rental charges, damages, services, chauffers-charges and all sorts of other charges. Attachments of services, e.g. Child-Seat & GPS is also available.
-                            Multiple insurances can also be attached on based on company's policies and procedures.
-                            Managers can now view reports and overall business progress on their mobile devices. <b><strong>CaReS ®</strong></b> allows integration services to your existing websites.
-                            This will allow your customers to make online booking, select gadgets with booking and decide themselves of what they need.
-                            And this is not all of it! Yes it is multilingual system completely configurable for Hijri and gregorian date time formats. <br> <strong>Register and enjoy it for free! </strong>
-                        </p><a href="" class="button button-style1 readMore">Read More</a>
-                    </section>
-
-
-                    <!-- Two Column Area -->
-                    <section>
-                        <div id="two-column" class="5grid">
-                            <div class="row">
-                                <div class="6u">
-                                    <section>
-                                        <h2>Featured Clients</h2>
-                                        <p>
-                                            Additional training of staff and guidance is provided to our featured clients, those include Ultimate license holders.
-                                            As there is absolutely no initial investment, system which is deployed on cloud, we offer you with service of zero-down-time.
-                                            On demand customization is also available for our featured customers.
-                                        </p>
-                                        <ul class="style3">
-                                            <li class="first">
-                                                <p><span class="heading-title">Integration Services for Booking & Reservations</span></p>
-                                                <p>
-                                                    <a href="#">
-                                                        System allows third party partner web-sites to get available vehicles & costing information from their
-                                                        own fleet and pricing to give interface of online booking from their own websites.
-                                                    </a>
-                                                </p>
-                                                
-                                            </li>
-                                        </ul>
-                                    </section>
-                                </div>
-                                <div class="6u">
-                                    <section>
-                                        <h2>Integrated Reports and Dashboards</h2>
-                                        <ul class="style4">
-                                            <li class="first">
-                                                <h3>Management Dashboards and Reports</h3>
-                                                <ul>                                                    
-                                                    <li>
-                                                        <p><span class="heading-title">Daily action report</span></p>
-                                                        <p><span class="heading-title">Daily sales report</span></p>
-                                                        <p><span class="heading-title">Daily fleet utilization report</span></p>
-                                                        <p><span class="heading-title">Gross sales report</span></p>
-                                                        <p><span class="heading-title">Standard tariff and rates report</span></p>
-                                                        <p><span class="heading-title">Insurance rates report</span></p>
-                                                        <p><span class="heading-title">Daily damages report</span></p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            
-                                        </ul>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
-                </div>
-
-                <!-- Sidebar Area -->
-                <div id="sidebar" class="4u">
-
-                    <!-- Sidebar Section 1 -->
-                    <section id="box1">
-
-                        <!-- Two Column Content Area -->
-                        <div class="5grid">
-                            <div class="row">
-                                <div class="6u">
-                                    <section>
-                                        <h3 style="font-size: 16px; font-weight:700">Featued Operations</h3>
-                                        <ul class="style4">
-                                            <li>Spot Rental</li>
-                                            <li>Taxi Rental System</li>
-                                            <li>Monthly Rentals</li>
-                                            <li>Customer's Online Booking</li>
-                                            <li>On Spot Agreement Printing</li>
-                                            <li>Customers Demographics</li>
-                                            <li>Integrated reporting system</li>
-                                            <li>Vehicle Milage Recording</li>
-                                            <li>Vehile Condition Recording</li>
-                                            <li>Non-Revenue Tickets</li>
-                                        </ul>
-                                    </section>
-                                </div>
-                                <div class="6u">
-                                    <section>
-                                        <h3 style="font-size: 16px; font-weight:700">Backend Management</h3>
-                                        <ul class="style4">
-                                            <li>Branch Automation</li>
-                                            <li>Pricing and Tariff customization</li>
-                                            <li>Vehicles status & conditions</li>
-                                            <li>Insurance, Damages & Traffic Tickets</li>
-                                            <li>Employees and Chauffeurs Management</li>
-                                            <li>Customers Demographics</li>
-                                            <li>Discount and Upgrading Policies</li>
-                                            <li>Booking Managements</li>
-                                            <li>Timely Progress Reports</li>
-                                            <li>Overall Business Dashboards</li>
-                                        </ul>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Two Column Content Area Ends Here -->
-
-                    </section>
-
-                    <!-- Sidebar Section 2 -->
-                    <section id="box2">
-                        <h2>Management Operations</h2>
-                        <ul class="style2">
-                            <li class="first">
-                                <p><img src="~/Images/pics07.jpg" alt="">Allowing customer to make booking and reservations from your website.</p>
-                            </li>
-                            <li>
-                                <p><img src="~/Images/pics08.jpg" alt="">Maximum ease of use, no hardware Infrastucture, no initial deployment cost.</p>
-                            </li>
-                            <li>
-                                <p><img src="~/Images/pics09.jpg" alt="">Access acurate data to support decisions.</p>
-                            </li>
-                            
-                        </ul>                        
-                    </section>
-
-
-                </div>
-
-            </div>
-            <!-- Page Content -->
-
-        </div>
-        <!-- Wrapper Ends Here -->
-        <!-- Copyright -->
-        <div class="5grid-layout" id="copyright">
+    </div>
+    <!-- END BEGIN STYLE CUSTOMIZER -->
+    <!-- Header BEGIN -->
+    <div class="header header-mobi-ext">
+        <div class="container">
             <div class="row">
-                <div class="12u">
-                    <section>
-                        <p>&copy; Copyrights 2015 <a href="http://www.innostark.com/">InnoSTARK Technologie Pvt. Ltd. </a> | <a href="mailto:info@innostark.com"> info@innostark.com</a></p>
-                    </section>
+                <!-- Logo BEGIN -->
+                <div class="col-md-2 col-sm-2">
+                    <a class="scroll site-logo" href="#promo-block"><img src="~/assets/Images/red.png" alt="Metronic One Page">&reg;</a>
+                </div>
+                <!-- Logo END -->
+                <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+                <!-- Navigation BEGIN -->
+                <div class="col-md-10 pull-right">
+                    <ul class="header-navigation">
+                        <li class="current"><a href="#promo-block">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#prices">Pricing</a></li>
+                        <li><a href="#overView">Overview</a></li>
+                        <li><a href="#sign_up">Signup</a></li>
+                        <li><a href="#contactMe">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Navigation END -->
+            </div>
+        </div>
+    </div>
+    <!-- Header END -->
+    <!-- Promo block BEGIN -->
+    <div class="promo-block" id="promo-block">
+        <div class="tp-banner-container">
+            <div class="tp-banner">
+                <ul>
+                    <li data-transition="fade" data-slotamount="5" data-masterspeed="700" data-delay="9400" class="slider-item-1">
+                        <img src="~/assets/Images/slide1.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+                        <div class="tp-caption large_text customin customout start"
+                             data-x="center"
+                             data-hoffset="0"
+                             data-y="center"
+                             data-voffset="60"
+                             data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+                             data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                             data-speed="2500"
+                             data-start="700"
+                             data-easing="Back.easeInOut"
+                             data-endspeed="500">
+                            <div class="promo-like"><i class="fa fa-thumbs-up"></i></div>
+                            <div class="promo-like-text">
+                                <h2>Comprehensive Car-Rental Solution</h2>
+                                <p>A guarantee of minimum 5% increase in profit with no initial investment. <a href="javascript:void(0);">Register</a> and start using</p>
+                            </div>
+                        </div>
+                        <div style="left: 133px;" class="tp-caption large_bold_white fade"
+                             data-x="center"
+                             data-y="center"
+                             data-voffset="-110"
+                             data-speed="300"
+                             data-start="1700"
+                             data-easing="Power4.easeOut"
+                             data-endspeed="500"
+                             data-endeasing="Power1.easeIn"
+                             data-captionhidden="off"
+                             style="z-index: 6">
+                            <p> SOLUTION FOR <span>CAR-RENTAL</span> BUSINESS</p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Promo block END -->
+    <!-- Services block BEGIN -->
+    <div class="services-block content content-center" id="services">
+        <div class="container">
+            <h2>Our <strong>services</strong></h2>
+            <h4>Enjoy doing business with us!</h4>
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12 item">
+                    <i class="fa fa-wrench"></i>
+                    <h3>Fantastic Support</h3>
+                    <p>Our dedicated team provides quick response ready to help you at no additional charge.</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 item">
+                    <i class="fa fa-money"></i>
+                    <h3>Lowest Rates</h3>
+                    <p>We provide cost effective solution with guarantee of minimum 5% increase in profit with no initial investment.</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 item">
+                    <i class="fa fa-signal"></i>
+                    <h3>Dashboard Management</h3>
+                    <p>Daily reports & dashboard features provide instant analysis of your daily features.</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 item">
+                    <i class="fa fa-list-alt"></i>
+                    <h3>Online Reservation</h3>
+                    <p>System allows third party partner web-sites to get available vehicles & costing information.</p>
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                $(".reister_me").click(function () {
-                    window.location = "@(Url.Action("RegisterUser", "Home"))" + "?id=" + this.id;
+    </div>
+    <!-- Services block END -->
+    <!-- Message block BEGIN -->
+    <div class="message-block content content-center valign-center" id="message-block">
+        <div class="valign-center-elem">
+            <h2>Integration Services for Booking & Reservations <strong>What else you need?</strong></h2>
+            <em></em>
+        </div>
+    </div>
+    <!-- Message block END -->
+    <!-- Choose us block BEGIN -->
+    <div class="choose-us-block content text-center margin-bottom-40" id="benefits">
+        <div class="container">
+            <h2>Why to <strong>choose us</strong></h2>
+            <h4><a href="javascript:void(0);">CaReS ®</a> is a scalable application suite which is designed by highly qualified staff with decades of experience in car rental industry. It gives its customers, a privilege to customize pricing, define rates based on vehicles classification, define packages, create and configure branches. </h4>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 text-left">
+                    <img src="~/assets/Images/choose-us.png" alt="Why to choose us" class="img-responsive">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-left">
+                    <div class="panel-group" id="accordion1">
+                      
+                        <div class="panel panel-default" id="targetDiv">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a id="tempp"class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">Key Performance Indicators</a>
+                                </h5>
+                            </div>
+                            <div id="accordion1_1" class="panel-collapse collapse in">
+                                <div class="panel-body">
+
+                                    <ul>
+                                        <li>Utilization rates (On road, Off road - Time analysis)</li>
+                                        <li>Non-Revenue, KM analysis</li>
+                                        <li>Action List - Cars overdue & un-paid cases</li>
+                                        <li>Customer Profitability Analysis (CPA)</li>
+                                        <li>Sales analysis, Gross Profits, Profit and Loss</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_2">Main Features</a>
+                                </h5>
+                            </div>
+                            <div id="accordion1_2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Rental Agreements</li>
+                                        <li>Booking/Reservations</li>
+                                        <li>Non-Revenue Ticket</li>
+                                        <li>Pricing Control</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_3">Tools & Technology</a>
+                                </h5>
+                            </div>
+                            <div id="accordion1_3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>.NET framework v 3.5</li>
+                                        <li>Microsoft Application Blocks</li>
+                                        <li>AJAX</li>
+                                        <li>YUI Framework</li>
+                                        <li>SQL Server 2005, MYSQL</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_4">Rental Agreements</a>
+                                </h5>
+                            </div>
+                            <div id="accordion1_4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Allocation of a vehicle</li>
+                                        <li>Vehicle Up-gradation & replacement</li>
+                                        <li>Tracking of vehicle’s movement & its condition</li>
+                                        <li>Chauffeurs, Insurances & Services selection</li>
+                                        <li>Automated Pricing & discounts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_5">Non-Revenue Tickets</a>
+                                </h5>
+                            </div>
+                            <div id="accordion1_5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Inter Branch Transfers</li>
+                                        <li>Fuel Filling</li>
+                                        <li>Periodic Maintenance</li>
+                                        <li>Motor Vehicle Periodic Inspection</li>
+                                        <li>Vehicle Grant to Management</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Choose us block END -->
+    <!-- Facts block BEGIN -->
+    <div class="facts-block content content-center" id="facts-block" style=" padding-bottom: 0px;">
+        <h2>Some facts about us</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="item">
+                        <strong>17</strong>
+                        Projects Completed
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="item">
+                        <strong>12</strong>
+                        Team Members
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="item">
+                        <strong>1.7k+</strong>
+                        Products Sold
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="item">
+                        <strong>37</strong>
+                        Weekly Sales
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facts block END -->
+    <!-- Prices block BEGIN -->
+    <div class="prices-block content content-center" id="prices" style="padding-bottom: 0px;">
+        <div class="container">
+            <h2 class="margin-bottom-50"><strong>Pricing</strong> Tables</h2>
+            <div class="row">
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3>Free</h3>
+                            <p>(For Beginners)</p>
+                        </div>
+                        <div class="pricing-content">
+                            <div class="pi-price">
+                                <strong>$<em>0</em></strong>
+                                <p>Per Month</p>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-circle"></i> Unlimited use with no expiry</li>
+                                <li><i class="fa fa-circle"></i> 18 Hours response time on email support</li>
+                                <li><i class="fa fa-circle"></i> One branch fully automated</li>
+                                <li><i class="fa fa-circle"></i> Fleet upto 10 vehicles</li>
+                                <li><i class="fa fa-circle"></i> Rental agreements cap upto 20 a month</li>
+                                <li><i class="fa fa-circle"></i> Reports & dashboards features</li>
+                                <li><i class="fa fa-circle"></i> Featured customization of pricing and tariffs</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-footer">
+                            <a class="btn btn-default" href="#sign_up">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3>Pro</h3>
+                            <p>(For Medium Users)</p>
+                        </div>
+                        <div class="pricing-content">
+                            <div class="pi-price">
+                                <strong>$<em>199</em></strong>
+                                <p>Per Month</p>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-circle"></i> Unlimited use with no expiry</li>
+                                <li><i class="fa fa-circle"></i> 12 Hours response time on email support</li>
+                                <li><i class="fa fa-circle"></i> Automation for upto 10 branches</li>
+                                <li><i class="fa fa-circle"></i> Fleet upto 200 vehicles</li>
+                                <li><i class="fa fa-circle"></i> Rental agreements cap upto 1000 a month</li>
+                                <li><i class="fa fa-circle"></i> Reports & dashboards features</li>
+                                <li><i class="fa fa-circle"></i> Complete customization of pricing and tariffs</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-footer">
+                            <a class="btn btn-default" href="#sign_up">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3>Ultimate</h3>
+                            <p>(For Corporate  Level)</p>
+                        </div>
+                        <div class="pricing-content">
+                            <div class="pi-price">
+                                <strong>$<em>499</em></strong>
+                                <p>Per Month</p>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-circle"></i> Unlimited use with no expiry</li>
+                                <li><i class="fa fa-circle"></i> 24/7 support</li>
+                                <li><i class="fa fa-circle"></i> Unlimited branches automation</li>
+                                <li><i class="fa fa-circle"></i> Unlimited vehicles for fleet</li>
+                                <li><i class="fa fa-circle"></i> No cap on Rental agreements</li>
+                                <li><i class="fa fa-circle"></i> Reports & dashboards features</li>
+                                <li><i class="fa fa-circle"></i> Complete customization of pricing and tariffs</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-footer">
+                            <a class="btn btn-default" href="#sign_up">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+            </div>
+        </div>
+    </div>
+    <!-- Prices block END -->
+    <!-- OVERVIEW BEGIN -->
+    <div class="prices-block content content-center" id="overView" style=" padding-top: 0px; padding-bottom: 0px;">
+        <div class="container">
+            <h2 class="">Overview</h2>
+            <div class="row">
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3></h3>
+                        </div>
+                        <div class="pricing-content">
+                            <iframe src="https://docs.google.com/presentation/d/18bwat92gDEdFroskwtetorz9K9y69M-Fu0Zrv5J41nE/embed?start=false&loop=false&delayms=10000"
+                                    width="1000" height="700" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="min-width: 400px" class="overview-pane"></iframe>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+            </div>
+        </div>
+    </div>
+    <!--OVERVIEW ends-->
+    <!--SignUP block BEGIN-->
+    <div class="prices-block content content-center" id="sign_up" style=" padding-top: 0px; padding-bottom: 0px;">
+        <div class="container">
+            <h2 class=""><strong>User</strong> Registration</h2>
+            <div class="row">
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3>Please Fill the Bellow Form</h3>
+                        </div>
+                        <div class="pricing-content">
+                            @model APIInterface.Models.RegisterViewModel
+                            @{
+                                ViewBag.Title = "Register";
+                            }
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
+                            {
+                                var accountTypes = new List<SelectListItem>()
+                                {
+                                    new SelectListItem {Text = "Free", Value = "1"},
+                                    new SelectListItem {Text = "Pro", Value = "2"},
+                                    new SelectListItem {Text = "Ultimate", Value = "3"}
+                                };
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">&nbsp;</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShortUrl, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-7">
+                                    @Html.TextBoxFor(m => m.ShortUrl, new { @class = "form-control", id = "cmpUrl" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label validationAsterikLabel" id="urlErrorLabel" style="text-align: left;display: none; width: 95%; color: white">Checking availability...</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" })
+                                <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-md-3 control-label validationAsterikLabel">&nbsp;</label>
+                                <div class="pricing-footer col-md-9">
+                                    <button type="submit" disabled class="btn btn-default" id="registraionButton">Register</button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+            </div>
+        </div>
+    </div>
+    <!--SignUP block END-->
+    <!-- Contact us BEGIN -->
+    <div class="prices-block content content-center" id="contactMe" style=" padding-top: 0px;">
+        <div class="container">
+            <h2 class="">&nbsp;</h2>
+            <div class="row">
+                <!-- Pricing item BEGIN -->
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="pricing-item">
+                        <div class="pricing-head">
+                            <h3>Find Us Bellow</h3>
+                        </div>
+                        <div class="pricing-content">
+                            <div class="col-md-9 col-sm-9">
+                                <!-- BEGIN FORM-->
+                                <form action="#" role="form">
+                                    <div class="form-group">
+                                        <label style="float: left" for="contacts-name">Name</label>
+                                        <input type="text" class="form-control" id="contacts-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="float: left" for="contacts-email">Email</label>
+                                        <input type="email" class="form-control" id="contacts-email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="float: left" for="contacts-message">Message</label>
+                                        <textarea class="form-control" rows="5" id="contacts-message"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Send</button>
+                                    <button type="button" class="btn btn-default">Cancel</button>
+                                </form>
+                                <!-- END FORM-->
+                            </div>
+                            <div class="col-md-3 col-sm-3 sidebar2" style="text-align: left;">
+                                <h2 style="text-align: left;">Our Contacts</h2>
+                                <address>
+                                    <strong>Loop, Inc.</strong><br>
+                                    84-A1 Joahr Town<br>
+                                    Lahore, Pakistan<br>
+                                    <abbr title="Phone">P:</abbr> (+92) 123456
+                                </address>
+                                <address>
+                                    <strong>Email</strong><br>
+                                    <a href="mailto:info@email.com">info@innostark.com</a><br>
+                                    <a href="mailto:support@example.com">support@innostark.com</a>
+                                </address>
+                                <ul class="social-icons margin-bottom-40">
+                                    <li><a href="#" data-original-title="facebook" class="facebook"></a></li>
+                                    <li><a href="#" data-original-title="github" class="github"></a></li>
+                                    <li><a href="#" data-original-title="Goole Plus" class="googleplus"></a></li>
+                                    <li><a href="#" data-original-title="linkedin" class="linkedin"></a></li>
+                                    <li><a href="#" data-original-title="rss" class="rss"></a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Pricing item END -->
+            </div>
+        </div>
+    </div>
+    <!--Contact us ends-->
+    <!-- Partners block BEGIN -->
+    <div class="partners-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/cisco.png" alt="cisco">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/walmart.png" alt="walmart">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/gamescast.png" alt="gamescast">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/spinwokrx.png" alt="spinwokrx">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/ngreen.png" alt="ngreen">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                    <img src="~/assets/Images/vimeo.png" alt="vimeo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partners block END -->
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN COPYRIGHT -->
+                <div class="col-md-6 col-sm-6">
+                    <div class="copyright">2015 © Cares Rental Solution. ALL Rights Reserved.</div>
+                </div>
+                <!-- END COPYRIGHT -->
+                <!-- BEGIN SOCIAL ICONS -->
+                <div class="col-md-6 col-sm-6 pull-right">
+                    <ul class="social-icons">
+                        <li><a class="rss" data-original-title="rss" href="javascript:void(0);"></a></li>
+                        <li><a class="facebook" data-original-title="facebook" href="javascript:void(0);"></a></li>
+                        <li><a class="twitter" data-original-title="twitter" href="javascript:void(0);"></a></li>
+                        <li><a class="googleplus" data-original-title="googleplus" href="javascript:void(0);"></a></li>
+                        <li><a class="linkedin" data-original-title="linkedin" href="javascript:void(0);"></a></li>
+                        <li><a class="youtube" data-original-title="youtube" href="javascript:void(0);"></a></li>
+                        <li><a class="vimeo" data-original-title="vimeo" href="javascript:void(0);"></a></li>
+                        <li><a class="skype" data-original-title="skype" href="javascript:void(0);"></a></li>
+                    </ul>
+                </div>
+                <!-- END SOCIAL ICONS -->
+            </div>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <a href="#promo-block" class="go2top scroll"><i class="fa fa-arrow-up"></i></a>
+    <!--[if lt IE 9]>
+      <script src="~/assets/Scripts/global/plugins/respond.min.js"></script>
+    <![endif]-->
+    <!-- Load JavaScripts at the bottom, because it will reduce page load time -->
+    <!-- Core plugins BEGIN (For ALL pages) -->
+    <script src="~/assets/Scripts/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="~/assets/Scripts/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="~/assets/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Core plugins END (For ALL pages) -->
+    <!-- BEGIN RevolutionSlider -->
+    <script src="~/assets/Scripts/jquery.themepunch.plugins.min.js" type="text/javascript"></script>
+    <script src="~/assets/Scripts/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
+    <script src="~/assets/Scripts/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+    <script src="~/assets/Scripts/revo-ini.js" type="text/javascript"></script>
+    <!-- END RevolutionSlider -->
+    <!-- Core plugins BEGIN (required only for current page) -->
+    <script src="~/assets/Scripts/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
+    <script src="~/assets/Scripts/jquery.easing.js"></script>
+    <script src="~/assets/Scripts/jquery.parallax.js"></script>
+    <script src="~/assets/Scripts/jquery.scrollTo.min.js"></script>
+    <script src="~/assets/Scripts/jquery.nav.js"></script>
+    <!-- Core plugins END (required only for current page) -->
+    <!-- Global js BEGIN -->
+    <script src="~/assets/Scripts/layout.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("#tempp").addClass("collapsed");
+            $("#accordion1_1").addClass("collapse");
+            $('#accordion1_1').css('height', '0px');
+            $('#accordion1_1').css('display', 'none');
+
+            var oldUrl;
+            var status = 0;
+
+            Layout.init();
+            $("#cmpUrl").on("keydown", function (e) {
+            if (e.which !== 32) {
+                return true;
+            } else {
+                
+                return false;
+            }
+            });
+            $("#cmpUrl").focusout(function () {
+                var url = document.getElementById('cmpUrl').value;
+                if (url == "" || oldUrl==url)
                     return false;
-                });
-                $(".readMore").click(function () {
-                    window.location = "@(Url.Action("Features", "Home"))";
-                    return false;
+
+                oldUrl = url;
+                $('#urlErrorLabel').css({ 'display': 'block' });
+                $('#urlErrorLabel').text("Processing...");
+                $('#urlErrorLabel').css({ 'color': 'royalblue' });
+                $.ajax({
+                    type: 'POST',
+                    data: "{'url':'" + url + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    url: 'CompanyURLAvailability',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response !== null && response !== undefined && response.status == true) {
+                            $('#urlErrorLabel').text("Available!");
+                            $('#urlErrorLabel').css({ 'color': 'greenyellow' });
+                            $('#registraionButton').prop('disabled', false);
+
+                        } else {
+                            $('#urlErrorLabel').text("Not Available!");
+                            $('#urlErrorLabel').css({ 'color': 'red' });
+                            $('#registraionButton').prop('disabled', true);
+                        }
+                    },
+                    error: function () {
+
+                    },
                 });
             });
-        
-        </script>
-    </body>
+            $("#targetDiv").click(function () {
+                // close kro
+                if (status == 1) {
+
+                    $("#accordion1_1").removeClass("in");
+                    $("#tempp").addClass("collapsed");
+                    $('#accordion1_1').css('display', 'none');
+                    $('#accordion1_1').css('height', '0px');
+                    status = 0;
+                    return false;
+                }// open kro
+                else {
+                    status = 1;
+                    $("#tempp").removeClass("collapsed");
+                    $("#accordion1_1").addClass("in");
+                    $('#accordion1_1').css('height', '');
+                    $('#accordion1_1').css('display', 'block');
+                    return false;
+                }
+            });
+        });
+    </script>
+    <!-- Global js END -->
+</body>
+
 </html>

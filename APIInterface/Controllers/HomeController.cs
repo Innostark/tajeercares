@@ -25,15 +25,48 @@ namespace APIInterface.Controllers
         #endregion
         #region Public
 
-
-
         /// <summary>
        /// welcome page
        /// </summary>
         public ActionResult Index(string customRoute)
         {
-            return View();
+            var id = 1;
+            var model = new RegisterViewModel { CountryList = CountryList.Countries.ToList(), AccountType = (int)id };
+            return View(model);
         }
+
+        /// <summary>
+        /// Register User [Page posting ]
+        /// </summary>
+        [HttpPost]
+        public ActionResult Index(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string registerUserResponse = _webApiService.RegisterUser(model);
+                if (registerUserResponse.Contains("Success"))
+                {
+                    RedirectToAction("Home", "RegistrationSuccess");
+                    return View("RegistrationSuccess");
+                }
+                if (registerUserResponse.Contains("CaresGeneralException"))
+                {
+                    string errorMessage = ParseExceptionMessgeFromResponse(registerUserResponse);
+                    errorMessage = errorMessage.Replace("Name ", "Email ");
+                    errorMessage = errorMessage.Replace("taken", "registered with us");
+                    ModelState.AddModelError("", errorMessage);
+                }
+                else if (registerUserResponse.Contains("Runtime Error"))
+                {
+                    RedirectToAction("Home", "RegistrationSuccess");
+                    return View("RegistrationSuccess");
+                    // ModelState.AddModelError("", "This is response"+registerUserResponse); //ApiResources.registerUserError
+                }
+            }
+            model = new RegisterViewModel { CountryList = CountryList.Countries.ToList() };
+            return View(model);
+        }
+
 
 
         /// <summary>

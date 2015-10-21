@@ -23,6 +23,10 @@ namespace APIInterface.App_Start
            {
                return false;
            }
+           if (parms.Count() == 2 && parms[0] == "Home" && (parms[1] == "Features" || parms[1] == "features" || parms[1] == "overview" || parms[1] == "Overview"))
+           {
+               return false;
+           }
            if (parms.Count() == 2 && parms[0] == "Home" && parms[1] == "CompanyURLAvailability")
            {
                return false;
