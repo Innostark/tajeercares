@@ -709,24 +709,21 @@ License: You must have a valid license purchased only from themeforest (the abov
             $('#accordion1_1').css('height', '0px');
             $('#accordion1_1').css('display', 'none');
 
-            var oldUrl;
+            var oldUrl=0;
             var status = 0;
 
             Layout.init();
-            $("#cmpUrl").on("keydown", function (e) {
-            if (e.which !== 32) {
-                return true;
-            } else {
-                
-                return false;
-            }
+            $("#cmpUrl").on("keydown", function(e) {
+                if (e.which !== 32) {
+                    return true;
+                } else {
+
+                    return false;
+                }
             });
             $("#cmpUrl").focusout(function () {
                 var url = document.getElementById('cmpUrl').value;
-                if (url == "" || oldUrl==url)
-                    return false;
-
-                oldUrl = url;
+               
                 $('#urlErrorLabel').css({ 'display': 'block' });
                 $('#urlErrorLabel').text("Processing...");
                 $('#urlErrorLabel').css({ 'color': 'royalblue' });
@@ -734,9 +731,9 @@ License: You must have a valid license purchased only from themeforest (the abov
                     type: 'POST',
                     data: "{'url':'" + url + "'}",
                     contentType: "application/json; charset=utf-8",
-                    url: 'CompanyURLAvailability',
+                    url: 'Home/CompanyURLAvailability',
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response !== null && response !== undefined && response.status == true) {
                             $('#urlErrorLabel').text("Available!");
                             $('#urlErrorLabel').css({ 'color': 'greenyellow' });
@@ -748,10 +745,11 @@ License: You must have a valid license purchased only from themeforest (the abov
                             $('#registraionButton').prop('disabled', true);
                         }
                     },
-                    error: function () {
+                    error: function(a, b, c) {
 
                     },
                 });
+                return false;
             });
             $("#targetDiv").click(function () {
                 // close kro
@@ -768,7 +766,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                     status = 1;
                     $("#tempp").removeClass("collapsed");
                     $("#accordion1_1").addClass("in");
-                    $('#accordion1_1').css('height', '');
+                    $('#accordion1_1').css('height', '80px');
                     $('#accordion1_1').css('display', 'block');
                     return false;
                 }

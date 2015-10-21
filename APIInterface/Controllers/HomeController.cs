@@ -145,16 +145,13 @@ namespace APIInterface.Controllers
         [HttpPost]
         public JsonResult CompanyURLAvailability(GeneralRequest request)
         {
-
             if (ModelState.IsValid)
             {
                 string registerUserResponse = _webApiService.CheckCompanyUrlAvailability(request.URL);
                 if (registerUserResponse.Contains("true"))
                 {
                     return Json(new { status = true });
-
                 }
-               
             }
             return Json(new { status = false });
         }
