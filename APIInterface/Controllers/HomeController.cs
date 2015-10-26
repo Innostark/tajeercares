@@ -1,4 +1,7 @@
-﻿using APIInterface.Models;
+﻿using System;
+using System.Net;
+using System.Net.Mail;
+using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Resources;
 using APIInterface.WebApiInterfaces;
@@ -154,6 +157,63 @@ namespace APIInterface.Controllers
                 }
             }
             return Json(new { status = false });
+        }
+
+        /// <summary>
+        /// Send Email 
+        /// </summary>
+        [HttpPost]
+        public JsonResult SendEmail(EmailModel email)
+        {
+            string companyEmail = "User@something.com";
+            var emailContent = email;
+            if (emailContent != null)
+            {
+                try
+                {
+                    string body = emailContent.EmailBody + " \n From :" + emailContent.SenderName + " " +
+                                  emailContent.SenderEmail;
+                    SendEmailTo(companyEmail, emailContent.EmailSubject, body, emailContent.SenderName);
+                    return Json(new { status = "ok" });
+                }
+                catch (Exception excp)
+                {
+                    return Json(new { excp.StackTrace });
+                }
+
+            }
+            return Json(new { status = "error" });
+        }
+        /// <summary>
+        /// Send Email 
+        /// </summary>
+        public static void SendEmailTo(string email, string subject, string body, string fromDisplayName)
+        {
+
+            string fromAddress = "testinnostark4@gmail.com";//ConfigurationManager.AppSettings["FromAddress"];
+            string fromPwd = "elegantflower1";//ConfigurationManager.AppSettings["FromPassword"];
+            //string cc = ConfigurationManager.AppSettings["CC"];
+            //string bcc = ConfigurationManager.AppSettings["BCC"];
+
+            //Getting the file from config, to send
+            var oEmail = new MailMessage
+            {
+                From = new MailAddress(fromAddress, fromDisplayName),
+                Subject = subject,
+                IsBodyHtml = true,
+                Body = body,
+                Priority = MailPriority.High
+            };
+            oEmail.To.Add(email);
+            string smtpServer = "smtp.gmail.com";//ConfigurationManager.AppSettings["SMTPServer"];
+            string smtpPort = "587";//ConfigurationManager.AppSettings["SMTPPort"];
+            string enableSsl = "1";//ConfigurationManager.AppSettings["EnableSSL"];
+            var client = new SmtpClient(smtpServer, Convert.ToInt32(smtpPort))
+            {
+                EnableSsl = enableSsl == "1",
+                Credentials = new NetworkCredential(fromAddress, fromPwd)
+            };
+            client.Send(oEmail);
         }
         #endregion
     }

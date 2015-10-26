@@ -68,6 +68,12 @@ namespace APIInterface.App_Start
                //values["customRoute"] = parms[0] + "/Rental/SendEmail";
                return true;
            }
+           if (parms.Count() == 2 && parms[0] == "Home" && parms[1] == "SendEmail")
+           {
+               values["controller"] = "Home";
+               values["action"] = "SendEmail";
+               return true;
+           }
 
 
            if (parms.Count() == 3 && parms[0] == "Rental" && parms[1] == "CheckUserRegistration")

@@ -72,44 +72,47 @@ function ValidateReservationForm() {
 function SendEmailToUser() {
     var senderName = $("#name").val();
     var senderEmail = $("#email").val();
-    var emailSubject = $("#subject").val();
     var emailBody = $("#body").val();
+    var emailSubject = $("#subject").val();
+    
 
-    if (senderName == "" || senderEmail == "" || emailSubject == "" || emailBody == "") {
+    if (senderName == "" || senderEmail == "" || emailBody == "") {
         toastr.error("Field(s) are mandatory!");
         return false;
     }
     var email = {
         SenderName: senderName ,
         SenderEmail: senderEmail,
-        EmailSubject: emailSubject,
+        EmailSubject: 'Hello Admin',
         EmailBody: emailBody
     };
-   
-    $('#sendingEmailLabel').css({ 'display': 'block' });
-    $('#sendingEmailLabel').text("Sending email...");
 
-
+    var path;
+    if (emailSubject == null) {
+        path = 'Home/SendEmail';
+    } else {
+        path = 'Rental/SendEmail';
+    }
     $.ajax({
         type: 'POST',
         data: JSON.stringify(email),
         contentType: "application/json; charset=utf-8",
-        url: 'Rental/SendEmail',
+        url: path,
         dataType: 'json',
         success: function (response) {
            
             if (response.status == "ok") {
-                $('#sendingEmailLabel').text("Email sent!");
-                $('#sendingEmailLabel').css({ 'color': 'green' });
+               
                 toastr.success("Email sent!");
+                return true;
             } else {
-                $('#sendingEmailLabel').css({ 'color': 'red' });
-                $('#sendingEmailLabel').text("Email sending failed!");
                 toastr.error("Failed to send email.Try agian later!");
+                return false;
             }
         },
         error: function (aa,vv,ff) {
             toastr.error("Failed to send email.Try agian later!");
+            return false;
         },
     });
 }
