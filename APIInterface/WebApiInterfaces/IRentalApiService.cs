@@ -53,7 +53,7 @@ namespace APIInterface.WebApiInterfaces
         /// <summary>
         /// Sees if user is currently registered
         /// </summary>
-        BusinessPartnerModel CheckUser(string key);
+        BusinessPartnerModel CheckUser(GeneralRequest key);
 
     }
 }

@@ -781,11 +781,16 @@ namespace APIInterface.Controllers
         /// <summary>
         /// Get Service rate For Insurance Type
         /// </summary>
-        public JsonResult CheckUserRegistration(string key)
+        public JsonResult CheckUserRegistration(string keyString)
         {
-            if (key != null)
+            if (keyString != null)
             {
-                var response = rentalApiService.CheckUser(key);
+                var request = new GeneralRequest
+                {
+                    DomainKey = long.Parse(Session["UserDomainKey"].ToString()),
+                    Key = keyString
+                };
+                var response = rentalApiService.CheckUser(request);
                 if (response != null)
                 {
                     response.DOB_String = response.DOB.ToString("MM/dd/yyyy HH:mm");

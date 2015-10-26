@@ -434,7 +434,7 @@ $(".userType").click(function () {
     var id = this.id;
     MakeFieldsEmpty();
     if (id == 2) {
-        toastr.success("Please enter Phone No. OR Email to search customer!");
+        toastr.warning("Please enter Phone No. OR Email to search customer!");
         $(".validationAsterikLabel").hide();
         makeDisabledFields();
 
@@ -462,7 +462,7 @@ $(".userType").click(function () {
 $("#pNumber").focusout(function () {
     var val = $('#pNumber').val();
 
-    if (val == "" || tempPhone == val || userType == 1 || userType == 0) {
+    if (val == "" || tempPhone == val ) {
         return false;
     }
     tempPhone = val;
@@ -482,7 +482,7 @@ $("#pNumber").focusout(function () {
                 $('#pNumber').val(response.status.Phone);
                 $('#email').val(response.status.Email);
                 tempEmail = response.status.Email;
-            } else {
+            } else if(userType != 1 && userType != 0) {
                 toastr.error("Customer with provided Phone Number is not registered in the system!");
             }
             showUi();
@@ -497,7 +497,7 @@ $("#pNumber").focusout(function () {
 $("#email").focusout(function () {
     var val = $('#email').val();
 
-    if (val == "" || tempEmail == val || userType == 1 || userType == 0) {
+    if (val == "" || tempEmail == val) {
         return false;
     }
     tempEmail = val;
@@ -517,8 +517,8 @@ $("#email").focusout(function () {
                 $('#pNumber').val(response.status.Phone);
                 $('#email').val(response.status.Email);
                 tempPhone = response.status.Phone;
-            }
-            else {
+            
+                 } else if(userType != 1 && userType != 0) {
                 toastr.error("Customer with provided Email is not registered in the system!");
             }
             showUi();

@@ -401,7 +401,7 @@ namespace APIInterface.WebApis
         /// <summary>
         /// Sees if user is currently registered
         /// </summary>
-        public BusinessPartnerModel CheckUser(string key)
+        public BusinessPartnerModel CheckUser(GeneralRequest key)
         {
             var response=  CheckUserAsync(key).Result;
             var rawData = new JavaScriptSerializer();
@@ -411,10 +411,9 @@ namespace APIInterface.WebApis
         /// <summary>
         /// Get Extras n Insurances api async
         /// </summary>
-        private async Task<string> CheckUserAsync(string key)
+        private async Task<string> CheckUserAsync(GeneralRequest key)
         {
-            var obj = new GeneralRequest { Key = key };
-            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            string urlContents = Newtonsoft.Json.JsonConvert.SerializeObject(key);
             HttpResponseMessage responseMessage = await GetHttpRequestAsync(urlContents, new Uri(CheckUserRegistrationUri)).ConfigureAwait(false);
             if (responseMessage == null)
             {

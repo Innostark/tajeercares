@@ -586,11 +586,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                                     <a href="mailto:support@innostark.com">support@innostark.com</a>
                                 </address>
                                 <ul class="social-icons margin-bottom-40">
-                                    <li><a href="#" data-original-title="facebook" class="facebook"></a></li>
-                                    <li><a href="#" data-original-title="github" class="github"></a></li>
-                                    <li><a href="#" data-original-title="Goole Plus" class="googleplus"></a></li>
-                                    <li><a href="#" data-original-title="linkedin" class="linkedin"></a></li>
-                                    <li><a href="#" data-original-title="rss" class="rss"></a></li>
+                                    <li><a href="https://www.facebook.com/InnoSTARKTech" data-original-title="facebook" class="facebook"></a></li>
                                 </ul>
 
                             </div>
@@ -696,7 +692,7 @@ License: You must have a valid license purchased only from themeforest (the abov
             //$('#accordion1_1').css('height', '0px');
             //$('#accordion1_1').css('display', 'none');
 
-            //var oldUrl=0;
+            var oldUrl=0;
             //var status = 0;
 
             Layout.init();
@@ -710,7 +706,11 @@ License: You must have a valid license purchased only from themeforest (the abov
             });
             $("#cmpUrl").focusout(function () {
                 var url = document.getElementById('cmpUrl').value;
-               
+
+                if (url == "" || url == oldUrl)
+                    return false;
+                oldUrl = url;
+                
                 $('#urlErrorLabel').css({ 'display': 'block' });
                 $('#urlErrorLabel').text("Processing...");
                 $('#urlErrorLabel').css({ 'color': 'royalblue' });
