@@ -439,7 +439,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="pricing-item">
                         <div class="pricing-head">
-                            <h3>Please Fill the Bellow Form</h3>
+                            <h3>Please Fill the Form</h3>
                         </div>
                         <div class="pricing-content">
                             @model APIInterface.Models.RegisterViewModel
@@ -551,7 +551,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="pricing-item">
                         <div class="pricing-head">
-                            <h3>Find Us Bellow</h3>
+                            <h3>Find Us</h3>
                         </div>
                         <div class="pricing-content">
                             <div class="col-md-9 col-sm-9">
@@ -599,36 +599,7 @@ License: You must have a valid license purchased only from themeforest (the abov
         </div>
     </div>
     <!--Contact us ends-->
-    <!-- Partners block BEGIN -->
-    <div class="partners-block">
-        <div class="container">
-            <div class="row">
-                <div class="pricing-head">
-                    <h3>Our Pride Customers</h3>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/cisco.png" title="Cisco"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/walmart.png" title="Walmart"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/gamescast.png" title="Gamescast"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/spinwokrx.png" title="Spinwokrx"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/ngreen.png" title="Ngreen"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-6">
-                    <a href="#"><img src="~/assets/Images/vimeo.png" title="Vimeo"></a>
-                </div>
-              
-            </div>
-        </div>
-    </div>
-    <!-- Partners block END -->
+ 
     <!-- BEGIN FOOTER -->
     <div class="footer">
         <div class="container">
@@ -641,14 +612,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <!-- BEGIN SOCIAL ICONS -->
                 <div class="col-md-6 col-sm-6 pull-right">
                     <ul class="social-icons">
-                        <li><a class="rss" data-original-title="rss" href="javascript:void(0);"></a></li>
-                        <li><a class="facebook" data-original-title="facebook" href="javascript:void(0);"></a></li>
-                        <li><a class="twitter" data-original-title="twitter" href="javascript:void(0);"></a></li>
-                        <li><a class="googleplus" data-original-title="googleplus" href="javascript:void(0);"></a></li>
-                        <li><a class="linkedin" data-original-title="linkedin" href="javascript:void(0);"></a></li>
-                        <li><a class="youtube" data-original-title="youtube" href="javascript:void(0);"></a></li>
-                        <li><a class="vimeo" data-original-title="vimeo" href="javascript:void(0);"></a></li>
-                        <li><a class="skype" data-original-title="skype" href="javascript:void(0);"></a></li>
+                        <li><a class="facebook" data-original-title="facebook" href="https://www.facebook.com/InnoSTARKTech"></a></li>
                     </ul>
                 </div>
                 <!-- END SOCIAL ICONS -->
@@ -714,11 +678,18 @@ License: You must have a valid license purchased only from themeforest (the abov
                 $('#urlErrorLabel').css({ 'display': 'block' });
                 $('#urlErrorLabel').text("Processing...");
                 $('#urlErrorLabel').css({ 'color': 'royalblue' });
+                
+                var requestUrl = 'Home/CompanyURLAvailability';
+                var testPath = window.location.pathname;
+                if (testPath.indexOf("Home") >= 0) {
+                    requestUrl = 'CompanyURLAvailability';
+                }
+                
                 $.ajax({
                     type: 'POST',
                     data: "{'url':'" + url + "'}",
                     contentType: "application/json; charset=utf-8",
-                    url: 'Home/CompanyURLAvailability',
+                    url: requestUrl,
                     dataType: 'json',
                     success: function(response) {
                         if (response !== null && response !== undefined && response.status == true) {
@@ -788,7 +759,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 type: 'POST',
                 data: JSON.stringify(email),
                 contentType: "application/json; charset=utf-8",
-                url: 'SendEmail',
+                url: 'Home/SendEmail',
                 dataType: 'json',
                 success: function (response) {
 
