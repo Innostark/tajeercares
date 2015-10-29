@@ -1,4 +1,5 @@
-﻿using APIInterface.Models;
+﻿using System.Configuration;
+using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
 using APIInterface.WebApiInterfaces;
@@ -512,10 +513,8 @@ namespace APIInterface.Controllers
         public static void SendEmailTo(string email, string subject, string body, string fromDisplayName)
         {
 
-            string fromAddress = "testinnostark4@gmail.com";//ConfigurationManager.AppSettings["FromAddress"];
-            string fromPwd = "elegantflower1";//ConfigurationManager.AppSettings["FromPassword"];
-            //string cc = ConfigurationManager.AppSettings["CC"];
-            //string bcc = ConfigurationManager.AppSettings["BCC"];
+            string fromAddress = ConfigurationManager.AppSettings["FromAddress"];
+            string fromPwd = ConfigurationManager.AppSettings["FromPassword"];
 
             //Getting the file from config, to send
             var oEmail = new MailMessage
@@ -527,9 +526,9 @@ namespace APIInterface.Controllers
                 Priority = MailPriority.High
             };
             oEmail.To.Add(email);
-            string smtpServer = "smtp.gmail.com";//ConfigurationManager.AppSettings["SMTPServer"];
-            string smtpPort = "587";//ConfigurationManager.AppSettings["SMTPPort"];
-            string enableSsl = "1";//ConfigurationManager.AppSettings["EnableSSL"];
+            string smtpServer = ConfigurationManager.AppSettings["SMTPServer"];
+            string smtpPort = ConfigurationManager.AppSettings["SMTPPort"];
+            string enableSsl = ConfigurationManager.AppSettings["EnableSSL"];
             var client = new SmtpClient(smtpServer, Convert.ToInt32(smtpPort))
             {
                 EnableSsl = enableSsl == "1",
@@ -644,11 +643,10 @@ namespace APIInterface.Controllers
         /// Send Email 
         /// </summary>
         [HttpPost]
-        public JsonResult SendEmail(EmailModel email)
+        public JsonResult SendEmail(EmailModel emailContent)
         {
             string companyEmail = Session["EmailForContact"].ToString();
-            var emailContent = email;
-            if (emailContent != null)
+            emailContent.EmailSubject = "Feedback For :" + Session["siteName"];
             {
                 try
                 {
@@ -688,12 +686,12 @@ namespace APIInterface.Controllers
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             if (resposne.Contains("OK"))
             {
-               // string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-               //" to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-               // Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-               // SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
-            //    Session.Clear();
-              //  Session.Abandon();
+                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+                " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                 Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+                SendEmailTo(model.Email, "Booking Confirmation | " + Session["siteName"], emailBody, Session["siteName"].ToString());
+                Session.Clear();
+                Session.Abandon();
                 return View("MakeBookingFinal");
             }
             else
@@ -760,21 +758,21 @@ namespace APIInterface.Controllers
         /// Booking Finalize
         /// </summary>
         [HttpPost]
-        public void MakeBookingFinal(UserInfoModel model)
+        public ActionResult MakeBookingFinal(UserInfoModel model)
         {
-            //var onlineBookingModel = SetOnlineBookingModel(model);
-            //var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
-            //if (resposne.Contains("OK"))
-            //{
-            //    string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-            //   " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-            //    Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-            //    SendEmailTo(model.Email, "Booking Confirmation", emailBody, Session["siteName"].ToString());
-            //    Session.Clear();
-            //    Session.Abandon();
-            //}
-           
-            //return View();
+            var onlineBookingModel = SetOnlineBookingModel(model);
+            var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
+            if (resposne.Contains("OK"))
+            {
+                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+               " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+                SendEmailTo(model.Email, "Booking Confirmation | " + Session["siteName"], emailBody, Session["siteName"].ToString());
+                Session.Clear();
+                Session.Abandon();
+            }
+
+            return View();
         }
 
         /// <summary>
