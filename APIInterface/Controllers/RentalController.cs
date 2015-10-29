@@ -17,7 +17,6 @@ namespace APIInterface.Controllers
     /// </summary>
     public class RentalController : Controller
     {
-
         #region Private
         private readonly IRentalApiService rentalApiService;
         #region Private Funcs

@@ -767,12 +767,17 @@ License: You must have a valid license purchased only from themeforest (the abov
                 EmailBody: emailBody
             };
 
-           
+            var requestUrl = 'Home/SendEmail';
+            var testPath = window.location.pathname;
+            if (testPath.indexOf("Home") >= 0) {
+                requestUrl = 'SendEmail';
+            }
+
             $.ajax({
                 type: 'POST',
                 data: JSON.stringify(email),
                 contentType: "application/json; charset=utf-8",
-                url: 'Home/SendEmail',
+                url: requestUrl,
                 dataType: 'json',
                 success: function (response) {
 

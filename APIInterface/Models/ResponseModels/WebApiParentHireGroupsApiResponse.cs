@@ -38,5 +38,20 @@ namespace APIInterface.Models.ResponseModels
         /// List of children Hire Group 
         /// </summary>
         public List<WebApiHireGroupDetailResponse> SubHireGroups { set; get; }
+
+        /// <summary>
+        /// Title
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Sub Title
+        /// </summary>
+        public string SubTitle { get; set; }
+
+        /// <summary>
+        /// Photo Url
+        /// </summary>
+        public string PhotoUrl { get; set; }
     }
 }
