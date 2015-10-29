@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using APIInterface.Models;
@@ -165,7 +166,8 @@ namespace APIInterface.Controllers
         [HttpPost]
         public JsonResult SendEmail(EmailModel email)
         {
-            string companyEmail = "User@something.com";
+            // email weill be sending to Tajeercare.com admin 
+            string adminAddress = ConfigurationManager.AppSettings["ToAdmin"];
             var emailContent = email;
             if (emailContent != null)
             {
@@ -173,7 +175,7 @@ namespace APIInterface.Controllers
                 {
                     string body = emailContent.EmailBody + " \n From :" + emailContent.SenderName + " " +
                                   emailContent.SenderEmail;
-                    SendEmailTo(companyEmail, emailContent.EmailSubject, body, emailContent.SenderName);
+                    SendEmailTo(adminAddress, emailContent.EmailSubject, body, emailContent.SenderName);
                     return Json(new { status = "ok" });
                 }
                 catch (Exception excp)
@@ -190,10 +192,8 @@ namespace APIInterface.Controllers
         public static void SendEmailTo(string email, string subject, string body, string fromDisplayName)
         {
 
-            string fromAddress = "testinnostark4@gmail.com";//ConfigurationManager.AppSettings["FromAddress"];
-            string fromPwd = "elegantflower1";//ConfigurationManager.AppSettings["FromPassword"];
-            //string cc = ConfigurationManager.AppSettings["CC"];
-            //string bcc = ConfigurationManager.AppSettings["BCC"];
+            string fromAddress = ConfigurationManager.AppSettings["FromAddress"];
+            string fromPwd = ConfigurationManager.AppSettings["FromPassword"];
 
             //Getting the file from config, to send
             var oEmail = new MailMessage
@@ -205,9 +205,9 @@ namespace APIInterface.Controllers
                 Priority = MailPriority.High
             };
             oEmail.To.Add(email);
-            string smtpServer = "smtp.gmail.com";//ConfigurationManager.AppSettings["SMTPServer"];
-            string smtpPort = "587";//ConfigurationManager.AppSettings["SMTPPort"];
-            string enableSsl = "1";//ConfigurationManager.AppSettings["EnableSSL"];
+            string smtpServer = ConfigurationManager.AppSettings["SMTPServer"];
+            string smtpPort = ConfigurationManager.AppSettings["SMTPPort"];
+            string enableSsl =ConfigurationManager.AppSettings["EnableSSL"];
             var client = new SmtpClient(smtpServer, Convert.ToInt32(smtpPort))
             {
                 EnableSsl = enableSsl == "1",

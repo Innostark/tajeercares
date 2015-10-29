@@ -70,6 +70,7 @@ function ValidateReservationForm() {
 
 // Email from Index
 function SendEmailToUser() {
+    hideUi();
     var senderName = $("#name").val();
     var senderEmail = $("#email").val();
     var emailBody = $("#body").val();
@@ -100,7 +101,7 @@ function SendEmailToUser() {
         url: path,
         dataType: 'json',
         success: function (response) {
-           
+            showUi();
             if (response.status == "ok") {
                
                 toastr.success("Email sent!");
@@ -480,7 +481,7 @@ $("#pNumber").focusout(function () {
                 $('#dob_value').val(response.status.DOB_String.substr(0, 10));
                 $('#address').val(response.status.Address);
                 $('#pNumber').val(response.status.Phone);
-                $('#email').val(response.status.Email);
+                $('#emailToCustomer').val(response.status.Email);
                 tempEmail = response.status.Email;
             } else if(userType != 1 && userType != 0) {
                 toastr.error("Customer with provided Phone Number is not registered in the system!");
@@ -494,8 +495,8 @@ $("#pNumber").focusout(function () {
 });
 
 // Search User for Email on Focus out
-$("#email").focusout(function () {
-    var val = $('#email').val();
+$("#emailToCustomer").focusout(function () {
+    var val = $('#emailToCustomer').val();
 
     if (val == "" || tempEmail == val) {
         return false;
@@ -515,7 +516,7 @@ $("#email").focusout(function () {
                 $('#dob_value').val(response.status.DOB_String.substr(0, 10));
                 $('#address').val(response.status.Address);
                 $('#pNumber').val(response.status.Phone);
-                $('#email').val(response.status.Email);
+                $('#emailToCustomer').val(response.status.Email);
                 tempPhone = response.status.Phone;
             
                  } else if(userType != 1 && userType != 0) {
@@ -540,7 +541,7 @@ function MakeFieldsEmpty() {
     $('#dob_value').val("");
     $('#address').val("");
     $('#pNumber').val("");
-    $('#email').val("");
+    $('#emailToCustomer').val("");
 }
 
 // Make fields disabled For Registered USer

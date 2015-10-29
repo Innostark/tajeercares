@@ -446,7 +446,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                             @{
                                 ViewBag.Title = "Register";
                             }
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal  custom-group", role = "form" }))
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {id="registerUserForm", @class = "form-horizontal  custom-group", role = "form" }))
                             {
                                 var accountTypes = new List<SelectListItem>()
                                 {
@@ -460,14 +460,14 @@ License: You must have a valid license purchased only from themeforest (the abov
                                 @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                                 <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                 <div class="col-md-9">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" , id="emailRegs"})
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                                 <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                 <div class="col-md-9">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" , id="passRegs"})
                                 </div>
                             </div>
                             <div class="form-group">
@@ -488,7 +488,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                                 @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label" })
                                 <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                 <div class="col-md-9">
-                                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" , id="cmpNameRegs"})
                                 </div>
                             </div>
 
@@ -521,7 +521,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                                 @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label" })
                                 <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                 <div class="col-md-9">
-                                    @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control" })
+                                    @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control",id="addressRegs" })
                                 </div>
                             </div>
 
@@ -654,7 +654,10 @@ License: You must have a valid license purchased only from themeforest (the abov
     <script src="~/assets/Scripts/jquery.easing.js"></script>
     <script src="~/assets/Scripts/jquery.parallax.js"></script>
     <script src="~/assets/Scripts/jquery.scrollTo.min.js"></script>
+   
+
     <script src="~/assets/Scripts/jquery.nav.js"></script>
+    <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
 
@@ -662,6 +665,7 @@ License: You must have a valid license purchased only from themeforest (the abov
     <!-- Core plugins END (required only for current page) -->
     <!-- Global js BEGIN -->
     <script src="~/assets/Scripts/layout.js" type="text/javascript"></script>
+
     <script>
         $(document).ready(function () {
             //$("#tempp").addClass("collapsed");
@@ -750,6 +754,7 @@ License: You must have a valid license purchased only from themeforest (the abov
             
         });
         function SendEmail() {
+           
             var senderName = $("#name").val();
             var senderEmail = $("#email").val();
             var emailBody = $("#body").val();
@@ -760,6 +765,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 toastr.error("Field(s) are mandatory!");
                 return false;
             }
+            hideUi();
             var email = {
                 SenderName: senderName,
                 SenderEmail: senderEmail,
@@ -780,7 +786,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 url: requestUrl,
                 dataType: 'json',
                 success: function (response) {
-
+                    showUi();
                     if (response.status == "ok") {
 
                         toastr.success("Email sent!");
@@ -796,6 +802,39 @@ License: You must have a valid license purchased only from themeforest (the abov
                 },
             });
         }
+        function hideUi() {
+            $.blockUI({
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+
+        }
+        function showUi() {
+
+            setTimeout($.unblockUI, 500);
+        }
+
+        $("#registerUserForm").submit(function() {
+            var val1 = $("#emailRegs").val();
+            var val2 = $("#passRegs").val();
+            var val3 = $("#phoneNumber").val();
+            var val4 = $("#cmpNameRegs").val();
+            var val5 = $("#addressRegs").val();
+            if (val1 == "" || val2 == "" || val3 == "" || val4 == "" || val5 == "") {
+                toastr.error("Field(s) are mandatory!");
+                return false;
+            }
+            hideUi();
+
+            return true;
+        });
     </script>
     <!-- Global js END -->
 </body>
