@@ -287,7 +287,11 @@
 
         // Book Now Handler 
         $("#submitReservation").submit(function () {
-            return validateBookingForm(userType);
+            hideUi();
+            var value = validateBookingForm(userType);
+            if (value == false) {
+                showUi();
+            }
         });
 
     </script>
