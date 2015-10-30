@@ -82,6 +82,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                         <li><a href="#benefits">Benefits</a></li>
                         <li><a href="#overView">Overview</a></li>
                         <li><a href="#sign_up">Signup</a></li>
+                        <li><a href="http://testcares.azurewebsites.net/">Login</a></li>
                         <li><a href="#contactMe">Contact Us</a></li>
                     </ul>
                 </div>
@@ -114,9 +115,9 @@ License: You must have a valid license purchased only from themeforest (the abov
                                 <p>A guarantee of minimum 5% increase in profit with no initial investment. <a href="#sign_up">Register</a> and start using</p>
                             </div>*@
                         </div>
-                        <div style="left: 133px;" class="tp-caption large_bold_white fade"
-                             data-x="center"
-                             data-y="center"
+                        <div style="padding-top: 20px !important;float:right" class="tp-caption large_bold_white fade"
+                             
+                             data-y="top"
                              data-voffset="-110"
                              data-speed="300"
                              data-start="1700"
@@ -125,9 +126,26 @@ License: You must have a valid license purchased only from themeforest (the abov
                              data-endeasing="Power1.easeIn"
                              data-captionhidden="off"
                              style="z-index: 6">
-                            <p id="typewriter2"> SOLUTION FOR <span>CAR-RENTAL</span> BUSINESS</p>
+                            <p>
+                                <a href="#sign_up" class="scroll" id="scrolltoRent">
+                                    <input type="button" style="font-size: 25px !important" value=" Start your Rental " class="btn btn-primary" />
+                                </a>
+                            </p>
+                           
                         </div>
-                    </li>
+                            <div style="left: 50px !important;" class="tp-caption large_bold_white fade"
+                                 data-y="bottom"
+                                 data-voffset="-110"
+                                 data-speed="300"
+                                 data-start="1700"
+                                 data-easing="Power4.easeOut"
+                                 data-endspeed="500"
+                                 data-endeasing="Power1.easeIn"
+                                 data-captionhidden="off"
+                                 style="z-index: 6">
+                                <p><span>Car-Rental</span></p> <p class="typewriter">Rent in Clouds</p>
+                            </div>
+</li>
 
                 </ul>
             </div>
@@ -728,7 +746,7 @@ License: You must have a valid license purchased only from themeforest (the abov
 
             setTimeout($.unblockUI, 500);
         }
-
+        
         $("#registerUserForm").submit(function() {
             var val1 = $("#emailRegs").val();
             var val2 = $("#passRegs").val();
@@ -744,7 +762,7 @@ License: You must have a valid license purchased only from themeforest (the abov
             return true;
         });
 
-        var text = $('#typewriter').text();
+        var text = $('.typewriter').text();
 
         var length = text.length;
         var timeOut;
@@ -755,14 +773,14 @@ License: You must have a valid license purchased only from themeforest (the abov
             timeOut = setTimeout(function () {
                 character++;
                 var type = text.substring(0, character);
-                $('#typewriter').text(type);
+                $('.typewriter').text(type);
                 typeWriter();
 
                 if (character == length) {
                     clearTimeout(timeOut);
                 }
 
-            }, 200);
+            }, 250);
         }());
     </script>
     <!-- Global js END -->
