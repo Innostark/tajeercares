@@ -755,6 +755,7 @@
     <Content Include="Content\core-noscript.css" />
     <Content Include="Content\core.css" />
     <Content Include="Content\css\css_ie.css" />
+    <Content Include="Content\css\jquery-Slider.css" />
     <Content Include="Content\css\jquery-ui.css" />
     <Content Include="Content\css\jquery.slider.min.css" />
     <Content Include="Content\css\style.css" />
@@ -937,6 +938,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquerySlider.js" />
     <Content Include="Scripts\js\custom-form-elements.js" />
     <Content Include="Scripts\js\html5.js" />
     <Content Include="Scripts\js\jquery-1.10.1.min.js" />
