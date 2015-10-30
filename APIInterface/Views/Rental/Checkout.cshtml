@@ -192,7 +192,7 @@
                                         @Html.LabelFor(m => m.Email, new { @class = "" })
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory",id="email", placeholder = "Enter your email address" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", id = "emailToCustomer", placeholder = "Enter your email address" })
                                 </div>
                                 <div class="clear"></div>
 
@@ -287,7 +287,11 @@
 
         // Book Now Handler 
         $("#submitReservation").submit(function () {
-            return validateBookingForm(userType);
+            hideUi();
+            var value = validateBookingForm(userType);
+            if (value == false) {
+                showUi();
+            }
         });
 
     </script>
