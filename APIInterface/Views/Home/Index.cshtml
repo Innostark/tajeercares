@@ -58,6 +58,9 @@ License: You must have a valid license purchased only from themeforest (the abov
         label {
             font-size: 20px;
         }
+        .validationAsterikLabel {
+            color: red
+        }
     </style>
     <!-- Theme styles END -->
 </head>
@@ -725,10 +728,16 @@ License: You must have a valid license purchased only from themeforest (the abov
                 toastr.error("Field(s) are mandatory!");
                 return false;
             }
+            
+            //if (val1.indexOf("") >= 0) {
+            //    requestUrl = 'SendEmail';
+            //}
             hideUi();
 
             return true;
         });
+        
+
     </script>
     <!-- Global js END -->
 </body>
