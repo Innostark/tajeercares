@@ -1,8 +1,10 @@
 ﻿@using System.Security.Policy
+@using APIInterface.Models.ResponseModels
 
 @{
     ViewBag.Title = "SelectCar";
     Layout = null;
+    var vehicleSlideCounter = 0;
 }
 
 <!DOCTYPE html>
@@ -15,26 +17,27 @@
     <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
+    <link href="~/Content/css/jquery-Slider.css" rel="stylesheet" />
+    <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
-
     <style>
         #accordion > h3 {
             margin-top: 5px;
         }
 
-        #accordion > h3:first-child {
-            margin-top: 0;
-        }
-        .ui-accordion-header-icon.ui-icon.ui-icon-minus {
-            height: 17px;
-            width: 16px;
-            background-color: rgb(231, 231, 231);
-        }
-       
-        input[type='button'] {
-            cursor: pointer;
-        }
-     
+            #accordion > h3:first-child {
+                margin-top: 0;
+            }
+
+    .ui-accordion-header-icon.ui-icon.ui-icon-minus {
+        height: 17px;
+        width: 16px;
+        background-color: rgb(231, 231, 231);
+    }
+
+    input[type='button'] {
+        cursor: pointer;
+    }
     </style>
 </head>
 <body class="page page-two-column">
@@ -42,11 +45,11 @@
         <div id="branding">
             <div id="branding-content">
                 <div class="title-content">
-                    <a  title=""><img style="width: 128px"class="site-logo" src="@Session["CompanyLogo"]" alt="" /></a>
-                    <h1 style=" width: 200%;margin-left: 65px"class="site-title"><a  title="">@Session["siteName"]</a></h1>
+                    <a title=""><img style="width: 128px" class="site-logo" src="@Session["CompanyLogo"]" alt="" /></a>
+                    <h1 style=" width: 200%;margin-left: 65px" class="site-title"><a title="">@Session["siteName"]</a></h1>
                 </div>
                 <div class="access-content">
-                 
+
                 </div><!-- .access -->
                 <div class="menus-content">
                     <div class="menus">
@@ -83,69 +86,98 @@
             <div class="clear"></div>
         </div>
         <div id="main">
-            
-            <form  class="main-form">
-                <div id="book_car" class="title-form current">
-                    @*<img src="~/Images/images/search.png" alt="" />*@
-                    @*Search for a car:*@
+
+            <form class="main-form">
+                <div id="accordion">
+                    <div id="book_car" class="title-form current">
+                        @*<img src="~/Images/images/search.png" alt="" />*@
+                        @*Search for a car:*@
+                    </div>
+                    <div id="book_car_content" class="content-form ">
+                        <div class="location-block">
+                            <div class="form-block location">Pick-up Location</div>
+                            <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
+                            <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> Update Reservation Date/Time</a>
+                        </div>
+                        <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
+                            <h4>Pick-up date</h4>
+                            <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
+                            <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
+                        </div>
+                        <div class="form-block drop-off" style=" margin-left: 8px;">
+                            <h4 style=" height: 18px;">Drop-off Location</h4>
+                            <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
+                            @*<input class="time-select" type="text" size="5"  name="time_to" />*@
+                        </div>
+                        <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
+                            <h4>Drop-off date</h4>
+                            <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
+                            @*<input class="time-select" type="text" size="5"  name="time_to" />*@
+                        </div>
+
+                    </div>
                 </div>
-                <div id="book_car_content" class="content-form ">
-                    <div class="location-block">
-                        <div class="form-block location">Pick-up Location</div>
-                        <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
-                        <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> Update Reservation Date/Time</a>
-                    </div>
-                    <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
-                        <h4>Pick-up date</h4>
-                        <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
-                       <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
-                    </div>
-                    <div class="form-block drop-off" style=" margin-left: 8px;">
-                        <h4 style=" height: 18px;">Drop-off Location</h4>
-                        <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
-                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
-                    </div>
-                    <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
-                        <h4>Drop-off date</h4>
-                        <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
-                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
-                    </div>
-                  
-                </div>
-                <div class="clear"></div>
             </form>
             <div id="primary">
-               
-                <div id="content" >
+
+                <div id="content">
                     <div class="widget main-widget product-widget">
                         <div class="content-overlay">
                             <img class="ajax-loader" src="~/Images/images/ajax-loader.gif" alt="" />
                         </div>
                         <form>
-                            <div class="widget-title">
-                                <div>
-                                    <img src="~/Images/images/list.png" alt="" />
-                                    Number of classes available:&nbsp;<span id="total_hg">@Session["HGCount"]</span>
-                                </div>
-                                <div class="clear"></div>
+
+                            <div id="vehicleSelectorContainer" class="row">
+                                @* Vehicle Slider *@
+                                @foreach (WebApiParentHireGroupsApiResponse x in ViewBag.HGDetail)
+                                {
+                                    ++vehicleSlideCounter;
+                                    <div id="vehicleSlider_@x.HireGroupId" class="vehicleSlider_@vehicleSlideCounter" style="display: none">
+                                        <!-- Vehicle Images Section On Slider -->
+                                        <div class="bg-top"></div>
+                                        <section class="taxi vehicle-slide js-vehicle-slide active">
+                                            <div class="sunrise-box">
+                                                <h4>@x.SubTitle</h4>
+                                                <p class="sunrise">@x.Title</p>
+                                            </div>
+                                            <div class="vehicle-info">
+                                                <p class="vehicle-img js-preload" style="background: transparent url(@x.PhotoUrl) no-repeat center top">@x.Title</p>
+                                                <div class="copy">
+                                                    <p>
+                                                        @x.Description
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <button id="showClassBtn" class="@(x.SubHireGroups.Count == 0 ? "disabled" : "")">
+                                                        Select Car <span class="badge">@x.SubHireGroups.Count</span>
+                                                    </button>
+                                                </div>
+                                                <div style="display: none">
+                                                    <img class="car" alt="" src="@x.PhotoUrl" />
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                }
                             </div>
-                            <div class="post">
+                            <div id="vehicleDetailContainer" class="post" style="display: none">
                                 <div class="main-block_container" style="margin-left: 5px; width: 99%; margin-top: 1px; margin-bottom: 5px; ">
+                                    <button class="btn" id="backtoVehicleSliderBtn">Back</button><br /><br />
                                     <div id="accordion">
                                         @if (ViewBag.HGDetail != null)
                                         {
                                             int i = 0;
                                             foreach (var item in ViewBag.HGDetail)
                                             {
-                                                <h3 title="@item.Description" id=@(+item.HireGroupId)>
+                                                <h3 title="@item.Description" id=@(+item.HireGroupId) style="display: none">
                                                     <span style=""> @item.HireGroupName &nbsp; @item.ChildHireGroupCount</span><span style="float: right; margin-right: 3px;">
-                                                        @if (@item.DropoffCharge != 0)
-                                                        {
-                                                            <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
-                                                        }
-                                                    </span>
+                                                                                                                                   @if (@item.DropoffCharge != 0)
+                                                                                                                                   {
+                                                                                                                                       <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
+                                                                                                                                   }
+                                                                                                                               </span>
                                                 </h3>
-                                                <div class="container-fluid">
+                                                <div class="container-fluid" id="container_@(item.HireGroupId)" style="display: none">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
                                                     @if (item.SubHireGroups.Count != 0)
                                                     {
@@ -181,13 +213,13 @@
                                                                 <div class="col-sm-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
                                                                     <p>
                                                                         @obj.ImageDescription
-                                                                       @if (item.SubHireGroups.Count != (count + 1))
+                                                                        @if (item.SubHireGroups.Count != (count + 1))
                                                                         {
-                                                                            <hr style="margin-bottom: 14px;"/>
+                                                                            <hr style="margin-bottom: 14px;" />
                                                                         }
                                                                     </p>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
                                                             count++;
                                                         }
@@ -207,27 +239,28 @@
 
                                 </div>
                             </div>
-
+                            <!-- Vehicle Images Section On Slider-->
+                            <div id="vehicleSelectorSliderContainer" class="row" style="margin-top: 30px;">
+                                <div class="col-sm-12 form-horizontal">
+                                    <div id="orderStatusSliderContainer" class="col-sm-12 form-horizontal">
+                                        <div id="statusSliderSubContainer">
+                                            <center>
+                                                <div id="circles-slider" class="slider"></div>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
-
-
-
-
-
-
-
                     </div>
-                   
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
         <div class="clear"></div>
-        <footer id="footer">
-           
-        </footer><!--end:footer-->
+        <footer id="footer"></footer><!--end:footer-->
     </div><!--end:conteiner-->
-   
+
     <script type="text/javascript" src="~/Scripts/js/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/js/jquery-ui.js"></script>
@@ -243,21 +276,97 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="~/Scripts/jquery.pulsate.min.js"></script>
+    <script src="~/Scripts/jquerySlider.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
-
-
     <script>
 
         $(document).ready(function () {
 
             accordionSetting();
+            setVehicleSlider();
 
+            $("#showClassBtn").live("click", function(e) {
+                $("#vehicleSelectorContainer").hide("slide", {}, 500);
+                $("#vehicleSelectorSliderContainer").hide();
+                var activeHireGroupId = parseInt($(".activeVehicle")[0].id.split("_")[1]);
+                if ($(".activeHireGroupDetail") && $(".activeHireGroupDetail").length > 0) {
+                    $(".activeHireGroupDetail").hide();
+                    $(".activeHireGroupDetail").removeClass('activeHireGroupDetail');
+                }
+                $("#" + activeHireGroupId).addClass("activeHireGroupDetail");
+                $("#" + activeHireGroupId).show();
+                $("#container_" + activeHireGroupId).addClass("activeHireGroupDetail");
+                $("#container_" + activeHireGroupId).show();
+                $("#vehicleDetailContainer").show("slide", {}, 500);
+                return false;
+            });
+
+            $("#backtoVehicleSliderBtn").live("click", function(e) {
+                $("#vehicleDetailContainer").hide("slide", {}, 500);
+                $("#vehicleSelectorContainer").show("slide", {}, 500);
+                $("#vehicleSelectorSliderContainer").show();
+                return false;
+            });
         });
 
+        setVehicleSlider = function() {
+            $(function() {
+                // set up an array to hold the order Status
+                var orderStatusArray = @Html.Raw(Json.Encode(
+                    ((List<WebApiParentHireGroupsApiResponse>)ViewBag.HGDetail).Select(hg => hg.HireGroupName)
+                ));
 
+                $(".slider")
+
+                    // activate the slider with options
+                    .slider({
+                        min: 0,
+                        max: orderStatusArray.length - 1,
+                        value: 0
+                    })
+
+                    // add pips with the labels set to "months"
+                    .slider("pips", {
+                        rest: "label",
+                        labels: orderStatusArray
+                    })
+
+                    // and whenever the slider changes, lets echo out the month
+                    .on("slidechange", function(e, ui) {
+                        // Get active vehicle and hide it
+                        var active = $(".activeVehicle");
+                        if (active) {
+                            active.removeClass("activeVehicle");
+                            active.hide();
+                        }
+                        var currentVehicle = $(".vehicleSlider_" + (++ui.value));
+                        if (currentVehicle[0] != null && currentVehicle[0] != undefined) {
+                            currentVehicle.show();
+                            currentVehicle.addClass("activeVehicle");
+                            if ($(".ui-slider-handle")[0] != null && $(".ui-slider-handle")[0] != undefined) {
+                                if ($(".ui-slider-handle")[0].children != null && $(".ui-slider-handle")[0].children != undefined) {
+                                    $(".ui-slider-handle").html("");
+                                }
+                                $(".ui-slider-handle")[0].appendChild(currentVehicle.find(".car").clone()[0]);
+                            }
+                        }
+                    });
+
+                // Show first vehicle visible
+                if ($(".vehicleSlider_1")[0] != null && $(".vehicleSlider_1")[0] != undefined) {
+                    $(".vehicleSlider_1").show();
+                    $(".vehicleSlider_1").addClass("activeVehicle");
+                    if ($(".ui-slider-handle")[0] != null && $(".ui-slider-handle")[0] != undefined) {
+                        $(".ui-slider-handle")[0].appendChild($(".vehicleSlider_1").find(".car").clone()[0]);
+                    }
+                }
+
+                // Set style
+                $('#circles-slider').addClass('slider-bar js-slider-bar ui-corner-all');
+            });
+        };
     </script>
     <style>
-   
     </style>
 </body>
 </html>
