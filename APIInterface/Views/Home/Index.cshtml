@@ -22,6 +22,10 @@ License: You must have a valid license purchased only from themeforest (the abov
 <head>
     <meta charset="utf-8">
     <title>CaReS ® - Comprehensive Car-Rental Solution</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Car Rental Solution" />
+    <meta name="keywords" content="Car Rental Solution,tajeercare,car rental,taxi rental" />
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="Metronic Shop UI description" name="description">
@@ -54,82 +58,14 @@ License: You must have a valid license purchased only from themeforest (the abov
     <link href="~/assets/css/custom.css" rel="stylesheet">
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/css/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/css/jquery-Slider.css" rel="stylesheet" />
     <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <style>
         label {
             font-size: 20px;
         }
-
-        #circles-slider.ui-slider {
-            -ms-border-radius: 20px !important;
-            border-radius: 20px !important;
-            background: #434d5a;
-            border: none;
-            height: 10px;
-            margin: 1em 4em 4em;
+          .validationAsterikLabel {
+            color: red
         }
-
-        #circles-slider .ui-slider-handle {
-            -ms-border-radius: 23px !important;
-            border-radius: 23px !important;
-            height: 40px;
-            width: 40px;
-            top: -15px;
-            margin-left: -11px;
-            border: 2px solid #fffaf7;
-        }
-
-        #circles-slider .ui-slider-pip {
-            top: -40px;
-        }
-
-            #circles-slider .ui-slider-pip .ui-slider-line {
-                width: 4px;
-                height: 4px;
-                -ms-border-radius: 4px !important;
-                border-radius: 4px !important;
-                margin-left: -2px;
-                background: #fffaf7;
-            }
-
-            #circles-slider .ui-slider-pip.ui-slider-pip-last,
-            #circles-slider .ui-slider-pip.ui-slider-pip-first {
-                top: -40px;
-            }
-
-                #circles-slider .ui-slider-pip.ui-slider-pip-last .ui-slider-line,
-                #circles-slider .ui-slider-pip.ui-slider-pip-first .ui-slider-line {
-                    display: none;
-                }
-
-                #circles-slider .ui-slider-pip.ui-slider-pip-last .ui-slider-label,
-                #circles-slider .ui-slider-pip.ui-slider-pip-first .ui-slider-label {
-                    margin: 0;
-                }
-
-                #circles-slider .ui-slider-pip.ui-slider-pip-first .ui-slider-label {
-                    left: 0;
-                    text-align: right;
-                }
-
-                #circles-slider .ui-slider-pip.ui-slider-pip-last .ui-slider-label {
-                    left: 0;
-                    text-align: left;
-                }
-
-            #circles-slider .ui-slider-pip.ui-slider-pip-selected-initial {
-                font-weight: normal;
-            }
-
-            #circles-slider .ui-slider-pip.ui-slider-pip-selected {
-                font-weight: bold;
-            }
-
-            #circles-slider .ui-slider-pip.ui-slider-pip-selected,
-            #circles-slider .ui-slider-pip.ui-slider-pip-selected-initial {
-                color: #434d5a;
-            }
     </style>
     <!-- Theme styles END -->
 </head>
@@ -224,45 +160,8 @@ License: You must have a valid license purchased only from themeforest (the abov
     </div>
     <!-- Promo block END -->
     <!-- Services block BEGIN -->
-    <div class="services-block content content-center vehicle-fleet" id="services">
-        @foreach (APIInterface.Controllers.ParentHg x in ViewBag.ParentHireGroups)
-        {
-            <div class="vehicleSlider_@x.HireGroupId" style="display: none">
-                <!-- Vehicle Images Section On Slider -->
-                <div class="bg-top"></div>
-                <section class="taxi vehicle-slide js-vehicle-slide active" data-vehicle-slide="taxi">
-                    <div class="sunrise-box">
-                        <h4>@x.MainDescription</h4>
-                        <p class="sunrise">@x.Name</p>
-                    </div>
-                    <div class="vehicle-info">
-                        <p class="vehicle-img js-preload" style="background: transparent url(https://@x.ImageUrl) no-repeat center top">@x.Name</p>
-                        <div class="copy">
-                            <p>@x.SecondaryDescription</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-        }
-
-
+    <div class="services-block content content-center vehicle-fleet" id="services" style="padding-top: 2px;">
         <div class="container">
-            <!-- Vehicle Images Section On Slider-->
-            <div class="row" style="margin-top: 30px;">
-                <div class="col-sm-12 form-horizontal">
-                    <div class="col-sm-2">
-                        &nbsp;
-                    </div>
-                    <div id="orderStatusSliderContainer" class="col-sm-9 form-horizontal">
-                        <div id="statusSliderSubContainer">
-                            <center>
-                                <div id="circles-slider" class="slider"></div>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <h2>Our <strong>services</strong></h2>
             <h4>Enjoy doing business with us!</h4>
             <div class="row">
@@ -290,14 +189,7 @@ License: You must have a valid license purchased only from themeforest (the abov
         </div>
     </div>
     <!-- Services block END -->
-    <!-- Message block BEGIN -->
-    <div class="message-block content content-center valign-center" id="message-block">
-        <div class="valign-center-elem">
-            <h2>Integration Services for Booking & Reservations <strong>What else you need?</strong></h2>
-            <em></em>
-        </div>
-    </div>
-    <!-- Message block END -->
+   
     <!-- Choose us block BEGIN -->
     <div class="choose-us-block content text-center margin-bottom-40" id="benefits">
         <div class="container">
@@ -588,14 +480,17 @@ License: You must have a valid license purchased only from themeforest (the abov
 
                                 <div class="form-group">
                                     <label style="float: left" for="name">Name</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="text" class="form-control" id="name">
                                 </div>
                                 <div class="form-group">
                                     <label style="float: left" for="email">Email</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="email" class="form-control" id="email">
                                 </div>
                                 <div class="form-group">
                                     <label style="float: left" for="body">Message</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <textarea class="form-control" rows="5" id="body"></textarea>
                                 </div>
                                 <button id="contactUs" class="btn btn-primary"><i class="icon-ok"></i> Send</button>
@@ -689,7 +584,7 @@ License: You must have a valid license purchased only from themeforest (the abov
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
     <script src="~/Scripts/js/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.circletype/0.34/circletype.js"></script>
-    <script src="~/Scripts/jquerySlider.js"></script>
+    
     <!-- Core plugins END (required only for current page) -->
     <!-- Global js BEGIN -->
     <script src="~/assets/Scripts/layout.js" type="text/javascript"></script>
@@ -779,8 +674,6 @@ License: You must have a valid license purchased only from themeforest (the abov
                 return resposne;
                 // ISTUtility.js
             });
-            setOrderState();
-            $('#circles-slider').addClass('slider-bar js-slider-bar ui-corner-all');
 
         });
         function SendEmail() {
@@ -795,6 +688,15 @@ License: You must have a valid license purchased only from themeforest (the abov
                 toastr.error("Field(s) are mandatory!");
                 return false;
             }
+            
+            var re = /^(([^<>()[\]\\.,;:\s\"]+(\.[^<>()[\]\\.,;:\s\"]+)*)|(\".+\"))((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+            if (re.test(senderEmail)) {
+               // Valid Email Address
+            } else {
+                toastr.error("Invalid email address!");
+                return false;
+            }
+            
             hideUi();
             var email = {
                 SenderName: senderName,
@@ -862,6 +764,14 @@ License: You must have a valid license purchased only from themeforest (the abov
                 toastr.error("Field(s) are mandatory!");
                 return false;
             }
+            
+            var re = /^(([^<>()[\]\\.,;:\s\"]+(\.[^<>()[\]\\.,;:\s\"]+)*)|(\".+\"))((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+            if (re.test(val1)) {
+                // Valid Email Address
+            } else {
+                toastr.error("Invalid email address!");
+                return false;
+            }
             hideUi();
 
             return true;
@@ -887,68 +797,15 @@ License: You must have a valid license purchased only from themeforest (the abov
 
             }, 250);
         }());
-
-        
-        // orderstate = ko.observable(0);
-        setOrderState = function (state, isFromEstimate) {
-            //orderstate(state);
-            $(function () {
-                // set up an array to hold the order Status
-
-                var orderStatusArray = @Html.Raw(Json.Encode(
-                     ViewBag.ParentHireGroupNames
-          ));//["UberX", "Taxi", "Black", "SUV", "LUX"];
-                //            $(".slider")
-                //.slider({
-                //    max: 10,
-                //    value: 5
-                //})
-                //.slider("pips");
-
-                $(".slider")
-
-                    // activate the slider with options
-                    .slider({
-                        min: 0,
-                        max: orderStatusArray.length - 1,
-                        value: 0
-                    })
-
-                    // add pips with the labels set to "months"
-                    .slider("pips", {
-                        rest: "label",
-                        labels: orderStatusArray
-                    })
-
-                    // and whenever the slider changes, lets echo out the month
-                    .on("slidechange", function (e, ui) {
-
-                        //var oldSatate = orderstate();
-                        //orderstate((ui.value) + 4);
-                        //if (oldSatate !== orderstate()) {
-                        //    //orderViewModel.onOrderStatusChange(ui.value);
-                        //    // toastr.success("You selected " + orderStatusArray[ui.value] + " (" + ui.value + ")");
-                        //}
-                        // Get active vehicle and hide it
-                        var active = $(".activeVehicle");
-                        if (active) {
-                            active.removeClass("activeVehicle");
-                            active.hide();
-                        }
-                        var currentVehicle = $(".vehicleSlider_" + (++ui.value));
-                        if (currentVehicle[0] != null && currentVehicle[0] != undefined) {
-                            currentVehicle.show();
-                            currentVehicle.addClass("activeVehicle");
-                        }
-                    });
-
-                // Show first vehicle visible
-                if ($(".vehicleSlider_1")[0] != null && $(".vehicleSlider_1")[0] != undefined) {
-                    $(".vehicleSlider_1").show();
-                    $(".vehicleSlider_1").addClass("activeVehicle");
-                }
-            });
-        };
+        var email = $(this).val();
+        var re = /^(([^<>()[\]\\.,;:\s\"]+(\.[^<>()[\]\\.,;:\s\"]+)*)|(\".+\"))((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+        if (re.test(email)) {
+            $('.msg').hide();
+            $('.success').show();
+        } else {
+            $('.msg').hide();
+            $('.error').show();
+        }
     </script>
     <!-- Global js END -->
 </body>

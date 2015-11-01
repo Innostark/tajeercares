@@ -13,6 +13,15 @@ using System.Web.Mvc;
 
 namespace APIInterface.Controllers
 {
+    public class ParentHg
+    {
+        public long HireGroupId { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public string MainDescription { get; set; }
+        public string SecondaryDescription { get; set; }
+    }
+
     /// <summary>
     /// Rental Controller To Handle Client's Booking 
     /// </summary>
@@ -611,8 +620,10 @@ namespace APIInterface.Controllers
         /// </summary>
         public ActionResult SelectCar(HomeModel model)
         {
-            if (model == null)
+            if (model == null || model.ReservationForm == null)
             {
+                ViewBag.HGDetail = Session["HGDetail"];
+
                 return View();
             }
             var newModel= ExtractDataFromReservationForm(model);
@@ -624,6 +635,28 @@ namespace APIInterface.Controllers
                 Session["HGDetail"] = ViewBag.HGDetail = parentHireGroups.Count == 0 ? null : parentHireGroups;
                 Session["HGCount"] = parentHireGroups.Count;
             }
+            //ViewBag.ParentHireGroups = new List<ParentHg> { new ParentHg { HireGroupId = 1, 
+            //    ImageUrl = "d1a3f4spazzrp4.cloudfront.net/web-fresh/vehicles/car-x-1703-1362@1x.png", Name = "Uber", 
+            //    MainDescription = "Low cost uber", 
+            //    SecondaryDescription = "Everyday cars for everyday use.Better, faster, and cheaper than a taxi."
+            //    } ,
+            //    new ParentHg { HireGroupId = 2, 
+            //    ImageUrl = "d1a3f4spazzrp4.cloudfront.net/web-fresh/vehicles/car-taxi-1703-1362@1x.png", Name = "Taxi", 
+            //    MainDescription = "Taxi without the hassle", 
+            //    SecondaryDescription = "No whistling, no waving, no cash needed."
+            //    } ,
+            //    new ParentHg { HireGroupId = 3, 
+            //    ImageUrl = "d1a3f4spazzrp4.cloudfront.net/web-fresh/vehicles/car-x-1703-1362@1x.png", Name = "Taxi2", 
+            //    MainDescription = "Taxi without the hassle", 
+            //    SecondaryDescription = "No whistling, no waving, no cash needed."
+            //    } ,
+            //    new ParentHg { HireGroupId = 4, 
+            //    ImageUrl = "d1a3f4spazzrp4.cloudfront.net/web-fresh/vehicles/car-x-1703-1362@1x.png", Name = "Taxi3", 
+            //    MainDescription = "Taxi without the hassle", 
+            //    SecondaryDescription = "No whistling, no waving, no cash needed."
+            //    } 
+            //};
+            //ViewBag.ParentHireGroupNames = new[] { "Uber", "Taxi", "Taxi2", "Taxi3" };
             return View(newModel);
         }
 
