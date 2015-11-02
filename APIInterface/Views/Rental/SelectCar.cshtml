@@ -28,16 +28,18 @@
             #accordion > h3:first-child {
                 margin-top: 0;
             }
+        .ui-accordion-header-icon.ui-icon.ui-icon-minus {
+            height: 17px;
+            width: 16px;
+            background-color: rgb(231, 231, 231);
+        }
+        #circles-slider {
+            background-color: black;
+        }
 
-    .ui-accordion-header-icon.ui-icon.ui-icon-minus {
-        height: 17px;
-        width: 16px;
-        background-color: rgb(231, 231, 231);
-    }
-
-    input[type='button'] {
-        cursor: pointer;
-    }
+        input[type='button'] {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="page page-two-column">
@@ -88,12 +90,13 @@
         <div id="main">
 
             <form class="main-form">
-                <div id="accordion">
+                <div>
                     <div id="book_car" class="title-form current">
                         @*<img src="~/Images/images/search.png" alt="" />*@
                         @*Search for a car:*@
                     </div>
                     <div id="book_car_content" class="content-form ">
+
                         <div class="location-block">
                             <div class="form-block location">Pick-up Location</div>
                             <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
@@ -162,7 +165,7 @@
                             </div>
                             <div id="vehicleDetailContainer" class="post" style="display: none">
                                 <div class="main-block_container" style="margin-left: 5px; width: 99%; margin-top: 1px; margin-bottom: 5px; ">
-                                    <button class="btn" id="backtoVehicleSliderBtn">Back</button><br /><br />
+
                                     <div id="accordion">
                                         @if (ViewBag.HGDetail != null)
                                         {
@@ -171,11 +174,11 @@
                                             {
                                                 <h3 title="@item.Description" id=@(+item.HireGroupId) style="display: none">
                                                     <span style=""> @item.HireGroupName &nbsp; @item.ChildHireGroupCount</span><span style="float: right; margin-right: 3px;">
-                                                                                                                                   @if (@item.DropoffCharge != 0)
-                                                                                                                                   {
-                                                                                                                                       <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
-                                                                                                                                   }
-                                                                                                                               </span>
+                                                        @if (@item.DropoffCharge != 0)
+                                                        {
+                                                            <text> <b>Drop-off-Charges</b> : @item.DropoffCharge</text>
+                                                        }
+                                                    </span>
                                                 </h3>
                                                 <div class="container-fluid" id="container_@(item.HireGroupId)" style="display: none">
                                                     <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
@@ -203,7 +206,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
-                                                                    <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
+                                                                    <button class="btn" id="backtoVehicleSliderBtn" style=" float: left; width: 18%; margin-top: 17px;">Back</button>                                                                    <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
                                                                     <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 55%; margin-left: 5px;" value="Book Now" />
                                                                     <div class="product-info" style="    margin-left: -28px; font-size: 27px;margin-top: 70px;">
                                                                         <span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
@@ -221,7 +224,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            count++;
+                                                                        count++;
                                                         }
                                                         <!-- HG Det Loop-->
                                                     }
@@ -245,7 +248,7 @@
                                     <div id="orderStatusSliderContainer" class="col-sm-12 form-horizontal">
                                         <div id="statusSliderSubContainer">
                                             <center>
-                                                <div id="circles-slider" class="slider"></div>
+                                                <div id="circles-slider" class="slider" style="background-color: black"></div>
                                             </center>
                                         </div>
                                     </div>
@@ -281,9 +284,20 @@
     <script>
 
         $(document).ready(function () {
-
+            // $(window).scrollTop($('#vehicleSelectorContainer').offset().top);
             accordionSetting();
             setVehicleSlider();
+
+            function callScroll() {
+                $('html, body').animate({
+                    scrollTop: $("#vehicleSelectorContainer").offset().top
+                }, 500);
+
+                return false;
+            }
+
+            callScroll();
+            // scroll to car selection div
 
             $("#showClassBtn").live("click", function(e) {
                 $("#vehicleSelectorContainer").hide("slide", {}, 500);
@@ -305,6 +319,7 @@
                 $("#vehicleDetailContainer").hide("slide", {}, 500);
                 $("#vehicleSelectorContainer").show("slide", {}, 500);
                 $("#vehicleSelectorSliderContainer").show();
+                callScroll();
                 return false;
             });
         });

@@ -762,6 +762,7 @@
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker3.css" />
     <Content Include="Content\IstStyleSheet.css" />
+    <Content Include="Content\jquery.bxslider.css" />
     <Content Include="Content\mobileUI-beveled.css" />
     <Content Include="Content\mobileUI-flat.css" />
     <Content Include="Content\mobileUI-modern.css" />
@@ -780,7 +781,9 @@
     <Content Include="Images\1397140769 - Copy.jpg" />
     <Content Include="Images\1397140769.jpg" />
     <Content Include="Images\213.png" />
+    <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\carPlaceHolder.png" />
+    <Content Include="Images\controls.png" />
     <Content Include="Images\FeatureBanner.PNG" />
     <Content Include="Images\FeatureBanner_1.PNG" />
     <Content Include="Images\featured-bg.png" />
@@ -873,6 +876,7 @@
     <Content Include="Images\images\visa.png" />
     <Content Include="Images\images\widget-title.png" />
     <Content Include="Images\list-bullet.png" />
+    <Content Include="Images\lux.png" />
     <Content Include="Images\main-bg.png" />
     <Content Include="Images\nav-opener.png" />
     <Content Include="Images\pic01.png" />
@@ -884,6 +888,7 @@
     <Content Include="Images\Rate_Banner.PNG" />
     <Content Include="Images\Service_Rate.PNG" />
     <Content Include="Images\soldout.png" />
+    <Content Include="Images\spo.png" />
     <Content Include="Images\VehicleBanner.PNG" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -931,6 +936,7 @@
     <Content Include="Scripts\ISTUtility.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery.bxslider.min.js" />
     <Content Include="Scripts\jquery.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.pulsate.min.js" />
