@@ -232,7 +232,9 @@ $("#startingForm").hover(function () {
 
 //////////////////////////// SEELCT EXTRAS PAGE
 var extrasList = new Array();
+var extrasClickedList = new Array();
 var insurancesList = new Array();
+var insurancesClcikedList = new Array();
 
 // Extra's Page Submition 
 $("form").submit(function () {
@@ -252,10 +254,10 @@ $("form").submit(function () {
 // Get Insurances Rate
 function callInsurance() {
     var Id = this.id;
-    if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
+    if (this.checked == false) {
         var valueToMinus = document.getElementById("rate_" + Id).textContent;
-        document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
-        $("#currency_" + Id).hide();
+        //document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
+        //$("#currency_" + Id).hide();
 
         var list = document.getElementById('extras_Total_Sidebar');
         var entryToBeRemoved = document.getElementById("ins_" + Id);
@@ -316,12 +318,12 @@ function callInsurance() {
 
 // Gets Rate for Service Item
 function callExtra() {
-
     var Id = this.id;
-    if (document.getElementById("rate_" + Id).innerHTML != '(Select Item)') {
+
+    if (this.checked == false) {
         var valueToMinus = document.getElementById("rate_" + Id).textContent;
-        document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
-        $("#currency_" + Id).hide();
+     //   document.getElementById("rate_" + Id).innerHTML = '(Select Item)';
+     //   $("#currency_" + Id).hide();
 
         var list = document.getElementById('extras_Total_Sidebar');
         var entryToBeRemoved = document.getElementById("exs_" + Id);
@@ -345,6 +347,13 @@ function callExtra() {
         }
         return true;
     }
+    //// to avoid recalling for rates
+    //var ind = extrasClickedList.indexOf(Id);
+    //if (ind > -1) {
+    //    // add in list for id to controller
+    //    extrasList.push(Id);
+    //    return true;
+    //}
     hideUi();
     $.ajax({
         type: 'POST',
@@ -373,6 +382,7 @@ function callExtra() {
 
 
                 extrasList.push(Id);
+                extrasClickedList.push(Id);
                 $('#defaultItem').hide();
                 toastr.success("Item added!");
             }
