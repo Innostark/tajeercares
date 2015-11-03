@@ -338,6 +338,7 @@ namespace APIInterface.Controllers
         private void SetRateForServiceItem(long serviceItemId, RaCandidateExtrasCharge response)
         {
             var extras = Session["Extras"] as ExtrasResponseModel;
+            var extrasRateList = Session["ExtrasListToRemember"] as List<ServiceItem> ?? new List<ServiceItem>();
             foreach (var item in extras.ServiceItems)
             {
                 if (item.ServiceItemId == serviceItemId)
@@ -347,8 +348,17 @@ namespace APIInterface.Controllers
 
                     response.ServiceRate = Math.Round(response.ServiceRate, 2);
                     response.ServiceCharge = Math.Round(response.ServiceCharge, 2);
+
+                    var objToRemember = new ServiceItem
+                    {
+                        ServiceItemId = serviceItemId,
+                        ServiceRate = Math.Round(response.ServiceRate, 2),
+                        ServiceCharge = Math.Round(response.ServiceCharge, 2)
+                    };
+                    extrasRateList.Add(objToRemember);
                 }
             }
+            Session["ExtrasListToRemember"] = extrasRateList;
             Session["Extras"] = extras;
         }
 
@@ -359,6 +369,8 @@ namespace APIInterface.Controllers
         private void SetRateForInsuranceType(long insuranceTyped, RaCandidateItemCharge response)
         {
             var extras = Session["Extras"] as ExtrasResponseModel;
+            var insRateList = Session["InsuranceListToRemember"] as List<InsuranceType> ?? new List<InsuranceType>();
+
             foreach (var item in extras.InsuranceTypes)
             {
                 if (item.InsuranceTypeId == insuranceTyped)
@@ -368,8 +380,16 @@ namespace APIInterface.Controllers
 
                     response.Rate = Math.Round(response.Rate,2);
                     response.Charge = Math.Round(response.Charge, 2);
+                    var objToRemember = new InsuranceType
+                    {
+                        InsuranceTypeId = (short) insuranceTyped,
+                        InsuranceRate = Math.Round(response.Rate, 2),
+                        InsuranceCharge = Math.Round(response.Charge, 2)
+                    };
+                    insRateList.Add(objToRemember);
                 }
             }
+            Session["InsuranceListToRemember"] = insRateList;
             Session["Extras"] = extras;
         }
 
@@ -760,6 +780,18 @@ namespace APIInterface.Controllers
         /// </summary>
         public JsonResult GetChargeForServiceItem(long serviceItemId, int quantity)
         {
+            var extrasRateList = Session["ExtrasListToRemember"] as List<ServiceItem> ?? new List<ServiceItem>();
+            foreach (var item in extrasRateList)
+            {
+                if (item.ServiceItemId == serviceItemId)
+                {
+                    return Json(new { itemCharge = new RaCandidateExtrasCharge
+                    {
+                        ServiceRate = item.ServiceRate,
+                        ServiceCharge = item.ServiceCharge
+                    } }); 
+                }
+            }
             var requestModel = GetServiceItemRateRequest(serviceItemId, quantity);
             var response=  rentalApiService.GetServiceItemRate(requestModel);
            if (response != null)
@@ -776,6 +808,21 @@ namespace APIInterface.Controllers
         /// </summary>
         public JsonResult GetChargeForInsuranceType(short insuranceTypeId)
         {
+            var insuranceTypeRateList = Session["InsuranceListToRemember"] as List<InsuranceType> ?? new List<InsuranceType>();
+            foreach (var ins in insuranceTypeRateList)
+            {
+                if (ins.InsuranceTypeId == insuranceTypeId)
+                {
+                    return Json(new
+                    {
+                        insuranceCharge = new RaCandidateItemCharge
+                        {
+                            Rate = ins.InsuranceRate,
+                            Charge = ins.InsuranceCharge
+                        }
+                    });
+                }
+            }
             var requestModel = GetCandidateInsuranceChargeRequest(insuranceTypeId);
             var response= rentalApiService.GetInsuranceTypeRate(requestModel);
             if (response != null)
