@@ -737,7 +737,11 @@ License: You must have a valid license purchased only from themeforest (the abov
                 success: function (response) {
                     showUi();
                     if (response.status == "ok") {
-
+                      $("#name").val('');
+                      $("#email").val('');
+                      $("#cmp").val('');
+                      $("#phn").val('');
+                      $("#body").val('');
                         toastr.success("Email sent. We will contact you with in 48 hours!");
                         return true;
                     } else {
