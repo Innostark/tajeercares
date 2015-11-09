@@ -142,15 +142,15 @@ function IdontKnow() {
 ///////////////////////////////// SELECT CAR PAGE
 
 // Hire Group Accor
-function accordionSetting() {
+function accordionSetting(shouldNotCollapse) {
     $(function () {
         $("#accordion").accordion({
-            collapsible: true,
+            collapsible: shouldNotCollapse === true ? !shouldNotCollapse : true,
             active: false,
             heightStyle: "content",
             icons: {
                 "header": "ui-icon-plus",
-                "activeHeader": "ui-icon-minus"
+                "activeHeader": shouldNotCollapse === true ? "" : "ui-icon-minus"
             }
         });
     });

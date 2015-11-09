@@ -803,6 +803,8 @@
     <Content Include="Images\images\button_next.png" />
     <Content Include="Images\images\button_previous.png" />
     <Content Include="Images\images\calendar.png" />
+    <Content Include="Images\images\cancel_button.png" />
+    <Content Include="Images\images\cancel_button_hover.png" />
     <Content Include="Images\images\car-icons.png" />
     <Content Include="Images\images\checkbox-mini.png" />
     <Content Include="Images\images\checkbox.png" />

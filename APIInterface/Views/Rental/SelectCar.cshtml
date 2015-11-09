@@ -57,8 +57,8 @@
                     <div class="menus">
                         <div class="language">
                             <select class="select" name="select_language">
-                                <option>English</option>
-                                <option selected="selected">Arabic</option>
+                                <option selected="selected">English</option>
+                                @*<option selected="selected">Arabic</option>*@
                             </select>
                         </div>
                     </div>
@@ -150,9 +150,11 @@
                                                         @x.Description
                                                     </p>
                                                 </div>
+                                                
                                                 <div>
-                                                    <button id="showClassBtn" class="@(x.SubHireGroups.Count == 0 ? "disabled" : "")">
-                                                        Select Car <span class="badge">@x.SubHireGroups.Count</span>
+                                                    
+                                                    <button  id="showClassBtn" class="@(x.SubHireGroups.Count == 0 ? "disabled" : "blue_button")">
+                                                        View Cars <span class="badge">@x.SubHireGroups.Count</span>
                                                     </button>
                                                 </div>
                                                 <div style="display: none">
@@ -188,7 +190,7 @@
                                                         foreach (var obj in item.SubHireGroups)
                                                         {
                                                             <div class="row">
-                                                                <div class="col-sm-4 col-lg-4" style="width: 40%; float: left;">
+                                                                <div class="col-sm-4 col-lg-4" style="width: 37%; float: left;">
                                                                     <div class="product-img">
                                                                         <img src="@obj.ImageUrl" style="height: 130px; width: 290px;" title="Vehicle photo" />
                                                                     </div>
@@ -205,9 +207,10 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
-                                                                    <button class="btn" id="backtoVehicleSliderBtn" style=" float: left; width: 18%; margin-top: 17px;">Back</button>                                                                    <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 45%; margin-left: 5px;" value="Get Charge" />
-                                                                    <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: right; color: white; width: 55%; margin-left: 5px;" value="Book Now" />
+                                                                <div class="col-sm-4 col-lg-4" style="width: 33%; float: left;">
+                                                                    <input type="button" class="backtoVehicleSliderBtn blue_button" value="Back" />
+                                                                    <input title="Get Standard Rate" type="button" name="SelectBtn" id=@("chargeId_" + obj.HireGroupDetailId) class="blue_button Charge" style=" margin-top: 17px; float: left; color: white; width: 49%; margin-left: 5px;" value="Get Charge" />
+                                                                    <input title="Select Vehicle" id=@("selectId_"+obj.HireGroupDetailId) type="button" name="SelectBtn" class="continue_button blue_button Select" hidden="" style=" margin-top: 17px; margin-bottom: 10px; padding-top: 3px; font-weight: inherit; float: left; color: white; width: 49%; margin-left: 5px;" value="Book Now" />
                                                                     <div class="product-info" style="    margin-left: -28px; font-size: 27px;margin-top: 70px;">
                                                                         <span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
                                                                         <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId)></span>
@@ -232,6 +235,7 @@
                                                     {
                                                         <center>
                                                             <img src="~/Images/soldout.png" style=" height: 72px;" />
+                                                            <input type="button" class="backtoVehicleSliderBtn blue_button" value="Back" style="width: 17%" />
                                                         </center>
                                                     }
                                                 </div>
@@ -284,14 +288,13 @@
     <script>
 
         $(document).ready(function () {
-            // $(window).scrollTop($('#vehicleSelectorContainer').offset().top);
-            accordionSetting();
+            accordionSetting(true); // Should not be collapsible
             setVehicleSlider();
 
             function callScroll() {
                 $('html, body').animate({
-                    scrollTop: $("#vehicleSelectorContainer").offset().top
-                }, 500);
+                    scrollTop: $("#vehicleSelectorContainer").offset().top + 100
+            }, 500);
 
                 return false;
             }
@@ -310,16 +313,22 @@
                 $("#" + activeHireGroupId).addClass("activeHireGroupDetail");
                 $("#" + activeHireGroupId).show();
                 $("#container_" + activeHireGroupId).addClass("activeHireGroupDetail");
-                $("#container_" + activeHireGroupId).show();
                 $("#vehicleDetailContainer").show("slide", {}, 500);
+                setTimeout(function() {
+                    $("#container_" + activeHireGroupId).show("slide", {}, 500);
+                }, 1000);
                 return false;
             });
 
-            $("#backtoVehicleSliderBtn").live("click", function(e) {
-                $("#vehicleDetailContainer").hide("slide", {}, 500);
-                $("#vehicleSelectorContainer").show("slide", {}, 500);
-                $("#vehicleSelectorSliderContainer").show();
-                callScroll();
+            $(".backtoVehicleSliderBtn").live("click", function(e) {
+                var activeHireGroupId = parseInt($(".activeVehicle")[0].id.split("_")[1]);
+                $("#container_" + activeHireGroupId).hide("slide", {}, 500);
+                setTimeout(function() {
+                    $("#vehicleDetailContainer").hide("slide", {}, 500);
+                    $("#vehicleSelectorContainer").show("slide", {}, 500);
+                    $("#vehicleSelectorSliderContainer").show();
+                    callScroll();
+                }, 1000);
                 return false;
             });
         });
