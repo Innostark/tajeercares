@@ -27,5 +27,15 @@ namespace APIInterface.Models
         /// To Email 
         /// </summary>
         public string RecipientEmail { get; set; }
+
+        /// <summary>
+        /// Sender Phone
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// Sender Company
+        /// </summary>
+        public string Company { get; set; }
     }
 }

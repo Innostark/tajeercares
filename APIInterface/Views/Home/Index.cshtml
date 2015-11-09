@@ -92,7 +92,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                         <li><a href="#overView">Overview</a></li>
                         <li><a href="#sign_up">Signup</a></li>
                         <li><a href="http://testcares.azurewebsites.net/">Login</a></li>
-                        <li><a href="#contactMe">Contact Us</a></li>
+                        <li><a href="#contactMe">Request a Demo</a></li>
                     </ul>
                 </div>
                 <!-- Navigation END -->
@@ -496,7 +496,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                 <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="pricing-item">
                         <div class="pricing-head">
-                            <h3>Find Us</h3>
+                            <h3>Request a Demo</h3>
                         </div>
                         <div class="pricing-content">
                             <div class="col-md-9 col-sm-9">
@@ -508,9 +508,19 @@ License: You must have a valid license purchased only from themeforest (the abov
                                     <input type="text" class="form-control" id="name">
                                 </div>
                                 <div class="form-group">
+                                    <label style="float: left" for="email">Company</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                    <input type="email" class="form-control" id="cmp">
+                                </div>
+                                <div class="form-group">
                                     <label style="float: left" for="email">Email</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="email" class="form-control" id="email">
+                                </div>
+                                <div class="form-group">
+                                    <label style="float: left" for="email">Phone</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                    <input type="email" class="form-control" id="phn">
                                 </div>
                                 <div class="form-group">
                                     <label style="float: left" for="body">Message</label>
@@ -710,11 +720,12 @@ License: You must have a valid license purchased only from themeforest (the abov
 
             var senderName = $("#name").val();
             var senderEmail = $("#email").val();
+            var cmp = $("#cmp").val();
+            var phn = $("#phn").val();
             var emailBody = $("#body").val();
-            var emailSubject = $("#subject").val();
 
 
-            if (senderName == "" || senderEmail == "" || emailBody == "") {
+            if (senderName == "" || senderEmail == "" || emailBody == "" || cmp=="" || phn=="") {
                 toastr.error("Field(s) are mandatory!");
                 return false;
             }
@@ -731,8 +742,10 @@ License: You must have a valid license purchased only from themeforest (the abov
             var email = {
                 SenderName: senderName,
                 SenderEmail: senderEmail,
-                EmailSubject: 'Hello Admin',
-                EmailBody: emailBody
+                EmailSubject: 'Request A Demo',
+                EmailBody: emailBody,
+                Phone: phn,
+                Company: cmp
             };
 
             var requestUrl = 'Home/SendEmail';
@@ -751,7 +764,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                     showUi();
                     if (response.status == "ok") {
 
-                        toastr.success("Email sent!");
+                        toastr.success("Email sent. We will contact you with in 48 hours!");
                         return true;
                     } else {
                         toastr.error("Failed to send email.Try agian later!");
