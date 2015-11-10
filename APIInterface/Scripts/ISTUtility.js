@@ -236,6 +236,10 @@ var extrasClickedList = new Array();
 var insurancesList = new Array();
 var insurancesClcikedList = new Array();
 
+
+var extrasObjectList = new Array();
+var insObjectList = new Array();
+
 // Extra's Page Submition 
 $("form").submit(function () {
     var index;
@@ -277,6 +281,15 @@ function callInsurance() {
         }
         return true;
     }
+    //// to avoid recalling for rates
+    var arrayLength = insObjectList.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if (insObjectList[i].InsuranceTypeId == Id) {
+            SetResponseForIns(insObjectList[i].insuranceCharge, Id);
+            return false;
+        }
+        //Do something
+    }
     hideUi();
     $.ajax({
         type: 'POST',
@@ -286,24 +299,13 @@ function callInsurance() {
         dataType: 'json',
         success: function (response) {
             if (response) {
-                document.getElementById("rate_" + Id).innerHTML = numeral(response.insuranceCharge.Charge).format('0,0');
-                list = document.getElementById('extras_Total_Sidebar');
-                var itemName = document.getElementById('ItemName_' + Id).textContent;
-                $("#currency_" + Id).show();
-
-                var newdiv = document.createElement('p');
-                newdiv.setAttribute('id', 'ins_' + Id);
-                newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.insuranceCharge.Charge).format('0,0') + '</span>';
-                list.appendChild(newdiv);
-
-                //  var newTotal =  response.itemCharge.ServiceCharge;
-                prevTotal = document.getElementById('overAllTotal').textContent;
-                unformatedTotal = numeral().unformat(prevTotal);
-
-                document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.insuranceCharge.Charge).format('0,0');
-                insurancesList.push(Id);
-                toastr.success("Item added!");
-                $('#defaultItem').hide();
+                var charge = response.insuranceCharge.Charge;
+                SetResponseForIns(charge, Id);
+                var obj = {
+                    InsuranceTypeId: Id,
+                    insuranceCharge: charge
+                };
+                insObjectList.push(obj);
             }
             else {
 
@@ -315,6 +317,29 @@ function callInsurance() {
         },
     });
 }
+// sets response for Ins
+function SetResponseForIns(charge, Id) {
+    document.getElementById("rate_" + Id).innerHTML = numeral(charge).format('0,0');
+   var list = document.getElementById('extras_Total_Sidebar');
+    var itemName = document.getElementById('ItemName_' + Id).textContent;
+    $("#currency_" + Id).show();
+
+    var newdiv = document.createElement('p');
+    newdiv.setAttribute('id', 'ins_' + Id);
+    newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(charge).format('0,0') + '</span>';
+    list.appendChild(newdiv);
+
+    //  var newTotal =  response.itemCharge.ServiceCharge;
+   var prevTotal = document.getElementById('overAllTotal').textContent;
+   var unformatedTotal = numeral().unformat(prevTotal);
+
+    document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + charge).format('0,0');
+    insurancesList.push(Id);
+    toastr.success("Item added!");
+    $('#defaultItem').hide();
+
+}
+
 
 // Gets Rate for Service Item
 function callExtra() {
@@ -348,12 +373,14 @@ function callExtra() {
         return true;
     }
     //// to avoid recalling for rates
-    //var ind = extrasClickedList.indexOf(Id);
-    //if (ind > -1) {
-    //    // add in list for id to controller
-    //    extrasList.push(Id);
-    //    return true;
-    //}
+    var arrayLength = extrasObjectList.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if (extrasObjectList[i].ServiceItemId == Id) {
+            SetResponseForExtra(extrasObjectList[i].ServiceCharge, Id);
+            return false;
+        }
+        //Do something
+    }
     hideUi();
     $.ajax({
         type: 'POST',
@@ -363,28 +390,14 @@ function callExtra() {
         dataType: 'json',
         success: function (response) {
             if (response) {
-                document.getElementById("rate_" + Id).innerHTML = numeral(response.itemCharge.ServiceCharge).format('0,0');
-                list = document.getElementById('extras_Total_Sidebar');
-                var itemName = document.getElementById('ItemName_' + Id).textContent;
-                $("#currency_" + Id).show();
-
-                var newdiv = document.createElement('p');
-                newdiv.setAttribute('id', 'exs_' + Id);
-                newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(response.itemCharge.ServiceCharge).format('0,0') + '</span>';
-                list.appendChild(newdiv);
-
-
-                //  var newTotal =  response.itemCharge.ServiceCharge;
-                prevTotal = document.getElementById('overAllTotal').textContent;
-                unformatedTotal = numeral().unformat(prevTotal);
-
-                document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + response.itemCharge.ServiceCharge).format('0,0');
-
-
-                extrasList.push(Id);
-                extrasClickedList.push(Id);
-                $('#defaultItem').hide();
-                toastr.success("Item added!");
+      
+                var charge = response.itemCharge.ServiceCharge;
+                SetResponseForExtra(charge, Id);
+                var obj = {
+                    ServiceItemId: Id,
+                    ServiceCharge: charge
+                };
+                extrasObjectList.push(obj);
             }
             else {
 
@@ -396,7 +409,32 @@ function callExtra() {
         },
     });
 }
+// sets response for extra rate
+function SetResponseForExtra(charge,Id) {
+    document.getElementById("rate_" + Id).innerHTML = numeral(charge).format('0,0');
+   var list = document.getElementById('extras_Total_Sidebar');
+    var itemName = document.getElementById('ItemName_' + Id).textContent;
+    $("#currency_" + Id).show();
 
+    var newdiv = document.createElement('p');
+    newdiv.setAttribute('id', 'exs_' + Id);
+    newdiv.innerHTML = itemName + ' <span class="price">' + "SAR " + numeral(charge).format('0,0') + '</span>';
+    list.appendChild(newdiv);
+
+
+    //  var newTotal =  response.itemCharge.ServiceCharge;
+    var prevTotal = document.getElementById('overAllTotal').textContent;
+    var unformatedTotal = numeral().unformat(prevTotal);
+
+    document.getElementById('overAllTotal').textContent = numeral(unformatedTotal + charge).format('0,0');
+
+
+    extrasList.push(Id);
+    extrasClickedList.push(Id);
+    $('#defaultItem').hide();
+    toastr.success("Item addedssss!");
+
+}
 ///////////////////////// CHECK OUT PAGE
 
 var tempEmail = "";
