@@ -432,7 +432,7 @@ function SetResponseForExtra(charge,Id) {
     extrasList.push(Id);
     extrasClickedList.push(Id);
     $('#defaultItem').hide();
-    toastr.success("Item addedssss!");
+    toastr.success("Item added!");
 
 }
 ///////////////////////// CHECK OUT PAGE
@@ -518,7 +518,7 @@ $("#pNumber").focusout(function () {
     hideUi();
     $.ajax({
         type: 'POST',
-        data: "{'key':'" + val + "'}",
+        data: "{'keyString':'" + val + "'}",
         contentType: "application/json; charset=utf-8",
         url: 'CheckUserRegistration',
         dataType: 'json',
@@ -553,7 +553,7 @@ $("#emailToCustomer").focusout(function () {
     hideUi();
     $.ajax({
         type: 'POST',
-        data: "{'key':'" + val + "'}",
+        data: "{'keyString':'" + val + "'}",
         contentType: "application/json; charset=utf-8",
         url: 'CheckUserRegistration',
         dataType: 'json',

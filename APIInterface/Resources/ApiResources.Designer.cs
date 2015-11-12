@@ -61,7 +61,7 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost/WebApi/Api/.
+        ///   Looks up a localized string similar to https://careswebapi.azurewebsites.net/api//.
         /// </summary>
         public static string BaseAddress {
             get {
@@ -187,7 +187,7 @@ namespace APIInterface.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost/WebApi/Api/.
+        ///   Looks up a localized string similar to https://careswebapi.azurewebsites.net/api//.
         /// </summary>
         public static string WebApiBaseAddress {
             get {
