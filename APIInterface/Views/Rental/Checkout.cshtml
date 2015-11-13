@@ -291,7 +291,9 @@
             var value = validateBookingForm(userType);
             if (value == false) {
                 showUi();
+                return false;
             }
+            return true;
         });
 
     </script>

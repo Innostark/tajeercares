@@ -105,7 +105,7 @@
                         <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
                             <h4>Pick-up date</h4>
                             <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
-                            <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
+                            <span id="bookingDuration"style="color: #EF7C37;"><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
                         </div>
                         <div class="form-block drop-off" style=" margin-left: 8px;">
                             <h4 style=" height: 18px;">Drop-off Location</h4>
@@ -189,7 +189,8 @@
                                                         int count = 0;
                                                         foreach (var obj in item.SubHireGroups)
                                                         {
-                                                            <div class="row">
+                                                            
+                                                             <div class='row' style='margin-top:10px; padding: 12px; background-color: @(count % 2 == 0 ? "rgba(170, 175, 170, 0.25);" : "rgba(112, 172, 238, 0.35);") ;'>
                                                                 <div class="col-sm-4 col-lg-4" style="width: 37%; float: left;">
                                                                     <div class="product-img">
                                                                         <img src="@obj.ImageUrl" style="height: 130px; width: 290px;" title="Vehicle photo" />
@@ -216,12 +217,12 @@
                                                                         <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId)></span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-4 col-lg-4" style="font-family: inherit; margin-top: 9px; float: right; font-style: italic;">
-                                                                    <p>
+                                                                <div class="col-sm-4 col-lg-4" style="font-family: inherit; margin-top: 9px;  font-style: italic;">
+                                                                    <p style=" clear: both;">
                                                                         @obj.ImageDescription
                                                                         @if (item.SubHireGroups.Count != (count + 1))
                                                                         {
-                                                                            <hr style="margin-bottom: 14px;" />
+                                                                          //  <hr style="margin-bottom: 14px;" />
                                                                         }
                                                                     </p>
                                                                 </div>
@@ -229,8 +230,8 @@
 
                                                                         count++;
                                                         }
-                                                        <!-- HG Det Loop-->
-                                                    }
+                                                                                                            <!-- HG Det Loop-->
+                                                                                                        }
                                                     else
                                                     {
                                                         <center>
@@ -288,18 +289,30 @@
     <script>
 
         $(document).ready(function () {
+            
+
+            $("#bookingDuration").pulsate({ 
+                color: "#EF7C37",
+                reach: 50,
+                repeat: 5,
+                speed: 800,
+                glow: true
+            });
             accordionSetting(true); // Should not be collapsible
             setVehicleSlider();
-
+          setTimeout(
+          function() 
+          {
+              callScroll();
+          }, 2000);
             function callScroll() {
                 $('html, body').animate({
                     scrollTop: $("#vehicleSelectorContainer").offset().top + 100
-            }, 500);
-
+            }, 1000);
                 return false;
             }
 
-            callScroll();
+           
             // scroll to car selection div
 
             $("#showClassBtn").live("click", function(e) {

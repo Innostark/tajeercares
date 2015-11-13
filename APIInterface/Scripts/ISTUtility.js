@@ -459,8 +459,9 @@ function validateBookingForm(userType) {
     $("#pNumber").val(pNum);
     $("#DOB").val($("#dob_value").val());
     $("#CustomerTypeHidden").val(userType);
-    if (DOBCheck())
+    if (DOBCheck()) {
         return validateForm();
+    }
     else
         return false;
 }

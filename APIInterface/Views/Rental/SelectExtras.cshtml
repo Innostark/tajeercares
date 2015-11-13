@@ -153,7 +153,7 @@
                             <div class="clear"></div>
                         </div>
 
-                        @if (ViewBag.Data != null)
+                        @if (ViewBag.Data != null && ViewBag.Data.ServiceItems != null)
                         {
                             var extras = ViewBag.Data.ServiceItems;
                             foreach (var item in extras)
@@ -162,7 +162,7 @@
                                     <div class="checkbox-block_container">
                                         <div class="main-block_container">
                                             <div class="additional-block_container">
-                                                <div class="checkbox-block" id="@(item.ServiceItemId)"> 
+                                                <div class="checkbox-block" id="@(item.ServiceItemId)">
                                                     <input id="@(item.ServiceItemId)" type="checkbox" class="seviceItem" name="checkbox_extras" value="1" style="cursor: pointer;  margin-top: -8px;  height: 24px; width: 24px" />
                                                 </div>
                                                 <div class="main-block">
@@ -185,7 +185,27 @@
                                     <div class="clear"></div>
                                 </div>
                             } <!--extras loop ends-->
-                        }   <!-- extras Null ends-->
+                        }  
+                        else
+                        {
+                             <div class="post">
+                                    <div class="checkbox-block_container">
+                                        <div class="main-block_container">
+                                            <div class="additional-block_container">
+                                                <div class="checkbox-block" style="padding: 0px">
+                                                </div>
+                                                <div class="main-block" style="margin-left: -223px;">
+
+                                                    <div class="product-info">
+                                                        <p>No Extras available!</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                        }
                     </div>
                     <div class="widget main-widget product-widget main-widget-3column">
                         <div class="widget-title">
@@ -195,7 +215,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @if (ViewBag.Data != null)
+                        @if (ViewBag.Data != null && ViewBag.Data.InsuranceTypes != null)
                         {
                             var insurances = ViewBag.Data.InsuranceTypes;
                             foreach (var item in insurances)
@@ -226,7 +246,28 @@
                                     <div class="clear"></div>
                                 </div>
                             } <!--extras loop ends-->
-                        }   <!-- extras Null ends-->
+                        }
+                        else
+                        {
+                            <div class="post">
+                                <div class="checkbox-block_container">
+                                    <div class="main-block_container">
+                                        <div class="additional-block_container">
+                                            <div class="checkbox-block" style="padding: 0px">
+                                            </div>
+                                            <div class="main-block" style="margin-left: -223px;">
+
+                                                <div class="product-info">
+                                                    <p>No Insurances available!</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
 
                     </div>
                     @model APIInterface.Models.ExtrasIdsContainer
@@ -266,8 +307,8 @@
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
     <script>
-     
-       // Gets rate For Insurance
+
+        // Gets rate For Insurance
         $(document).on('change', '.insurance', callInsurance);
         // Gets Rate for Service Item
         $(document).on('change', '.seviceItem', callExtra); //here

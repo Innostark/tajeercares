@@ -156,14 +156,14 @@ namespace APIInterface.Controllers
                     {
                         Session["pickupId"] = obj.OperationWorkplaceId;
                         Session["pickupName"] = obj.LocationName;
-                        Session["pickupCityId"] = obj.CityId;
+                        Session["pickupCityId"] = obj.CityId ?? 0;
                         Session["pickupOperationId"] = obj.OperationId;
                     }
                     if (obj.OperationWorkplaceId.ToString() == model.ReservationForm.DropoffLocation)
                     {
                         Session["dropoffId"] = obj.OperationWorkplaceId;
                         Session["dropoffName"] = obj.LocationName;
-                        Session["dropoffCityId"] = obj.CityId;
+                        Session["dropoffCityId"] = obj.CityId ?? 0;
                     }
                 }
            
@@ -421,23 +421,31 @@ namespace APIInterface.Controllers
             Session["insuranceTypeList"] = insurancesIds;
             serviceItemsTotal = 0;
             items = new List<string>();
-            foreach (var extra in extras.ServiceItems)
+            if (extras.ServiceItems != null && extras.ServiceItems.Count() > 0)
             {
-                if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
+                foreach (var extra in extras.ServiceItems)
                 {
-                    items.Add("<p>" + extra.ServiceItemName + " <span class='price'>" + "SAR " + Convert.ToDecimal(extra.ServiceCharge).ToString("#,##") + "</span></p>");
-                    serviceItemsTotal = Math.Round(serviceItemsTotal + extra.ServiceCharge);
-                }
+                    if (extrasIds.Any(id => Int64.Parse(id) == extra.ServiceItemId))
+                    {
+                        items.Add("<p>" + extra.ServiceItemName + " <span class='price'>" + "SAR " + Convert.ToDecimal(extra.ServiceCharge).ToString("#,##") + "</span></p>");
+                        serviceItemsTotal = Math.Round(serviceItemsTotal + extra.ServiceCharge);
+                    }
+                }   
             }
+            
             insuranceTotal = 0;
-            foreach (var ins in extras.InsuranceTypes)
+            if (extras.InsuranceTypes != null && extras.InsuranceTypes.Count() > 0)
             {
-                if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
+                foreach (var ins in extras.InsuranceTypes)
                 {
-                    items.Add("<p>" + ins.InsuranceTypeName + " <span class='price'>" + "SAR " + Convert.ToDecimal(ins.InsuranceCharge).ToString("#,##") + "</span></p>");
-                    insuranceTotal = Math.Round(insuranceTotal + ins.InsuranceCharge);
+                    if (insurancesIds.Any(id => Int64.Parse(id) == ins.InsuranceTypeId))
+                    {
+                        items.Add("<p>" + ins.InsuranceTypeName + " <span class='price'>" + "SAR " + Convert.ToDecimal(ins.InsuranceCharge).ToString("#,##") + "</span></p>");
+                        insuranceTotal = Math.Round(insuranceTotal + ins.InsuranceCharge);
+                    }
                 }
             }
+            
             var detailHireGroup = Session["selectedHireGroupDetail"] as WebApiHireGroupDetailResponse;
             total = detailHireGroup.StandardRt;
 
@@ -743,8 +751,8 @@ namespace APIInterface.Controllers
                 //" to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
                 // Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
                 //SendEmailTo(model.Email, "Booking Confirmation | " + Session["siteName"], emailBody, Session["siteName"].ToString());
-                Session.Clear();
-                Session.Abandon();
+            //    Session.Clear();
+           //     Session.Abandon();
                 return View("MakeBookingFinal");
             }
             else
