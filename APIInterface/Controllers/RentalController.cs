@@ -600,6 +600,14 @@ namespace APIInterface.Controllers
         private SiteContentResponseModel GetResponseForUrl(string url)
         {
             var response = rentalApiService.GetSitecontent(url);
+            if (response.OperationsWorkPlaces != null)
+            {
+                foreach (var workPlace in response.OperationsWorkPlaces)
+                {
+                    workPlace.ToastrData = workPlace.Phone + "#" + workPlace.Address + "#" + workPlace.Longitude + "#" +
+                                          workPlace.Latitude;
+                }
+            }
             return response;
         }
         #endregion

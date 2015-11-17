@@ -41,5 +41,10 @@ namespace APIInterface.Models
         public string RawString { get; set; }
 
         public string CoordinatesContents { get; set; }
+
+        /// <summary>
+        /// To show data in toastr
+        /// </summary>
+        public string ToastrData { get; set; }
     }
 }
