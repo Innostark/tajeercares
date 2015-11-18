@@ -2,15 +2,150 @@
 @{
     ViewBag.Title = "Make Booking Final";
     Layout = null;
-    
+}
+@using APIInterface.Models.ResponseModels
+@model APIInterface.Models.BookingModel 
+@{
+    var hireGroup = (WebApiHireGroupDetailResponse)HttpContext.Current.Session["selectedHireGroupDetail"];
 }
 <head>
+    <title>Thank You! | @Session["CompanyShortName"] </title>
     <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <style>
+        th {
+            background: rgba(204, 204, 204, 0.43);
+            border-bottom: 1px solid #bebebd;
+            -moz-border-radius: 4px 4px 0 0;
+            font-size: 16px;
+            -moz-box-shadow: 0px 0px 2px #C9C8C8;
+            box-shadow: 0px 0px 2px #C9C8C8;
+        }
+        body {
+            font-family: 'Josefin Sans', serif;
+        }
+        td {
+            width: 50%;
+        }
+        table {
+            width: 100%;
+        }
+        #containDIv {
+            border-radius: 12px;
+            padding: 12px;
+            border-style: double;
+            border-color: rgba(191, 175, 175, 0.45);
+            margin-left: 280px;
+            width: 55%;
+           
+        }
+        .left-col {
+            text-align: left;
+            font-weight: 600;
+        }
+        .right-col {
+            text-align: right
+        }
+    </style>
 </head>
 <a  href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
     <img src="~/Images/images/signature.png" />
     <input type="hidden" name="ServiceItemsIds" id="shortUrl" value="@Session["CompanyShortName"]" />
 </a>
+<div id="containDIv">
+    
+    <table>
+        <tr>
+            <td class="left-col">Renter's Name :</td>
+            <td class="right-col"> @(Model.UserInfo.FName + " " + Model.UserInfo.LName) </td>
+        </tr>
+        <tr>
+            <td class="left-col">Email:</td>
+            <td class="right-col"> @(Model.UserInfo.Email) </td>
+        </tr>
+        <tr>
+            <td class="left-col">Booking#:</td>
+            <td class="right-col"> @Session["BookingNo"] </td>
+        </tr>
+    </table>
+    <table style="">
+        <thead>
+            <tr>
+                <th colspan="2">Time & Place</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="left-col">
+                    Pick Up Location & Date/Time:
+                </td>
+                <td class="right-col">@Session["pickupName"] @Session["pickupDate"]</td>
+            </tr>
+            <tr>
+                <td class="left-col">
+                    Drop Off Location & Date/Time:
+                </td>
+                <td class="right-col">@Session["dropoffName"] @Session["dropoffDate"]</td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="">
+        <thead>
+            <tr>
+                <th style="width: 174%;" colspan="2">Car & Extras Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="left-col">
+                    Car :
+                </td>
+                <td class="right-col">@hireGroup.HireGroup @hireGroup.VehicleCategory</td>
+            </tr>
+            <tr>
+                <td class="left-col">
+                    Car Total:
+                </td>
+                <td class="right-col">@(Model.SubTotal)</td>
+            </tr>
+            <tr>
+                <td class="left-col">
+                    Extra's Total:
+                </td>
+                <td class="right-col">@(Model.FullTotal - Model.SubTotal)</td>
+            </tr>
+            <tr>
+                <td class="left-col">
+                    Grand Total:
+                </td>
+                <td class="right-col">@(Model.FullTotal)</td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="">
+        <thead>
+            <tr>
+                <th>Terms & Conditions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <li>You must hold and produce a driving licence valid in the country where the rental takes place.</li>
+                </td>
+               
+            </tr>
+
+            <tr>
+                <td>
+                    <li>The driving licence must have been issued by authorised authorities at least 12 months before.</li>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
 <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
 <script src="~/Scripts/toastr.js"></script>
 
@@ -18,6 +153,6 @@
     
     $(document).ready(function () {
         toastr.success("Booking successfully done!");
-        window.location.href = "MoveToIndex";
+       // window.location.href = "MoveToIndex";
     });
 </script>
