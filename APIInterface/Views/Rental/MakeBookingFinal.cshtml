@@ -153,6 +153,9 @@
     
     $(document).ready(function () {
         toastr.success("Booking successfully done!");
-       // window.location.href = "MoveToIndex";
+        setTimeout(
+          function () {
+              window.location.href = "MoveToIndex";
+          }, 14000);
     });
 </script>
