@@ -4,7 +4,16 @@
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Car Rental Solution,TajeerCare,Car Rental,Taxi Rental, Rental Software, Rent a Car, Cares,Innostark, Online Booking, Rental Agreements,Non-Revenue Ticket, Vehilce" />
+    <meta name="google-site-verification" content="RusK92KlbFzEJFU3kDh4Jy1t5cMaLJZ97Z6El2W5hYs" />
+    <meta property="og:title" content="Tajeer Cares Rental Solution" />
+    <meta property="og:description" content="Car Rental Solution for rental business">
+    <meta property="og:image" content="~/assets/Images/Tajeer_Car_Rental_1.jpg"><!-- link to image for socio -->
+    <meta content="Car Rental Solution for Rental Agents and Companies" name="description">
+    <meta content="Car Rental Solution,tajeercare,car rental,taxi rental" name="keywords">
+
     <title>@Session["siteName"] | Make your booking done!</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -15,7 +24,7 @@
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <style>
-    
+
     </style>
 </head>
 <body class="page page-two-column no-main-form">
@@ -95,6 +104,11 @@
                                     <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
                                     <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
                                     <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.FormatedStandardRate</span>  </span>
+                                    
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="No.of Passengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
+                                    <span style="display: inline-block; width: 93px; word-break: break-word; " title="No. of Suitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="No. of Doors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="No. of Airbags"><img style="    height: 18px; width: 18px;" src="~/Images/Airbag.png" alt="" /><span>@hireGroup.NoOfAirBags</span></span>
                                 </div>
 
                             </div>
@@ -295,6 +309,18 @@
             }
             return true;
         });
+
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-70262037-1', 'auto');
+        ga('send', 'pageview');
 
     </script>
 </body>

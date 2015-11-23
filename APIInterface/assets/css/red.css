@@ -1,3 +1,11 @@
+   label {
+            font-size: 20px;
+        }
+
+        .validationAsterikLabel {
+            color: red;
+        }
+
 a, a:focus, a:hover, a:active {
   color: #e6400c;
 }

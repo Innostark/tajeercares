@@ -255,3 +255,81 @@ input.backtoVehicleSliderBtn.blue_button:hover {
         background-color: darkred;
     }
 
+ #accordion > h3 {
+                margin-top: 5px;
+            }
+
+            #accordion > h3:first-child {
+                margin-top: 0;
+            }
+
+            .ui-accordion-header-icon.ui-icon.ui-icon-minus {
+                height: 17px;
+                width: 16px;
+                background-color: rgb(231, 231, 231);
+            }
+
+            #circles-slider {
+                background-color: black;
+            }
+
+            input[type='button'] {
+                cursor: pointer;
+            }
+
+   #tajeerIndexH1 {
+       display: none
+     }
+   #div_1 {
+       padding-top: 5% !important;float: right;
+       z-index: 6
+   }
+
+   #div_2 {
+       font-size: 25px !important
+   }
+   #div_3 {
+       colour:Orange
+   }
+   #services {
+       padding-top: 2px;
+   }
+   #facts-block {
+       padding-bottom: 0px;
+   }
+   #overView {
+       padding-top: 0px; padding-bottom: 0px;
+   }
+   #sign_up {
+       padding-top: 0px; padding-bottom: 0px;
+   }
+   #mappedUrl {
+        padding-top: 0px; font-size: 12px; text-align: left; width: 95%; color: #EC690C;
+   }
+   #urlErrorLabel {
+       text-align: left;display: none; width: 95%; color: white
+   }
+   #div_4 {
+       margin-top: -12px;
+   }
+   #contactMe {
+        padding-top: 0px;
+   }
+   #L1,#L2,#L3,#L4,#L5,.sidebar2 {
+       float: left
+   }
+   #div_6 {
+       text-align: left
+   }
+   .signUpFonts {
+         font-family: "Open Sans";
+    font-size: 14px;
+   }
+   h1,h2,h3 {
+       font-family: "Open Sans";
+   }
+   .logo-style {
+       height: 57px;
+    width: 153px;
+    margin-top: -18px
+   }

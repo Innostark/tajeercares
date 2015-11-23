@@ -106,19 +106,19 @@
                 <td class="left-col">
                     Car Total:
                 </td>
-                <td class="right-col">@(Model.SubTotal)</td>
+                <td class="right-col">SAR @(Model.SubTotal)</td>
             </tr>
             <tr>
                 <td class="left-col">
                     Extra's Total:
                 </td>
-                <td class="right-col">@(Model.FullTotal - Model.SubTotal)</td>
+                <td class="right-col">SAR @(Model.FullTotal - Model.SubTotal)</td>
             </tr>
             <tr>
                 <td class="left-col">
                     Grand Total:
                 </td>
-                <td class="right-col">@(Model.FullTotal)</td>
+                <td class="right-col">SAR @(Model.FullTotal)</td>
             </tr>
         </tbody>
     </table>
@@ -154,8 +154,8 @@
     $(document).ready(function () {
         toastr.success("Booking successfully done!");
         setTimeout(
-          function () {
-              window.location.href = "MoveToIndex";
-          }, 14000);
+            function() {
+                window.location.href = "MoveToIndex";
+            }, 14000);
     });
 </script>

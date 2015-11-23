@@ -96,5 +96,22 @@ namespace APIInterface.Models.ResponseModels
         /// with coma
         /// </summary>
         public string FormatedStandardRate { get; set; }
+
+        /// <summary>
+        /// No Of Doors of HG
+        /// </summary>
+        public int? NoOfDoors { get; set; }
+        /// <summary>
+        /// Trunck Capacity of Car 
+        /// </summary>
+        public int? TrunckCapacity { get; set; }
+        /// <summary>
+        /// No of Passengers 
+        /// </summary>
+        public int? NoOfPassengers { get; set; }
+        /// <summary>
+        /// No Of Air Bags
+        /// </summary>
+        public int? NoOfAirBags { get; set; }
     }
 }

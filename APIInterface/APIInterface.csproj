@@ -198,7 +198,7 @@
     <Content Include="assets\Images\bullets.png" />
     <Content Include="assets\Images\bullets2.png" />
     <Content Include="assets\Images\bullet_boxed.png" />
-    <Content Include="assets\Images\choose-us.png" />
+    <Content Include="assets\Images\Tajeer_Car_Rental_2.png" />
     <Content Include="assets\Images\cisco.png" />
     <Content Include="assets\Images\coloredbg.png" />
     <Content Include="assets\Images\datatable-row-openclose.png" />
@@ -239,12 +239,12 @@
     <Content Include="assets\Images\portlet-remove-icon.png" />
     <Content Include="assets\Images\quote-.jpg" />
     <Content Include="assets\Images\quote.jpg" />
-    <Content Include="assets\Images\red.png" />
+    <Content Include="assets\Images\Tajeer_Car_Rental_logo.png" />
     <Content Include="assets\Images\remove-icon-small.png" />
     <Content Include="assets\Images\shadow1.png" />
     <Content Include="assets\Images\shadow2.png" />
     <Content Include="assets\Images\shadow3.png" />
-    <Content Include="assets\Images\slide1.jpg" />
+    <Content Include="assets\Images\Tajeer_Car_Rental_1.jpg" />
     <Content Include="assets\Images\Slide2_bg.jpg" />
     <Content Include="assets\Images\Slide2_iphone_left.png" />
     <Content Include="assets\Images\Slide2_iphone_right.png" />
@@ -299,6 +299,7 @@
     <Content Include="assets\Images\transparent.jpg" />
     <Content Include="assets\Images\trio.png" />
     <Content Include="assets\Images\turquoise.png" />
+    <Content Include="assets\Images\Tajeer_Car_Rental_4.png" />
     <Content Include="assets\Images\vimeo.png" />
     <Content Include="assets\Images\walmart.png" />
     <Content Include="assets\Images\white50.png" />
@@ -781,7 +782,10 @@
     <Content Include="Images\1397140769 - Copy.jpg" />
     <Content Include="Images\1397140769.jpg" />
     <Content Include="Images\213.png" />
+    <Content Include="Images\Airbag.png" />
+    <Content Include="Images\Suitcase.png" />
     <Content Include="Images\bx_loader.gif" />
+    <Content Include="Images\car-doors.png" />
     <Content Include="Images\carPlaceHolder.png" />
     <Content Include="Images\controls.png" />
     <Content Include="Images\FeatureBanner.PNG" />
@@ -878,7 +882,7 @@
     <Content Include="Images\images\visa.png" />
     <Content Include="Images\images\widget-title.png" />
     <Content Include="Images\list-bullet.png" />
-    <Content Include="Images\lux.png" />
+    <Content Include="Images\Tajeer_Car_Rental_3.png" />
     <Content Include="Images\main-bg.png" />
     <Content Include="Images\nav-opener.png" />
     <Content Include="Images\pic01.png" />
@@ -891,6 +895,7 @@
     <Content Include="Images\Service_Rate.PNG" />
     <Content Include="Images\soldout.png" />
     <Content Include="Images\spo.png" />
+    <Content Include="Images\Passengers.png" />
     <Content Include="Images\VehicleBanner.PNG" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />

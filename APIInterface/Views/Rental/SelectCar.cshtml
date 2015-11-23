@@ -9,40 +9,29 @@
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-    <title>@Session["siteName"] | Select The Car You Want</title>
-    <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
-    <link href="~/Content/css/jquery-Slider.css" rel="stylesheet" />
-    <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
-    <style>
-        #accordion > h3 {
-            margin-top: 5px;
-        }
+    <head prefix="og: http://ogp.me/ns#">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Car Rental Solution,TajeerCare,Car Rental,Taxi Rental, Rental Software, Rent a Car, Cares,Innostark, Online Booking, Rental Agreements,Non-Revenue Ticket, Vehilce" />
+        <meta name="google-site-verification" content="RusK92KlbFzEJFU3kDh4Jy1t5cMaLJZ97Z6El2W5hYs" />
+        <meta property="og:title" content="Tajeer Cares Rental Solution" />
+        <meta property="og:description" content="Car Rental Solution for rental business">
+        <meta property="og:image" content="~/assets/Images/Tajeer_Car_Rental_1.jpg"><!-- link to image for socio -->
+        <meta content="Car Rental Solution for Rental Agents and Companies" name="description">
+        <meta content="Car Rental Solution,tajeercare,car rental,taxi rental" name="keywords">
+        
 
-            #accordion > h3:first-child {
-                margin-top: 0;
-            }
-        .ui-accordion-header-icon.ui-icon.ui-icon-minus {
-            height: 17px;
-            width: 16px;
-            background-color: rgb(231, 231, 231);
-        }
-        #circles-slider {
-            background-color: black;
-        }
-
-        input[type='button'] {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body class="page page-two-column">
+        <title>@Session["siteName"] | Select The Car You Want</title>
+        <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="~/Content/css/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="~/Content/css/jquery.slider.min.css" />
+        <link href="~/Content/css/jquery-Slider.css" rel="stylesheet" />
+        <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+    </head>
+    <body class="page page-two-column">
     <div id="conteiner">
         <div id="branding">
             <div id="branding-content">
@@ -58,7 +47,6 @@
                         <div class="language">
                             <select class="select" name="select_language">
                                 <option selected="selected">English</option>
-                                @*<option selected="selected">Arabic</option>*@
                             </select>
                         </div>
                     </div>
@@ -92,8 +80,6 @@
             <form class="main-form">
                 <div>
                     <div id="book_car" class="title-form current">
-                        @*<img src="~/Images/images/search.png" alt="" />*@
-                        @*Search for a car:*@
                     </div>
                     <div id="book_car_content" class="content-form ">
 
@@ -110,14 +96,11 @@
                         <div class="form-block drop-off" style=" margin-left: 8px;">
                             <h4 style=" height: 18px;">Drop-off Location</h4>
                             <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
-                            @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                         </div>
                         <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
                             <h4>Drop-off date</h4>
                             <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
-                            @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                         </div>
-
                     </div>
                 </div>
             </form>
@@ -131,7 +114,6 @@
                         <form>
 
                             <div id="vehicleSelectorContainer" class="row">
-                                @* Vehicle Slider *@
                                 @foreach (WebApiParentHireGroupsApiResponse x in ViewBag.HGDetail)
                                 {
                                     ++vehicleSlideCounter;
@@ -150,9 +132,7 @@
                                                         @x.Description
                                                     </p>
                                                 </div>
-                                                
                                                 <div>
-                                                    
                                                     <button  id="showClassBtn" class="@(x.SubHireGroups.Count == 0 ? "disabled" : "blue_button")">
                                                         View Cars <span class="badge">@x.SubHireGroups.Count</span>
                                                     </button>
@@ -200,10 +180,13 @@
                                                                 <div class="col-sm-4 col-lg-4" style="width: 30%; float: left;">
                                                                     <div class="product-info">
                                                                         <h3 class="entry-format" title="">  <span title="Hire Group">@item.HireGroupName</span> | <span title="Vehicle Categoty"> @obj.VehicleCategory</span></h3>
-                                                                        <div class="features" style="margin-bottom: 12px;">
-                                                                            <p title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@obj.VehicleMake</span></p>
-                                                                            <p title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@obj.VehicleModel</span> </p>
-                                                                            <p title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                        <div class="features" style="margin-bottom: 12px; width: 265px;">
+                                                                            <p title="Vehicle Maker" style="width: 49%; display: inline-block;"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@obj.VehicleMake</span></p>
+                                                                            <p title="No.of Passengers" style="width: 45%; display: inline-block;"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 23px;" /><span>@obj.NoOfPassengers</span></p>
+                                                                            <p title="Vehicle Model" style="width: 49%; display: inline-block;"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@obj.VehicleModel</span> </p>
+                                                                            <p title="No. of Suitcases" style="width: 45%; display: inline-block;"><img src="~/Images/Suitcase.png" alt="" style="    height: 20px; width: 23px;" /><span>@obj.TrunckCapacity</span></p>
+                                                                            <p title="Vehicle Model-Year" style="width: 49%; display: inline-block;"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@obj.ModelYear</span> </p>
+                                                                            <p title="No. of Doors" style="width: 45%; display: inline-block;"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 23px;" /><span >@obj.NoOfDoors</span></p>
                                                                         </div>
 
                                                                     </div>
@@ -216,6 +199,7 @@
                                                                         <span style="margin-left: -4px; font-size: 23px;" id=@("TotalC_" + obj.HireGroupDetailId)> </span>
                                                                         <span style="font-size: 12px;" id=@("perdaycost_" + obj.HireGroupDetailId)></span>
                                                                     </div>
+                                                                    <p title="No. of Airbag" style="width: 45%; display: inline-block;"><img src="~/Images/Airbag.png" alt="" style="    height: 20px; width: 23px;" /><span style="margin-left: 7px;">@obj.NoOfAirBags</span></p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-lg-4" style="font-family: inherit; margin-top: 9px;  font-style: italic;">
                                                                     <p style=" clear: both;">
@@ -227,11 +211,10 @@
                                                                     </p>
                                                                 </div>
                                                             </div>
-
                                                                         count++;
                                                         }
-                                                                                                            <!-- HG Det Loop-->
-                                                                                                        }
+<!-- HG Det Loop-->
+}
                                                     else
                                                     {
                                                         <center>
@@ -289,8 +272,6 @@
     <script>
 
         $(document).ready(function () {
-            
-
             $("#bookingDuration").pulsate({ 
                 color: "#EF7C37",
                 reach: 50,
@@ -403,7 +384,17 @@
             });
         };
     </script>
-    <style>
-    </style>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-70262037-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
 </body>
 </html>
