@@ -62,6 +62,7 @@ namespace APIInterface.Controllers
                     errorMessage = errorMessage.Replace("Name ", "Email ");
                     errorMessage = errorMessage.Replace("taken", "registered with us");
                     ModelState.AddModelError("", errorMessage);
+                    ViewBag.signupError = true;
                 }
                 else if (registerUserResponse.Contains("Runtime Error"))
                 {
@@ -70,6 +71,7 @@ namespace APIInterface.Controllers
                     // ModelState.AddModelError("", "This is response"+registerUserResponse); //ApiResources.registerUserError
                 }
             }
+            ViewBag.signupError = true;
             model = new RegisterViewModel { CountryList = CountryList.Countries.ToList() };
             return View(model);
         }
