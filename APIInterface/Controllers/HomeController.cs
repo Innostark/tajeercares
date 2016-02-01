@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using APIInterface.Models;
@@ -216,6 +217,12 @@ namespace APIInterface.Controllers
                 Credentials = new NetworkCredential(fromAddress, fromPwd)
             };
             client.Send(oEmail);
+        }
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            Session["Culture"] = new CultureInfo(lang);
+            return RedirectToAction("Index");
         }
         #endregion
     }

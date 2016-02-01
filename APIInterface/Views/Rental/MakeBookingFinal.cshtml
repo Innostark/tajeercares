@@ -12,6 +12,7 @@
     <title>Thank You! | @Session["CompanyShortName"] </title>
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         th {
             background: rgba(204, 204, 204, 0.43);
@@ -143,19 +144,19 @@
             </tr>
         </tbody>
     </table>
-
 </div>
+<p><a id="BackToIndex" style=" margin-left: 281px; border: inset; color: white; background-color: #009900; font-weight: 700; border-color: #E9E9E9; margin-top: 10px;" class="btn btn-theme btn-theme-dark" href="~/Home/Index">Back to Home</a></p>
 
 <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
 <script src="~/Scripts/toastr.js"></script>
 
 <script>
-    
-    $(document).ready(function () {
+
+    $(document).ready(function() {
         toastr.success("Booking successfully done!");
-        setTimeout(
-            function() {
-                window.location.href = "MoveToIndex";
-            }, 14000);
+        $("#BackToIndex").click(function() {
+            window.location.href = "MoveToIndex";
+        });
+
     });
 </script>

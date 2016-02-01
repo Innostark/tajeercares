@@ -333,3 +333,7 @@ input.backtoVehicleSliderBtn.blue_button:hover {
     width: 153px;
     margin-top: -18px
    }
+
+    .lang {
+            cursor: pointer
+        }

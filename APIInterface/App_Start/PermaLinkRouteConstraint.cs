@@ -32,6 +32,27 @@ namespace APIInterface.App_Start
                return false;
            }
 
+           if ((parms.Count() == 1 && parms[0] == "ChangeCulture") || (parms.Count() == 2 && parms[1] == "ChangeCulture" && parms[0]=="Home"))
+           {
+               values["controller"] = "Home";
+               values["action"] = "ChangeCulture";
+               values["customRoute"] = "";
+               return false;
+           }
+           if ( parms.Count() == 2 &&  parms[0] == "Rental" &&parms[1] == "ChangeCulture")
+           {
+               values["controller"] = "Rental";
+               values["action"] = "ChangeCulture";
+               values["customRoute"] = "";
+               return false;
+           }
+           if (parms.Count() == 3 && parms[1] == "Rental" && parms[2] == "ChangeCulture")
+           {
+           //    values["controller"] = "Rental";
+            //   values["action"] = "ChangeCulture";
+          //     values["customRoute"] = parms[0];
+               return false;
+           }
            if (parms[0] == "ErrorHandler" )
            {
                values["controller"] = "ErrorHandler";

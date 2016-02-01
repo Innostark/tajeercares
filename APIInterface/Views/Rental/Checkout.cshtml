@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head prefix="og: http://ogp.me/ns#">
+<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()" >
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Car Rental Solution,TajeerCare,Car Rental,Taxi Rental, Rental Software, Rent a Car, Cares,Innostark, Online Booking, Rental Agreements,Non-Revenue Ticket, Vehilce" />
     <meta name="google-site-verification" content="RusK92KlbFzEJFU3kDh4Jy1t5cMaLJZ97Z6El2W5hYs" />
@@ -14,7 +14,7 @@
     <meta content="Car Rental Solution for Rental Agents and Companies" name="description">
     <meta content="Car Rental Solution,tajeercare,car rental,taxi rental" name="keywords">
 
-    <title>@Session["siteName"] | Make your booking done!</title>
+    <title>@Session["siteName"] | @APIInterface.Resources.CheckoutResource.Makeyourbooking!</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,9 +24,9 @@
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <style>
-
     </style>
 </head>
+
 <body class="page page-two-column no-main-form">
     <div id="conteiner">
         <div id="branding">
@@ -43,10 +43,16 @@
                 <div class="menus-content">
                     <div class="menus">
                         <div class="language">
-                            <select class="select" name="select_language">
-                                <option selected="selected">English</option>
-                                @*<option selected="selected">Arabic</option>*@
-                            </select>
+                            @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                            {
+                                <a class="lang" id="en" href="#" style="font-weight: 700; color: red; margin-left: 198px;">English</a>
+                                <a class="lang" id="ar" href="#" style="margin-left: 12px; color: #000000;">عربي</a>
+                            }
+                            else
+                            {
+                                <a class="lang" id="en" href="#" style="margin-left: 198px; color: #000000;">English</a>
+                                <a class="lang" id="ar" href="#" style="margin-left: 12px; font-weight: 700; color: red;">عربي</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -57,19 +63,19 @@
             <div id="progress-bar-steps">
                 <a title="Create new reservation" id="startingForm" class="progress-bar-step done" href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'>
                     <div class="step_number">1</div>
-                    <div class="step_name">Create request</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.SelectTheCar</div>
                 </a>
                 <div class="progress-bar-step done">
                     <div class="step_number">2</div>
-                    <div class="step_name">Choose a car</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.Choosecar</div>
                 </div>
                 <div class="progress-bar-step done">
                     <div class="step_number">3</div>
-                    <div class="step_name">Choose extras</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.Chooseextras</div>
                 </div>
-                <div class="progress-bar-step last current">
+                <div class="progress-bar-step current">
                     <div class="step_number">4</div>
-                    <div class="step_name">Review &amp; Book</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.ReviewBook</div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -82,10 +88,10 @@
                     <div class="widget">
                         <h3 class="widget-title">
                             <img src="~/Images/images/order_info.png" alt="" />
-                            Order Info
+                            @APIInterface.Resources.SelectExtrasResource.OrderInfo
                         </h3>
                         <h4>
-                            Car
+                            @APIInterface.Resources.SelectExtrasResource.Car
                         </h4>
                         <div class="widget-content main-block product-widget-mini">
                             <div class="product-img">
@@ -100,25 +106,25 @@
                                     <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
-                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
-                                    <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="@APIInterface.Resources.SelectCarResource.VehicleMaker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="@APIInterface.Resources.SelectCarResource.VehicleModel"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
+                                    <span title="@APIInterface.Resources.SelectCarResource.VehicleModelYear"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
                                     <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.FormatedStandardRate</span>  </span>
-                                    
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="No.of Passengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
-                                    <span style="display: inline-block; width: 93px; word-break: break-word; " title="No. of Suitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="No. of Doors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
-                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="No. of Airbags"><img style="    height: 18px; width: 18px;" src="~/Images/Airbag.png" alt="" /><span>@hireGroup.NoOfAirBags</span></span>
+
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="@APIInterface.Resources.SelectCarResource.NoofPassengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
+                                    <span style="display: inline-block; width: 93px; word-break: break-word; " title="@APIInterface.Resources.SelectCarResource.NoofSuitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="@APIInterface.Resources.SelectCarResource.NoofDoors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="@APIInterface.Resources.SelectCarResource.NoofAirbag"><img style="    height: 18px; width: 18px;" src="~/Images/Airbag.png" alt="" /><span>@hireGroup.NoOfAirBags</span></span>
                                 </div>
 
                             </div>
                         </div>
                         <h4>
-                            Date &amp; Location
+                            @APIInterface.Resources.CheckoutResource.DateLocation
                             <a href="" title=""></a>
                         </h4>
                         <div class="widget-content widget-info">
-                            <span style="font-weight: bold; margin-left: 20px;">Pick-Up </span> <span style="font-weight: bold; margin-left: 93px;">Drop-Off </span>
+                            <span style="font-weight: bold; margin-left: 20px;">@APIInterface.Resources.RentalResource.PickUpLocation </span> <span style="font-weight: bold; margin-left: 40px;">@APIInterface.Resources.RentalResource.DropoffLocation </span>
                             <br />
                             <span style="margin-left: 20px;">@Session["pickupDate"]</span>
                             <span style="margin-left: 33px;">@Session["dropoffDate"]</span>
@@ -127,12 +133,12 @@
 
                             <div class="subtotal_content">
                                 <div class="subtotal">
-                                    Subtotal(SAR) : <span class="price">@(Model.FormatedSubTotal) </span>
+                                    @APIInterface.Resources.CheckoutResource.Subtotal : <span class="price">@(Model.FormatedSubTotal) </span>
                                 </div>
                             </div>
                         </div>
                         <h4>
-                            Extras
+                            @APIInterface.Resources.CheckoutResource.Extras
                             <a href="#" title=""></a>
                         </h4>
                         <div class="widget-content widget-extras">
@@ -146,7 +152,7 @@
 
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total(SAR): <span class="price">@Model.FormatedGrandTotal</span>
+                            @APIInterface.Resources.SelectExtrasResource.TotalSAR: <span class="price">@Model.FormatedGrandTotal</span>
                         </div>
                     </div>
                 </aside>
@@ -159,35 +165,35 @@
                             <div class="widget-title">
                                 <div>
                                     <img src="~/Images/images/list.png" alt="" />
-                                    Complete reservation form
+                                    @APIInterface.Resources.CheckoutResource.Completereservationform
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             @Html.AntiForgeryToken()
                             @*@Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })*@
-                            <h4>Personal information</h4>
+                            <h4>@APIInterface.Resources.CheckoutResource.PersonalInformation</h4>
                             <div class="widget-content">
                                 <div>
                                     <div>
 
-                                        @Html.LabelFor(m => m.CustomerType, new { @class = "",  })
+                                       <label>@APIInterface.Resources.CheckoutResource.CustomerType</label>
                                         @Html.RadioButtonFor(m => m.CustomerType, "Male", new {id="1", @checked = "checked", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 20px;height: 20px;" })
-                                        <label class="control-label" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">New</label>
+                                        <label class="control-label" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">@APIInterface.Resources.CheckoutResource.New</label>
                                         @Html.RadioButtonFor(m => m.CustomerType, "Female", new { id = "2", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 28px;height: 20px;" })
-                                        <label class="control-label" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">Registered</label>
+                                        <label class="control-label" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">@APIInterface.Resources.CheckoutResource.Registered</label>
                                     </div>
                                 </div>
                                 <br />
                                 <div class="form_element">
                                     <div>
-                                        @Html.LabelFor(m => m.FName, new { @class = "" })
+                                      <label>@APIInterface.Resources.CheckoutResource.FirstName</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", id="firstName", placeholder = "Enter your first name" })
                                 </div>
                                 <div class="form_element">
                                     <div>
-                                        @Html.LabelFor(m => m.LName, new { @class = "" })
+                                        <label>@APIInterface.Resources.CheckoutResource.LastName</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", id="lName",placeholder = "Enter your last name" })
@@ -196,14 +202,14 @@
                                 <div class="clear"></div>
                                 <div class="form_element">
                                     <div>
-                                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "" })
+                                        <label>@APIInterface.Resources.CheckoutResource.PhoneNumber</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", id="pNumber",placeholder = "Enter your Phone Number" })
                                 </div>
                                 <div class="form_element">
                                     <div>
-                                        @Html.LabelFor(m => m.Email, new { @class = "" })
+                                        <label>@APIInterface.Resources.CheckoutResource.Email</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control validateMandatory", id = "emailToCustomer", placeholder = "Enter your email address" })
@@ -211,11 +217,11 @@
                                 <div class="clear"></div>
 
                                 <div class="form_element">
-                                    <div>@Html.LabelFor(m => m.BillingAddress, new { @class = "" }) </div>
+                                    <div><label>@APIInterface.Resources.CheckoutResource.BillingAddress</label> </div>
                                     @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", id="address", placeholder = "Enter your billing address" })
                                 </div>
                                 <div class="form_element form-block pick-up" style=" margin-left: 10px; margin-top: 12px;">
-                                    <h4>Date of Birth</h4>
+                                    <h4>@APIInterface.Resources.CheckoutResource.DateBirth</h4>
                                     <input style="padding-left: 36px; background: #F9F9F9 url(../../Images/images/calendar.png) no-repeat left center; margin: 0 0 0 -1px; width: 75%; " type="text" id="dob_value" value="" name="data_from" />
                                 </div>
                                 <div class="clear"></div>
@@ -223,16 +229,16 @@
                                 @Html.HiddenFor(x => x.CustomerTypeHidden)
                                 @Html.HiddenFor(x => x.IsPostBack, new { Value = Model.IsPostBack })
                             </div>
-                            <div style="float: right; margin-right: 12px; margin-bottom: 12px;">
-                                <input class="continue_button blue_button" type="submit" value="Book Now" />
-                                <input id="cancelRes" type="button" class="blue_button" value="Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 5px; padding-left: 7px; " />
+                            <div style="float: right; margin-right: 1px; margin-bottom: 1px; width: 59%;">
+                                <input style="width: 27%; padding-left: 12px; margin-left: 2px;"class="blue_button" type="submit" value="@APIInterface.Resources.CheckoutResource.BookNow" />
+                                <input id="cancelRes" type="button" class="blue_button" value="@APIInterface.Resources.CheckoutResource.Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 1px; padding-left: 7px; " />
                             </div>
-                            <h4>Note</h4>
+                            <h4>@APIInterface.Resources.CheckoutResource.Note</h4>
                             <div class="widget-content widget-note">
-                                <h4>Upon completing this reservation, you will receive:</h4>
+                                <h4>@APIInterface.Resources.CheckoutResource.Uponcompleting:</h4>
                                 <ul>
-                                    <li>Your rental voucher to produce on arrival at the rental desk</li>
-                                    <li>A toll-free customer support number</li>
+                                    <li>@APIInterface.Resources.CheckoutResource.Yourrentalvoucher</li>
+                                    <li>@APIInterface.Resources.CheckoutResource.Atollfree</li>
                                 </ul>
                             </div>
                         </div>
@@ -265,6 +271,13 @@
     <script>
 
         $(document).ready(function () {
+            
+
+            $(".lang").click(function () {
+                var lang = $(this).attr('id');
+                window.location.href = "../../Rental/ChangeCulture?lang=" + lang;
+            });
+
             IntitCheckout();
             // Cancel Booking Handler
             $("#cancelRes").click(function () {

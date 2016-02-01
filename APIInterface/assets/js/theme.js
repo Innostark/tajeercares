@@ -1130,11 +1130,14 @@ function updater() {
     var szFormat = 'MM/DD/YYYY';
     $('#formSearchUpDate').datetimepicker(
     {
-        format: szFormat
+       // timepicker: false,
+        format: szFormat,
+        //language: 'en'
             
         });
     $('#formSearchOffDate').datetimepicker({
-        format: szFormat
+        format: szFormat,
+     //   language: 'ar'
 
     });
 

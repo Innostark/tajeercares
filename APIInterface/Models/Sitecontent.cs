@@ -243,5 +243,12 @@ namespace APIInterface.Models
         //        Banner3Bytes = Convert.FromBase64String(value.Substring(index + 7));
         //    }
         //}
+
+
+        public string CompanyDisplayNameAr { get; set; }
+        public string SloganAr { get; set; }
+        public string ServiceContentsAr { get; set; }
+        public string AboutusContentsAr { get; set; }
+        public string AddressAr { get; set; }
     }
 }

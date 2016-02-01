@@ -7,7 +7,7 @@
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head prefix="og: http://ogp.me/ns#">
+<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()" dir="@(APIInterface.Helper.CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Car Rental Solution,TajeerCare,Car Rental,Taxi Rental, Rental Software, Rent a Car, Cares,Innostark, Online Booking, Rental Agreements,Non-Revenue Ticket, Vehilce" />
     <meta name="google-site-verification" content="RusK92KlbFzEJFU3kDh4Jy1t5cMaLJZ97Z6El2W5hYs" />
@@ -17,7 +17,7 @@
     <meta content="Car Rental Solution for Rental Agents and Companies" name="description">
     <meta content="Car Rental Solution,tajeercare,car rental,taxi rental" name="keywords">
 
-    <title>@Session["siteName"] | Extras</title>
+    <title>@Session["siteName"] | @APIInterface.Resources.SelectExtrasResource.SelectExtras</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/images/favicon.ico" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,10 +46,16 @@
                 <div class="menus-content">
                     <div class="menus">
                         <div class="language">
-                            <select class="select" name="select_language">
-                                <option selected="selected">English</option>
-                                @*<option selected="selected">Arabic</option>*@
-                            </select>
+                            @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                            {
+                                <a class="lang" id="en" href="#" style="font-weight: 700; color: red; margin-left: 198px;">English</a>
+                                <a class="lang" id="ar" href="#" style="margin-left: 12px; color: #000000;">عربي</a>
+                            }
+                            else
+                            {
+                                <a class="lang" id="en" href="#" style="margin-left: 198px; color: #000000;">English</a>
+                                <a class="lang" id="ar" href="#" style="margin-left: 12px; font-weight: 700; color: red;">عربي</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -60,19 +66,19 @@
             <div id="progress-bar-steps">
                 <div class="progress-bar-step done">
                     <div class="step_number">1</div>
-                    <div class="step_name">Create request</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.SelectTheCar</div>
                 </div>
                 <div class="progress-bar-step done">
                     <div class="step_number">2</div>
-                    <div class="step_name">Choose a car</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.Choosecar</div>
                 </div>
                 <div class="progress-bar-step current">
                     <div class="step_number">3</div>
-                    <div class="step_name">Choose extras</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.Chooseextras</div>
                 </div>
                 <div class="progress-bar-step last">
                     <div class="step_number">4</div>
-                    <div class="step_name">Review &amp; Book</div>
+                    <div class="step_name">@APIInterface.Resources.SelectCarResource.ReviewBook</div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -85,25 +91,22 @@
                 </div>
                 <div id="book_car_content" class="content-form ">
                     <div class="location-block">
-                        <div class="form-block location">Pick-up Location</div>
+                        <div class="form-block location">@APIInterface.Resources.RentalResource.PickUpLocation</div>
                         <input class="location" disabled type="text" value='@Session["pickupName"]' placeholder="Enter airport, city or zip code" name="location" />
-                        <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> Update Reservation Date/Time</a>
-
+                        <a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'> @APIInterface.Resources.SelectCarResource.UpdateReservationDateTime</a>
                     </div>
                     <div class="form-block pick-up" style=" margin-left: 18px; width: 172px;">
-                        <h4>Pick-up date</h4>
+                        <h4>@APIInterface.Resources.RentalResource.PickUpDate</h4>
                         <input class="datepicker" disabled type="text" style="margin-bottom: 12px; width: 70%" name="data_from" value='@Session["pickupDate"]' />
-                        <span style=""><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
+                        <span id="bookingDuration" style="color: #EF7C37;"><span style="font-weight: 800;">Duration:</span> @Session["period"] </span>
                     </div>
                     <div class="form-block drop-off" style=" margin-left: 8px;">
-                        <h4 style=" height: 18px;">Drop-off Location</h4>
+                        <h4 style=" height: 18px;">@APIInterface.Resources.RentalResource.DropoffLocation</h4>
                         <input class="location" style="    padding-top: 0px;height: 41px;" disabled type="text" value='@Session["dropoffName"]' placeholder="Enter airport, city or zip code" name="return_location" />
-                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                     </div>
                     <div class="form-block drop-off" style=" margin-left: 29px; width: 171px;">
-                        <h4>Drop-off date</h4>
+                        <h4>@APIInterface.Resources.RentalResource.DropoffDate</h4>
                         <input disabled class="datepicker" type="text" style="width: 70%" value='@Session["dropoffDate"]' name="data_to" value="" />
-                        @*<input class="time-select" type="text" size="5"  name="time_to" />*@
                     </div>
 
                 </div>
@@ -115,11 +118,10 @@
                     <div class="widget">
                         <h3 class="widget-title">
                             <img src="~/Images/images/order_info.png" alt="" />
-                            Order Info
+                            @APIInterface.Resources.SelectExtrasResource.OrderInfo
                         </h3>
                         <h4>
-                            Car
-
+                            @APIInterface.Resources.SelectExtrasResource.Car
                         </h4>
                         <div class="widget-content main-block product-widget-mini">
                             <div class="product-img">
@@ -134,26 +136,26 @@
                                     <span>@hireGroup.VehicleCategory</span>
                                 </div>
                                 <div class="features">
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="Vehicle Maker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
-                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="Vehicle Model"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
-                                    <span title="Vehicle Model-Year"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="@APIInterface.Resources.SelectCarResource.VehicleMaker"><img src="~/Images/images/vehicleMaker.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.VehicleMake</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="@APIInterface.Resources.SelectCarResource.VehicleModel"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
+                                    <span title="@APIInterface.Resources.SelectCarResource.VehicleModelYear"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
                                     <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.FormatedStandardRate</span>  </span>
                                     
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="No.of Passengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
-                                    <span style="display: inline-block; width: 93px; word-break: break-word; " title="No. of Suitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
-                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="No. of Doors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
-                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="No. of Airbags"><img style="    height: 18px; width: 18px;" src="~/Images/Airbag.png" alt="" /><span>@hireGroup.NoOfAirBags</span></span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="@APIInterface.Resources.SelectCarResource.NoofPassengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
+                                    <span style="display: inline-block; width: 93px; word-break: break-word; " title="@APIInterface.Resources.SelectCarResource.NoofSuitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
+                                    <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="@APIInterface.Resources.SelectCarResource.NoofDoors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
+                                    <span style=" display: table-cell; width: 136px; word-break: break-word;" title="@APIInterface.Resources.SelectCarResource.NoofAirbag"><img style="    height: 18px; width: 18px;" src="~/Images/Airbag.png" alt="" /><span>@hireGroup.NoOfAirBags</span></span>
                                 </div>
 
                             </div>
                         </div>
 
-                        <h4 class="extras">Extras</h4>
+                        <h4 class="extras">@APIInterface.Resources.SelectExtrasResource.Extras</h4>
                         <div class="widget-content widget-extras" id="extras_Total_Sidebar">
-                            <p id="defaultItem">No Extra Item Added!</p>
+                            <p id="defaultItem">@APIInterface.Resources.SelectExtrasResource.NoExtraItemAdded!</p>
                         </div>
                         <div class="widget-footer widget-footer-total">
-                            Total (SAR): <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.FormatedStandardRate</span>
+                           @APIInterface.Resources.SelectExtrasResource.TotalSAR: <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.FormatedStandardRate</span>
                         </div>
                     </div>
                 </aside>
@@ -162,7 +164,7 @@
                         <div class="widget-title">
                             <div>
                                 <img src="~/Images/images/list.png" alt="" />
-                                Available Extras
+                                @APIInterface.Resources.SelectExtrasResource.AvailableExtras
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -190,7 +192,7 @@
                                                 </div>
                                                 <div class="additional-block">
                                                     <span id=@("currency_" + item.ServiceItemId) hidden="">SAR </span>
-                                                    <span id=@("rate_" + item.ServiceItemId)>(Select Item)</span>
+                                                    <span id=@("rate_" + item.ServiceItemId)>(@APIInterface.Resources.SelectExtrasResource.SelectItem)</span>
 
                                                 </div>
                                             </div>
@@ -211,7 +213,7 @@
                                                 <div class="main-block" style="margin-left: -223px;">
 
                                                     <div class="product-info">
-                                                        <p>No Extras available!</p>
+                                                        <p>@APIInterface.Resources.SelectExtrasResource.NoExtrasavailable!</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,7 +227,7 @@
                         <div class="widget-title">
                             <div>
                                 <img src="~/Images/images/list.png" alt="" />
-                                Available Insurances
+                                @APIInterface.Resources.SelectExtrasResource.AvailableInsurances
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -252,7 +254,7 @@
                                                 </div>
                                                 <div class="additional-block">
                                                     <span id=@("currency_" + item.InsuranceTypeId) hidden="">SAR</span>
-                                                    <span id=@("rate_" +item.InsuranceTypeId)>(Select Item)</span>
+                                                    <span id=@("rate_" +item.InsuranceTypeId)>(@APIInterface.Resources.SelectExtrasResource.SelectItem)</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,7 +274,7 @@
                                             <div class="main-block" style="margin-left: -223px;">
 
                                                 <div class="product-info">
-                                                    <p>No Insurances available!</p>
+                                                    <p>@APIInterface.Resources.SelectExtrasResource.NoInsurancesavailable!</p>
                                                 </div>
                                             </div>
 
@@ -293,7 +295,7 @@
                         <input type="hidden" name="ServiceItemsIds" id="ServiceItemsIds" value="shurmkro" />
                         <input type="hidden" name="InsurancesIds" id="InsurancesIds" value="shurmkro" />
                         <div class="next_page">
-                            <input id="done" type="submit" class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;" @*onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"*@ value="Checkout" />
+                            <input id="done" type="submit" class="continue_button blue_button" style="text-transform: uppercase; color: white; width: 173px;" @*onclick="location.href = '@Url.Action("Checkout", "Best/Rental")'"*@ value="@APIInterface.Resources.SelectExtrasResource.Checkout" />
                         </div>
                     }
 
@@ -321,6 +323,12 @@
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
     <script>
+
+
+        $(".lang").click(function () {
+            var lang = $(this).attr('id');
+            window.location.href = "../../Rental/ChangeCulture?lang=" + lang;
+        });
 
         // Gets rate For Insurance
         $(document).on('change', '.insurance', callInsurance);

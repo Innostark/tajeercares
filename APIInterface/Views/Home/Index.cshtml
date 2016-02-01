@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en" >
 <!-- Head BEGIN -->
-<head prefix="og: http://ogp.me/ns#">
+<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()" dir="@(APIInterface.Helper.CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
     <meta charset="utf-8">
     <title>CaReS ® - Comprehensive Car-Rental Solution</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -60,15 +60,27 @@
                 <!-- Navigation BEGIN -->
                 <div class="col-md-10 pull-right">
                     <ul class="header-navigation">
-                        <li class="current"><a href="#promo-block">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#benefits">Benefits</a></li>
-                        <li><a href="#overView">Overview</a></li>
-                        <li><a href="#sign_up">Signup</a></li>
-                        <li><a href="#contactMe">Request a Demo</a></li>
-                        <li><a href="http://testcares.azurewebsites.net/">Login</a></li>
-
+                        <li class="current"><a href="#promo-block">@APIInterface.Resources.HomeResource.MenuHome</a></li>
+                        <li><a href="#services">@APIInterface.Resources.HomeResource.MenuServices</a></li>
+                        <li><a href="#benefits">@APIInterface.Resources.HomeResource.MenuBenefits</a></li>
+                        <li><a href="#overView">@APIInterface.Resources.HomeResource.MenuOverview</a></li>
+                        <li><a href="#sign_up">@APIInterface.Resources.HomeResource.MenuSignup</a></li>
+                        <li><a href="#contactMe">@APIInterface.Resources.HomeResource.MenuRequestDemo</a></li>
+                        <li><a href="http://testcares.azurewebsites.net/">@APIInterface.Resources.HomeResource.MenuLogin</a></li>
+                        
+                        @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                        {
+                            <li class="lang" id="en"><a href="#" style="font-weight: 700; color: red;">English</a></li>
+                            <li class="lang" id="ar"><a href="#">عربي</a></li>
+                        }
+                        else
+                        {
+                             <li class="lang" id="en"><a href="#">English</a></li>
+                             <li class="lang" id="ar"><a href="#" style="font-weight: 700; color: red;">عربي</a></li>
+                        }
+                       
                     </ul>
+                   
                 </div>
                 <!-- Navigation END -->
             </div>
@@ -106,7 +118,7 @@
                              >
                             <p>
                                 <a href="#sign_up" class="scroll" id="scrolltoRent">
-                                    <input type="button" id="div_2" value=" Start your Rental " class="btn btn-primary" />
+                                    <input type="button" id="div_2" value="@APIInterface.Resources.HomeResource.StartYourRental" class="btn btn-primary" />
                                 </a>
                             </p>
                         </div>
@@ -122,8 +134,8 @@
                              data-easing="Back.easeInOut"
                              data-endspeed="300">
                             <div class="promo-like-text">
-                                <h2><span id="div_3">Car-Rental</span> Solution</h2>
-                                <p>Start Managing your Fleet, Pricing and Customers.<br />Guaranteed increase in <a href="#benefits" >Revenue</a></p>
+                                <h2><span id="div_3">@APIInterface.Resources.HomeResource.CarRental</span> @APIInterface.Resources.HomeResource.Solution</h2>
+                                <p>@APIInterface.Resources.HomeResource.StartManaging.<br />@APIInterface.Resources.HomeResource.GuaranteedIncrease<a href="#benefits" > @APIInterface.Resources.HomeResource.Revenue</a></p>
                             </div>
                         </div>
                     </li>
@@ -135,13 +147,13 @@
     <!-- Services block BEGIN -->
     <div class="services-block content content-center vehicle-fleet" id="services" >
         <div class="container">
-            <h2>Our <strong>services</strong></h2>
-            <h4>Enjoy doing business with us!</h4>
+            <h2>@APIInterface.Resources.HomeResource.Our <strong>@APIInterface.Resources.HomeResource.MenuServices</strong></h2>
+            <h4>@APIInterface.Resources.HomeResource.EnjoyDoing</h4>
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 item">
                     <i class="fa fa-wrench"></i>
-                    <h3>Fantastic Support</h3>
-                    <p>Our dedicated team provides quick response ready to help you at no additional charge.</p>
+                    <h3>@APIInterface.Resources.HomeResource.FantasticSupport</h3>
+                    <p>@APIInterface.Resources.HomeResource.Ourdedicatedteam</p>
                 </div>
                 @*<div class="col-md-3 col-sm-3 col-xs-12 item">
                     <i class="fa fa-money"></i>
@@ -150,18 +162,18 @@
                 </div>*@
                 <div class="col-md-3 col-sm-3 col-xs-12 item">
                     <i class="fa fa-mobile"></i>
-                    <h3>Mobile App</h3>
-                    <p>Mobile platform provides an opportunity to reach a large number of people and mark your valuable presence.</p>
+                    <h3>@APIInterface.Resources.HomeResource.MobileApp</h3>
+                    <p>@APIInterface.Resources.HomeResource.Mobileplatform</p>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 item">
                     <i class="fa fa-signal"></i>
-                    <h3>Dashboard Management</h3>
-                    <p>Daily reports & dashboard features provide instant analysis of your daily features.</p>
+                    <h3>@APIInterface.Resources.HomeResource.DashboardManagement</h3>
+                    <p>@APIInterface.Resources.HomeResource.Dailyreports</p>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 item">
                     <i class="fa fa-list-alt"></i>
-                    <h3>Online Reservation</h3>
-                    <p>System allows third party partner web-sites to get available vehicles & costing information.</p>
+                    <h3>@APIInterface.Resources.HomeResource.OnlineReservation</h3>
+                    <p>@APIInterface.Resources.HomeResource.Systemallows</p>
                 </div>
             </div>
         </div>
@@ -170,8 +182,8 @@
     <!-- Choose us block BEGIN -->
     <div class="choose-us-block content text-center margin-bottom-40" id="benefits">
         <div class="container">
-            <h2>Why to <strong>choose us</strong></h2>
-            <h4><a href="https://testcares.azurewebsites.net">CaReS ®</a> is a scalable application suite which is designed by highly qualified staff with decades of experience in car rental industry. It gives its customers, a privilege to customize pricing, define rates based on vehicles classification, define packages, create and configure branches. </h4>
+            <h2>@APIInterface.Resources.HomeResource.Whyto <strong>@APIInterface.Resources.HomeResource.ChooseUs</strong></h2>
+            <h4><a href="https://testcares.azurewebsites.net">CaReS ®</a> @APIInterface.Resources.HomeResource.isScalable </h4>
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12 text-left">
                     <ul class="bxslider">
@@ -187,17 +199,17 @@
                         <div class="panel panel-default" id="targetDiv">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a id="tempp" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">Key Performance Indicators</a>
+                                    <a id="tempp" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">@APIInterface.Resources.HomeResource.KeyPerformanceIndicators</a>
                                 </h5>
                             </div>
                             <div id="accordion1_1" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>Utilization rates (On road, Off road - Time analysis)</li>
-                                        <li>Non-Revenue, KM analysis</li>
-                                        <li>Action List - Cars overdue & un-paid cases</li>
-                                        <li>Customer Profitability Analysis (CPA)</li>
-                                        <li>Sales analysis, Gross Profits, Profit and Loss</li>
+                                        <li>@APIInterface.Resources.HomeResource.UtilizationRates</li>
+                                        <li>@APIInterface.Resources.HomeResource.NonRevenue</li>
+                                        <li>@APIInterface.Resources.HomeResource.ActionList</li>
+                                        <li>@APIInterface.Resources.HomeResource.CustomerProfitability</li>
+                                        <li>@APIInterface.Resources.HomeResource.SalesAnalysis</li>
                                     </ul>
                                 </div>
                             </div>
@@ -205,16 +217,16 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_2">Main Features</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_2">@APIInterface.Resources.HomeResource.MainFeatures</a>
                                 </h5>
                             </div>
                             <div id="accordion1_2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>Rental Agreements</li>
-                                        <li>Booking/Reservations</li>
-                                        <li>Non-Revenue Ticket</li>
-                                        <li>Pricing Control</li>
+                                        <li>@APIInterface.Resources.HomeResource.RentalAgreements</li>
+                                        <li>@APIInterface.Resources.HomeResource.BookingReservations</li>
+                                        <li>@APIInterface.Resources.HomeResource.NonRevenue </li>
+                                        <li>@APIInterface.Resources.HomeResource.PricingControl</li>
                                     </ul>
                                 </div>
                             </div>
@@ -222,19 +234,19 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_3">All Business Controls (ABC's)</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_3">@APIInterface.Resources.HomeResource.AllBusinessC</a>
                                 </h5>
                             </div>
                             <div id="accordion1_3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>Special Permissions on Back Dated Rental Agreement Closing</li>
-                                        <li>Restricted forward date Rental Agreement Opening</li>
-                                        <li>No trespassing of Mileage</li>
-                                        <li>Flexible Customer Age Policies</li>
-                                        <li>Risk Analysis</li>
-                                        <li>24/7 Vehicle Movement details</li>
-                                        <li>Management controlled up-gradation policies</li>
+                                        <li>@APIInterface.Resources.HomeResource.SpecialPermissions</li>
+                                        <li>@APIInterface.Resources.HomeResource.RestrictedFor</li>
+                                        <li>@APIInterface.Resources.HomeResource.NotrespassingofMileage</li>
+                                        <li>@APIInterface.Resources.HomeResource.FlexibleCustomer</li>
+                                        <li>@APIInterface.Resources.HomeResource.RiskAnalysis</li>
+                                        <li>@APIInterface.Resources.HomeResource.VehicleMov</li>
+                                        <li>@APIInterface.Resources.HomeResource.Managementcontrolled</li>
                                     </ul>
                                 </div>
                             </div>
@@ -242,17 +254,17 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_4">Rental Agreements</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_4">@APIInterface.Resources.HomeResource.RentalAgreements</a>
                                 </h5>
                             </div>
                             <div id="accordion1_4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>Allocation of a vehicle</li>
-                                        <li>Vehicle Up-gradation & replacement</li>
-                                        <li>Tracking of vehicle’s movement & its condition</li>
-                                        <li>Chauffeurs, Insurances & Services selection</li>
-                                        <li>Automated Pricing & discounts</li>
+                                        <li>@APIInterface.Resources.HomeResource.Allocationof</li>
+                                        <li>@APIInterface.Resources.HomeResource.VehicleUp</li>
+                                        <li>@APIInterface.Resources.HomeResource.Trackingof</li>
+                                        <li>@APIInterface.Resources.HomeResource.ChauffeursInsurances</li>
+                                        <li>@APIInterface.Resources.HomeResource.AutomatedPricing</li>
                                     </ul>
                                 </div>
                             </div>
@@ -260,17 +272,17 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_5">Non-Revenue Tickets</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_5">@APIInterface.Resources.HomeResource.NonRevenue</a>
                                 </h5>
                             </div>
                             <div id="accordion1_5" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>Inter Branch Transfers</li>
-                                        <li>Fuel Filling</li>
-                                        <li>Periodic Maintenance</li>
-                                        <li>Motor Vehicle Periodic Inspection</li>
-                                        <li>Vehicle Grant to Management</li>
+                                        <li>@APIInterface.Resources.HomeResource.InterBranch</li>
+                                        <li>@APIInterface.Resources.HomeResource.FuelFilling</li>
+                                        <li>@APIInterface.Resources.HomeResource.PeriodicMaintenance</li>
+                                        <li>@APIInterface.Resources.HomeResource.MotorVehicle</li>
+                                        <li>@APIInterface.Resources.HomeResource.VehicleGrant</li>
                                     </ul>
                                 </div>
                             </div>
@@ -317,7 +329,7 @@
     <!-- OVERVIEW BEGIN -->
     <div class="prices-block content content-center" id="overView" >
         <div class="container">
-            <h2 class="">Overview</h2>
+            <h2 class="">@APIInterface.Resources.HomeResource.MenuOverview</h2>
             <div class="row">
                 <!-- Pricing item BEGIN -->
                 <div class="col-md-12 col-sm-6 col-xs-12">
@@ -339,13 +351,13 @@
     <!--SignUP block BEGIN-->
     <div class="prices-block content content-center" id="sign_up"  >
         <div class="container">
-            <h2><strong>User</strong> Registration</h2>
+            <h2><strong>@APIInterface.Resources.HomeResource.User</strong> @APIInterface.Resources.HomeResource.Register </h2>
             <div class="row">
                 <!-- Pricing item BEGIN -->
                 <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="pricing-item">
                         <div class="pricing-head">
-                            <h3>Please Fill the Form</h3>
+                            <h3>@APIInterface.Resources.HomeResource.PleaseFill</h3>
                         </div>
                         <div class="pricing-content">
                             @model APIInterface.Models.RegisterViewModel
@@ -363,43 +375,43 @@
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary("", new { @class = "text-danger validation-summary-custom" })
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.Email</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control signUpFonts", id = "emailRegs" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.Password</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "passRegs" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.ReTypePass</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.PhoneNumber</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">&nbsp;</label>
                                     <div class="col-md-9">
                                         @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control signUpFonts", id = "phoneNumber" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label signUpFonts" })
-                                    <label class="col-md-1 control-label validationAsterikLabel">*</label>
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.CompanyName</label>
+           <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control signUpFonts", id = "cmpNameRegs" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ShortUrl, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.CompanyShortURL</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-7">
                                         @Html.TextBoxFor(m => m.ShortUrl, new { @class = "form-control signUpFonts", id = "cmpUrl", placeholder = "http://www.TajeerCare.com/yourCompanyURL" })
@@ -411,21 +423,21 @@
                                 </div>
 
                                 <div class="form-group"id="div_4">
-                                    @Html.LabelFor(dropdown => dropdown.CountryName, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.Country</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.DropDownListFor(dropdown => dropdown.CountryName, new SelectList(Model.CountryList), "--Select Country--", new { @class = "form-control signUpFonts" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(dropdown => dropdown.AccountType, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.AccountType</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.DropDownListFor(dropdown => dropdown.AccountType, new SelectList(accountTypes, "Value", "Text", 1), "--Select Account Type--", new { @class = "form-control signUpFonts" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.CompanyAddress, new { @class = "col-md-2 control-label signUpFonts" })
+                                    <label class="col-md-2 control-label signUpFonts">@APIInterface.Resources.HomeResource.Address</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <div class="col-md-9">
                                         @Html.TextAreaFor(m => m.CompanyAddress, new { @class = "form-control signUpFonts", id = "addressRegs" })
@@ -435,7 +447,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label validationAsterikLabel">&nbsp;</label>
                                     <div class="pricing-footer col-md-9">
-                                        <button type="submit" disabled class="btn btn-default signUpFonts" id="registraionButton">Register</button>
+                                        <button type="submit" disabled class="btn btn-default signUpFonts" id="registraionButton">@APIInterface.Resources.HomeResource.Register</button>
                                     </div>
                                 </div>
                             }
@@ -455,51 +467,50 @@
                 <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="pricing-item">
                         <div class="pricing-head">
-                            <h3>Request a Demo</h3>
+                            <h3>@APIInterface.Resources.HomeResource.MenuRequestDemo</h3>
                         </div>
                         <div class="pricing-content">
                             <div class="col-md-9 col-sm-9">
                                 <!-- BEGIN FORM-->
 
                                 <div class="form-group">
-                                    <label id="L1" class="signUpFonts" for="name">Name</label>
+                                    <label id="L1" class="signUpFonts" for="name">@APIInterface.Resources.HomeResource.Name</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="text" class="form-control signUpFonts" id="name">
                                 </div>
                                 <div class="form-group">
-                                    <label id="L2" class="signUpFonts" for="email">Company</label>
+                                    <label id="L2" class="signUpFonts" for="email">@APIInterface.Resources.HomeResource.Company</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="email" class="form-control signUpFonts" id="cmp">
                                 </div>
                                 <div class="form-group">
-                                    <label id="L3" class="signUpFonts" for="email">Email</label>
+                                    <label id="L3" class="signUpFonts" for="email">@APIInterface.Resources.HomeResource.Email</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="email" class="form-control signUpFonts" id="email">
                                 </div>
                                 <div class="form-group">
-                                    <label id="L4" class="signUpFonts" for="email">Phone</label>
+                                    <label id="L4" class="signUpFonts" for="email">@APIInterface.Resources.HomeResource.PhoneNumber</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <input type="email" class="form-control signUpFonts" id="phn">
                                 </div>
                                 <div class="form-group">
-                                    <label id="L5" class="signUpFonts" for="body">Message</label>
+                                    <label id="L5" class="signUpFonts" for="body">@APIInterface.Resources.HomeResource.Message</label>
                                     <label class="col-md-1 control-label validationAsterikLabel">*</label>
                                     <textarea class="form-control signUpFonts" rows="5" id="body"></textarea>
                                 </div>
-                                <button id="contactUs" class="btn btn-primary"><i class="icon-ok"></i> Send</button>
-                                <!-- END FORM-->
+                                <button id="contactUs" class="btn btn-primary"><i class="icon-ok"></i> @APIInterface.Resources.HomeResource.Send</button>
+        <!-- END FORM-->
                             </div>
                             <div class="col-md-3 col-sm-3 sidebar2" >
-                                <h2 id="div_6" >Our Contacts</h2>
+                                <h2 id="div_6" >@APIInterface.Resources.HomeResource.OurContacts</h2>
                                 <address class="signUpFonts">
                                     <strong>InnoSTARK, Inc.</strong><br>
                                     19 - Guernsey Close<br>
                                     London, TW50PQ, UK<br>
                                 </address>
                                 <address class="signUpFonts">
-
-                                    39 May street,VIC<br>
-                                    Melbourne, 3025, Australlia<br>
+                                    54 Perennial Drive<br>
+                                    Truganina VIC. 3029, Australlia<br>
                                 </address>
                                 <address class="signUpFonts">
 
@@ -509,7 +520,7 @@
                                 </address>
 
                                 <address>
-                                    <strong>Email</strong><br>
+                                    <strong>@APIInterface.Resources.HomeResource.Email</strong><br>
                                     <a class="signUpFonts" href="mailto:info@innostark.com">info@innostark.com</a><br>
                                 </address>
                                 <ul class="social-icons margin-bottom-40">
@@ -581,6 +592,11 @@
     <script>
         var urlToServer;
         $(document).ready(function () {
+
+            $(".lang").click(function () {
+                var lang = $(this).attr('id');
+                window.location.href = "Home/ChangeCulture?lang="+lang;
+            });
 
             $('.bxslider').bxSlider({
                 minSlides: 2,
@@ -757,26 +773,7 @@
             return true;
         });
 
-        var text = $('.typewriter').text();
 
-        var length = text.length;
-        var timeOut;
-        var character = 0;
-
-
-        (function typeWriter() {
-            timeOut = setTimeout(function () {
-                character++;
-                var type = text.substring(0, character);
-                $('.typewriter').text(type);
-                typeWriter();
-
-                if (character == length) {
-                    clearTimeout(timeOut);
-                }
-
-            }, 250);
-        }());
 
     </script>
     <script>

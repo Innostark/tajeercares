@@ -41,5 +41,10 @@ namespace APIInterface.Models
         /// Hours Data for Reservation
         /// </summary>
         public IEnumerable<string> HoursList { get; set; }
+
+
+        public DateTime UtcPicktime { get; set; }
+
+        public DateTime UtcDropTime { get; set; }
     }
 }

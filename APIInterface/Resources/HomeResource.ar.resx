@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountType" xml:space="preserve">
+    <value>نوع الحساب</value>
+  </data>
+  <data name="ActionList" xml:space="preserve">
+    <value>قائمة العمل - سيارات الحالات المتأخرة و الامم المتحدة و المدفوع</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="AllBusinessC" xml:space="preserve">
+    <value>جميع الضوابط الأعمال ( ايه بي سي نيوز )</value>
+  </data>
+  <data name="Allocationof" xml:space="preserve">
+    <value>تخصيص سيارة</value>
+  </data>
+  <data name="AutomatedPricing" xml:space="preserve">
+    <value>التسعير الآلي و الخصومات</value>
+  </data>
+  <data name="BookingReservations" xml:space="preserve">
+    <value>الحجز </value>
+  </data>
+  <data name="CaReS" xml:space="preserve">
+    <value>العطاء</value>
+  </data>
+  <data name="CarRental" xml:space="preserve">
+    <value>تأجير السيارات</value>
+  </data>
+  <data name="ChauffeursInsurances" xml:space="preserve">
+    <value>السائقين ، التأمينات والخدمات اختيار</value>
+  </data>
+  <data name="ChooseUs" xml:space="preserve">
+    <value>اختر بنا</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="CompanyShortURL" xml:space="preserve">
+    <value>الشركة قصيرة URL</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>بلد</value>
+  </data>
+  <data name="CustomerProfitability" xml:space="preserve">
+    <value>تحليل الربحية العملاء (CPA )</value>
+  </data>
+  <data name="Dailyreports" xml:space="preserve">
+    <value>توفر التقارير اليومية و ملامح لوحة أجهزة القياس تحليل لحظة من الميزات اليومية.</value>
+  </data>
+  <data name="DashboardManagement" xml:space="preserve">
+    <value>إدارة لوحة القيادة</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="EnjoyDoing" xml:space="preserve">
+    <value>تتمتع التعامل معنا</value>
+  </data>
+  <data name="FantasticSupport" xml:space="preserve">
+    <value>دعم رائع</value>
+  </data>
+  <data name="FlexibleCustomer" xml:space="preserve">
+    <value>سياسات مرنة العمر العملاء</value>
+  </data>
+  <data name="FuelFilling" xml:space="preserve">
+    <value>تعبئة الوقود</value>
+  </data>
+  <data name="GuaranteedIncrease" xml:space="preserve">
+    <value>زيادة مضمونة في</value>
+  </data>
+  <data name="InterBranch" xml:space="preserve">
+    <value>نقل فرع المشترك</value>
+  </data>
+  <data name="isScalable" xml:space="preserve">
+    <value>هو مجموعة قابلة لل تطبيق والتي تم تصميمها من قبل الموظفين المؤهلين تأهيلا عاليا مع عقود من الخبرة في صناعة تأجير السيارات . فإنه يتيح لعملائه ، وهي ميزة لتخصيص التسعير ، وتحديد معدلات بناء على تصنيف المركبات و تحديد الحزم، و إنشاء وتكوين فروع .</value>
+  </data>
+  <data name="KeyPerformanceIndicators" xml:space="preserve">
+    <value>مؤشرات الأداء الرئيسية</value>
+  </data>
+  <data name="MainFeatures" xml:space="preserve">
+    <value>الميزات الرئيسية</value>
+  </data>
+  <data name="Managementcontrolled" xml:space="preserve">
+    <value>إدارة التحكم يصل تدرج السياسات</value>
+  </data>
+  <data name="MenuBenefits" xml:space="preserve">
+    <value>فوائد</value>
+    <comment>menu item</comment>
+  </data>
+  <data name="MenuHome" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+    <comment>menu item</comment>
+  </data>
+  <data name="MenuLogin" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+    <comment>menu item </comment>
+  </data>
+  <data name="MenuOverview" xml:space="preserve">
+    <value>نظرة عامة</value>
+    <comment>menu item</comment>
+  </data>
+  <data name="MenuRequestDemo" xml:space="preserve">
+    <value>طلب عرض توضيحي</value>
+    <comment>menu item </comment>
+  </data>
+  <data name="MenuServices" xml:space="preserve">
+    <value>الخدمات</value>
+    <comment>menu item</comment>
+  </data>
+  <data name="MenuSignup" xml:space="preserve">
+    <value>سجل</value>
+    <comment>menu item</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>رسالة</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>موبايل التطبيق</value>
+  </data>
+  <data name="Mobileplatform" xml:space="preserve">
+    <value>وتوفر منصة متنقلة فرصة للوصول إلى عدد كبير من الناس و بمناسبة وجود الثمين.</value>
+  </data>
+  <data name="MotorVehicle" xml:space="preserve">
+    <value>محرك سيارة الدورية التفتيش</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>اسم</value>
+  </data>
+  <data name="NonRevenue" xml:space="preserve">
+    <value>غير الإيرادات ، تحليل KM</value>
+  </data>
+  <data name="NotrespassingofMileage" xml:space="preserve">
+    <value>لا التعدي على ممتلكات الغير من الأميال</value>
+  </data>
+  <data name="OnlineReservation" xml:space="preserve">
+    <value>الحجز عبر الإنترنت</value>
+  </data>
+  <data name="Our" xml:space="preserve">
+    <value>لنا</value>
+  </data>
+  <data name="OurContacts" xml:space="preserve">
+    <value>المنسوبين</value>
+  </data>
+  <data name="Ourdedicatedteam" xml:space="preserve">
+    <value>يوفر دينا فريق متخصص استجابة سريعة استعداد لمساعدتك في أي رسوم إضافية .</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة السر</value>
+  </data>
+  <data name="PeriodicMaintenance" xml:space="preserve">
+    <value>الصيانة الدورية</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="PleaseFill" xml:space="preserve">
+    <value>يرجى ملء استمارة</value>
+  </data>
+  <data name="PricingControl" xml:space="preserve">
+    <value>مراقبة الأسعار</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="RentalAgreements" xml:space="preserve">
+    <value>اتفاقيات الإيجار</value>
+  </data>
+  <data name="RestrictedFor" xml:space="preserve">
+    <value>تقييد التاريخ إلى الأمام اتفاقية تأجير افتتاح</value>
+  </data>
+  <data name="ReTypePass" xml:space="preserve">
+    <value>إعادة كتابة كلمة المرور</value>
+  </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>دخل</value>
+  </data>
+  <data name="RiskAnalysis" xml:space="preserve">
+    <value>تحليل المخاطر</value>
+  </data>
+  <data name="SalesAnalysis" xml:space="preserve">
+    <value>تحليل المبيعات ، الأرباح الإجمالية ، الأرباح والخسائر</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>إرسال</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>حل</value>
+  </data>
+  <data name="SpecialPermissions" xml:space="preserve">
+    <value>ضوابط خاصة على العودة بتاريخ تأجير الإنتهاء الاتفاق</value>
+  </data>
+  <data name="StartManaging" xml:space="preserve">
+    <value>تبدأ إدارة أسطول الخاص بك ، التسعير و العملاء</value>
+  </data>
+  <data name="StartYourRental" xml:space="preserve">
+    <value>بدء الإيجار</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>غير إيرادات التذاكر</value>
+  </data>
+  <data name="Systemallows" xml:space="preserve">
+    <value>النظام يسمح شريك طرف ثالث المواقع على شبكة الإنترنت للحصول على المركبات المتاحة ومعلومات التكاليف.</value>
+  </data>
+  <data name="Trackingof" xml:space="preserve">
+    <value>تتبع حركة السيارة و حالتها</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>المستخدم</value>
+  </data>
+  <data name="UtilizationRates" xml:space="preserve">
+    <value>معدلات الاستخدام (على الطريق ، على الطرق الوعرة - الوقت تحليل )</value>
+  </data>
+  <data name="VehicleGrant" xml:space="preserve">
+    <value>منح السيارة للإدارة</value>
+  </data>
+  <data name="VehicleMov" xml:space="preserve">
+    <value>24/7 تفاصيل حركة المركبات</value>
+  </data>
+  <data name="VehicleUp" xml:space="preserve">
+    <value>السيارة يصل تدرج واستبدال</value>
+  </data>
+  <data name="Whyto" xml:space="preserve">
+    <value>لماذا ل</value>
+  </data>
+</root>

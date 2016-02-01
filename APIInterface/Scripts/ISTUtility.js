@@ -42,12 +42,15 @@ function ValidateReservationForm() {
         toastr.error("Set Drop-off Location!");
         return false;
     }
-
     var pickdate = new Date($("#formSearchUpDate").val());
+    var utcP = moment(pickdate).format("YYYY-MM-DDTHH:mm:ss") ;
+
     var   pk = new Date(pickdate.getFullYear(), pickdate.getMonth(), pickdate.getDate());
 
     var dropDate = new Date($("#formSearchOffDate").val());
     var dk = new Date(dropDate.getFullYear(), dropDate.getMonth(), dropDate.getDate());
+
+    var utcD = moment(dropDate).format("YYYY-MM-DDTHH:mm:ss") ;
 
     var date = new Date();
     var currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -65,6 +68,9 @@ function ValidateReservationForm() {
         toastr.error("Invalid Drop-off date!");
         return false;
     }
+    $('#UtcPicktime').val(utcP);
+    $('#UtcDropTime').val(utcD);
+
     return validateForm();
 }
 
@@ -457,8 +463,9 @@ function IntitCheckout() {
 function validateBookingForm(userType) {
     var pNum = $("#pNumber").inputmask('unmaskedvalue');
     $("#pNumber").val(pNum);
-    $("#DOB").val($("#dob_value").val());
-    $("#CustomerTypeHidden").val(userType);
+    var dobb = moment($("#dob_value").val()).format("YYYY-MM-DDTHH:mm:ss") + 'Z';
+    $("#DOB").val(dobb);
+    $("#CustomerTypeHidden").val(userType); // here
     if (DOBCheck()) {
         return validateForm();
     }

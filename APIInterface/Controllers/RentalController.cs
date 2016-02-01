@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.Globalization;
+using System.Threading;
 using APIInterface.Models;
 using APIInterface.Models.RequestModels;
 using APIInterface.Models.ResponseModels;
@@ -47,6 +49,12 @@ namespace APIInterface.Controllers
             {
                 model.BusinessPartnerId =  Convert.ToInt32(Session["BPId"].ToString());
             }
+            bool isArabic = Thread.CurrentThread.CurrentUICulture.Name == "ar";
+
+            if (isArabic)
+            {
+                ChnageToEn();
+            }
                 // New 
             model.UserInfo = new UserInfoModel
                 {
@@ -61,9 +69,14 @@ namespace APIInterface.Controllers
             model.DropOffLocationId = double.Parse(Session["dropoffId"].ToString());
             model.PickupOperationId = double.Parse(Session["pickupOperationId"].ToString());
 
-            model.PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString()));
+          
+            model.PickupDateTime = Convert.ToDateTime((Session["pickupDate"].ToString()));  //here
             model.DropoffDateTime = Convert.ToDateTime((Session["dropoffDate"].ToString()));
 
+            if (isArabic)
+            {
+                ChnageToAr();
+            }
             model.HireGroupDetailId = double.Parse(Session["HireGroupDetailId"].ToString());
             model.DropOffCharges = double.Parse(Session["DropOffCharges"].ToString());
 
@@ -165,14 +178,15 @@ namespace APIInterface.Controllers
            
             string[] parms=  model.ReservationForm.PickupHours.Split(':');
             var span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
-             model.ReservationForm.PickupDateTime = model.ReservationForm.PickupDateTime+span;
-             Session["pickupDate"] = model.ReservationForm.PickupDateTime.ToString("MM/dd/yyyy HH:mm"); 
+            model.ReservationForm.UtcPicktime = model.ReservationForm.UtcPicktime + span;
+             Session["pickupDate"] = model.ReservationForm.UtcPicktime.ToString("MM/dd/yyyy HH:mm");
+            model.ReservationForm.PickupDateTime = model.ReservationForm.UtcPicktime;
 
             parms = model.ReservationForm.DropoffHours.Split(':');
             span = new TimeSpan(Int32.Parse(parms[0]), Int32.Parse(parms[1]), 0);
-            model.ReservationForm.DropoffDateTime = model.ReservationForm.DropoffDateTime+span;
-            Session["dropoffDate"] = model.ReservationForm.DropoffDateTime.ToString("MM/dd/yyyy HH:mm");
-
+            model.ReservationForm.UtcDropTime = model.ReservationForm.UtcDropTime + span;
+            Session["dropoffDate"] = model.ReservationForm.UtcDropTime.ToString("MM/dd/yyyy HH:mm");
+            model.ReservationForm.DropoffDateTime = model.ReservationForm.UtcDropTime;
             // Re-creating model in case user want to update dates or time 
             var selectCarModel = new HomeModel
             {
@@ -287,12 +301,15 @@ namespace APIInterface.Controllers
                         {
                             if (cHireGroup.HireGroupDetailId == long.Parse(hireGroupDetailId))
                             {
+                                bool isArabic = Thread.CurrentThread.CurrentUICulture.Name == "ar";
                                 cHireGroup.StandardRt = Math.Round(response.TotalStandardCharge);
                                 cHireGroup.TariffType = response.TariffTypeCode;
                                 Session["standardRate"] = cHireGroup.StandardRt;
                                 Session["TariffType"] = cHireGroup.TariffType;
-                                DateTime startDateTime = Convert.ToDateTime(Session["pickupDate"].ToString());
-                                DateTime endDateTime = Convert.ToDateTime(Session["dropoffDate"].ToString());
+                                if(isArabic)
+                                ChnageToEn();
+                                DateTime startDateTime = DateTime.Parse(Session["pickupDate"].ToString());
+                                DateTime endDateTime = DateTime.Parse(Session["dropoffDate"].ToString());
                                 // Per day cost
                                 TimeSpan periodSpan = (endDateTime - startDateTime);
                                 string period = String.Format("{0}",
@@ -300,6 +317,8 @@ namespace APIInterface.Controllers
                                 int day= int.Parse(period)!=0?int.Parse(period):  1;
                                 response.PerDayCost =Math.Round( (response.TotalStandardCharge / day),2).ToString();
                                 response.TotalStandardCharge = Math.Round(response.TotalStandardCharge, 2);
+                                if (isArabic)
+                                ChnageToAr();
                             }
                         }
                     }
@@ -481,7 +500,7 @@ namespace APIInterface.Controllers
                     HoursList = ReservationHours.Hours.ToList()
                 },
                 Sitecontent = response.SiteContent,
-                OperationsWorkPlaces = response.OperationsWorkPlaces // here
+                OperationsWorkPlaces = response.OperationsWorkPlaces 
             };
             foreach (var workPlace in response.OperationsWorkPlaces)
             {
@@ -628,7 +647,9 @@ namespace APIInterface.Controllers
             {
                 // Getting URL & calling server
                 string[] parms = Request.Url.LocalPath.Split('/');
-                var response = GetResponseForUrl(parms[1].ToUpper());
+                string url;
+                url = parms[1].ToUpper() == "RENTAL" ? Session["shortUrl"].ToString() : parms[1].ToUpper();
+                var response = GetResponseForUrl(url);
                     // Handling Bad Requests
                     if (response==null || response.SiteContent == null)
                     {
@@ -658,9 +679,23 @@ namespace APIInterface.Controllers
 
                 return View();
             }
-            var newModel= ExtractDataFromReservationForm(model);
-            var requestModel = MakeGetAvailableHireGroupsRequest(model);
-            var parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
+           var parentHireGroups= new List<WebApiParentHireGroupsApiResponse>();
+             var newModel = new HomeModel();
+            if (Thread.CurrentThread.CurrentUICulture.Name == "ar")
+            {
+               ChnageToEn();
+                 newModel = ExtractDataFromReservationForm(model);
+               ChnageToAr();
+                var requestModel = MakeGetAvailableHireGroupsRequest(model);
+                parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
+
+            }
+            else
+            {
+                newModel = ExtractDataFromReservationForm(model);
+                var requestModel = MakeGetAvailableHireGroupsRequest(model);
+                parentHireGroups = rentalApiService.GetParentHireGroups(requestModel);
+            }
             AddChildHireGroupCount(parentHireGroups);
             if (parentHireGroups != null)
             {
@@ -893,7 +928,41 @@ namespace APIInterface.Controllers
             }
             return Json(new { status = (BusinessPartnerModel) null }); 
         }
-     
+
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            Session["Culture"] = new CultureInfo(lang);
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Change Current Culture to English 
+        /// </summary>
+        private void ChnageToEn()
+        {
+            if(Thread.CurrentThread.CurrentUICulture.Name=="en")
+                return;
+            var ci = new CultureInfo("en");
+            Thread.CurrentThread.CurrentUICulture = ci;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
+
+            Session["Culture"] = ci;
+        }
+
+        /// <summary>
+        /// Change Current Culture to Arabic
+        /// </summary>
+        private void ChnageToAr()
+        {
+            if (Thread.CurrentThread.CurrentUICulture.Name == "ar")
+                return;
+            var ci = new CultureInfo("ar");
+            Thread.CurrentThread.CurrentUICulture = ci;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
+
+            Session["Culture"] = ci;
+        }
         #endregion
     }
 }

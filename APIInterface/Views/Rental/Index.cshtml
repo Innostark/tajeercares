@@ -4,7 +4,7 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()" dir="@(APIInterface.Helper.CultureHelper.IsRighToLeft() ? "rtl" : "ltr")">
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,7 @@
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/IstStyleSheet.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
-    
+
 
     <!-- Theme CSS -->
     <link href="~/assets/css/theme.css" rel="stylesheet">
@@ -40,22 +40,27 @@
         option {
             background-color: rgb(81, 79, 87);
         }
+
         .thumbnail.no-border.no-padding.thumbnail-car-card {
             margin-left: 50px;
         }
+
         #map-canvas {
             min-height: 500px;
             height: 90%;
             border: 1px solid blue;
         }
+
         .dropdown-menu.inner.selectpicker {
             max-height: 200px;
             overflow-y: auto;
             min-height: 92px;
         }
+
         .dropdown-menu.open {
             max-height: 200px;
         }
+
         .fa-map-marker {
             color: red;
             cursor: pointer;
@@ -90,6 +95,9 @@
             border-bottom: 1px solid #EFEFEF;
             margin: 8px 0;
             padding-bottom: 8px;
+        }
+        .lang {
+            cursor: pointer
         }
     </style>
 </head>
@@ -133,11 +141,41 @@
                                         <!-- navigation menu -->
                                         <a href="#" class="menu-toggle-close btn"><i class="fa fa-times"></i></a>
                                         <ul class="nav sf-menu">
-                                            <li><a href="#FindACar">Find a Car</a></li> 
-                                            <li><a href="#WhoWeAre">Who we Are?</a></li> 
-                                            <li><a href="#PickYourCar">Find Us</a></li> 
-                                            <li><a href="#contact-us">Contact Us</a></li>
+                                            <li><a href="#FindACar">@APIInterface.Resources.RentalResource.FindCar</a></li> 
+                                            <li><a href="#WhoWeAre">@APIInterface.Resources.RentalResource.WhoweAre</a></li> 
+                                            <li><a href="#PickYourCar">@APIInterface.Resources.RentalResource.FindUs</a></li> 
+                                            <li><a href="#contact-us">@APIInterface.Resources.RentalResource.ContactUs</a></li>
+                                            <li><a href="#contact-us">@APIInterface.Resources.RentalResource.ContactUs</a></li>
+                                            @*<li class="lang" id="en"><a >English</a></li>
+                                            <li class="lang" id="ar"><a >عربي</a></li>*@
+                                            @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                            {
+                                                <li class="lang" id="en"><a href="#" style="font-weight: 700; color: red;">English</a></li>
+                                                <li class="lang" id="ar"><a href="#">عربي</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="lang" id="en"><a href="#">English</a></li>
+                                                <li class="lang" id="ar"><a href="#" style="font-weight: 700; color: red;">عربي</a></li>
+                                            }
+
+                                            @*<li style="margin-top: 17px;">
+                                                <select class="form-control menu-pos" id="langSeletion">
+                                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                    {
+                                                        <option selected value="en">Enlish</option>
+                                                        <option value="ar">Arabic</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="en">Enlish</option>
+                                                        <option selected value="ar">Arabic</option>
+                                                    }
+
+                                                </select>
+                                            </li>*@
                                         </ul>
+                                       
                                         <!-- /navigation menu -->
                                     </div>
                                 </div>
@@ -166,8 +204,25 @@
                                         <div class="div-table">
                                             <div class="div-cell">
                                                 <div class="caption-content">
-                                                    <h2 class="caption-title">@Session["siteName"] </h2>
-                                                    <h3 class="caption-subtitle">@Session["siteTitle"]</h3>
+                                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                    {
+                                                        <h2 class="caption-title">@Model.Sitecontent.CompanyDisplayName </h2>
+                                                    }
+                                                    else
+                                                    {
+                                                       <h2 class="caption-title">@Model.Sitecontent.CompanyDisplayNameAr </h2>
+
+                                                    }
+                                                    
+                                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                    {
+                                                    <h3 class="caption-subtitle">@Model.Sitecontent.Slogan</h3>
+                                                    }
+                                                    else
+                                                    {
+                                                   <h3 class="caption-subtitle">@Model.Sitecontent.SloganAr</h3>
+
+                                                    }
                                                     <!-- Search form -->
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -176,7 +231,7 @@
                                                                 {
                                                                     <div class="form-title">
                                                                         <i class="fa fa-globe"></i>
-                                                                        <h2>Search for Cheap Rental Cars Wherever Your Are</h2>
+                                                                        <h2>@APIInterface.Resources.RentalResource.SearchforCheap</h2>
                                                                     </div>
                                                                     <div class="row row-inputs">
                                                                         <div class="container-fluid">
@@ -187,23 +242,23 @@
                                                                                             <table style="width: 100%;" id="loc_popup">
                                                                                                 <thead>
                                                                                                     <tr>
-                                                                                                        <th style="text-align: center; font-size: 15px; font-weight: 700;" colspan="2">Location Info</th>
+                                                                                                        <th style="text-align: center; font-size: 15px; font-weight: 700;" colspan="2">@APIInterface.Resources.RentalResource.LocationInfo</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 <tbody>
                                                                                                     <tr>
-                                                                                                        <td title="Location's phone" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-phone"></i><span id="pickupPopupPhone" style=" margin-left: 5px;"></span></td>
-                                                                                                        <td title="Location's address" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-home"></i><span id="pickupPopupPopupAddress" style=" margin-left: 5px;"></span></td>
+                                                                                                        <td title="@APIInterface.Resources.RentalResource.Locationphone" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-phone"></i><span id="pickupPopupPhone" style=" margin-left: 5px;"></span></td>
+                                                                                                        <td title="@APIInterface.Resources.RentalResource.Locationaddress" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-home"></i><span id="pickupPopupPopupAddress" style=" margin-left: 5px;"></span></td>
                                                                                                     </tr>
                                                                                                 </tbody>
                                                                                             </table>
                                                                                             <div class="inner">
-                                                                                                <button title="Show location on google maps" style="background-color: #5cb85c; border-color: #5cb85c; width: 32%; margin-top: 7px; font-weight: 600; padding: 8px;" id="showPickUpOnMap" class="btn btn-submit btn-theme pull-right">Show on Map</button>
-                                                                                                <button id="pick-up-loc-info-close" type="submit" style="width: 18%; margin-top: 7px; font-weight: 600; padding: 8px; margin-right: 5px;" id="showPickUpOnMap" class="btn btn-submit btn-theme pull-left">close</button>
+                                                                                                <button title="@APIInterface.Resources.RentalResource.ShowMap" style="background-color: #5cb85c; border-color: #5cb85c; width: 32%; margin-top: 7px; font-weight: 600; padding: 8px;" id="showPickUpOnMap" class="btn btn-submit btn-theme pull-right">@APIInterface.Resources.RentalResource.ShowMap</button>
+                                                                                                <button id="pick-up-loc-info-close" type="submit" style="width: 18%; margin-top: 7px; font-weight: 600; padding: 8px; margin-right: 5px;" id="showPickUpOnMap" class="btn btn-submit btn-theme pull-left">@APIInterface.Resources.RentalResource.close</button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupLocation, new { @class = "control-label", @for = "formSearchUpLocation" })
+                                                                                    <label class="control-label" for="formSearchUpLocation">@APIInterface.Resources.RentalResource.PickUpLocation</label>
                                                                                     @Html.DropDownListFor(m => m.ReservationForm.PickupLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 0), "Select Pick-up location", new { @class = "form-control validateMandatory", style = "width:97.5%" })
                                                                                     <span class="form-control-icon" title="Location info"><i style="font-size: 12px; cursor: pointer; margin-top: 14px; margin-right: 9px; padding: 1px; border-radius: 10px; background-color: rgba(27, 22, 22, 0.77); width: 14px;" class="fa fa-info" id="pick-up-loc-info"></i></span>
                                                                                 </div>
@@ -211,25 +266,25 @@
                                                                             <div class="col-sm-3">
                                                                                 <div class="form-group has-icon has-label">
 
-                                                                                    @Html.LabelFor(m => m.ReservationForm.PickupDateTime, new { @class = "control-label", @for = "formSearchUpDate" })
+                                                                                    <label class="control-label" for="formSearchUpDate">@APIInterface.Resources.RentalResource.PickUpDate</label>
                                                                                     @Html.TextBoxFor(m => m.ReservationForm.PickupDateTime, new { @class = "form-control", id = "formSearchUpDate", style = "width:95.5%" })
                                                                                     <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
-                                                                                    <label>Picking Up Hour</label>
+                                                                                    <label>@APIInterface.Resources.RentalResource.PickingUpHour</label>
                                                                                     <select class="selectpicker input-price" style="max-height: 200px;overflow: auto" id="pickUpForm" data-live-search="true" data-width="100%"
                                                                                             data-toggle="tooltip" title="Select">
                                                                                         @foreach (var hour in @Model.ReservationForm.HoursList)
                                                                                         {
                                                                                             if (hour == "08:00")
                                                                                             {
-                                                                                        <option selected="">@hour</option>
+                                                                                                <option selected="">@hour</option>
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                        <option>@hour</option>
+                                                                                                <option>@hour</option>
                                                                                             }
                                                                                         }
                                                                                     </select>
@@ -247,23 +302,23 @@
                                                                                             <table style="width: 100%;" id="loc_popup">
                                                                                                 <thead>
                                                                                                     <tr>
-                                                                                                        <th style="text-align: center; font-size: 15px; font-weight: 700;" colspan="2">Location Info</th>
+                                                                                                        <th style="text-align: center; font-size: 15px; font-weight: 700;" colspan="2">@APIInterface.Resources.RentalResource.LocationInfo</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 <tbody>
                                                                                                     <tr>
-                                                                                                        <td title="Location's phone" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-phone"></i><span id="dropOffPopupPhone" style=" margin-left: 5px;"></span></td>
-                                                                                                        <td title="Location's address" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-home"></i><span id="dropOffPopupAddress" style=" margin-left: 5px;"></span></td>
+                                                                                                        <td title="@APIInterface.Resources.RentalResource.Locationphone" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-phone"></i><span id="dropOffPopupPhone" style=" margin-left: 5px;"></span></td>
+                                                                                                        <td title="@APIInterface.Resources.RentalResource.Locationaddress" style="max-width: 51%; width: 50%; padding: 4px;"><i class="fa fa-home"></i><span id="dropOffPopupAddress" style=" margin-left: 5px;"></span></td>
                                                                                                     </tr>
                                                                                                 </tbody>
                                                                                             </table>
                                                                                             <div class="inner">
-                                                                                                <button title="Show location on google maps"type="submit" style="background-color: #5cb85c; border-color: #5cb85c; width: 32%; margin-top: 7px; font-weight: 600; padding: 8px;" id="showDropOffOnMap" class="btn btn-submit btn-theme pull-right">Show on Map</button>
-                                                                                                <button id="drop-off-loc-info-close" type="submit" style="width: 18%; margin-top: 7px; font-weight: 600; padding: 8px; margin-right: 5px;"  class="btn btn-submit btn-theme pull-left">Close</button>
+                                                                                                <button title="@APIInterface.Resources.RentalResource.ShowMap" type="submit" style="background-color: #5cb85c; border-color: #5cb85c; width: 32%; margin-top: 7px; font-weight: 600; padding: 8px;" id="showDropOffOnMap" class="btn btn-submit btn-theme pull-right">@APIInterface.Resources.RentalResource.ShowMap</button>
+                                                                                                <button id="drop-off-loc-info-close" type="submit" style="width: 18%; margin-top: 7px; font-weight: 600; padding: 8px; margin-right: 5px;" class="btn btn-submit btn-theme pull-left">@APIInterface.Resources.RentalResource.close</button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffLocation, new { @class = "control-label", @for = "formSearchOffLocation" })
+                                                                                    <label class="control-label" for="formSearchOffLocation">@APIInterface.Resources.RentalResource.DropoffLocation</label>
                                                                                     @Html.DropDownListFor(m => m.ReservationForm.DropoffLocation, new SelectList(Model.OperationsWorkPlaces, "OperationWorkplaceId", "LocationName", 1), "Select Drop-off location", new { @class = "form-control validateMandatory", style = "width:97.5%" })
                                                                                     @*<input type="text" class="form-control" id="formSearchUpLocation" placeholder="Airport or Anywhere">*@
                                                                                     <span title="Location info" class="form-control-icon"><i style="font-size: 12px; cursor: pointer; margin-top: 14px; margin-right: 9px; padding: 1px; border-radius: 10px; background-color: rgba(27, 22, 22, 0.77); width: 14px;" class="fa fa-info" id="drop-off-loc-info"></i></span>
@@ -271,15 +326,13 @@
                                                                             </div>
                                                                             <div class="col-sm-3">
                                                                                 <div class="form-group has-icon has-label">
-                                                                                    @Html.LabelFor(m => m.ReservationForm.DropoffDateTime, new { @class = "control-label", @for = "formSearchOffDate" })
-                                                                                    @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
-                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new { @class = "form-control", id = "formSearchOffDate", style = "width:95.5%" })
-                                                                                    <span class="form-control-icon"><i class="fa fa-calendar"></i></span>
+                                                                                    <label class="control-label" for="formSearchOffDate">@APIInterface.Resources.RentalResource.DropoffDate</label> @*<input type="text" class="form-control" id="formSearchUpDate" placeholder="dd/mm/yyyy">*@
+                                                                                    @Html.TextBoxFor(m => m.ReservationForm.DropoffDateTime, new { @class = "form-control", id = "formSearchOffDate", style = "width:95.5%" })<span class="form-control-icon"><i class="fa fa-calendar"></i></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-3" style="margin-top: 5px;">
                                                                                 <div class="form-group has-icon has-label selectpicker-wrapper">
-                                                                                    <label>Dropping Off Hour</label>
+                                                                                    <label>@APIInterface.Resources.RentalResource.DroppingOffHour</label>
                                                                                     <select class="selectpicker input-price" id="dropoffForm" data-live-search="true" data-width="100%"
                                                                                             data-toggle="tooltip" title="Select">
                                                                                         @foreach (var hour in @Model.ReservationForm.HoursList)
@@ -303,12 +356,14 @@
                                                                     <div class="row row-submit">
                                                                         <div class="container-fluid">
                                                                             <div class="inner">
-                                                                                <button type="submit" style="    margin-bottom: 20px;" id="formSearchSubmit" class="btn btn-submit btn-theme pull-right">Find Car</button>
+                                                                                <button type="submit" style="    margin-bottom: 20px;" id="formSearchSubmit" class="btn btn-submit btn-theme pull-right">@APIInterface.Resources.RentalResource.FindCar</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     @Html.HiddenFor(m => m.ReservationForm.DropoffHours, new { @Value = "00:00", id = "DropoffHours" })
                                                                     @Html.HiddenFor(m => m.ReservationForm.PickupHours, new { @Value = "0:00", id = "PickupHours" })
+                                                                    @Html.HiddenFor(m => m.ReservationForm.UtcPicktime, new { @Value = "0:00", id = "UtcPicktime" })
+                                                                    @Html.HiddenFor(m => m.ReservationForm.UtcDropTime, new { @Value = "0:00", id = "UtcDropTime" })
                                                                 }
                                                                 @if (Model.OperationsWorkPlaces != null)
                                                                 {
@@ -347,56 +402,85 @@
                                             <div class="caption-wrapper div-table">
                                                 <div class="caption-inner div-cell">
                                                     <div class="caption-icon"><i class="fa fa-support"></i></div>
-                                                    <h4 class="caption-title">Our Services</h4>
+                                                    <h4 class="caption-title">@APIInterface.Resources.RentalResource.OurServices</h4>
                                                     <div class="caption-text">
-                                                        @Html.Raw(Model.Sitecontent.ServiceContents)
+                                                        @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                        {
+                                                            @Html.Raw(Model.Sitecontent.ServiceContents)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw(Model.Sitecontent.ServiceContentsAr)
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="caption hovered">
-                                        <div class="caption-wrapper div-table">
-                                            <div class="caption-inner div-cell">
-                                                <div class="caption-icon"><i class="fa fa-support"></i></div>
-                                                <h4 class="caption-title">Our Services</h4>
-                                                <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>
+                                        <div class="caption hovered">
+                                            <div class="caption-wrapper div-table">
+                                                <div class="caption-inner div-cell">
+                                                    <div class="caption-icon"><i class="fa fa-support"></i></div>
+                                                    <h4 class="caption-title">@APIInterface.Resources.RentalResource.OurServices</h4>
+                                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                    {
+                                                        <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.ServiceContents.Length > 140 ? Model.Sitecontent.ServiceContents.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContents) </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.ServiceContentsAr.Length > 140 ? Model.Sitecontent.ServiceContentsAr.Substring(0, 140) + "....." : Model.Sitecontent.ServiceContentsAr) </div>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 wow flipInY" data-wow-offset="70" data-wow-duration="1s" data-wow-delay="200ms">
-                        <div class="thumbnail thumbnail-featured no-border no-padding">
-                            <div class="media">
-                                <a class="media-link" href="#">
-                                    <div class="caption">
-                                        <div class="caption-wrapper div-table">
-                                            <div class="caption-inner div-cell">
-                                                <div class="caption-icon"><i class="fa fa-user"></i></div>
-                                                <h4 class="caption-title">About Us</h4>
-                                                <div class="caption-text">@Html.Raw(Model.Sitecontent.AboutusContents)</div>
-
+                        <div class="col-md-6 wow flipInY" data-wow-offset="70" data-wow-duration="1s" data-wow-delay="200ms">
+                            <div class="thumbnail thumbnail-featured no-border no-padding">
+                                <div class="media">
+                                    <a class="media-link" href="#">
+                                        <div class="caption">
+                                            <div class="caption-wrapper div-table">
+                                                <div class="caption-inner div-cell">
+                                                    <div class="caption-icon"><i class="fa fa-user"></i></div>
+                                                    <h4 class="caption-title">@APIInterface.Resources.RentalResource.AboutUs</h4>
+                                                    <div class="caption-text">
+                                                        @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                        {
+                                                            @Html.Raw(Model.Sitecontent.AboutusContents)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw(Model.Sitecontent.AboutusContentsAr)
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="caption hovered">
-                                        <div class="caption-wrapper div-table">
-                                            <div class="caption-inner div-cell">
-                                                <div class="caption-icon"><i class="fa fa-user"></i></div>
-                                                <h4 class="caption-title">About Us</h4>
-                                                <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>
+                                        <div class="caption hovered">
+                                            <div class="caption-wrapper div-table">
+                                                <div class="caption-inner div-cell">
+                                                    <div class="caption-icon"><i class="fa fa-user"></i></div>
+                                                    <h4 class="caption-title">@APIInterface.Resources.RentalResource.AboutUs</h4>
+                                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                                    {
+                                                        <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.AboutusContents.Length > 140 ? Model.Sitecontent.AboutusContents.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContents) </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="caption-text" style="color:black">@Html.Raw(Model.Sitecontent.AboutusContentsAr.Length > 140 ? Model.Sitecontent.AboutusContentsAr.Substring(0, 140) + "....." : Model.Sitecontent.AboutusContentsAr) </div>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
             <!-- /PAGE -->
             <!-- PAGE -->
            
@@ -419,8 +503,8 @@
                 <div class="container">
                     <!-- Get in touch -->
                     <h2 class="section-title wow fadeInDown" data-wow-offset="200" data-wow-delay="100ms">
-                        <small>Feel Free to Say Hello!</small>
-                        <span>Get in Touch With Us</span>
+                        <small>@APIInterface.Resources.RentalResource.FeelFree!</small>
+                        <span>@APIInterface.Resources.RentalResource.GetinTouch</span>
                     </h2>
                     <div class="row">
                         <div class="col-md-6 wow fadeInLeft" data-wow-offset="200" data-wow-delay="200ms">
@@ -430,7 +514,7 @@
                                     <div class="col-md-6">
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
-                                                <label class="sr-only" for="name">Name</label>
+                                                <label class="sr-only" for="name">@APIInterface.Resources.RentalResource.Name</label>
                                                 @Html.TextBoxFor(m => m.EmailModel.SenderName, new {placeholder="Name", @class = "form-control placeholder", id = "name", style = "width:98%" })
                                                 <span class="form-control-icon"><i class="fa fa-user"></i></span>
                                             </div>
@@ -439,7 +523,7 @@
                                     <div class="col-md-6">
                                         <div class="outer required">
                                             <div class="form-group af-inner has-icon">
-                                                <label class="sr-only" for="email">Email</label>
+                                                <label class="sr-only" for="email">@APIInterface.Resources.RentalResource.Email</label>
                                                 @Html.TextBoxFor(m => m.EmailModel.SenderEmail, new { placeholder = "Email", @class = "form-control placeholder", id = "email", style = "width:96%" })
                                                 <span class="form-control-icon"><i class="fa fa-envelope"></i></span>
                                             </div>
@@ -448,7 +532,7 @@
                                 </div>
                                 <div class="outer required">
                                     <div class="form-group af-inner has-icon">
-                                        <label class="sr-only" for="subject">Subject</label>
+                                        <label class="sr-only" for="subject">@APIInterface.Resources.RentalResource.Subject</label>
                                         @Html.TextBoxFor(m => m.EmailModel.EmailSubject, new { placeholder = "Subject", @class = "form-control placeholder", id = "subject", style = "width:98%" })
 
 
@@ -456,43 +540,52 @@
                                     </div>
                                 </div>
                                 <div class="form-group af-inner has-icon">
-                                    <label class="sr-only" for="input-message">Message</label>
+                                    <label class="sr-only" for="input-message">@APIInterface.Resources.RentalResource.Message</label>
                                     @Html.TextAreaFor(m => m.EmailModel.EmailBody, new { rows="8" ,cols="50",placeholder = "Message", @class = "form-control placeholder", id = "body", style = "width:98%" })
 
                                     <span class="form-control-icon"><i class="fa fa-bars"></i></span>
                                 </div>
                             <div class="outer required">
                                 <div class="form-group af-inner">
-                                    <input id="contact-form" style="    max-width: 543px;" type="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" value="Send message" />
+                                    <input id="contact-form" style="    max-width: 543px;" type="submit" class="form-button form-button-submit btn btn-block btn-theme ripple-effect btn-theme-dark" value="@APIInterface.Resources.RentalResource.SendMessage" />
                                 </div>
                             </div>
                             <div class="outer required">
                                 <div class="form-group af-inner">
-                                    <label class="col-md-1 control-label validationAsterikLabel" id="sendingEmailLabel" style="display: none; width: 95%; color: white">Sending email...</label>
+                                    <label class="col-md-1 control-label validationAsterikLabel" id="sendingEmailLabel" style="display: none; width: 95%; color: white">@APIInterface.Resources.RentalResource.Sendingemail</label>
                                 </div>
                             </div>
                            
                             <!-- /Contact form -->
                         </div>
                         <div class="col-md-6 wow fadeInRight" data-wow-offset="200" data-wow-delay="200ms">
-                            <p>You are always welcome to Contact us at the following.</p>
+                            <p>@APIInterface.Resources.RentalResource.Youarealways</p>
                             <ul class="media-list contact-list">
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-home"></i></div>
-                                    <div class="media-body">Adress: @Model.Sitecontent.Address</div>
+                                    @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                    {
+                                    <div class="media-body">@APIInterface.Resources.RentalResource.Adress: @Model.Sitecontent.Address</div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="media-body">@APIInterface.Resources.RentalResource.Adress: @Model.Sitecontent.AddressAr</div>
+
+                                    }
                                 </li>
                                
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-phone"></i></div>
-                                    <div class="media-body">Support Phone: @Model.Sitecontent.Telephone</div>
+                                    <div class="media-body">@APIInterface.Resources.RentalResource.SupportPhone: @Model.Sitecontent.Telephone</div>
                                 </li>
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-envelope"></i></div>
-                                    <div class="media-body">E mails: @Model.Sitecontent.Email</div>
+                                    <div class="media-body">@APIInterface.Resources.RentalResource.Email: @Model.Sitecontent.Email</div>
                                 </li>
                                 <li class="media">
                                     <div class="media-left"><i class="fa fa-clock-o"></i></div>
-                                    <div class="media-body">Working Hours: 09:30 - 21:00 except on Sundays</div>
+                                    <div class="media-body">@APIInterface.Resources.RentalResource.WorkingHours</div>
                                 </li>
                                
                             </ul>
@@ -515,7 +608,14 @@
                                 <a target="_blank" onclick="window.open('@Model.Sitecontent.FBLink')" href='' class=" btn btn-theme ripple-effect btn-icon-left facebook wow fadeindown" data-wow-offset="20" data-wow-delay="100ms"><i class="fa fa-facebook"></i>FACEBOOK</a>
                                 <a target="_blank" onclick="window.open('@Model.Sitecontent.TwiterLink')"  href="" class="btn btn-theme btn-icon-left ripple-effect twitter wow fadeInDown" data-wow-offset="20" data-wow-delay="200ms"><i class="fa fa-twitter"></i>TWITTER</a>
                             </p>
-                            <div class="copyright">&copy; 2015 @Model.Sitecontent.CompanyDisplayName &nbsp;|&nbsp; @Model.Sitecontent.Address .</div>
+                                @if (APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture() == "en")
+                                {
+                                    <div class="copyright">&copy; 2015 @Model.Sitecontent.CompanyDisplayName &nbsp;|&nbsp; @Model.Sitecontent.Address .</div>
+                                }
+                                else
+                                {
+                                    <div class="copyright">&copy; 2015 @Model.Sitecontent.CompanyDisplayNameAr &nbsp;|&nbsp; @Model.Sitecontent.AddressAr .</div> 
+                                }
                         </div>
                     </div>
                 </div>
@@ -549,6 +649,7 @@
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/assets/js/googleMapApisMapper.js"></script>   <!--Baqer added this-->
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
+    <script src="~/Scripts/moment.js"></script> <!--Baqer added this-->
 
     <script>
         // WOW - animated content
@@ -571,6 +672,17 @@
         var dropLong=null;
         var dropLat=null;
         $(document).ready(function () {
+            
+            $("#formSearchUpDate").val(moment().format("MM/DD/YYYY"));
+            $("#formSearchOffDate").val(moment().add("days", 1).format("MM/DD/YYYY"));
+
+
+            $(".lang").click(function () {
+                var lang = $(this).attr('id');
+                window.location.href = "Rental/ChangeCulture?lang=" + lang;
+            });
+
+
             $("#ReservationForm_PickupLocation").change(function() {
                 var id = $(this).val(); // id of location selected
                 var locHiddenContents= $("#" + id).val(); // phone, address, lon,lat
