@@ -463,10 +463,11 @@ function IntitCheckout() {
 function validateBookingForm(userType) {
     var pNum = $("#pNumber").inputmask('unmaskedvalue');
     $("#pNumber").val(pNum);
-    var dobb = moment($("#dob_value").val()).format("YYYY-MM-DDTHH:mm:ss") + 'Z';
-    $("#DOB").val(dobb);
+    var dobVal = $("#dob_value").val();
+    var dobb = dobVal != '' ? $("#DOB").val(moment(dobVal).format("YYYY-MM-DDTHH:mm:ss") + 'Z') : false;
+    //$("#DOB").val(dobb);
     $("#CustomerTypeHidden").val(userType); // here
-    if (DOBCheck()) {
+    if (DOBCheck() && dobb != false) {
         return validateForm();
     }
     else

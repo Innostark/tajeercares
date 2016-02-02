@@ -615,6 +615,10 @@ namespace APIInterface.Controllers
         private SiteContentResponseModel GetResponseForUrl(string url)
         {
             var response = rentalApiService.GetSitecontent(url);
+            if (response == null)
+            {
+                return null;
+            }
             if (response.OperationsWorkPlaces != null)
             {
                 foreach (var workPlace in response.OperationsWorkPlaces)
