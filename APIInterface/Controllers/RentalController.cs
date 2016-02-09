@@ -45,10 +45,10 @@ namespace APIInterface.Controllers
             var insuranceTypesObjectList = insuranceTypesIds.Where(id => id != "-99").Select(double.Parse).ToList();
             var model = new BookingModel();
             // Existing 
-            if (userInfo.CustomerTypeHidden == 2)
-            {
-                model.BusinessPartnerId =  Convert.ToInt32(Session["BPId"].ToString());
-            }
+            //if (userInfo.CustomerTypeHidden == 2)
+            //{
+            model.BusinessPartnerId =  Convert.ToInt32(Session["BPId"].ToString());
+            //}
             bool isArabic = Thread.CurrentThread.CurrentUICulture.Name == "ar";
 
             if (isArabic)
@@ -786,6 +786,11 @@ namespace APIInterface.Controllers
         [HttpPost]
         public ActionResult Checkout(UserInfoModel model)
         {
+            if (Session["UserDomainKey"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             var onlineBookingModel = SetOnlineBookingModel(model);
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             if (resposne.Contains("BN"))
@@ -895,6 +900,7 @@ namespace APIInterface.Controllers
         public ActionResult MakeBookingFinal()
         {
             var onlineBookingModel = Session["bookingModel"];
+            Session["BPId"] = null;
             //var onlineBookingModel = SetOnlineBookingModel(model);
             //var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             //if (resposne.Contains("OK"))
@@ -915,7 +921,8 @@ namespace APIInterface.Controllers
         /// </summary>
         public JsonResult CheckUserRegistration(string keyString)
         {
-            if (keyString != null)
+            Session["BPId"] = null;
+            if (keyString != null && Session["UserDomainKey"] != null)
             {
                 var request = new GeneralRequest
                 {

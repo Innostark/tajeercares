@@ -146,7 +146,7 @@ namespace APIInterface.WebApis
          {
              string orderContents = Newtonsoft.Json.JsonConvert.SerializeObject(model);
              HttpResponseMessage responseMessage = await PostHttpRequestAsync(orderContents, new Uri(GetSiteContentsUri)).ConfigureAwait(false);
-             if (responseMessage == null)
+             if (responseMessage == null || responseMessage.Content == null)
              {
                  return "Failure";
              }
