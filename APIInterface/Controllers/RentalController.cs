@@ -47,7 +47,7 @@ namespace APIInterface.Controllers
             // Existing 
             //if (userInfo.CustomerTypeHidden == 2)
             //{
-            model.BusinessPartnerId =  Convert.ToInt32(Session["BPId"].ToString());
+            model.BusinessPartnerId = Session["BPId"] != null ? Convert.ToInt32(Session["BPId"].ToString()) : 0;
             //}
             bool isArabic = Thread.CurrentThread.CurrentUICulture.Name == "ar";
 
