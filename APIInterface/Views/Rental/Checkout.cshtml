@@ -229,8 +229,8 @@
                                 @Html.HiddenFor(x => x.CustomerTypeHidden)
                                 @Html.HiddenFor(x => x.IsPostBack, new { Value = Model.IsPostBack })
                             </div>
-                            <div style="float: right; margin-right: 1px; margin-bottom: 1px; width: 59%;">
-                                <input style="width: 27%; padding-left: 12px; margin-left: 2px;"class="blue_button" type="submit" value="@APIInterface.Resources.CheckoutResource.BookNow" />
+                            <div style="float: right; margin-right: 1px; margin-bottom: 10px; width: 59%;">
+                                <input style="width: 27%; padding-left: 12px; margin-left: 2px;"class="green_button" type="submit" value="@APIInterface.Resources.CheckoutResource.BookNow" />
                                 <input id="cancelRes" type="button" class="blue_button" value="@APIInterface.Resources.CheckoutResource.Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 1px; padding-left: 7px; " />
                             </div>
                             <h4>@APIInterface.Resources.CheckoutResource.Note</h4>
@@ -299,11 +299,11 @@
         });
 
      
-        // Phone Number Mask
-        $("#pNumber").inputmask("mask", {
-            "mask": "(999) 999-9999",
-            'autoUnmask': true
-        });
+        //// Phone Number Mask
+        //$("#pNumber").inputmask("mask", {
+        //    "mask": "(999) 999-9999",
+        //    'autoUnmask': true
+        //});
 
 
         // Date of Birth Mask

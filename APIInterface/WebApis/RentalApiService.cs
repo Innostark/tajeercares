@@ -112,7 +112,7 @@ namespace APIInterface.WebApis
              {
                  Task<string> sitecontentAsync = GetSitecontentAsync(obj);
                  var response = sitecontentAsync.Result;
-                 if (response != "null")
+                 if (!string.IsNullOrEmpty(response) && response != "null")
                  {
                      var jss = new JavaScriptSerializer();
                      try
