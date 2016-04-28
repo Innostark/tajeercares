@@ -140,7 +140,7 @@
                                     <span style=" display: table-cell; width: 136px; word-break: break-word;" title="@APIInterface.Resources.SelectCarResource.VehicleModel"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicleModel.png" alt="" /><span>@hireGroup.VehicleModel</span></span>
                                     <span title="@APIInterface.Resources.SelectCarResource.VehicleModelYear"><img style="    height: 18px; width: 18px;" src="~/Images/images/vehicelModelYear.png" alt="" /><span>@hireGroup.ModelYear</span> </span>
                                     <span style="margin-left: 92px;" title="Charge"><img style="    height: 20px; width: 20px;" src="~/Images/images/dollars19.png" alt="" /><span id="standard_rate" style="margin-left: -4px">SAR @hireGroup.FormatedStandardRate</span>  </span>
-                                    
+
                                     <span style=" padding-right: 16px; word-break: break-word; width: 125px; display: inline-block;" title="@APIInterface.Resources.SelectCarResource.NoofPassengers"><img src="~/Images/Passengers.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfPassengers</span></span>
                                     <span style="display: inline-block; width: 93px; word-break: break-word; " title="@APIInterface.Resources.SelectCarResource.NoofSuitcases"><img style="    height: 18px; width: 18px;" src="~/Images/Suitcase.png" alt="" /><span>@hireGroup.TrunckCapacity</span></span>
                                     <span style=" padding-right: 16px; word-break: break-word; width: 154px; display: table-cell;" title="@APIInterface.Resources.SelectCarResource.NoofDoors"><img src="~/Images/car-doors.png" alt="" style="    height: 20px; width: 20px;" /><span>@hireGroup.NoOfDoors</span></span>
@@ -155,7 +155,7 @@
                             <p id="defaultItem">@APIInterface.Resources.SelectExtrasResource.NoExtraItemAdded!</p>
                         </div>
                         <div class="widget-footer widget-footer-total">
-                           @APIInterface.Resources.SelectExtrasResource.TotalSAR: <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.FormatedStandardRate</span>
+                            @APIInterface.Resources.SelectExtrasResource.TotalSAR: <span class="price"></span><span id="overAllTotal" class="price"> @hireGroup.FormatedStandardRate</span>
                         </div>
                     </div>
                 </aside>
@@ -201,26 +201,26 @@
                                     <div class="clear"></div>
                                 </div>
                             } <!--extras loop ends-->
-                        }  
+                        }
                         else
                         {
-                             <div class="post">
-                                    <div class="checkbox-block_container">
-                                        <div class="main-block_container">
-                                            <div class="additional-block_container">
-                                                <div class="checkbox-block" style="padding: 0px">
-                                                </div>
-                                                <div class="main-block" style="margin-left: -223px;">
+                            <div class="post">
+                                <div class="checkbox-block_container">
+                                    <div class="main-block_container">
+                                        <div class="additional-block_container">
+                                            <div class="checkbox-block" style="padding: 0px">
+                                            </div>
+                                            <div class="main-block" style="margin-left: -223px;">
 
-                                                    <div class="product-info">
-                                                        <p>@APIInterface.Resources.SelectExtrasResource.NoExtrasavailable!</p>
-                                                    </div>
+                                                <div class="product-info">
+                                                    <p>@APIInterface.Resources.SelectExtrasResource.NoExtrasavailable!</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="clear"></div>
                                 </div>
+                                <div class="clear"></div>
+                            </div>
                         }
                     </div>
                     <div class="widget main-widget product-widget main-widget-3column">
@@ -348,7 +348,16 @@
         ga('send', 'pageview');
 
     </script>
-
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: "/Home/KeepAlive",
+                    type: "POST"
+                });
+            }, 299000);
+        });
+    </script>
 </body>
 
 </html>

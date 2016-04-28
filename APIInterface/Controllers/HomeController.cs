@@ -226,6 +226,13 @@ namespace APIInterface.Controllers
             Session["Culture"] = new CultureInfo(lang);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public JsonResult KeepAlive()
+        {
+            return Json(new {});
+        }
+
         #endregion
     }
 }

@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en-US">
-<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()" >
+<head prefix="og: http://ogp.me/ns#" lang="@APIInterface.Helper.CultureHelper.GetCurrentNeutralCulture()">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Car Rental Solution,TajeerCare,Car Rental,Taxi Rental, Rental Software, Rent a Car, Cares,Innostark, Online Booking, Rental Agreements,Non-Revenue Ticket, Vehilce" />
     <meta name="google-site-verification" content="RusK92KlbFzEJFU3kDh4Jy1t5cMaLJZ97Z6El2W5hYs" />
@@ -158,7 +158,7 @@
                 </aside>
                 <div id="content" class="sidebar-middle">
                     @using APIInterface.Models.ResponseModels
-                    
+
                     @using (Html.BeginForm("Checkout", Session["CompanyShortName"] + "/Rental", FormMethod.Post, new { id = "submitReservation", @class = "form-horizontal  complete_reservation", role = "form" }))
                     {
                         <div class="widget main-widget main-widget-3column">
@@ -176,8 +176,8 @@
                                 <div>
                                     <div>
 
-                                       <label>@APIInterface.Resources.CheckoutResource.CustomerType</label>
-                                        @Html.RadioButtonFor(m => m.CustomerType, "Male", new {id="1", @checked = "checked", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 20px;height: 20px;" })
+                                        <label>@APIInterface.Resources.CheckoutResource.CustomerType</label>
+                                        @Html.RadioButtonFor(m => m.CustomerType, "Male", new { id = "1", @checked = "checked", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 20px;height: 20px;" })
                                         <label class="control-label" style="font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">@APIInterface.Resources.CheckoutResource.New</label>
                                         @Html.RadioButtonFor(m => m.CustomerType, "Female", new { id = "2", @class = "form-control validateMandatory userType", style = "margin-left: 28px; width: 28px;height: 20px;" })
                                         <label class="control-label" style=" font-family: inherit; text-transform: uppercase; font-size: 11px; margin-left: 9px;">@APIInterface.Resources.CheckoutResource.Registered</label>
@@ -186,17 +186,17 @@
                                 <br />
                                 <div class="form_element">
                                     <div>
-                                      <label>@APIInterface.Resources.CheckoutResource.FirstName</label>
+                                        <label>@APIInterface.Resources.CheckoutResource.FirstName</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", id="firstName", placeholder = "Enter your first name" })
+                                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control validateMandatory", id = "firstName", placeholder = "Enter your first name" })
                                 </div>
                                 <div class="form_element">
                                     <div>
                                         <label>@APIInterface.Resources.CheckoutResource.LastName</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", id="lName",placeholder = "Enter your last name" })
+                                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control validateMandatory", id = "lName", placeholder = "Enter your last name" })
                                 </div>
 
                                 <div class="clear"></div>
@@ -205,7 +205,7 @@
                                         <label>@APIInterface.Resources.CheckoutResource.PhoneNumber</label>
                                         <label class="control-label validationAsterikLabel" style="color: red;">*</label>
                                     </div>
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", id="pNumber",placeholder = "Enter your Phone Number" })
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control validateMandatory", id = "pNumber", placeholder = "Enter your Phone Number" })
                                 </div>
                                 <div class="form_element">
                                     <div>
@@ -218,7 +218,7 @@
 
                                 <div class="form_element">
                                     <div><label>@APIInterface.Resources.CheckoutResource.BillingAddress</label> </div>
-                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", id="address", placeholder = "Enter your billing address" })
+                                    @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", id = "address", placeholder = "Enter your billing address" })
                                 </div>
                                 <div class="form_element form-block pick-up" style=" margin-left: 10px; margin-top: 12px;">
                                     <h4>@APIInterface.Resources.CheckoutResource.DateBirth</h4>
@@ -230,7 +230,7 @@
                                 @Html.HiddenFor(x => x.IsPostBack, new { Value = Model.IsPostBack })
                             </div>
                             <div style="float: right; margin-right: 1px; margin-bottom: 10px; width: 59%;">
-                                <input style="width: 27%; padding-left: 12px; margin-left: 2px;"class="green_button" type="submit" value="@APIInterface.Resources.CheckoutResource.BookNow" />
+                                <input style="width: 27%; padding-left: 12px; margin-left: 2px;" class="green_button" type="submit" value="@APIInterface.Resources.CheckoutResource.BookNow" />
                                 <input id="cancelRes" type="button" class="blue_button" value="@APIInterface.Resources.CheckoutResource.Cancel" style="padding-right: 12px; height: 46px; font-weight: inherit; color: white; width: 27%; border-color: red; background-color: red; box-shadow: 0 1px 2px 0 #C15939 inset, inset 0 -15px 15px 0 #EC2F5B; float: left; margin-right: 1px; padding-left: 7px; " />
                             </div>
                             <h4>@APIInterface.Resources.CheckoutResource.Note</h4>
@@ -265,13 +265,13 @@
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/_jquery.blockUI.js"></script>
     <script src="~/Scripts/ISTUtility.js"></script>  <!--Baqer added this-->
-    <script src="~/Scripts/moment.js"></script> 
+    <script src="~/Scripts/moment.js"></script>
     <script src="~/assets/js/new-jquery.inputmask.bundle.min.js"></script>
 
     <script>
 
         $(document).ready(function () {
-            
+
 
             $(".lang").click(function () {
                 var lang = $(this).attr('id');
@@ -286,19 +286,19 @@
                     toastr.error("Booking canceled!");
                     window.location.href = "MoveToIndex";
                 }
-            }); 
- 
+            });
+
             if ($("#IsPostBack").val() == 2) {
                 toastr.error("Booking failed to save!");
             }
-            
+
             if (userType == 2) {
                 makeDisabledFields();
             }
 
         });
 
-     
+
         //// Phone Number Mask
         //$("#pNumber").inputmask("mask", {
         //    "mask": "(999) 999-9999",
@@ -312,7 +312,7 @@
             'autoUnmask': true
         });
 
-        // Book Now Handler 
+        // Book Now Handler
         $("#submitReservation").submit(function () {
             hideUi();
             var value = validateBookingForm(userType);
@@ -326,15 +326,30 @@
     </script>
     <script>
         (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-70262037-1', 'auto');
         ga('send', 'pageview');
 
+    </script>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: "/Home/KeepAlive",
+                    type: "POST"
+                });
+            }, 299000);
+        });
     </script>
 </body>
 

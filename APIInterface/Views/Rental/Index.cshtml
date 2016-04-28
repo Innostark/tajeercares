@@ -666,141 +666,151 @@
     <script src="~/assets/js/theme.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
 
-    <script>
-        var pickLong=null;
-        var pickLat=null;
-        var dropLong=null;
-        var dropLat=null;
-        $(document).ready(function () {
-            
-            $("#formSearchUpDate").val(moment().format("MM/DD/YYYY"));
-            $("#formSearchOffDate").val(moment().add("days", 1).format("MM/DD/YYYY"));
+<script>
+    var pickLong = null;
+    var pickLat = null;
+    var dropLong = null;
+    var dropLat = null;
+    $(document).ready(function() {
+
+        $("#formSearchUpDate").val(moment().format("MM/DD/YYYY"));
+        $("#formSearchOffDate").val(moment().add("days", 1).format("MM/DD/YYYY"));
 
 
-            $(".lang").click(function () {
-                var lang = $(this).attr('id');
-                window.location.href = "Rental/ChangeCulture?lang=" + lang;
-            });
-
-
-            $("#ReservationForm_PickupLocation").change(function() {
-                var id = $(this).val(); // id of location selected
-                var locHiddenContents= $("#" + id).val(); // phone, address, lon,lat
-                var contents = locHiddenContents.split("#");
-                $("#pickupPopupPhone").text(contents[0]);
-                $("#pickupPopupPopupAddress").text(contents[1]);
-                pickLong = contents[2];
-                pickLat = contents[3];
-            });
-            $("#ReservationForm_DropoffLocation").change(function () {
-                var id = $(this).val(); // id of location selected
-                var locHiddenContents = $("#" + id).val(); // phone, address, lon,lat
-                var contents = locHiddenContents.split("#");
-                $("#dropOffPopupPhone").text(contents[0]);
-                $("#dropOffPopupAddress").text(contents[1]);
-                dropLong = contents[2];
-                dropLat = contents[3];
-            });
-            $("#reservationForm").submit(function () {
-                // ISTUtility.js
-                return  ValidateReservationForm();
-            });
-            
-            // google map co-oridnates intialization
-            InitializeMap();
-
-            $("#contact-form").click(function () {
-                SendEmailToUser();
-                // ISTUtility.js
-            });
-            
-
-            // pickup
-            function deselectPickup(e) {
-                $('.pick-up-pop').slideFadeToggle(function () {
-                    e.removeClass('selected');
-                });
-            }
-
-            $(function () {
-                $('#pick-up-loc-info').on('click', function () {
-                    if ($("#ReservationForm_PickupLocation").val() == "") // not selected Yet
-                    {
-                        toastr.info("Select pick-up location first to see details!");
-                        return false;
-                    }
-                    
-                    if ($(this).hasClass('selected')) {
-                        deselectPickup($(this));
-                    } else {
-                        $(this).addClass('selected');
-                        $('.pick-up-pop').slideFadeToggle();
-                    }
-                    return false;
-                });
-               
-                $('#pick-up-loc-info-close').on('click', function () {
-                    deselectPickup($('#pick-up-loc-info'));
-                    return false;
-                });
-
-            });
-           
-
-
-            // drop-off
-            function deselectDropOff(e) {
-                $('.drop-off-pop').slideFadeToggle(function () {
-                    e.removeClass('selected');
-                });
-            }
-
-            $(function () {
-                $('#drop-off-loc-info').on('click', function () {
-                    if ($("#ReservationForm_DropoffLocation").val() == "") // not selected Yet
-                    {
-                        toastr.info("Select drop-off location first to see details!");
-                        return false;
-                    }
-                    if ($(this).hasClass('selected')) {
-                        deselectDropOff($(this));
-                    } else {
-                        $(this).addClass('selected');
-                        $('.drop-off-pop').slideFadeToggle();
-                    }
-                    return false;
-                });
-
-                $('#drop-off-loc-info-close').on('click', function () {
-                    deselectDropOff($('#drop-off-loc-info'));
-                    return false;
-                });
-                
-            });
-           
-
-            $.fn.slideFadeToggle = function (easing, callback) {
-                return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
-            };
-
-            $("#showPickUpOnMap").click(function () {
-                if (pickLat == null || pickLat == undefined || pickLat == "") {
-                    toastr.info("Map is not ready yet!");
-                    return false;
-                }
-                window.open('http://maps.google.com/?q=' + pickLat + ',' + pickLong);
-                return false;
-            });
-
-            $("#showDropOffOnMap").click(function () {
-                if (dropLat == null || dropLat == undefined || dropLat == "") {
-                    toastr.info("Map is not ready yet!");
-                    return false;
-                }
-                window.open('http://maps.google.com/?q=' + dropLat + ',' + dropLong);
-                return false;
-            });
+        $(".lang").click(function() {
+            var lang = $(this).attr('id');
+            window.location.href = "Rental/ChangeCulture?lang=" + lang;
         });
+
+
+        $("#ReservationForm_PickupLocation").change(function() {
+            var id = $(this).val(); // id of location selected
+            var locHiddenContents = $("#" + id).val(); // phone, address, lon,lat
+            var contents = locHiddenContents.split("#");
+            $("#pickupPopupPhone").text(contents[0]);
+            $("#pickupPopupPopupAddress").text(contents[1]);
+            pickLong = contents[2];
+            pickLat = contents[3];
+        });
+        $("#ReservationForm_DropoffLocation").change(function() {
+            var id = $(this).val(); // id of location selected
+            var locHiddenContents = $("#" + id).val(); // phone, address, lon,lat
+            var contents = locHiddenContents.split("#");
+            $("#dropOffPopupPhone").text(contents[0]);
+            $("#dropOffPopupAddress").text(contents[1]);
+            dropLong = contents[2];
+            dropLat = contents[3];
+        });
+        $("#reservationForm").submit(function() {
+            // ISTUtility.js
+            return ValidateReservationForm();
+        });
+
+        // google map co-oridnates intialization
+        InitializeMap();
+
+        $("#contact-form").click(function() {
+            SendEmailToUser();
+            // ISTUtility.js
+        });
+
+
+        // pickup
+        function deselectPickup(e) {
+            $('.pick-up-pop').slideFadeToggle(function() {
+                e.removeClass('selected');
+            });
+        }
+
+        $(function() {
+            $('#pick-up-loc-info').on('click', function() {
+                if ($("#ReservationForm_PickupLocation").val() == "") // not selected Yet
+                {
+                    toastr.info("Select pick-up location first to see details!");
+                    return false;
+                }
+
+                if ($(this).hasClass('selected')) {
+                    deselectPickup($(this));
+                } else {
+                    $(this).addClass('selected');
+                    $('.pick-up-pop').slideFadeToggle();
+                }
+                return false;
+            });
+
+            $('#pick-up-loc-info-close').on('click', function() {
+                deselectPickup($('#pick-up-loc-info'));
+                return false;
+            });
+
+        });
+
+
+// drop-off
+        function deselectDropOff(e) {
+            $('.drop-off-pop').slideFadeToggle(function() {
+                e.removeClass('selected');
+            });
+        }
+
+        $(function() {
+            $('#drop-off-loc-info').on('click', function() {
+                if ($("#ReservationForm_DropoffLocation").val() == "") // not selected Yet
+                {
+                    toastr.info("Select drop-off location first to see details!");
+                    return false;
+                }
+                if ($(this).hasClass('selected')) {
+                    deselectDropOff($(this));
+                } else {
+                    $(this).addClass('selected');
+                    $('.drop-off-pop').slideFadeToggle();
+                }
+                return false;
+            });
+
+            $('#drop-off-loc-info-close').on('click', function() {
+                deselectDropOff($('#drop-off-loc-info'));
+                return false;
+            });
+
+        });
+
+
+        $.fn.slideFadeToggle = function(easing, callback) {
+            return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+        };
+
+        $("#showPickUpOnMap").click(function() {
+            if (pickLat == null || pickLat == undefined || pickLat == "") {
+                toastr.info("Map is not ready yet!");
+                return false;
+            }
+            window.open('http://maps.google.com/?q=' + pickLat + ',' + pickLong);
+            return false;
+        });
+
+        $("#showDropOffOnMap").click(function() {
+            if (dropLat == null || dropLat == undefined || dropLat == "") {
+                toastr.info("Map is not ready yet!");
+                return false;
+            }
+            window.open('http://maps.google.com/?q=' + dropLat + ',' + dropLong);
+            return false;
+        });
+    });
+</script>
+    <script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                url: "/Home/KeepAlive",
+                type: "POST"
+            });
+        }, 299000);
+    });
     </script>
+
 </body>
 </html>

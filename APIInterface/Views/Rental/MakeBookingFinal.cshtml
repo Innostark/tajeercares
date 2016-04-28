@@ -160,3 +160,13 @@
 
     });
 </script>
+<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                url: "/Home/KeepAlive",
+                type: "POST"
+            });
+        }, 299000);
+    });
+</script>

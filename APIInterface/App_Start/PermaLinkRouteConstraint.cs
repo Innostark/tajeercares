@@ -95,7 +95,12 @@ namespace APIInterface.App_Start
                values["action"] = "SendEmail";
                return true;
            }
-
+           if (parms.Count() == 2 && parms[0] == "Home" && parms[1] == "KeepAlive")
+           {
+               values["controller"] = "Home";
+               values["action"] = "KeepAlive";
+               return true;
+           } 
 
            if (parms.Count() == 3 && parms[0] == "Rental" && parms[1] == "CheckUserRegistration")
            {
