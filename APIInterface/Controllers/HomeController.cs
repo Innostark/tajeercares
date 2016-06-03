@@ -178,9 +178,9 @@ namespace APIInterface.Controllers
             {
                 try
                 {
-                    //string body = emailContent.EmailBody + " \n From :" + emailContent.SenderName + " " +
-                    //              emailContent.SenderEmail+" \n Phone:"+emailContent.Phone;
-                    //SendEmailTo(adminAddress, emailContent.EmailSubject, body, emailContent.SenderName);
+                    string body = emailContent.EmailBody + " \n From :" + emailContent.SenderName + " " +
+                                  emailContent.SenderEmail + " \n Phone:" + emailContent.Phone;
+                    SendEmailTo(adminAddress, emailContent.EmailSubject, body, emailContent.SenderName);
                     return Json(new { status = "ok" });
                 }
                 catch (Exception excp)

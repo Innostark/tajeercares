@@ -795,10 +795,10 @@ namespace APIInterface.Controllers
             var resposne = rentalApiService.OnlineBooking(onlineBookingModel);
             if (resposne.Contains("BN"))
             {
-                //string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
-                //" to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
-                // Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
-                //SendEmailTo(model.Email, "Booking Confirmation | " + Session["siteName"], emailBody, Session["siteName"].ToString());
+                string emailBody = "Thank you " + model.LName + " for choosing " + Session["siteName"] + ". You booking is confirmed from " + Session["pickupName"] + " on " + Session["pickupDate"] +
+                " to " + Session["dropoffName"] + " on " + Session["dropoffDate"] + ". Your total bill is " + Session["GrandTotal"] + " SAR. If you have any confusion please contact at " +
+                 Session["EmailForContact"] + ". Phone :" + Session["companyTelephone"];
+                SendEmailTo(model.Email, "Booking Confirmation | " + Session["siteName"], emailBody, Session["siteName"].ToString());
             //    Session.Clear();
            //     Session.Abandon();
                 Session["bookingModel"] = onlineBookingModel;

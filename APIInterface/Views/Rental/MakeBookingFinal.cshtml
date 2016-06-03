@@ -145,7 +145,7 @@
         </tbody>
     </table>
 </div>
-<p><a id="BackToIndex" style=" margin-left: 281px; border: inset; color: white; background-color: #009900; font-weight: 700; border-color: #E9E9E9; margin-top: 10px;" class="btn btn-theme btn-theme-dark" href="~/Home/Index">Back to Home</a></p>
+<p><a href='@Url.Action("Index", Session["CompanyShortName"] + "/Rental/Index")'  style=" margin-left: 281px; border: inset; color: white; background-color: #009900; font-weight: 700; border-color: #E9E9E9; margin-top: 10px;" class="btn btn-theme btn-theme-dark" >Back to Home</a></p>
 
 <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
 <script src="~/Scripts/toastr.js"></script>
